@@ -37,7 +37,7 @@ public class WGBuddyActivity extends Activity
             preferences = (Button) findViewById(R.id.main_preferencesButton);
             heading = (TextView) findViewById(R.id.main_headingText);
             
-            heading.setText(settings.getString("username", "")+"@"+settings.getString("wgname", ""));
+            heading.setText(settings.getString("username", "")+" @ "+settings.getString("wgname", ""));
             
             shoppinglist.setOnClickListener
             (
