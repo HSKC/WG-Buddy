@@ -20,6 +20,8 @@
         </activity>
         <activity android:name="ShoppingList"></activity>
         <activity android:name="TaskDistributor"></activity>
+        <activity android:name=".Preferences_WG"></activity>
+        <activity android:name=".Preferences_User"></activity>
     </application>
 
 </manifest>

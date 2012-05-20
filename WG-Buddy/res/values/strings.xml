@@ -1,6 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name">WG-Buddy</string>
-    <string name="shoppinglist">Einkaufszettel</string>
-    <string name="taskdistributor">Aufgabenverteilung</string>
+    <string name="main_shoppinglist">Einkaufszettel</string>
+    <string name="main_taskdistributor">Aufgabenverteilung</string>
+
+    <string name="preferences_wgidentificationtext">WGID</string>
+    <string name="preferences_wgpassword">Passwort</string>
+    <string name="preferences_createNewWG">Neue WG erstellen</string>
+    <string name="preferences_connect">verbinden</string>
+    <string name="preferences_save">speichern</string>
+    <string name="preferences_username">Name</string>
+    <string name="preferences_email">E-Mail</string>
 </resources>
