@@ -8,12 +8,12 @@
         android:id="@+id/shoppingListButton"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/shoppinglist" />
+        android:text="@string/main_shoppinglist" />
 
     <Button
         android:id="@+id/taskDistributorButton"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/taskdistributor" />
+        android:text="@string/main_taskdistributor" />
 
 </LinearLayout>
