@@ -7,8 +7,9 @@
     <string name="preferences_wgidentificationtext">WGID</string>
     <string name="preferences_wgpassword">Passwort</string>
     <string name="preferences_createNewWG">Neue WG erstellen</string>
-    <string name="preferences_connect">verbinden</string>
+    <string name="preferences_connect">Verbinden</string>
     <string name="preferences_save">speichern</string>
     <string name="preferences_username">Name</string>
     <string name="preferences_email">E-Mail</string>
+    <string name="main_settings">Einstellungen</string>
 </resources>

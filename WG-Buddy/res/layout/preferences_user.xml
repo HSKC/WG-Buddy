@@ -5,20 +5,20 @@
     android:orientation="vertical" >
 
     <TextView
-        android:id="@+id/userConncetToText"
+        android:id="@+id/userpref_connectToText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text=""
         android:textAppearance="?android:attr/textAppearanceLarge" />
 
     <TextView
-        android:id="@+id/textView1"
+        android:id="@+id/userpref_nameText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/preferences_username" />
 
     <EditText
-        android:id="@+id/editText1"
+        android:id="@+id/userpref_nameEdit"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:ems="10" >
@@ -27,20 +27,20 @@
     </EditText>
 
     <TextView
-        android:id="@+id/textView2"
+        android:id="@+id/userpref_emailText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/preferences_email" />
 
     <EditText
-        android:id="@+id/editText2"
+        android:id="@+id/userpref_emailEdit"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:ems="10"
         android:inputType="textEmailAddress" />
 
     <Button
-        android:id="@+id/button1"
+        android:id="@+id/userpref_saveButton"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="@string/preferences_save" />
