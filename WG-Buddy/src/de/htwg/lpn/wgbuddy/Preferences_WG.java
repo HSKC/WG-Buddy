@@ -22,10 +22,10 @@ public class Preferences_WG extends Activity
         super.onCreate(savedInstanceState);
         setContentView(R.layout.preferences_wg);
         
-        wgname 		= (EditText) findViewById(R.id.wgnameedit);
-        password 	= (EditText) findViewById(R.id.wgpasswordedit);
-        connect 	= (Button) findViewById(R.id.wgconnectbutton);
-        create 		= (Button) findViewById(R.id.wgcreatebutton);
+        wgname 		= (EditText) findViewById(R.id.wgpref_nameEdit);
+        password 	= (EditText) findViewById(R.id.wgpref_passwordEdit);
+        connect 	= (Button) findViewById(R.id.wgpref_connectButton);
+        create 		= (Button) findViewById(R.id.wgpref_createButton);
         
         connect.setOnClickListener
         (

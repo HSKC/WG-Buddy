@@ -3,17 +3,28 @@
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
     android:orientation="vertical" >
-
-    <Button
-        android:id="@+id/shoppingListButton"
+
+    <TextView
+        android:id="@+id/main_headingText"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/main_shoppinglist" />
-
+        android:layout_gravity="center_horizontal"
+        android:text=""
+        android:textAppearance="?android:attr/textAppearanceLarge" />
     <Button
-        android:id="@+id/taskDistributorButton"
+        android:id="@+id/main_shoppingListButton"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/main_taskdistributor" />
+        android:text="@string/main_shoppinglist" />
+    <Button
+        android:id="@+id/main_taskDistributorButton"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/main_taskdistributor" />
+    <Button
+        android:id="@+id/main_preferencesButton"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/main_settings" />
 
 </LinearLayout>

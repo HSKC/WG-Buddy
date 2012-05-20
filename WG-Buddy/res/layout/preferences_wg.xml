@@ -5,44 +5,41 @@
     android:orientation="vertical" >
 
     <TextView
-        android:id="@+id/wgname"
+        android:id="@+id/wgpref_nameText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/preferences_wgidentificationtext" />
-
+        android:text="@string/preferences_wgidentificationtext" />
     <EditText
-        android:id="@+id/wgnameedit"
+        android:id="@+id/wgpref_nameEdit"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:ems="10"
         android:hint="@string/preferences_wgidentificationtext" />
 
     <TextView
-        android:id="@+id/wgpassword"
+        android:id="@+id/wgpref_passwordText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/preferences_wgpassword" />
-
+        android:text="@string/preferences_wgpassword" />
     <EditText
-        android:id="@+id/wgpasswordedit"
+        android:id="@+id/wgpref_passwordEdit"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:ems="10"
         android:hint="@string/preferences_wgpassword"
         android:inputType="textPassword" >
-
         <requestFocus android:layout_width="match_parent" />
 
     </EditText>
-
+
     <Button
-        android:id="@+id/wgconnectbutton"
+        android:id="@+id/wgpref_connectButton"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="@string/preferences_connect" />
 
     <Button
-        android:id="@+id/wgcreatebutton"
+        android:id="@+id/wgpref_createButton"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="@string/preferences_createNewWG" />
