@@ -19,24 +19,28 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content" />
 
+    <Button
+        android:id="@+id/taskGoButton"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/taskdistributor_go" />
+
     <TextView
         android:id="@+id/taskUserHeadingText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/taskdistriubtor_userHeading"
         android:textAppearance="?android:attr/textAppearanceMedium" />
-
-     <ListView
+
+    <ListView
         android:id="@+id/taskUserList"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:choiceMode="multipleChoice" >
-    </ListView> 
+        android:background="@android:color/background_light"
+        android:choiceMode="multipleChoice"
+        android:drawSelectorOnTop="true" >
 
-    <Button
-        android:id="@+id/taskGoButton"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="@string/taskdistributor_go" />
+        <!-- Preview: listitem=@android:layout/simple_list_item_1 -->
+    </ListView>
 
 </LinearLayout>
