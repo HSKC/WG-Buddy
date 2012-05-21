@@ -1,23 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@+id/shoppingListView"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical" >
-
-    <Button
-        android:id="@+id/shoppinglistAddButton"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="@string/shoppinglist_add" />
-
+
     <EditText
-        android:id="@+id/editTextShoppingList"
+        android:id="@+id/editText1"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:ems="10"
         android:inputType="textMultiLine"
-        android:text="@string/shoppinglist_list" >
+        android:text="@string/taskdistribution_Congrats" >
 
         <requestFocus />
     </EditText>

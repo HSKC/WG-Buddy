@@ -14,4 +14,20 @@
     <string name="main_settings">Einstellungen</string>
     <string name="main_chat">Chat</string>
     <string name="main_invite">Einladen</string>
+    <string name="preferences_adminpassword">Adminpassword</string>
+    <string name="preferenes_createWG">Erstellen</string>
+    <string name="shoppinglist_list">Einkaufsliste</string>
+    <string name="shoppinglist_add">Hinzufügen</string>
+    <string name="shopping_ItemAdd">Hinzufügen</string>
+    <string name="shopping_ItemName">Name</string>
+    <string name="taskdistributor_name">Name</string>
+    <string name="taskdistributor_go">Los</string>
+    <string name="taskdistributor_user1">User1</string>
+    <string name="taskdistributor_user2">User2</string>
+    <string name="taskdistributor_user3">User3</string>
+    <string name="taskdistribution_Congrats">Gratuliere user x wurde ausgewählt</string>
+    <string name="manage_adminuser1">User1</string>
+    <string name="manage_adminuser2">User2</string>
+    <string name="manage_adminuser3">User3</string>
+    <string name="manage_adminDelete">Löschen</string>
 </resources>
