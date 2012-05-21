@@ -3,9 +3,9 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical" >
-
+
     <EditText
-        android:id="@+id/taskName"
+        android:id="@+id/taskNameText"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:ems="10"
@@ -13,34 +13,30 @@
 
         <requestFocus />
     </EditText>
-
+
     <RatingBar
-        android:id="@+id/taskRating"
+        android:id="@+id/taskRatingBar"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content" />
-
+
+    <TextView
+        android:id="@+id/taskUserHeadingText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/taskdistriubtor_userHeading"
+        android:textAppearance="?android:attr/textAppearanceMedium" />
+
+     <ListView
+        android:id="@+id/taskUserList"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:choiceMode="multipleChoice" >
+    </ListView> 
+
     <Button
         android:id="@+id/taskGoButton"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="@string/taskdistributor_go" />
-
-    <CheckBox
-        android:id="@+id/checkBox1"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="@string/taskdistributor_user1" />
-
-    <CheckBox
-        android:id="@+id/checkBox2"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="@string/taskdistributor_user2" />
-
-    <CheckBox
-        android:id="@+id/checkBox3"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="@string/taskdistributor_user3" />
 
 </LinearLayout>
