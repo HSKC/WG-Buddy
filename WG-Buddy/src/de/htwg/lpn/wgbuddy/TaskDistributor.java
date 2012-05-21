@@ -2,6 +2,7 @@ package de.htwg.lpn.wgbuddy;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Set;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -24,8 +25,20 @@ public class TaskDistributor extends Activity
 	        super.onCreate(savedInstanceState);
 	        setContentView(R.layout.taskdistributor);
 	        
-	        ArrayList<HashMap<String, String>> users = JSONStuff.getMapListOfJsonArray( "http://wgbuddy.domoprojekt.de/sampleusers.json", "users");
+	        ArrayList<HashMap<String, String>> users = JSONStuff.getMapListOfJsonArray( "http://wgbuddy.domoprojekt.de/sampleusers.json", "users");   
+	        
+	        ArrayList<String> names = new ArrayList<String>();
+	        
+	        for (HashMap<String, String> hashMap : users) 
+	        {
+	        	names.add(hashMap.get("name"));
+			}
 	        
 	        userList = (ListView) findViewById(R.id.taskUserList);
+	        
+	        ListAdapter adapter = new ArrayAdapter<String>(getApplicationContext(),android.R.layout.select_dialog_multichoice,names);
+	        
+	        userList.setAdapter(adapter);
+	        //TODO: Alle schon auswählen
 	    }
 }
