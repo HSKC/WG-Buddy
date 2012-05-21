@@ -12,4 +12,6 @@
     <string name="preferences_username">Name</string>
     <string name="preferences_email">E-Mail</string>
     <string name="main_settings">Einstellungen</string>
+    <string name="main_chat">Chat</string>
+    <string name="main_invite">Einladen</string>
 </resources>

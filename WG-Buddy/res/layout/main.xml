@@ -14,17 +14,40 @@
     <Button
         android:id="@+id/main_shoppingListButton"
         android:layout_width="match_parent"
+        android:textSize="16sp"
+        android:drawableLeft="@drawable/dollar"
         android:layout_height="wrap_content"
         android:text="@string/main_shoppinglist" />
     <Button
         android:id="@+id/main_taskDistributorButton"
         android:layout_width="match_parent"
+        android:textSize="16sp"
+        android:drawableLeft="@drawable/task"
         android:layout_height="wrap_content"
-        android:text="@string/main_taskdistributor" />
+        android:text="@string/main_taskdistributor" />
+
+    <Button
+        android:id="@+id/main_chatButton"
+        android:layout_width="match_parent"
+        android:textSize="16sp"
+        android:drawableLeft="@drawable/chat"
+        android:layout_height="wrap_content"
+        android:text="@string/main_chat" />
+
     <Button
         android:id="@+id/main_preferencesButton"
         android:layout_width="match_parent"
+        android:textSize="16sp"
+        android:drawableLeft="@drawable/settings"
         android:layout_height="wrap_content"
         android:text="@string/main_settings" />
+
+    <Button
+        android:id="@+id/main_addButton"
+        android:layout_width="match_parent"
+        android:textSize="16sp"
+        android:drawableLeft="@drawable/add"
+        android:layout_height="wrap_content"
+        android:text="@string/main_invite" />
 
 </LinearLayout>
