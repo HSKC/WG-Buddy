@@ -10,16 +10,13 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="@string/shoppinglist_add" />
-
-    <EditText
-        android:id="@+id/editTextShoppingList"
+    
+    <LinearLayout
+        android:id="@+id/shoppinglist"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:ems="10"
-        android:inputType="textMultiLine"
-        android:text="@string/shoppinglist_list" >
-
-        <requestFocus />
-    </EditText>
+        android:orientation="vertical" >
+        
+    </LinearLayout>
 
 </LinearLayout>
