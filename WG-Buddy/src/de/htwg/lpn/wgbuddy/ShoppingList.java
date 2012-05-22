@@ -28,6 +28,8 @@ public class ShoppingList extends Activity
 	        
 	        SimpleAdapter sa = new SimpleAdapter(this, list, R.layout.shoppinglistentry, new String[] { "name", "comment", "rating", "createdDate" }, new int[] { R.id.shoppingBigText, R.id.shoppingSmallText, R.id.ratingBar, R.id.createdDate});
 	        
+	        
+	        
 	        ViewBinder vb = new ViewBinder() 
 	        {
 				
