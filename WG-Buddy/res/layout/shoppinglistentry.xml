@@ -28,13 +28,19 @@
 	    android:layout_width="wrap_content"
 	    android:layout_height="wrap_content"
 	    android:layout_alignParentRight="true"
-	    android:orientation="horizontal" > 
+	    android:orientation="horizontal" >
+		
+	 <RatingBar
+	    android:id="@+id/ratingBar"
+	    style="?android:attr/ratingBarStyleSmall"
+	    android:layout_width="wrap_content"
+	    android:layout_height="wrap_content" />   
 	    
 	<ImageButton
 	    android:id="@+id/imageButton1"
 	    android:layout_width="wrap_content"
 	    android:layout_height="wrap_content"
-	    android:src="@drawable/checksmall" />
+	    android:src="@drawable/checksmall" />	
 	
 	<ImageButton
 	    android:id="@+id/imageButton1"
