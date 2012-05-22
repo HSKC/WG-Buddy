@@ -13,11 +13,12 @@
 
         <requestFocus />
     </EditText>
-
+
     <RatingBar
         android:id="@+id/taskRatingBar"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal" />
 
     <Button
         android:id="@+id/taskGoButton"
@@ -36,11 +37,9 @@
         android:id="@+id/taskUserList"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@android:color/background_light"
-        android:choiceMode="multipleChoice"
-        android:drawSelectorOnTop="true" >
-
-        <!-- Preview: listitem=@android:layout/simple_list_item_1 -->
+        android:orientation="vertical" 
+        android:headerDividersEnabled="false"
+        android:footerDividersEnabled="false">
     </ListView>
 
 </LinearLayout>
