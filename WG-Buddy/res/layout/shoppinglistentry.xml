@@ -10,12 +10,57 @@
     android:layout_height="wrap_content"
     android:orientation="vertical" > 
     
+		<LinearLayout
+	    android:layout_width="wrap_content"
+	    android:layout_height="wrap_content"
+	    android:gravity="center"	    
+	    android:orientation="horizontal" >
 		<TextView
 		    android:id="@+id/shoppingBigText"
+		    android:layout_width="130dp"
+		    android:layout_height="match_parent"
+		    android:text="Large Text"
+		    android:gravity="center"	
+		    android:textAppearance="?android:attr/textAppearanceLarge" />
+		
+
+		 <LinearLayout
+		     android:layout_width="78dp"
+		     android:gravity="center"	
+		     android:layout_height="match_parent"
+		     android:orientation="vertical" >
+
+			 <RatingBar
+			     android:id="@+id/ratingBar"
+			     style="?android:attr/ratingBarStyleSmall"
+			     android:layout_width="wrap_content"
+			     android:layout_height="wrap_content"
+			     android:layout_alignParentBottom="true"
+        		 android:layout_alignParentLeft="true" />
+
+			 <TextView
+			     android:id="@+id/createdDate"
+			     android:gravity="center"	
+			     android:layout_width="match_parent"
+			     android:layout_height="match_parent"
+			     android:text="Datum" />
+ 
+		</LinearLayout> 
+		    
+		<ImageButton
+		    android:id="@+id/imageButton1"
 		    android:layout_width="wrap_content"
 		    android:layout_height="wrap_content"
-		    android:text="Large Text"
-		    android:textAppearance="?android:attr/textAppearanceLarge" />
+		    android:src="@drawable/checksmall" />	
+		
+
+		<ImageButton
+		    android:id="@+id/imageButton1"
+		    android:layout_width="match_parent"
+		    android:layout_height="wrap_content"
+		    android:src="@drawable/crosssmall" />
+
+		</LinearLayout>
 		
 		<TextView
 		    android:id="@+id/shoppingSmallText"
@@ -23,30 +68,7 @@
 		    android:layout_height="wrap_content"
 		    android:text="Small Text"
 		    android:textAppearance="?android:attr/textAppearanceSmall" />
-	</LinearLayout>
-	<LinearLayout
-	    android:layout_width="wrap_content"
-	    android:layout_height="wrap_content"
-	    android:layout_alignParentRight="true"
-	    android:orientation="horizontal" >
-		
-	 <RatingBar
-	    android:id="@+id/ratingBar"
-	    style="?android:attr/ratingBarStyleSmall"
-	    android:layout_width="wrap_content"
-	    android:layout_height="wrap_content" />   
-	    
-	<ImageButton
-	    android:id="@+id/imageButton1"
-	    android:layout_width="wrap_content"
-	    android:layout_height="wrap_content"
-	    android:src="@drawable/checksmall" />	
 	
-	<ImageButton
-	    android:id="@+id/imageButton1"
-	    android:layout_width="wrap_content"
-	    android:layout_height="wrap_content"
-	    android:src="@drawable/crosssmall" />
 	</LinearLayout>
 
 </RelativeLayout>
