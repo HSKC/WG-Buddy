@@ -10,35 +10,96 @@ import org.json.JSONObject;
 
 import android.app.Activity;
 import android.os.Bundle;
+import android.view.View;
+import android.view.View.OnClickListener;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.ListAdapter;
 import android.widget.ListView;
+import android.widget.RatingBar;
 import android.widget.SimpleAdapter;
+import android.widget.SimpleAdapter.ViewBinder;
 
 public class TaskDistributor extends Activity 
 {
 	
 	private ListView userList;
+	private Button start;
+	
 	 @Override
 	    public void onCreate(Bundle savedInstanceState) 
 	    {
 	        super.onCreate(savedInstanceState);
 	        setContentView(R.layout.taskdistributor);
 	        
+	        userList = (ListView) findViewById(R.id.taskUserList);
+	        start = (Button) findViewById(R.id.taskGoButton);
+	        start.setOnClickListener(new OnClickListener() 
+	        {
+				
+				@Override
+				public void onClick(View v) 
+				{
+					ArrayList<String>checkedusers = new ArrayList<String>();
+					
+					ListView userList = (ListView) findViewById(R.id.taskUserList);
+//					for(int i = 0; i < userList.getAdapter().getCount(); i++)
+//					{
+//						CheckBox cb = (CheckBox) userList.getAdapter()..getItem(i);
+//						if(cb.isChecked())
+//						{
+//							checkedusers.add(((CheckBox)userList.getAdapter().getItem(i)).getText().toString());
+//						}	
+//					}
+//					
+//					System.out.print(checkedusers);
+				}
+			});
+	        
 	        ArrayList<HashMap<String, String>> users = JSONStuff.getMapListOfJsonArray( "http://wgbuddy.domoprojekt.de/sampleusers.json", "users");   
 	        
-	        ArrayList<String> names = new ArrayList<String>();
+	        SimpleAdapter sa = new SimpleAdapter(this, users, R.layout.taskdistributoruserlistentry, new String[] { "name"}, new int[] { R.id.task_userlistcheckbox});
 	        
-	        for (HashMap<String, String> hashMap : users) 
+	        ViewBinder vb = new ViewBinder() 
 	        {
-	        	names.add(hashMap.get("name"));
-			}
+				
+				@Override
+				public boolean setViewValue(View view, Object data, String textRepresentation) 
+				{
+					if(view.getId() == R.id.task_userlistcheckbox)
+					{
+						CheckBox cb = (CheckBox) view;
+						cb.setText(textRepresentation);
+						cb.setChecked(true);
+						return true;
+					}
+					else
+					{
+						return false;
+					}
+				}
+			};
+			sa.setViewBinder(vb);
 	        
-	        userList = (ListView) findViewById(R.id.taskUserList);
+			userList.setAdapter(sa);
+			
+			
+			
+			
 	        
-	        ListAdapter adapter = new ArrayAdapter<String>(getApplicationContext(),android.R.layout.select_dialog_multichoice,names);
-	        
-	        userList.setAdapter(adapter);
-	        //TODO: Alle schon auswählen
+//	        ArrayList<String> names = new ArrayList<String>();
+//	        
+//	        for (HashMap<String, String> hashMap : users) 
+//	        {
+//	        	names.add(hashMap.get("name"));
+//			}
+//	        
+//	        userList = (ListView) findViewById(R.id.taskUserList);
+//	        
+//	        ListAdapter adapter = new ArrayAdapter<String>(getApplicationContext(),android.R.layout.select_dialog_multichoice,names);
+//	        
+//	        userList.setAdapter(adapter);
+//	        //TODO: Alle schon auswählen
 	    }
 }
