@@ -26,18 +26,18 @@ public class ShoppingList extends Activity
 	        
 	        ArrayList<HashMap<String, String>> list = JSONStuff.getMapListOfJsonArray( "http://wgbuddy.pytalhost.de/ItemList.json", "Item"); 
 	        
-	        SimpleAdapter sa = new SimpleAdapter(this, list, R.layout.shoppinglistentry, new String[] { "name", "comment", "rating" }, new int[] { R.id.shoppingBigText, R.id.shoppingSmallText, R.id.ratingBar});
+	        SimpleAdapter sa = new SimpleAdapter(this, list, R.layout.shoppinglistentry, new String[] { "name", "comment", "rating", "createdDate" }, new int[] { R.id.shoppingBigText, R.id.shoppingSmallText, R.id.ratingBar, R.id.createdDate});
 	        
 	        ViewBinder vb = new ViewBinder() 
 	        {
 				
 				@Override
-				public boolean setViewValue(View view, Object data, 	String textRepresentation) 
+				public boolean setViewValue(View view, Object data, String textRepresentation) 
 				{
 					if(view.getId() == R.id.ratingBar)
 					{
 						RatingBar rb = (RatingBar) view;
-						rb.setNumStars(Integer.valueOf(data.toString()));
+						rb.setRating(Integer.valueOf(data.toString()));
 						return true;
 					}
 					else
