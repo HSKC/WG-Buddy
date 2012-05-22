@@ -1,18 +1,20 @@
 package de.htwg.lpn.wgbuddy;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import android.app.Activity;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.DatePicker;
-import android.widget.LinearLayout;
-import android.widget.TextView;
+import android.widget.ListView;
+import android.widget.RatingBar;
+import android.widget.SimpleAdapter;
+import android.widget.SimpleAdapter.ViewBinder;
 
 
 public class ShoppingList extends Activity 
 {
-	private LinearLayout shoppingList;
+	private ListView shoppingList;
 	
 	 @Override
 	    public void onCreate(Bundle savedInstanceState) 
@@ -20,26 +22,33 @@ public class ShoppingList extends Activity
 	        super.onCreate(savedInstanceState);
 	        setContentView(R.layout.shoppinglist);
 	        
-	        shoppingList = (LinearLayout) findViewById(R.id.shoppinglist);
+	        shoppingList = (ListView) findViewById(R.id.shoppinglist);
 	        
-	        ArrayList<String> items= new ArrayList<String>();
+	        ArrayList<HashMap<String, String>> list = JSONStuff.getMapListOfJsonArray( "http://wgbuddy.pytalhost.de/ItemList.json", "Item"); 
 	        
-	        items.add("Bier");
-	        items.add("Mehr Bier");
-	        items.add("Baconstrips");
+	        SimpleAdapter sa = new SimpleAdapter(this, list, R.layout.shoppinglistentry, new String[] { "name", "comment", "rating" }, new int[] { R.id.shoppingBigText, R.id.shoppingSmallText, R.id.ratingBar});
 	        
-	        for (String string : items) 
+	        ViewBinder vb = new ViewBinder() 
 	        {
-	        	View view = getLayoutInflater().inflate(R.layout.shoppinglistentry, shoppingList, false);
-		        
-	        	((TextView)view.findViewById(R.id.shoppingBigText)).setText(string);
-	        	
-		        shoppingList.addView(view);
-
-			}
+				
+				@Override
+				public boolean setViewValue(View view, Object data, 	String textRepresentation) 
+				{
+					if(view.getId() == R.id.ratingBar)
+					{
+						RatingBar rb = (RatingBar) view;
+						rb.setNumStars(Integer.valueOf(data.toString()));
+						return true;
+					}
+					else
+					{
+						return false;
+					}
+				}
+			};
+			sa.setViewBinder(vb);
 	        
-
-	        
-	        
+	        shoppingList.setAdapter(sa);
+        
 	    }
 }
