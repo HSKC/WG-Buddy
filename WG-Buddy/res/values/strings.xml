@@ -31,4 +31,7 @@
     <string name="manage_adminuser3">User3</string>
     <string name="manage_adminDelete">Löschen</string>
     <string name="taskdistriubtor_userHeading">Teilnehmer:</string>
+    <string name="Deadline">Deadline</string>
+    <string name="shoppingRating">Wichtigkeit</string>
+    <string name="shoppingDescription">Beschreibung</string>
 </resources>
