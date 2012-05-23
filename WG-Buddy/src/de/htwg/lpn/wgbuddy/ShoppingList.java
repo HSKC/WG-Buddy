@@ -4,8 +4,11 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.view.View.OnClickListener;
+import android.widget.Button;
 import android.widget.ListView;
 import android.widget.RatingBar;
 import android.widget.SimpleAdapter;
@@ -15,6 +18,7 @@ import android.widget.SimpleAdapter.ViewBinder;
 public class ShoppingList extends Activity 
 {
 	private ListView shoppingList;
+	private View addButton;
 	
 	 @Override
 	    public void onCreate(Bundle savedInstanceState) 
@@ -24,7 +28,7 @@ public class ShoppingList extends Activity
 	        
 	        shoppingList = (ListView) findViewById(R.id.shoppinglist);
 	        
-	        ArrayList<HashMap<String, String>> list = JSONStuff.getMapListOfJsonArray( "http://wgbuddy.pytalhost.de/ItemList.json", "Item"); 
+	        ArrayList<HashMap<String, String>> list = JSONStuff.getMapListOfJsonArray( "http://wgbuddy.domoprojekt.de/shopping.php", "Item"); 
 	        
 	        SimpleAdapter sa = new SimpleAdapter(this, list, R.layout.shoppinglistentry, new String[] { "name", "comment", "rating", "createdDate" }, new int[] { R.id.shoppingBigText, R.id.shoppingSmallText, R.id.ratingBar, R.id.createdDate});
 	        
@@ -49,8 +53,25 @@ public class ShoppingList extends Activity
 				}
 			};
 			sa.setViewBinder(vb);
-	        
 	        shoppingList.setAdapter(sa);
+	        
+	        
+	        
+	        addButton = (Button) findViewById(R.id.shoppinglistAddButton);
+            
+            addButton.setOnClickListener
+            (
+        		new OnClickListener() 
+        		{
+    				
+    				@Override
+    				public void onClick(View v) 
+    				{
+    					Intent intent = new Intent(ShoppingList.this, NewShoppingItem.class);
+    					startActivity(intent);
+    				}
+        		}
+            );
         
 	    }
 }
