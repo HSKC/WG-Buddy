@@ -1,9 +1,16 @@
 package de.htwg.lpn.model;
 
 import java.sql.Date;
+import java.util.ArrayList;
+import java.util.HashMap;
 
-public class ShoppingItem 
+public class ShoppingItem extends ObjectBase
 {
+	public ShoppingItem(HashMap<String, String> map) 
+	{
+		super(map);
+		// TODO Auto-generated constructor stub
+	}
 	private Integer id;
 	private Integer wgId;
 	private Integer userId;
@@ -120,6 +127,12 @@ public class ShoppingItem
 	 */
 	public void setStatus(Integer status) {
 		this.status = status;
+	}
+	
+	public static ArrayList<HashMap<String, String>> get()
+	{
+		String url = "http://wgbuddy.domoprojekt.de/shopping.php";
+		return JSON.getMapListOfJsonArray(url, "Item");		
 	}
 	
 }
