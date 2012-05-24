@@ -28,15 +28,6 @@ import de.htwg.lpn.wgbuddy.JSONStuff;
 
 public class JSON 
 {
-	public List<NameValuePair> CreatePostFromClass(Object obj)
-	{
-		List<NameValuePair> nameValuePairs = new ArrayList<NameValuePair>(2);
-        nameValuePairs.add(new BasicNameValuePair("id", "12345"));
-        nameValuePairs.add(new BasicNameValuePair("stringdata", "AndDev is Cool!"));
-        
-		return nameValuePairs;
-	}
-	
 	// Method from http://www.androidsnippets.com/executing-a-http-post-request-with-httpclient
 	public static void postData(String url, List<NameValuePair> nameValuePairs) 
 	{
@@ -107,7 +98,6 @@ public class JSON
 	
 	public static JSONObject getJSONfromURL(String url)
 	{
-
 		//initialize
 		InputStream is = null;
 		String result = "";

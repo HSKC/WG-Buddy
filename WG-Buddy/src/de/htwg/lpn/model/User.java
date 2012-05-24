@@ -1,9 +1,14 @@
 package de.htwg.lpn.model;
 
 import java.sql.Date;
+import java.util.HashMap;
 
-public class User 
+public class User extends ObjectBase
 {
+	public User(HashMap<String, String> map) {
+		super(map);
+		// TODO Auto-generated constructor stub
+	}
 	private Integer id;
 	private Integer wgId;
 	private String username;
