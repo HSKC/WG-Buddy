@@ -47,7 +47,7 @@
 			</LinearLayout> 
 		    
 		<ImageButton
-		    android:id="@+id/imageButton1"
+		    android:id="@+id/shoppingListEntryCompletedButton"
 		    android:layout_width="wrap_content"
 		    android:layout_height="wrap_content"
 		    android:src="@drawable/checksmall" />	
