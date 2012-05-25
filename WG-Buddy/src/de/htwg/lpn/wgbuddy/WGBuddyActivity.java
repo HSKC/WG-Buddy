@@ -30,10 +30,6 @@ public class WGBuddyActivity extends Activity
         	//Applikation schon initialisiert. Lade Einstellungen
         	setContentView(R.layout.main);
         	
-
-
-        	
-        	
             shoppinglist = (Button) findViewById(R.id.main_shoppingListButton);
             taskdistributor = (Button) findViewById(R.id.main_taskDistributorButton);
             preferences = (Button) findViewById(R.id.main_preferencesButton);
