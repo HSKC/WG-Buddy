@@ -47,14 +47,14 @@
 			</LinearLayout> 
 		    
 		<ImageButton
-		    android:id="@+id/imageButton1"
+		    android:id="@+id/completedButton"
 		    android:layout_width="wrap_content"
 		    android:layout_height="wrap_content"
 		    android:src="@drawable/checksmall" />	
 		
 
 		<ImageButton
-		    android:id="@+id/imageButton1"
+		    android:id="@+id/deleteButton"
 		    android:layout_width="wrap_content"
 		    android:layout_height="wrap_content"
 		    android:src="@drawable/crosssmall" />

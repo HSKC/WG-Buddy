@@ -16,7 +16,7 @@
     <EditText
         android:id="@+id/ShoppingDescriptionEditText"
         android:layout_width="match_parent"
-        android:layout_height="20dp"
+        android:layout_height="0dp"
         android:layout_weight="11.71"
         android:ems="10"
         android:hint="@string/shoppingDescription"

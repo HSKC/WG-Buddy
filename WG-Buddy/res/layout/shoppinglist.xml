@@ -2,12 +2,25 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical" >
-    <Button
-        android:id="@+id/shoppinglistAddButton"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="@string/shoppinglist_add" />
+    android:orientation="vertical" >
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal" >
+    
+	    <Button
+	        android:id="@+id/shoppinglistAddButton"
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:text="@string/shoppinglist_add" />
+	    
+	    <Button
+	        android:id="@+id/shoppinglistRefreshButton"
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:text="@string/shoppingList_refresh" />
+	    
+    </LinearLayout>
     
     <ListView
         android:id="@+id/shoppinglist"
