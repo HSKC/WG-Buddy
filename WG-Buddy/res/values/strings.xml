@@ -34,4 +34,5 @@
     <string name="Deadline">Deadline</string>
     <string name="shoppingRating">Wichtigkeit</string>
     <string name="shoppingDescription">Beschreibung</string>
+    <string name="shoppingList_refresh">Aktualisieren</string>
 </resources>

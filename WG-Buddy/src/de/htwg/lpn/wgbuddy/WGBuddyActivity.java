@@ -12,6 +12,7 @@ import android.widget.TextView;
 public class WGBuddyActivity extends Activity 
 {
 	public static final String PREFS_NAME = "WGBuddyPreferences";
+	public static final String WEBSERVER = "http://wgbuddy.domoprojekt.de/";
 	
 	private Button shoppinglist;
 	private Button taskdistributor;
@@ -21,16 +22,15 @@ public class WGBuddyActivity extends Activity
     @Override
     public void onCreate(Bundle savedInstanceState) 
     {
-        super.onCreate(savedInstanceState);
-        
+        super.onCreate(savedInstanceState);        
         
         SharedPreferences settings = getSharedPreferences(PREFS_NAME, 0);
+        
+        
         if(settings.contains("initiated"))
         {
         	//Applikation schon initialisiert. Lade Einstellungen
         	setContentView(R.layout.main);
-        	
-        	
         	
             shoppinglist = (Button) findViewById(R.id.main_shoppingListButton);
             taskdistributor = (Button) findViewById(R.id.main_taskDistributorButton);
