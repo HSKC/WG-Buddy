@@ -74,7 +74,7 @@ public class JSONStuff
 		JSONObject jArray = null;
 
 		
-		AsynJsonCall asc = new AsynJsonCall();
+		AsyncJsonCall asc = new AsyncJsonCall();
 		
 		asc.execute(url);
 		

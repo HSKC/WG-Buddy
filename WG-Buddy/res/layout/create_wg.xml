@@ -5,13 +5,14 @@
     android:orientation="vertical" >
 
     <TextView
-        android:id="@+id/userpref_nameText"
+        android:id="@+id/textView1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/preferences_username" />
+        android:text="@string/createwg_name"
+        android:textAppearance="?android:attr/textAppearanceMedium" />
 
     <EditText
-        android:id="@+id/userpref_nameEdit"
+        android:id="@+id/editText1"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:ems="10" >
@@ -20,28 +21,35 @@
     </EditText>
 
     <TextView
-        android:id="@+id/userpref_passwordText"
+        android:id="@+id/textView2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/preferences_password" />
+        android:text="@string/createwg_password"
+        android:textAppearance="?android:attr/textAppearanceMedium" />
 
     <EditText
-        android:id="@+id/userpref_passwordEdit"
+        android:id="@+id/editText2"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:ems="10"
-        android:inputType="textPassword" />
-
-    <Button
-        android:id="@+id/userpref_saveButton"
+        android:ems="10" />
+
+    <TextView
+        android:id="@+id/textView3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/createwg_password2"
+        android:textAppearance="?android:attr/textAppearanceMedium" />
+
+    <EditText
+        android:id="@+id/editText3"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/preferences_login" />
+        android:ems="10" />
 
     <Button
-        android:id="@+id/userpref_createButton"
+        android:id="@+id/button1"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/preferences_createuser" />
+        android:text="@string/createwg_create" />
 
 </LinearLayout>

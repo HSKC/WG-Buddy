@@ -44,22 +44,13 @@ public class TaskDistributor extends Activity
 					ArrayList<String>checkedusers = new ArrayList<String>();
 					
 					ListView userList = (ListView) findViewById(R.id.taskUserList);
-//					for(int i = 0; i < userList.getAdapter().getCount(); i++)
-//					{
-//						CheckBox cb = (CheckBox) userList.getAdapter()..getItem(i);
-//						if(cb.isChecked())
-//						{
-//							checkedusers.add(((CheckBox)userList.getAdapter().getItem(i)).getText().toString());
-//						}	
-//					}
-//					
-//					System.out.print(checkedusers);
+
 				}
 			});
 	        
 	        ArrayList<HashMap<String, String>> users = JSONStuff.getMapListOfJsonArray( "http://wgbuddy.domoprojekt.de/sampleusers.json", "users");   
 	        
-	        SimpleAdapter sa = new SimpleAdapter(this, users, R.layout.taskdistributoruserlistentry, new String[] { "name"}, new int[] { R.id.task_userlistcheckbox});
+	        SimpleAdapter sa = new SimpleAdapter(this, users,R.layout.taskdistributor_userentry, new String[] { "name"}, new int[] { R.id.task_userlistcheckbox});
 	        
 	        ViewBinder vb = new ViewBinder() 
 	        {

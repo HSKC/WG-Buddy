@@ -23,7 +23,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import android.util.Log;
-import de.htwg.lpn.wgbuddy.AsynJsonCall;
+import de.htwg.lpn.wgbuddy.AsyncJsonCall;
 import de.htwg.lpn.wgbuddy.JSONStuff;
 
 public class JSON 
@@ -114,7 +114,7 @@ public class JSON
 		JSONObject jArray = null;
 
 		
-		AsynJsonCall asc = new AsynJsonCall();
+		AsyncJsonCall asc = new AsyncJsonCall();
 		
 		asc.execute(url);
 		

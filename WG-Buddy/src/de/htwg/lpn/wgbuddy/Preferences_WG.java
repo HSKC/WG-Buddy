@@ -38,10 +38,13 @@ public class Preferences_WG extends Activity
 					{
 						//TODO: Überprüfung ob WG in Datenbank
 						
-
-						Intent intent = new Intent(Preferences_WG.this,Preferences_User.class);
-						intent.putExtra("wg",wgname.getText().toString());
-						intent.putExtra("password",password.getText().toString());
+						Store store = ((Store)getApplicationContext());
+						store.setWgname(wgname.getText().toString());
+						store.setWgpasswd(password.getText().toString());
+						store.setInitiated(true);
+						
+						
+						Intent intent = new Intent(Preferences_WG.this,WGBuddyActivity.class);
 						startActivity(intent);
 					}
 					else
@@ -52,6 +55,18 @@ public class Preferences_WG extends Activity
 				}
         	}
         );
+        
+        create.setOnClickListener(new OnClickListener() 
+        {
+			
+			@Override
+			public void onClick(View v) 
+			{
+				Intent intent = new Intent(Preferences_WG.this,Create_WG.class);
+				startActivity(intent);
+				
+			}
+		});
         
     }
 }

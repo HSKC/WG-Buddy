@@ -3,38 +3,5 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical" >
-
-    <EditText
-        android:id="@+id/editTextPreferencesAdminName"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:ems="10"
-        android:hint="@string/preferences_username"
-        android:inputType="textPersonName" >
-
-        <requestFocus />
-    </EditText>
-
-    <EditText
-        android:id="@+id/editTextPreferencesAdminWG_PWD"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:ems="10"
-        android:hint="@string/preferences_wgpassword"
-        android:inputType="textPassword" />
-
-    <EditText
-        android:id="@+id/editTextPreferencesAdminPWD"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:ems="10"
-        android:hint="@string/preferences_adminpassword"
-        android:inputType="textPassword" />
-
-    <Button
-        android:id="@+id/preferencesAdminCreateButton"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="@string/preferenes_createWG" />
 
 </LinearLayout>
