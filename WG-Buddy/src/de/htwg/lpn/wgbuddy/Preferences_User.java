@@ -19,8 +19,9 @@ public class Preferences_User extends Activity
 	private TextView connectTo;
 	
 	private EditText username;
-	private EditText useremail;
+	private EditText userpwd;
 	private Button usersave;
+	private Button newuser;
 	
     @Override
     public void onCreate(Bundle savedInstanceState) 
@@ -28,16 +29,11 @@ public class Preferences_User extends Activity
         super.onCreate(savedInstanceState);
         setContentView(R.layout.preferences_user);
         
-        connectTo = (TextView) findViewById(R.id.userpref_connectToText);
         username = (EditText) findViewById(R.id.userpref_nameEdit);
-        useremail = (EditText) findViewById(R.id.userpref_emailEdit);
+        userpwd = (EditText) findViewById(R.id.userpref_passwordEdit);
         usersave = (Button) findViewById(R.id.userpref_saveButton);
-        
-        Bundle bundle = this.getIntent().getExtras();
-        wgname = bundle.getString("wg");
-        password = bundle.getString("password");
-        
-        connectTo.setText("Connect to "+wgname);
+        newuser = (Button) findViewById(R.id.userpref_createButton);
+
         
         usersave.setOnClickListener
         (
@@ -47,28 +43,43 @@ public class Preferences_User extends Activity
         		public void onClick(View v) 
         		{
         			
-        			if(Patterns.EMAIL_ADDRESS.matcher(useremail.getText().toString()).matches() && username.getText().toString().length() > 0)
+        			
+//        			if(Patterns.EMAIL_ADDRESS.matcher(useremail.getText().toString()).matches() && username.getText().toString().length() > 0)
+//        			{
+//	        			
+//        				SharedPreferences settings = getSharedPreferences(WGBuddyActivity.PREFS_NAME, 0);
+//	        			SharedPreferences.Editor editor = settings.edit();
+//	        		    editor.putBoolean("initiated", true);
+//	        		    editor.putString("wgname", wgname);
+//	        		    editor.putString("password", password);
+//	        		    editor.putString("username", username.getText().toString());
+//	        		    editor.putString("useremail", useremail.getText().toString());
+//	        		    editor.commit();
+        			
+        			if(username.getText().toString().length() > 0 && userpwd.getText().toString().length() > 0)
         			{
-	        			//TODO: COnnectionstuff
-	        			
-	        			SharedPreferences settings = getSharedPreferences(WGBuddyActivity.PREFS_NAME, 0);
-	        			SharedPreferences.Editor editor = settings.edit();
-	        		    editor.putBoolean("initiated", true);
-	        		    editor.putString("wgname", wgname);
-	        		    editor.putString("password", password);
-	        		    editor.putString("username", username.getText().toString());
-	        		    editor.putString("useremail", useremail.getText().toString());
-	        		    editor.commit();
-	        		    
-	        		    Intent intent = new Intent(Preferences_User.this,WGBuddyActivity.class);
-	        		    startActivity(intent);
+        				//TODO: COnnectionstuff
+        				Store store = ((Store)getApplicationContext());
+        				store.setUsername(username.getText().toString());
+        				store.setUserpwd(userpwd.getText().toString());
         			}
-        			else
-        			{
-        				//TODO: Fehlermeldung
-        			}
+		        		    
+		        	Intent intent = new Intent(Preferences_User.this,Preferences_WG.class);
+	        		startActivity(intent);
+
         		}
         	}
         );
+        
+        newuser.setOnClickListener(new OnClickListener() 
+        {
+			
+			@Override
+			public void onClick(View v) 
+			{
+				Intent intent = new Intent(Preferences_User.this,Create_User.class);
+     		    startActivity(intent);
+			}
+		});
     }
 }

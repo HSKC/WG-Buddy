@@ -34,4 +34,19 @@
     <string name="Deadline">Deadline</string>
     <string name="shoppingRating">Wichtigkeit</string>
     <string name="shoppingDescription">Beschreibung</string>
+    <string name="preferences_userText">Nutzereinstellungen</string>
+    <string name="preferences_wgtext">WG Einstellungen</string>
+    <string name="preferences_amintext">Adminmenü</string>
+    <string name="preferences_login">Login</string>
+    <string name="preferences_password">Passwort</string>
+    <string name="preferences_createuser">Neuen User erstellen</string>
+    <string name="createuser_name">Name</string>
+    <string name="createuser_email">Email Adresse</string>
+    <string name="createuser_password">Passwort</string>
+    <string name="createuser_create">Erstellen</string>
+    <string name="createwg_create">Erstellen</string>
+    <string name="createwg_name">WG-Name</string>
+    <string name="createwg_password">Passwort</string>
+    <string name="createwg_password2">Passwort (wiederholen)</string>
+    <string name="createuser_password2">Passwort (wiederholen)</string>
 </resources>

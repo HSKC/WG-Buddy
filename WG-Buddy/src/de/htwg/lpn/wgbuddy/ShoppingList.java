@@ -30,7 +30,7 @@ public class ShoppingList extends Activity
 	        
 	        ArrayList<HashMap<String, String>> list = JSONStuff.getMapListOfJsonArray( "http://wgbuddy.domoprojekt.de/shopping.php", "Item"); 
 	        
-	        SimpleAdapter sa = new SimpleAdapter(this, list, R.layout.shoppinglistentry, new String[] { "name", "comment", "rating", "createdDate" }, new int[] { R.id.shoppingBigText, R.id.shoppingSmallText, R.id.ratingBar, R.id.createdDate});
+	        SimpleAdapter sa = new SimpleAdapter(this, list, R.layout.shoppinglist_entry, new String[] { "name", "comment", "rating", "createdDate" }, new int[] { R.id.shoppingBigText, R.id.shoppingSmallText, R.id.ratingBar, R.id.createdDate});
 	        
 	        
 	        
@@ -67,7 +67,7 @@ public class ShoppingList extends Activity
     				@Override
     				public void onClick(View v) 
     				{
-    					Intent intent = new Intent(ShoppingList.this, NewShoppingItem.class);
+    					Intent intent = new Intent(ShoppingList.this, Create_ShoppingItem.class);
     					startActivity(intent);
     				}
         		}

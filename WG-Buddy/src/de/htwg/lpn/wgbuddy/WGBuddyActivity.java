@@ -23,13 +23,15 @@ public class WGBuddyActivity extends Activity
     {
         super.onCreate(savedInstanceState);
         
+    	Store store = ((Store)getApplicationContext());
         
-        SharedPreferences settings = getSharedPreferences(PREFS_NAME, 0);
-        if(settings.contains("initiated"))
+        if(store.isInitiated())
         {
         	//Applikation schon initialisiert. Lade Einstellungen
         	setContentView(R.layout.main);
         	
+
+
         	
         	
             shoppinglist = (Button) findViewById(R.id.main_shoppingListButton);
@@ -37,7 +39,7 @@ public class WGBuddyActivity extends Activity
             preferences = (Button) findViewById(R.id.main_preferencesButton);
             heading = (TextView) findViewById(R.id.main_headingText);
             
-            heading.setText(settings.getString("username", "")+" @ "+settings.getString("wgname", ""));
+            heading.setText(store.getUsername()+" @ "+store.getWgname());
             
             shoppinglist.setOnClickListener
             (
@@ -75,7 +77,7 @@ public class WGBuddyActivity extends Activity
     				@Override
     				public void onClick(View v) 
     				{
-    					Intent intent = new Intent(WGBuddyActivity.this,Preferences_WG.class);
+    					Intent intent = new Intent(WGBuddyActivity.this,Preferences.class);
     					startActivity(intent);
     				}
         		}
@@ -85,7 +87,7 @@ public class WGBuddyActivity extends Activity
         else
         {
         	//Applikation das erste mal gestartet oder nicht Konfiguriert. Preferences aufrufen
-        	Intent intent = new Intent(WGBuddyActivity.this,Preferences_WG.class);
+        	Intent intent = new Intent(WGBuddyActivity.this,Preferences_User.class);
 			startActivity(intent);
 			return;
         }
