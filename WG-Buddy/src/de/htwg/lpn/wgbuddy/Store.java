@@ -4,16 +4,32 @@ import android.app.Application;
 
 public class Store extends Application 
 {
+	private String webserver = "http://wgbuddy.domoprojekt.de/";	
+	
 
-	  private String username;
-	  private String useremail;
-	  private String userpwd;
+	private String username;
+	private String useremail;
+	private String userpwd;
 	  
-	  private String wgname;
-	  private String wgpasswd;
+	private String wgname;
+	private String wgpasswd;
 	  
-	  private boolean admin= false;
-	  private boolean initiated = false;
+	private boolean admin= false;
+	private boolean initiated = false;
+
+	/**
+	 * @return the webserver
+	 */
+	public String getWebserver() {
+		return webserver;
+	}
+
+	/**
+	 * @param webserver the webserver to set
+	 */
+	public void setWebserver(String webserver) {
+		this.webserver = webserver;
+	}
 
 	public String getUsername() {
 		return username;

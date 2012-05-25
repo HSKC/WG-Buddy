@@ -12,6 +12,7 @@ import android.widget.TextView;
 public class WGBuddyActivity extends Activity 
 {
 	public static final String PREFS_NAME = "WGBuddyPreferences";
+	public static final String WEBSERVER = "http://wgbuddy.domoprojekt.de/";
 	
 	private Button shoppinglist;
 	private Button taskdistributor;
@@ -21,9 +22,13 @@ public class WGBuddyActivity extends Activity
     @Override
     public void onCreate(Bundle savedInstanceState) 
     {
-        super.onCreate(savedInstanceState);
+        super.onCreate(savedInstanceState);        
+        
+        SharedPreferences settings = getSharedPreferences(PREFS_NAME, 0);
         
     	Store store = ((Store)getApplicationContext());
+
+        super.onCreate(savedInstanceState);
         
         if(store.isInitiated())
         {
