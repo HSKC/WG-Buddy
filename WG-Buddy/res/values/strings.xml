@@ -51,5 +51,20 @@
     <string name="shoppingRating">Wichtigkeit</string>
     <string name="shoppingDescription">Beschreibung</string>
     <string name="shoppingList_refresh">Aktualisieren</string>
+    
+    <string-array name="shoppingListSort_array">
+        <item>Datum</item>
+        <item>Rating</item>
+        <item>User</item>
+        <item>Name</item>
+    </string-array>
+    
+    <string-array name="shoppingListType_array">
+        <item>Alle</item>
+        <item>Offen</item>
+        <item>InProgress</item>
+        <item>Done</item>
+    </string-array>
+    
 
 </resources>
