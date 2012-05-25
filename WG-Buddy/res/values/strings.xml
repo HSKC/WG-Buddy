@@ -49,4 +49,5 @@
     <string name="createwg_password">Passwort</string>
     <string name="createwg_password2">Passwort (wiederholen)</string>
     <string name="createuser_password2">Passwort (wiederholen)</string>
+    <string name="createuser_lostpwd">Passwort vergessen</string>
 </resources>

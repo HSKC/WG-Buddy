@@ -20,14 +20,20 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name="ShoppingList"></activity>
-        <activity android:name=".Create_ShoppingItem"></activity>
-        <activity android:name="TaskDistributor"></activity>
-        <activity android:name="Preferences"></activity><activity android:name=".Preferences_WG"></activity>
+        <activity android:name=".ShoppingList"></activity>
+       
+        
+        <activity android:name=".Preferences"></activity>
+        <activity android:name=".Preferences_WG"></activity>
         <activity android:name=".Preferences_User"></activity>
-        <activity android:name="Preferences_Admin"></activity><activity android:name="Taskdistributor_Info"></activity>
-        <activity android:name="Create_User"></activity>
-        <activity android:name="Create_WG"></activity>
+        <activity android:name=".Preferences_Admin"></activity>
+        
+        <activity android:name=".TaskDistributor"></activity>
+        <activity android:name=".Taskdistributor_Info"></activity>
+        
+        <activity android:name=".Create_ShoppingItem"></activity>
+        <activity android:name=".Create_User"></activity>
+        <activity android:name=".Create_WG"></activity>
         
       	
 
