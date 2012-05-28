@@ -1,115 +1,43 @@
 package de.htwg.lpn.model;
 
-import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
-
 import org.apache.http.NameValuePair;
-import org.apache.http.message.BasicNameValuePair;
+import de.htwg.lpn.wgbuddy.Store;
 
 public class ObjectBase
 {
-	public ObjectBase(HashMap<String, String> map)
+	protected Store store = null;
+	protected String phpPage;
+	protected String arrayName;
+	
+	public ArrayList<HashMap<String, String>> get()
 	{
-		Class<? extends ObjectBase> c = this.getClass();
-				
-		for(Map.Entry entry : map.entrySet())
-		{
-			Field field = null;;
-			try 
-			{
-				field = c.getDeclaredField((String) entry.getKey());
-			} 
-			catch (SecurityException e) 
-			{
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-			catch (NoSuchFieldException e)
-			{
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-			
-			if(field != null)
-			{
-				field.setAccessible(true);
-			}
-			
-			try
-			{
-				field.set(this, entry.getValue());
-			} 
-			catch (IllegalArgumentException e) 
-			{
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-			catch (IllegalAccessException e)
-			{
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-		}
+		return JSON.getMapListOfJsonArray(store.getWebserver() + phpPage, arrayName);		
 	}
 	
-	public HashMap<String, String> getMap()
+	public ArrayList<HashMap<String, String>> get(String par)
 	{
-		HashMap<String, String> returnMap = new HashMap<String, String>();
-		
-		Class<? extends ObjectBase> c = this.getClass();
-		Field[] fields = c.getDeclaredFields();
-		
-		for(Field field : fields)
-		{
-			field.setAccessible(true);
-			try 
-			{
-				returnMap.put(field.getName(), String.valueOf(field.get(this)));
-			} 
-			catch (IllegalArgumentException e) 
-			{
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			} 
-			catch (IllegalAccessException e) 
-			{
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-		}
-		
-		return returnMap;
+		String url = store.getWebserver() + phpPage + par;
+		return JSON.getMapListOfJsonArray(url, arrayName);		
 	}
 	
-	public List<NameValuePair> getNameValuePairs()
+	public void insert(List<NameValuePair> nameValuePairs)
 	{
-		List<NameValuePair> returnNameValuePairs = new ArrayList<NameValuePair>();
-       
-		Class<? extends ObjectBase> c = this.getClass();
-		Field[] fields = c.getDeclaredFields();
-		
-		for(Field field : fields)
-		{
-			field.setAccessible(true);
-			try 
-			{
-				returnNameValuePairs.add(new BasicNameValuePair(field.getName(), String.valueOf(field.get(this))));
-			} 
-			catch (IllegalArgumentException e) 
-			{
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			} 
-			catch (IllegalAccessException e) 
-			{
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-		}        
-        
-		return returnNameValuePairs;
+		String url = store.getWebserver() + phpPage + "?insert";
+		JSON.postData(url, nameValuePairs);
+	}
+	
+	public void update(Integer id, List<NameValuePair> nameValuePairs)
+	{
+		String url = store.getWebserver() + phpPage + "?update=" + String.valueOf(id);
+		JSON.postData(url, nameValuePairs);
+	}
+	
+	public void delete(Integer id)
+	{
+		String url = store.getWebserver() + phpPage + "?delete=" + String.valueOf(id);
+		JSON.postData(url);
 	}
 }
