@@ -51,19 +51,30 @@
     <string name="shoppingRating">Wichtigkeit</string>
     <string name="shoppingDescription">Beschreibung</string>
     <string name="shoppingList_refresh">Aktualisieren</string>
-    
-    <string-array name="shoppingListSort_array">
-        <item>Datum</item>
-        <item>Rating</item>
-        <item>User</item>
-        <item>Name</item>
-    </string-array>
+    <string name="shoppingList_options">Einstellungen</string>
+    <string name="shoppingList_optionsDialog_Title">Einstellungen</string>
+    <string name="shoppingList_optionsDialog_filterText">Filter</string>
+    <string name="shoppingList_optionsDialog_sortText">Sortieren nach</string>
+    <string name="shoppingList_optionsDialog_directionText">Richtung</string>
+    <string name="shoppingList_optionsButton">OK</string>
     
     <string-array name="shoppingListType_array">
-        <item>Alle</item>
-        <item>Offen</item>
-        <item>InProgress</item>
-        <item>Done</item>
+        <item>Alle Einträge</item>
+        <item>Offene Einträge</item>
+        <item>Werden gekauft</item>
+        <item>Gekaufte Einträge</item>
+    </string-array>
+    
+    <string-array name="shoppingListSort_array">
+        <item>Name</item>
+        <item>Datum</item>
+        <item>Rating</item>
+        <item>User</item>        
+    </string-array>    
+    
+    <string-array name="shoppingListDirection_array">
+        <item>Aufsteigend</item>
+        <item>Absteigend</item>
     </string-array>
     
 

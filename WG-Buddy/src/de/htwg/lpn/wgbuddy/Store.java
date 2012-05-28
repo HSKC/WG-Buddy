@@ -6,7 +6,7 @@ public class Store extends Application
 {
 	private String webserver = "http://wgbuddy.domoprojekt.de/";	
 	
-
+	private String userid;
 	private String username;
 	private String useremail;
 	private String userpwd;
@@ -29,6 +29,20 @@ public class Store extends Application
 	 */
 	public void setWebserver(String webserver) {
 		this.webserver = webserver;
+	}
+
+	/**
+	 * @return the userid
+	 */
+	public String getUserid() {
+		return userid;
+	}
+
+	/**
+	 * @param userid the userid to set
+	 */
+	public void setUserid(String userid) {
+		this.userid = userid;
 	}
 
 	public String getUsername() {

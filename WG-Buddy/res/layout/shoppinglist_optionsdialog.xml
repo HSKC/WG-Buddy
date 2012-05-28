@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:id="@+id/shoppingList_optionsDialogLayout" >
+
+    <TextView
+        android:id="@+id/shoppingList_optionsDialogTitle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/shoppingList_optionsDialog_Title"
+        android:textSize="20dp" />
+
+    <TextView
+        android:id="@+id/shoppingList_optionsDialogFilter"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/shoppingList_optionsDialog_filterText" />
+    
+    <Spinner
+        android:id="@+id/shoppingListTypeSpinner"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content" />
+
+    <TextView
+        android:id="@+id/shoppingList_optionsDialogSort"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/shoppingList_optionsDialog_sortText" />
+
+    <Spinner
+        android:id="@+id/shoppingListSortSpinner"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content" />
+    
+    <TextView
+        android:id="@+id/shoppingList_optionsDialogDirection"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/shoppingList_optionsDialog_directionText" />
+
+    <Spinner
+        android:id="@+id/shoppingListDirectionSpinner"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content" />
+
+    <Button
+        android:id="@+id/shoppingListOptionsDialogButton"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/shoppingList_optionsButton" />"
+
+</LinearLayout>
