@@ -1,6 +1,9 @@
 package de.htwg.lpn.wgbuddy;
 
 
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
+
 import android.app.Activity;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -23,7 +26,33 @@ public class Preferences_User extends Activity
 	private Button usersave;
 	private Button newuser;
 	
-    @Override
+   public String MD5(String pw)
+   {
+	   byte[] defaultBytes = pw.getBytes();
+	   
+	   try 
+	   {
+			MessageDigest md = MessageDigest.getInstance("MD5");
+			md.reset();
+		    md.update(defaultBytes);
+			byte messageDigest[] = md.digest();
+			StringBuffer hexString = new StringBuffer();
+			for (int i=0;i<messageDigest.length;i++) 
+			{
+				hexString.append(Integer.toHexString(0xFF & messageDigest[i]));
+			}
+			return hexString.toString();
+	   } 
+	   catch (NoSuchAlgorithmException e) 
+	   {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+	   }	   
+	   
+	   return "";
+   }
+	
+	@Override
     public void onCreate(Bundle savedInstanceState) 
     {
         super.onCreate(savedInstanceState);
@@ -61,7 +90,7 @@ public class Preferences_User extends Activity
         				//TODO: COnnectionstuff
         				Store store = ((Store)getApplicationContext());
         				store.setUsername(username.getText().toString());
-        				store.setUserpwd(userpwd.getText().toString());
+        				store.setUserpwd(MD5(userpwd.getText().toString()));        				
         			}
 		        		    
 		        	Intent intent = new Intent(Preferences_User.this,Preferences_WG.class);
