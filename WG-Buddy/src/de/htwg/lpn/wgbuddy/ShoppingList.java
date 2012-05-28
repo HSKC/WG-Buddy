@@ -2,6 +2,7 @@ package de.htwg.lpn.wgbuddy;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.LinkedList;
 import java.util.List;
 
 import org.apache.http.NameValuePair;
@@ -9,10 +10,14 @@ import org.apache.http.message.BasicNameValuePair;
 
 import de.htwg.lpn.model.ShoppingItem;
 import android.app.Activity;
+import android.app.AlertDialog;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
@@ -22,6 +27,7 @@ import android.widget.RatingBar;
 import android.widget.SimpleAdapter;
 import android.widget.SimpleAdapter.ViewBinder;
 import android.widget.Spinner;
+import android.widget.TextView;
 
 
 public class ShoppingList<T> extends Activity 
@@ -31,30 +37,66 @@ public class ShoppingList<T> extends Activity
 	private ListView shoppingList;
 	private View addButton;
 	private View refreshButton;
-	private Spinner typeSpinner;
-	private Spinner sortSpinner;
+	private View optionsButton;
 	
-	private String type = "";
-	private String sort = "";
+	private Integer type = 0;
+	private Integer sort = 0;
+	private Integer direction = 0;
+	
+	ArrayAdapter<CharSequence> typeAdapter = null;
+	ArrayAdapter<CharSequence> sortAdapter = null;	
+	ArrayAdapter<CharSequence> directionAdapter = null;
 	
 	private void loadList()
 	{
         String where = "";
+        String order = "";
+        String directionString = "";
         
-        if(type.equals("Offen"))
+        if(type == 1)
         {
-        	where = "?status=-1";
+        	where = "status=-1";
         }
-        else if(type.equals("InProgress"))
+        else if(type == 2)
         {
-        	where = "?status=0";
+        	where = "status=0";
         }
-        else if(type.equals("Done"))
+        else if(type == 3)
         {
-        	where = "?status=1";
+        	where = "status=1";
         }
-		
-		ArrayList<HashMap<String, String>> list = JSONStuff.getMapListOfJsonArray("http://wgbuddy.domoprojekt.de/shopping.php" + where, "Item");
+        
+        if(sort == 0)
+        {
+        	order = "orderby=name";
+        }
+        else if(sort == 1)
+        {
+        	order = "orderby=createdDate";
+        }
+        else if(sort == 2)
+        {
+        	order = "orderby=rating";
+        }
+        else if(sort == 3)
+        {
+        	order = "orderby=userId";
+        }
+        
+        if(direction == 0)
+        {
+        	directionString = "direction=ASC";
+        }
+        else 
+        {
+        	directionString = "direction=DESC";
+        }
+        
+        
+        String url = store.getWebserver() + "shopping.php?" + ((where != "")? where + "&" : "") + order + "&" + directionString;     
+
+        
+		ArrayList<HashMap<String, String>> list = JSONStuff.getMapListOfJsonArray(url, "Item");
         SimpleAdapter sa = new SimpleAdapter(this, list, R.layout.shoppinglist_entry, new String[] { "id", "id", "name", "comment", "rating", "createdDate" }, new int[] { R.id.shoppingListEntryCompletedButton, R.id.shoppingListEntryDeleteButton, R.id.shoppingBigText, R.id.shoppingSmallText, R.id.ratingBar, R.id.createdDate});
         
         ViewBinder vb = new ViewBinder() 
@@ -135,9 +177,12 @@ public class ShoppingList<T> extends Activity
         shoppingList = (ListView) findViewById(R.id.shoppinglist);
         addButton = (Button) findViewById(R.id.shoppinglistAddButton);
         refreshButton = (Button) findViewById(R.id.shoppinglistRefreshButton);
-        typeSpinner = (Spinner) findViewById(R.id.shoppingListTypeSpinner);
-        sortSpinner = (Spinner) findViewById(R.id.shoppingListSortSpinner);
-       
+        optionsButton = (Button) findViewById(R.id.shoppinglistOptionsButton);        
+        
+        typeAdapter = ArrayAdapter.createFromResource(this, R.array.shoppingListType_array, android.R.layout.simple_spinner_item);
+        sortAdapter = ArrayAdapter.createFromResource(this, R.array.shoppingListSort_array, android.R.layout.simple_spinner_item);
+        directionAdapter = ArrayAdapter.createFromResource(this, R.array.shoppingListDirection_array, android.R.layout.simple_spinner_item);
+        
         loadList();
         
         addButton.setOnClickListener
@@ -168,51 +213,100 @@ public class ShoppingList<T> extends Activity
     		}
         );
         
-        
-        ArrayAdapter<CharSequence> sortAdapter = ArrayAdapter.createFromResource(this, R.array.shoppingListSort_array, android.R.layout.simple_spinner_item);
-        sortAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        sortSpinner.setAdapter(sortAdapter);
-        sortSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() 
-        {
-			public void onItemSelected(AdapterView<?> parent, View view, int pos, long id) 
-			{
-				sortSpinner.setSelection(pos);				
-				String selectedSort = sortSpinner.getItemAtPosition(pos).toString();
-				if(!selectedSort.equals(sort))
-				{	
-					sort = selectedSort;
-					loadList();
-				}
-			}
+        optionsButton.setOnClickListener
+        (
+    		new OnClickListener() 
+    		{
+				
+				@Override
+				public void onClick(View v) 
+				{
+					AlertDialog.Builder builder;
 
-			@Override
-			public void onNothingSelected(AdapterView<?> arg0) 
-			{
-			}
-		});
-        
-        
-        ArrayAdapter<CharSequence> TypeAdapter = ArrayAdapter.createFromResource(this, R.array.shoppingListType_array, android.R.layout.simple_spinner_item);
-        TypeAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        typeSpinner.setAdapter(TypeAdapter);
-        typeSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() 
-        {
-			public void onItemSelected(AdapterView<?> parent, View view, int pos, long id) 
-			{
-				typeSpinner.setSelection(pos);
-				String selectedType = typeSpinner.getItemAtPosition(pos).toString();
-				Object obj = sortSpinner.getItemAtPosition(pos);
-				if(!selectedType.equals(type))
-				{	
-					type = selectedType;
-					loadList();
-				}
-			}
+					Context mContext = ShoppingList.this;
+					builder = new AlertDialog.Builder(mContext);
+					
+					LayoutInflater inflater = (LayoutInflater) mContext.getSystemService(LAYOUT_INFLATER_SERVICE);
+					View layout = inflater.inflate(R.layout.shoppinglist_optionsdialog, (ViewGroup) findViewById(R.id.shoppingList_optionsDialogLayout));
+					
+					builder.setView(layout);
+					
+					final AlertDialog alertDialog = builder.create();
+					alertDialog.show();			        
+			        
+			        typeAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+			        
+			        Spinner typeSpinner = (Spinner) layout.findViewById(R.id.shoppingListTypeSpinner);
+			        
+			        typeSpinner.setAdapter(typeAdapter);
+			        typeSpinner.setSelection(type);
+			        typeSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() 
+			        {
+						public void onItemSelected(AdapterView<?> parent, View view, int pos, long id) 
+						{
+							type = pos;
+						}
 
-			@Override
-			public void onNothingSelected(AdapterView<?> arg0) 
-			{
-			}
-		});
+						@Override
+						public void onNothingSelected(AdapterView<?> arg0) 
+						{
+						}
+					});
+			        
+		        	sortAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+			        
+					
+					Spinner sortSpinner = (Spinner) layout.findViewById(R.id.shoppingListSortSpinner);
+			        
+					sortSpinner.setAdapter(sortAdapter);
+					sortSpinner.setSelection(sort);
+			        sortSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() 
+			        {
+						public void onItemSelected(AdapterView<?> parent, View view, int pos, long id) 
+						{
+							sort = pos;
+						}
+
+						@Override
+						public void onNothingSelected(AdapterView<?> arg0) 
+						{
+						}
+					});
+			        
+		        	directionAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+			        
+					
+					Spinner directionSpinner = (Spinner) layout.findViewById(R.id.shoppingListDirectionSpinner);
+			        
+					directionSpinner.setAdapter(directionAdapter);
+					directionSpinner.setSelection(direction);
+			        directionSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() 
+			        {
+						public void onItemSelected(AdapterView<?> parent, View view, int pos, long id) 
+						{
+							direction = pos;
+						}
+
+						@Override
+						public void onNothingSelected(AdapterView<?> arg0) 
+						{
+						}
+					});
+			        
+			        
+			        Button okButton = (Button) layout.findViewById(R.id.shoppingListOptionsDialogButton);
+			        okButton.setOnClickListener(new OnClickListener() 
+			        {
+						
+						@Override
+						public void onClick(View v) 
+						{							
+							alertDialog.dismiss();
+							loadList();
+						}
+					});
+				}
+    		}
+        );
     }
 }
