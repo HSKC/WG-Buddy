@@ -9,6 +9,7 @@ import org.apache.http.message.BasicNameValuePair;
 import de.htwg.lpn.model.ShoppingItem;
 import android.app.Activity;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -20,7 +21,7 @@ import android.widget.TimePicker;
 
 public class NewShoppingItem  extends Activity
 {
-	private Store store = null;
+	private SharedPreferences settings = null;
 	private Button addButton;
 	private EditText nameEditText;
 	private EditText descriptionEditText;
@@ -34,7 +35,7 @@ public class NewShoppingItem  extends Activity
         super.onCreate(savedInstanceState);
         setContentView(R.layout.shopping_item);
         
-        store = (Store) getApplicationContext();
+        settings = getSharedPreferences(WGBuddyActivity.PREFS_NAME, 0);
         
         addButton = (Button) findViewById(R.id.shoppingItemAddButton);
         nameEditText = (EditText) findViewById(R.id.ShoppingItemNameEditText);
@@ -61,7 +62,7 @@ public class NewShoppingItem  extends Activity
 			        String date = String.valueOf(deadlineDatePicker.getYear()) + "-" + String.valueOf(deadlineDatePicker.getMonth() + 1).toString() + "-" + String.valueOf(deadlineDatePicker.getDayOfMonth()) + " " + deadlineTimePicker.getCurrentHour().toString() + ":" + deadlineTimePicker.getCurrentMinute().toString() + ":00";
 			        nameValuePairs.add(new BasicNameValuePair("deadline", date));
 			        
-			        ShoppingItem si = new ShoppingItem(store);
+			        ShoppingItem si = new ShoppingItem(settings);
 					si.insert(nameValuePairs);				
 					
 					Intent intent = new Intent(NewShoppingItem.this, ShoppingList.class);

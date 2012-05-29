@@ -41,13 +41,21 @@
         android:drawableLeft="@drawable/settings"
         android:layout_height="wrap_content"
         android:text="@string/main_settings" />
-
+
     <Button
         android:id="@+id/main_addButton"
         android:layout_width="match_parent"
-        android:textSize="16sp"
-        android:drawableLeft="@drawable/add"
         android:layout_height="wrap_content"
-        android:text="@string/main_invite" />
+        android:drawableLeft="@drawable/add"
+        android:text="@string/main_invite"
+        android:textSize="16sp" />
+    
+    <Button
+        android:id="@+id/main_logoutButton"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:drawableLeft="@drawable/add"
+        android:text="@string/main_logout"
+        android:textSize="16sp" />
 
 </LinearLayout>

@@ -1,12 +1,12 @@
 package de.htwg.lpn.model;
 
-import de.htwg.lpn.wgbuddy.Store;
+import android.content.SharedPreferences;
 
 public class WG extends ObjectBase
 {
-	public WG(Store store)
+	public WG(SharedPreferences settings)
 	{
-		this.store = store;
+		this.settings = settings;
 		phpPage = "wg.php";
 		arrayName = "WG";
 	}

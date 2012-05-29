@@ -2,7 +2,6 @@ package de.htwg.lpn.wgbuddy;
 
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.LinkedList;
 import java.util.List;
 
 import org.apache.http.NameValuePair;
@@ -13,6 +12,7 @@ import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -27,12 +27,11 @@ import android.widget.RatingBar;
 import android.widget.SimpleAdapter;
 import android.widget.SimpleAdapter.ViewBinder;
 import android.widget.Spinner;
-import android.widget.TextView;
 
 
 public class ShoppingList<T> extends Activity 
 {
-	private Store store;
+	private SharedPreferences settings = null;
 	
 	private ListView shoppingList;
 	private View addButton;
@@ -93,7 +92,7 @@ public class ShoppingList<T> extends Activity
         }
         
         
-        String url = store.getWebserver() + "shopping.php?" + ((where != "")? where + "&" : "") + order + "&" + directionString;     
+        String url = settings.getString("pref_webserver", "") + "shopping.php?" + ((where != "")? where + "&" : "") + order + "&" + directionString;     
 
         
 		ArrayList<HashMap<String, String>> list = JSONStuff.getMapListOfJsonArray(url, "Item");
@@ -122,7 +121,7 @@ public class ShoppingList<T> extends Activity
 						@Override
 						public void onClick(View v) 
 						{
-							ShoppingItem si = new ShoppingItem(store);
+							ShoppingItem si = new ShoppingItem(settings);
 							Integer id = (Integer) v.getTag();
 							
 							List<NameValuePair> nameValuePairs = new ArrayList<NameValuePair>();
@@ -146,7 +145,7 @@ public class ShoppingList<T> extends Activity
 						@Override
 						public void onClick(View v) 
 						{
-							ShoppingItem si = new ShoppingItem(store);
+							ShoppingItem si = new ShoppingItem(settings);
 							Integer id = (Integer) v.getTag();
 							si.delete(id);
 							
@@ -172,7 +171,7 @@ public class ShoppingList<T> extends Activity
         super.onCreate(savedInstanceState);
         setContentView(R.layout.shoppinglist);
         
-        store = (Store) getApplicationContext();
+        settings = getSharedPreferences(WGBuddyActivity.PREFS_NAME, 0);
         
         shoppingList = (ListView) findViewById(R.id.shoppinglist);
         addButton = (Button) findViewById(R.id.shoppinglistAddButton);

@@ -3,6 +3,10 @@
     <string name="app_name">WG-Buddy</string>
     <string name="main_shoppinglist">Einkaufszettel</string>
     <string name="main_taskdistributor">Aufgabenverteilung</string>
+    <string name="main_settings">Einstellungen</string>
+    <string name="main_chat">Chat</string>
+    <string name="main_invite">Einladen</string>
+    <string name="main_logout">Logout</string>
 
     <string name="preferences_wgidentificationtext">WGID</string>
     <string name="preferences_wgpassword">Passwort</string>
@@ -11,9 +15,7 @@
     <string name="preferences_save">speichern</string>
     <string name="preferences_username">Name</string>
     <string name="preferences_email">E-Mail</string>
-    <string name="main_settings">Einstellungen</string>
-    <string name="main_chat">Chat</string>
-    <string name="main_invite">Einladen</string>
+
     <string name="preferences_adminpassword">Adminpassword</string>
     <string name="preferenes_createWG">Erstellen</string>
     <string name="shoppinglist_list">Einkaufsliste</string>
@@ -39,7 +41,8 @@
     <string name="preferences_password">Passwort</string>
     <string name="preferences_createuser">Neuen User erstellen</string>
     <string name="createuser_name">Name</string>
-    <string name="createuser_email">Email Adresse</string>
+    <string name="createuser_email">Email-Adresse</string>
+    <string name="createuser_email2">Email-Adresse (wiederholen)</string>
     <string name="createuser_password">Passwort</string>
     <string name="createuser_create">Erstellen</string>
     <string name="createwg_create">Erstellen</string>

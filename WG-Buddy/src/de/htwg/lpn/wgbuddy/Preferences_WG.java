@@ -1,7 +1,17 @@
 package de.htwg.lpn.wgbuddy;
 
+import java.util.ArrayList;
+import java.util.HashMap;
+
+import org.apache.http.NameValuePair;
+import org.apache.http.message.BasicNameValuePair;
+
+import de.htwg.lpn.model.User;
+import de.htwg.lpn.model.Utilities;
+import de.htwg.lpn.model.WG;
 import android.app.Activity;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -10,11 +20,11 @@ import android.widget.EditText;
 
 public class Preferences_WG extends Activity
 {
-	private EditText wgname;
-	private EditText password;
-	private Button connect;
-	private Button create;
-	
+	private SharedPreferences settings = null;
+	private EditText nameTextView;
+	private EditText passwordTextView;
+	private Button connectButton;
+	private Button createButton;
 	
     @Override
     public void onCreate(Bundle savedInstanceState) 
@@ -22,41 +32,58 @@ public class Preferences_WG extends Activity
         super.onCreate(savedInstanceState);
         setContentView(R.layout.preferences_wg);
         
-        wgname 		= (EditText) findViewById(R.id.wgpref_nameEdit);
-        password 	= (EditText) findViewById(R.id.wgpref_passwordEdit);
-        connect 	= (Button) findViewById(R.id.wgpref_connectButton);
-        create 		= (Button) findViewById(R.id.wgpref_createButton);
+        settings = getSharedPreferences(WGBuddyActivity.PREFS_NAME, 0);
         
-        connect.setOnClickListener
+        nameTextView 		= (EditText) findViewById(R.id.wgpref_nameEdit);
+        passwordTextView 	= (EditText) findViewById(R.id.wgpref_passwordEdit);
+        connectButton 		= (Button) findViewById(R.id.wgpref_connectButton);
+        createButton 		= (Button) findViewById(R.id.wgpref_createButton);
+        
+        connectButton.setOnClickListener
         (
         	new OnClickListener() 
         	{
 				@Override
 				public void onClick(View v) 
 				{
-					if(wgname.getText().toString().length() > 0 && password.getText().toString().length() > 0)
-					{
-						//TODO: Überprüfung ob WG in Datenbank
-						
-						Store store = ((Store)getApplicationContext());
-						store.setWgname(wgname.getText().toString());
-						store.setWgpasswd(password.getText().toString());
-						store.setInitiated(true);
-						
-						
-						Intent intent = new Intent(Preferences_WG.this,WGBuddyActivity.class);
-						startActivity(intent);
-					}
-					else
-					{
-						//TODO: Fehlermeldung
-					}
-						
+					if(nameTextView.getText().toString().length() > 0 && passwordTextView.getText().toString().length() > 0)
+        			{
+        				String name = Utilities.getStringFormat(nameTextView.getText().toString());
+        				String password = Utilities.md5(passwordTextView.getText().toString());
+        				
+        				WG wg = new WG(settings);
+        				ArrayList<HashMap<String, String>> wgList = wg.get("?name=" + name + "&password=" + password);
+        				if(wgList.size() == 1)
+        				{
+	        				SharedPreferences settings = getSharedPreferences(WGBuddyActivity.PREFS_NAME, 0);
+		        			SharedPreferences.Editor editor = settings.edit();		        			
+		        			
+		        			// WG Eigenschaften speichern.
+		        			editor.putString("wg_id", wgList.get(0).get("id"));
+		        		    editor.putString("wg_name", wgList.get(0).get("name"));
+		        		    editor.putString("wg_password", wgList.get(0).get("password"));
+		        		    
+		        		    editor.commit();
+		        		    
+		        		    // WG-ID im User speichern.
+							User user = new User(settings);
+							ArrayList<NameValuePair> userNameValuePairs = new ArrayList<NameValuePair>();
+							userNameValuePairs.add(new BasicNameValuePair("wgId", settings.getString("wg_id", ""))); 				
+							user.update(Integer.valueOf(settings.getString("user_id", "")), userNameValuePairs);
+		        		    
+				        	Intent intent = new Intent(Preferences_WG.this, WGBuddyActivity.class);
+			        		startActivity(intent);
+        				}
+        				else
+        				{        					
+        					Utilities.message(Preferences_WG.this, "Der eingegebene WG-Name oder das Passwort ist falsch", "OK");	//TODO :string.xml
+        				}
+        			}
 				}
         	}
         );
         
-        create.setOnClickListener(new OnClickListener() 
+        createButton.setOnClickListener(new OnClickListener() 
         {
 			
 			@Override
@@ -64,7 +91,6 @@ public class Preferences_WG extends Activity
 			{
 				Intent intent = new Intent(Preferences_WG.this,Create_WG.class);
 				startActivity(intent);
-				
 			}
 		});
         
