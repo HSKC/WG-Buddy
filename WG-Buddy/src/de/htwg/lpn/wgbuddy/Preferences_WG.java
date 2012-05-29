@@ -46,40 +46,49 @@ public class Preferences_WG extends Activity
 				@Override
 				public void onClick(View v) 
 				{
-					if(nameTextView.getText().toString().length() > 0 && passwordTextView.getText().toString().length() > 0)
+					String name = nameTextView.getText().toString().trim();
+    				String password = Utilities.md5(passwordTextView.getText().toString().trim());
+        			
+        			if(name.length() <= 0 && password.length() <= 0)
         			{
-        				String name = Utilities.getStringFormat(nameTextView.getText().toString());
-        				String password = Utilities.md5(passwordTextView.getText().toString());
-        				
-        				WG wg = new WG(settings);
-        				ArrayList<HashMap<String, String>> wgList = wg.get("?name=" + name + "&password=" + password);
-        				if(wgList.size() == 1)
-        				{
-	        				SharedPreferences settings = getSharedPreferences(WGBuddyActivity.PREFS_NAME, 0);
-		        			SharedPreferences.Editor editor = settings.edit();		        			
-		        			
-		        			// WG Eigenschaften speichern.
-		        			editor.putString("wg_id", wgList.get(0).get("id"));
-		        		    editor.putString("wg_name", wgList.get(0).get("name"));
-		        		    editor.putString("wg_password", wgList.get(0).get("password"));
-		        		    
-		        		    editor.commit();
-		        		    
-		        		    // WG-ID im User speichern.
-							User user = new User(settings);
-							ArrayList<NameValuePair> userNameValuePairs = new ArrayList<NameValuePair>();
-							userNameValuePairs.add(new BasicNameValuePair("wgId", settings.getString("wg_id", ""))); 				
-							user.update(Integer.valueOf(settings.getString("user_id", "")), userNameValuePairs);
-		        		    
-				        	Intent intent = new Intent(Preferences_WG.this, WGBuddyActivity.class);
-			        		startActivity(intent);
-        				}
-        				else
-        				{        					
-        					Utilities.message(Preferences_WG.this, "Der eingegebene WG-Name oder das Passwort ist falsch", "OK");	//TODO :string.xml
-        				}
+        				Utilities.message(Preferences_WG.this, "Bitte alle Felder ausfüllen.", "OK");	//TODO :string.xml
+        				return;
         			}
-				}
+        			
+        			if(!Utilities.checkOnlyAllowedCharacter(name))
+    				{
+    					Utilities.message(Preferences_WG.this, "WG-Name enthält unerlaubte Zeichen. Es sind nur folgende Zeichen erlaubt: a-z A-Z äöü ÄÖÜ ß 0-9 _", "OK"); //TODO TEXT in string.xml
+    					return;
+    				}
+        				
+    				WG wg = new WG(settings);
+    				ArrayList<HashMap<String, String>> wgList = wg.get("?name=" + name + "&password=" + password);
+    				if(wgList.size() == 1)
+    				{
+        				SharedPreferences settings = getSharedPreferences(WGBuddyActivity.PREFS_NAME, 0);
+	        			SharedPreferences.Editor editor = settings.edit();		        			
+	        			
+	        			// WG Eigenschaften speichern.
+	        			editor.putString("wg_id", wgList.get(0).get("id"));
+	        		    editor.putString("wg_name", wgList.get(0).get("name"));
+	        		    editor.putString("wg_password", wgList.get(0).get("password"));
+	        		    
+	        		    editor.commit();
+	        		    
+	        		    // WG-ID im User speichern.
+						User user = new User(settings);
+						ArrayList<NameValuePair> userNameValuePairs = new ArrayList<NameValuePair>();
+						userNameValuePairs.add(new BasicNameValuePair("wgId", settings.getString("wg_id", ""))); 				
+						user.update(Integer.valueOf(settings.getString("user_id", "")), userNameValuePairs);
+	        		    
+			        	Intent intent = new Intent(Preferences_WG.this, WGBuddyActivity.class);
+		        		startActivity(intent);
+    				}
+    				else
+    				{        					
+    					Utilities.message(Preferences_WG.this, "Der eingegebene WG-Name oder das Passwort ist falsch", "OK");	//TODO :string.xml
+    				}
+    			}
         	}
         );
         

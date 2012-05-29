@@ -48,20 +48,21 @@ public class Create_WG extends Activity
 			@Override
 			public void onClick(View v) 
 			{
-				if(nameTextView.getText().toString().length() == 0
-						|| passwordTextView.getText().toString().length() == 0
-						|| password2TextView.getText().toString().length() == 0)
+				String name = nameTextView.getText().toString().trim();
+				String password = Utilities.md5(passwordTextView.getText().toString().trim());
+				String password2 = Utilities.md5(password2TextView.getText().toString().trim());
+				
+				if(name.length() == 0 || password.length() == 0 || password2.length() == 0)
     			{
 					Utilities.message(Create_WG.this, "Bitte alle Felder ausfüllen.", "OK"); //TODO TEXT in string.xml
 					return;
     			}
 				
-				
-				String name = Utilities.getStringFormat(nameTextView.getText().toString());
-				String password = Utilities.md5(passwordTextView.getText().toString());
-				String password2 = Utilities.md5(password2TextView.getText().toString());
-				
-				// TODO: Name auf Sonderzeichen prüfen: z.B. &!?.....		
+				if(!Utilities.checkOnlyAllowedCharacter(name))
+				{
+					Utilities.message(Create_WG.this, "WG-Name enthält unerlaubte Zeichen. Es sind nur folgende Zeichen erlaubt: a-z A-Z 0-9", "OK"); //TODO TEXT in string.xml
+					return;
+				}	
 				
 				if(!password.equals(password2))
 				{

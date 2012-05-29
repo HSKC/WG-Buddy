@@ -52,24 +52,23 @@ public class Create_User extends Activity
 			@Override
 			public void onClick(View v) 
 			{
-				if(usernameTextView.getText().toString().length() == 0 
-						|| emailTextView.getText().toString().length() == 0
-						|| email2TextView.getText().toString().length() == 0
-						|| passwordTextView.getText().toString().length() == 0
-						|| password2TextView.getText().toString().length() == 0)
+				String username = usernameTextView.getText().toString().trim();
+				String email = emailTextView.getText().toString().toLowerCase().trim();
+				String email2 = email2TextView.getText().toString().toLowerCase().trim();
+				String password = Utilities.md5(passwordTextView.getText().toString().trim());
+				String password2 = Utilities.md5(password2TextView.getText().toString().trim());
+				
+				if(username.length() == 0 || email.length() == 0 || email2.length() == 0 || password.length() == 0 || password2.length() == 0)
     			{
 					Utilities.message(Create_User.this, "Bitte alle Felder ausfüllen.", "OK"); //TODO TEXT in string.xml
 					return;
-    			}
+    			}				
 				
-				
-				String username = Utilities.getStringFormat(usernameTextView.getText().toString());
-				String email = emailTextView.getText().toString().toLowerCase();
-				String email2 = email2TextView.getText().toString().toLowerCase();
-				String password = Utilities.md5(passwordTextView.getText().toString());
-				String password2 = Utilities.md5(password2TextView.getText().toString());
-				
-				// TODO: Name auf Sonderzeichen prüfen: z.B. &!?.....
+				if(!Utilities.checkOnlyAllowedCharacter(username))
+				{
+					Utilities.message(Create_User.this, "Benutzername enthält unerlaubte Zeichen. Es sind nur folgende Zeichen erlaubt: a-z A-Z äöü ÄÖÜ ß 0-9 _", "OK"); //TODO TEXT in string.xml
+					return;
+				}
 				
 				if(!Patterns.EMAIL_ADDRESS.matcher(email).matches())
 				{
