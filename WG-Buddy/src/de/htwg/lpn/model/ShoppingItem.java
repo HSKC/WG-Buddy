@@ -1,12 +1,12 @@
 package de.htwg.lpn.model;
 
-import de.htwg.lpn.wgbuddy.Store;
+import android.content.SharedPreferences;
 
 public class ShoppingItem extends ObjectBase
 {
-	public ShoppingItem(Store store)
+	public ShoppingItem(SharedPreferences settings)
 	{
-		this.store = store;
+		this.settings = settings;
 		phpPage = "shopping.php";
 		arrayName = "Item";
 	}	

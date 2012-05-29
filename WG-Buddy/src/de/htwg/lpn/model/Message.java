@@ -1,12 +1,12 @@
 package de.htwg.lpn.model;
 
-import de.htwg.lpn.wgbuddy.Store;
+import android.content.SharedPreferences;
 
 public class Message extends ObjectBase
 {
-	public Message(Store store)
+	public Message(SharedPreferences settings)
 	{
-		this.store = store;
+		this.settings = settings;
 		phpPage = "message.php";
 		arrayName = "Message";
 	}

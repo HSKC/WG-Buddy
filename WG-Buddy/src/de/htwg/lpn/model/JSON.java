@@ -74,39 +74,47 @@ public class JSON
 		ArrayList<HashMap<String, String>> mylist = new ArrayList<HashMap<String, String>>();
 		
 		JSONObject json = JSONStuff.getJSONfromURL(url);
-        JSONArray jsonarray = null;
-        
-        try 
-        {
-			jsonarray = json.getJSONArray(arrayname);
-		} 
-        catch (JSONException e) 
-        {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		
-		for(int i=0;i < jsonarray.length();i++)
-		{						
-
-        	HashMap<String, String> map = new HashMap<String, String>();
-        	
-			try 
-			{
-				JSONObject e = jsonarray.getJSONObject(i);
-				Iterator iter = e.keys();
-				while(iter.hasNext())
-				{
-					String key = (String)iter.next();
-					String value = e.getString(key);
-					map.put(key,value);
-				}
-	        	mylist.add(map);
+		if(json != null)
+		{
+			
+	        JSONArray jsonarray = null;
+	        
+	        
+	        
+	        try 
+	        {
+				jsonarray = json.getJSONArray(arrayname);
 			} 
-			catch (JSONException e1) 
-			{
+	        catch (JSONException e) 
+	        {
 				// TODO Auto-generated catch block
-				e1.printStackTrace();
+				e.printStackTrace();
+			}
+			if(jsonarray != null)
+			{
+				for(int i=0;i < jsonarray.length();i++)
+				{						
+		
+		        	HashMap<String, String> map = new HashMap<String, String>();
+		        	
+					try 
+					{
+						JSONObject e = jsonarray.getJSONObject(i);
+						Iterator iter = e.keys();
+						while(iter.hasNext())
+						{
+							String key = (String)iter.next();
+							String value = e.getString(key);
+							map.put(key,value);
+						}
+			        	mylist.add(map);
+					} 
+					catch (JSONException e1) 
+					{
+						// TODO Auto-generated catch block
+						e1.printStackTrace();
+					}
+				}
 			}
 		}
 		return mylist;

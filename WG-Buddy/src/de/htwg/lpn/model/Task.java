@@ -1,12 +1,12 @@
 package de.htwg.lpn.model;
 
-import de.htwg.lpn.wgbuddy.Store;
+import android.content.SharedPreferences;
 
 public class Task extends ObjectBase
 {
-	public Task(Store store)
+	public Task(SharedPreferences settings)
 	{
-		this.store = store;
+		this.settings = settings;
 		phpPage = "task.php";
 		arrayName = "Task";
 	}	
