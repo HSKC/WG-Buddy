@@ -9,18 +9,20 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:ems="10"
+        android:maxLength="20"
+        android:inputType="textNoSuggestions"
         android:hint="@string/shopping_ItemName" >
 
         <requestFocus />
     </EditText>
     <EditText
         android:id="@+id/ShoppingDescriptionEditText"
-        android:layout_width="match_parent"
-        android:layout_height="20dp"
-        android:layout_weight="11.71"
-        android:ems="10"
-        android:hint="@string/shoppingDescription"
-        android:inputType="textMultiLine" />
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content" 
+        android:singleLine="false"
+        android:gravity="top"
+        android:lines="5"
+        android:hint="@string/shoppingDescription" />
 
     <TextView
         android:id="@+id/textView1"

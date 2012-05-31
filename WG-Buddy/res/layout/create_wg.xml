@@ -15,7 +15,9 @@
         android:id="@+id/create_wg_nameEdit"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:ems="10" >
+        android:maxLength="20"
+        android:ems="10"
+        android:inputType="textNoSuggestions" >
 
         <requestFocus />
     </EditText>
