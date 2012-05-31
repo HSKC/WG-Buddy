@@ -25,7 +25,7 @@ public class Utilities
 	 * Erlaubte Zeichen:
 	 * a-z A-Z 0-9
 	 * @param string
-	 * @return true, falls nur erlaubte Zeichen, false falls Sonderzeichen vorhanden.
+	 * @return true, falls nur erlaubte Zeichen und false, falls Sonderzeichen vorhanden.
 	 */
 	public static Boolean checkOnlyAllowedCharacter(String string)
 	{
