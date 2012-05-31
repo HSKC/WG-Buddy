@@ -44,12 +44,14 @@
     <DatePicker
         android:id="@+id/shoppingDeadlineDatePicker"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
+        android:layout_height="wrap_content"
+        android:visibility="gone" />
 
     <TimePicker
         android:id="@+id/shoppingDeadLineTimePicker"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
+        android:layout_height="wrap_content"
+        android:visibility="gone"  />
 
     <Button
         android:id="@+id/shoppingItemAddButton"
