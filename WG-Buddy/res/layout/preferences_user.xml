@@ -38,18 +38,22 @@
         android:id="@+id/userpref_saveButton"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/preferences_login" />
-
+        android:text="@string/preferences_login" />
     <Button
         android:id="@+id/userpref_createButton"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/preferences_createuser" />
-
+        android:text="@string/preferences_createuser" />
     <Button
-        android:id="@+id/button1"
+        android:id="@+id/userpref_passwordButton"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="@string/createuser_lostpwd" />
+    
+    <Button
+        android:id="@+id/userpref_changePasswordButton"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/createuser_changePassword" />
 
 </LinearLayout>

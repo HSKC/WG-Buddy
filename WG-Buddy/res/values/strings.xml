@@ -51,6 +51,7 @@
     <string name="createwg_password2">Passwort (wiederholen)</string>
     <string name="createuser_password2">Passwort (wiederholen)</string>
     <string name="createuser_lostpwd">Passwort vergessen</string>
+    <string name="createuser_changePassword">Passwort ändern</string>
     <string name="shoppingRating">Wichtigkeit</string>
     <string name="shoppingDescription">Beschreibung</string>
     <string name="shoppingList_refresh">Aktualisieren</string>
