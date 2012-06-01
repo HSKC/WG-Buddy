@@ -10,4 +10,10 @@ public class User extends ObjectBase
 		phpPage = "user.php";
 		arrayName = "User";
 	}
+	
+	public void getNewKey(String email)
+	{
+		String url = settings.getString("pref_webserver", "") + "mail.php?lost=" + email;
+		JSON.postData(url);
+	}
 }
