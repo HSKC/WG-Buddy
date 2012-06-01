@@ -2,14 +2,8 @@ package de.htwg.lpn.wgbuddy.random;
 
 
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.HashMap;
-import java.util.Set;
 import java.util.SortedSet;
 import java.util.TreeMap;
-
-import de.htwg.lpn.model.User;
 
 
 
@@ -22,14 +16,14 @@ public class RandomUser {
 		return points / totalPoints;
 	}
 			
-	public String getRandomUser(ArrayList<HashMap<String, String>> userlist)
+	public String getRandomUser(TreeMap<Double, String> userlist)
 	{
-		TreeMap<Double, String> oMap = createTreeMap(userlist);
-		findRandomItem(oMap);
-		return oMap.firstEntry().getValue();
+		TreeMap<Double, String> randomTreeMap = createRandomTreeMap(userlist);
+		findRandomItem(randomTreeMap);
+		return randomTreeMap.firstEntry().getValue();
 	}
 	
-	private TreeMap<Double, String> createTreeMap(ArrayList<HashMap<String, String>> userlist) 
+	private TreeMap<Double, String> createRandomTreeMap(TreeMap<Double, String> userlist) 
 	{
 		totalPoints = calcTotalPoints(userlist);
 		TreeMap<Double, String> ret = new TreeMap<Double, String>();
@@ -38,43 +32,36 @@ public class RandomUser {
 		return ret;
 	}
 
-	private Double calcTotalPoints(ArrayList<HashMap<String, String>> userlist) 
+	private Double calcTotalPoints(TreeMap<Double, String> userlist) 
 	{
 		Double ret = 0.00;
-		for(int i = 0; i < userlist.size(); i++)
+		for(Double key : userlist.keySet())
 		{
-			ret += Double.valueOf(userlist.get(i).get("points")); 
+			ret += key; 
 		}
 		return ret;
 	}
 
-	private void fillMap(ArrayList<HashMap<String, String>> userlist, TreeMap<Double, String> ret) 
-	{	
-		TreeMap<Double, String> cache = new TreeMap<Double, String>();
-		for(int i = 0; i < userlist.size(); i++)
-		{
-			cache.put(Double.valueOf(userlist.get(i).get("points")), userlist.get(i).get("id"));
-		}
+	private void fillMap(TreeMap<Double, String> userlist, TreeMap<Double, String> ret) 
+	{			
+		SortedSet<Double> sortedKeys = (SortedSet<Double>) userlist.keySet();
+		Double prozent = getProzent(Double.valueOf(sortedKeys.toArray()[sortedKeys.size() - 1].toString()));
+		ret.put(prozent, userlist.get(Double.valueOf(sortedKeys.toArray()[sortedKeys.size() - 1].toString())));
 		
-		
-		SortedSet<Double> sortedKeys = (SortedSet<Double>) cache.keySet();
-		Double prozent = getProzent(Double.valueOf(sortedKeys.toArray()[0].toString()));
-		ret.put(prozent, cache.get(Double.valueOf(sortedKeys.toArray()[0].toString())));
-		for(int i = 1; i < cache.keySet().size(); i++)
+		for(int i = userlist.keySet().size() - 1; i > 0; i--)
 		{	
-			ret.put(getProzent(Double.valueOf(sortedKeys.toArray()[i].toString())) + prozent, cache.get(Double.valueOf(sortedKeys.toArray()[i].toString())));
+			ret.put(getProzent(Double.valueOf(sortedKeys.toArray()[i].toString())) + prozent, userlist.get(Double.valueOf(sortedKeys.toArray()[i].toString())));
 			prozent = getProzent(getProzent(Double.valueOf(sortedKeys.toArray()[i].toString())));
-			cache.remove(prozent);
+			userlist.remove(prozent);
 		}
 	}
 
-
-	private void findRandomItem(TreeMap<Double, String> oMap)
+	private void findRandomItem(TreeMap<Double, String> randomTreeMap)
 	{
-		oMap.remove(oMap.ceilingEntry(Math.random()).getKey());
-		if(oMap.size() > 1)
+		randomTreeMap.remove(randomTreeMap.ceilingEntry(Math.random()).getKey());
+		if(randomTreeMap.size() > 1)
 		{
-			findRandomItem(oMap);
+			findRandomItem(randomTreeMap);
 		}
 		else
 		{

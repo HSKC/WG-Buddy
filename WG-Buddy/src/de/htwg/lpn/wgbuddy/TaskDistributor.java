@@ -2,13 +2,19 @@ package de.htwg.lpn.wgbuddy;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Map.Entry;
 import java.util.Set;
+import java.util.TreeMap;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import de.htwg.lpn.model.User;
+import de.htwg.lpn.wgbuddy.random.RandomUser;
+
 import android.app.Activity;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -26,59 +32,79 @@ public class TaskDistributor extends Activity
 	
 	private ListView userList;
 	private Button start;
+	private SharedPreferences settings;
+	private User user;
+	private ArrayList<HashMap<String, String>> users;
 	
 	 @Override
-	    public void onCreate(Bundle savedInstanceState) 
-	    {
-	        super.onCreate(savedInstanceState);
-	        setContentView(R.layout.taskdistributor);
-	        
-	        userList = (ListView) findViewById(R.id.taskUserList);
-	        start = (Button) findViewById(R.id.taskGoButton);
-	        start.setOnClickListener(new OnClickListener() 
-	        {
+    public void onCreate(Bundle savedInstanceState) 
+    {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.taskdistributor);
+        settings = getSharedPreferences(WGBuddyActivity.PREFS_NAME, 0);
+        
+        userList = (ListView) findViewById(R.id.taskUserList);
+        start = (Button) findViewById(R.id.taskGoButton);
+        start.setOnClickListener(new OnClickListener() 
+        {
+			
+			@Override
+			public void onClick(View v) 
+			{
+				TreeMap<Double, String> checkedusers = new TreeMap<Double, String>();
 				
-				@Override
-				public void onClick(View v) 
+				ListView userList = (ListView) findViewById(R.id.taskUserList);
+				long checkedIDs[] = userList.getCheckItemIds();
+				
+				for(int i = 0; i < checkedIDs.length; i++)
 				{
-					ArrayList<String>checkedusers = new ArrayList<String>();
+					CheckBox cb = (CheckBox) findViewById((int)checkedIDs[i]);
+					String name = cb.getText().toString();
+					Double points = findUserPoints(name);
 					
-					ListView userList = (ListView) findViewById(R.id.taskUserList);
-
+					if(points != null)
+					{
+						checkedusers.put(points, name);
+					}
 				}
-			});
-	        
-	        ArrayList<HashMap<String, String>> users = JSONStuff.getMapListOfJsonArray( "http://wgbuddy.domoprojekt.de/sampleusers.json", "users");   
-	        
-	        SimpleAdapter sa = new SimpleAdapter(this, users,R.layout.taskdistributor_userentry, new String[] { "name"}, new int[] { R.id.task_userlistcheckbox});
-	        
-	        ViewBinder vb = new ViewBinder() 
-	        {
 				
-				@Override
-				public boolean setViewValue(View view, Object data, String textRepresentation) 
+				RandomUser randomUser = new RandomUser();
+				randomUser.getRandomUser(checkedusers);
+			}
+		});
+        
+        user = new User(settings); 
+        users = user.get("?wgId=" + settings.getString("wg_id", ""));
+   
+	        SimpleAdapter sa = new SimpleAdapter(this, users, R.layout.taskdistributor_userentry, new String[] { "name"}, new int[] { R.id.task_userlistcheckbox});
+        
+        ViewBinder vb = new ViewBinder() 
+        {
+			
+			@Override
+			public boolean setViewValue(View view, Object data, String textRepresentation) 
+			{
+				if(view.getId() == R.id.task_userlistcheckbox)
 				{
-					if(view.getId() == R.id.task_userlistcheckbox)
-					{
-						CheckBox cb = (CheckBox) view;
-						cb.setText(textRepresentation);
-						cb.setChecked(true);
-						return true;
-					}
-					else
-					{
-						return false;
-					}
+					CheckBox cb = (CheckBox) view;
+					cb.setText(textRepresentation);
+					cb.setChecked(true);
+					return true;
 				}
-			};
-			sa.setViewBinder(vb);
-	        
-			userList.setAdapter(sa);
-			
-			
-			
-			
-	        
+				else
+				{
+					return false;
+				}
+			}
+		};
+		sa.setViewBinder(vb);
+        
+		userList.setAdapter(sa);
+		
+		
+		
+		
+        
 //	        ArrayList<String> names = new ArrayList<String>();
 //	        
 //	        for (HashMap<String, String> hashMap : users) 
@@ -92,5 +118,18 @@ public class TaskDistributor extends Activity
 //	        
 //	        userList.setAdapter(adapter);
 //	        //TODO: Alle schon auswählen
-	    }
+    }
+
+	protected Double findUserPoints(String name) 
+	{
+		for(int i = 0; i < users.size(); i++)
+		{
+			if(users.get(i).get("name").compareTo(name) == 0)
+			{
+				return Double.valueOf(users.get(i).get("points"));
+			}
+		}
+		
+		return null;
+	}
 }
