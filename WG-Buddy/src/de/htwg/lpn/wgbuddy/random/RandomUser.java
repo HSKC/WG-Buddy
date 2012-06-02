@@ -16,13 +16,35 @@ public class RandomUser {
 		return points / totalPoints;
 	}
 			
-	public String getRandomUser(TreeMap<Double, String> userlist)
+	public String getRandomUser(TreeMap<String, Double> userlist)
 	{
-		TreeMap<Double, String> randomTreeMap = createRandomTreeMap(userlist);
+		//TODO key und value tauschen und bei gleicher punktzahl vorauswahltreffen
+		TreeMap<Double, String> randomTreeMap = createRandomTreeMap(createPreselectionMap(userlist));
 		findRandomItem(randomTreeMap);
 		return randomTreeMap.firstEntry().getValue();
 	}
 	
+	private TreeMap<Double, String> createPreselectionMap(TreeMap<String, Double> userlist) 
+	{
+		TreeMap<Double, String> ret = new TreeMap<Double, String>();
+		for(String key : userlist.keySet())
+		{
+			if(!ret.containsKey(userlist.get(key)))
+			{
+				ret.put(userlist.get(key), key);
+			}
+			else
+			{
+				if(Math.random() > 0.5)
+				{
+					ret.remove(userlist.get(key));
+					ret.put(userlist.get(key), key);
+				}
+			}
+		}
+		return ret;
+	}
+
 	private TreeMap<Double, String> createRandomTreeMap(TreeMap<Double, String> userlist) 
 	{
 		totalPoints = calcTotalPoints(userlist);
@@ -47,12 +69,13 @@ public class RandomUser {
 		SortedSet<Double> sortedKeys = (SortedSet<Double>) userlist.keySet();
 		Double prozent = getProzent(Double.valueOf(sortedKeys.toArray()[sortedKeys.size() - 1].toString()));
 		ret.put(prozent, userlist.get(Double.valueOf(sortedKeys.toArray()[sortedKeys.size() - 1].toString())));
+		userlist.remove(Double.valueOf(sortedKeys.toArray()[sortedKeys.size() - 1].toString()));
 		
-		for(int i = userlist.keySet().size() - 1; i > 0; i--)
+		for(int i = userlist.keySet().size() - 1; i >= 0; i--)
 		{	
 			ret.put(getProzent(Double.valueOf(sortedKeys.toArray()[i].toString())) + prozent, userlist.get(Double.valueOf(sortedKeys.toArray()[i].toString())));
-			prozent = getProzent(getProzent(Double.valueOf(sortedKeys.toArray()[i].toString())));
-			userlist.remove(prozent);
+			prozent += getProzent(Double.valueOf(sortedKeys.toArray()[i].toString()));
+			userlist.remove(Double.valueOf(sortedKeys.toArray()[sortedKeys.size() - 1].toString()));
 		}
 	}
 

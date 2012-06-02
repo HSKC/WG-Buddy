@@ -2,10 +2,13 @@ package de.htwg.lpn.wgbuddy;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map.Entry;
 import java.util.Set;
 import java.util.TreeMap;
 
+import org.apache.http.NameValuePair;
+import org.apache.http.message.BasicNameValuePair;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -14,6 +17,7 @@ import de.htwg.lpn.model.User;
 import de.htwg.lpn.wgbuddy.random.RandomUser;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
@@ -21,11 +25,13 @@ import android.view.View.OnClickListener;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.CheckBox;
+import android.widget.EditText;
 import android.widget.ListAdapter;
 import android.widget.ListView;
 import android.widget.RatingBar;
 import android.widget.SimpleAdapter;
 import android.widget.SimpleAdapter.ViewBinder;
+import android.widget.Toast;
 
 public class TaskDistributor extends Activity 
 {
@@ -50,13 +56,11 @@ public class TaskDistributor extends Activity
 			
 			@Override
 			public void onClick(View v) 
-			{
-				TreeMap<Double, String> checkedusers = new TreeMap<Double, String>();
-				
+			{				
 				ListView userList = (ListView) findViewById(R.id.taskUserList);
 				ListAdapter adapter = userList.getAdapter();				
 				Integer count = adapter.getCount();
-				HashMap<String, Double> checkedUser = new HashMap<String, Double>();
+				TreeMap<String, Double> checkedUser = new TreeMap<String, Double>();
 				
 				for(int i = 0; i < count; i++)
 				{
@@ -64,14 +68,24 @@ public class TaskDistributor extends Activity
 					CheckBox checkbox = (CheckBox) entry.findViewById(R.id.task_userlistcheckbox);
 					if(checkbox.isChecked())
 					{						
-						HashMap<String, String> userData = (HashMap<String, String>) adapter.getItem(0);
+						HashMap<String, String> userData = (HashMap<String, String>) adapter.getItem(i);
 						checkedUser.put(userData.get("username"), Double.valueOf(userData.get("points")));
 					}
 				}
 				
 				RandomUser randomUser = new RandomUser();
-				randomUser.getRandomUser(checkedusers);
+				
+				String chosenUser = randomUser.getRandomUser(checkedUser);
+				
+				sendMail(chosenUser);
+				
+				setNewUserPoints(findUserId(chosenUser));
+				
+				Toast.makeText(TaskDistributor.this, "User" + chosenUser + 
+						" wurde ausgewählt und benachrichtigt", Toast.LENGTH_SHORT).show();
 			}
+
+			
 		});
         
         user = new User(settings); 
@@ -104,7 +118,6 @@ public class TaskDistributor extends Activity
 		
 		
 		
-		
         
 //	        ArrayList<String> names = new ArrayList<String>();
 //	        
@@ -121,16 +134,48 @@ public class TaskDistributor extends Activity
 //	        //TODO: Alle schon auswählen
     }
 
-	protected Double findUserPoints(String name) 
+	protected String findUserId(String chosenUser) 
 	{
+		String id = "";
 		for(int i = 0; i < users.size(); i++)
 		{
-			if(users.get(i).get("username").compareTo(name) == 0)
+			if(users.get(i).get("username").compareTo(chosenUser) == 0)
 			{
-				return Double.valueOf(users.get(i).get("points"));
+				id = users.get(i).get("id");
 			}
 		}
+		return id;
+	}
+
+	protected void setNewUserPoints(String id) 
+	{
+		List<NameValuePair> nameValuePairs = new ArrayList<NameValuePair>();
+		RatingBar rating = (RatingBar) findViewById(R.id.taskRatingBar);
+		nameValuePairs.add(new BasicNameValuePair("points", Double.toString(rating.getRating())));
+		user.update(Integer.valueOf(id), nameValuePairs);
+	}
+
+	protected String findUserEmail(String chosenUser) 
+	{
+		String email = "";
+		for(int i = 0; i < users.size(); i++)
+		{
+			if(users.get(i).get("username").compareTo(chosenUser) == 0)
+			{
+				email = users.get(i).get("mail");
+			}
+		}
+		return email;
+	}
+	
+	private void sendMail(String chosenUser) {
+		Intent emailIntent = new Intent(Intent.ACTION_SENDTO);
+		EditText taskName = (EditText) findViewById(R.id.taskNameText);
 		
-		return null;
+		emailIntent.putExtra(android.content.Intent.EXTRA_EMAIL, findUserEmail(chosenUser));
+		emailIntent.putExtra(android.content.Intent.EXTRA_SUBJECT, "neue Aufgabe von WGBuddy");
+		emailIntent.putExtra(android.content.Intent.EXTRA_TEXT, "Du wurdes für die Aufgabe " + taskName.getText() + " ausgewählt");
+		emailIntent.setType("text/plain");
+		startActivity(Intent.createChooser(emailIntent, "verschicke Mail"));
 	}
 }
