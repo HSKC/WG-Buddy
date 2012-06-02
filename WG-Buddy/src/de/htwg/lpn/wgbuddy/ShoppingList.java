@@ -92,7 +92,7 @@ public class ShoppingList<T> extends Activity
         }
         
         
-        String url = settings.getString("pref_webserver", "") + "shopping.php?" + ((where != "")? where + "&" : "") + order + "&" + directionString;     
+        String url = settings.getString("pref_webserver", "") + "shopping.php?wgId=" + settings.getString("wg_id", "") + "&" + ((where != "")? where + "&" : "") + order + "&" + directionString;     
 
         
 		ArrayList<HashMap<String, String>> list = JSONStuff.getMapListOfJsonArray(url, "Item");
