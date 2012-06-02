@@ -54,7 +54,7 @@
         android:id="@+id/main_logoutButton"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:drawableLeft="@drawable/add"
+        android:drawableLeft="@drawable/logout"
         android:text="@string/main_logout"
         android:textSize="16sp" />
 
