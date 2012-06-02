@@ -81,6 +81,10 @@
         <item>Absteigend</item>
     </string-array>
         <string name="messenger_add">schreiben</string>
+        <string name="messengercreate_Title">Titel</string>
+        <string name="messengercreate_message">Nachricht</string>
+        <string name="messengercreate_send">abschicken</string>
+       	<string name="messenger_from">von</string>
     
 
 </resources>
