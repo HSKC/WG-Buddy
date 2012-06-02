@@ -23,6 +23,7 @@ public class WGBuddyActivity extends Activity
 	private Button taskdistributor;
 	private Button preferences;
 	private Button invite;
+	private Button messenger;
 	private Button logout;
 	private TextView heading;
 	
@@ -78,6 +79,7 @@ public class WGBuddyActivity extends Activity
         taskdistributor = (Button) findViewById(R.id.main_taskDistributorButton);
         preferences = (Button) findViewById(R.id.main_preferencesButton);
         invite = (Button) findViewById(R.id.main_addButton);
+        messenger = (Button) findViewById(R.id.main_messengerButton);
         logout = (Button) findViewById(R.id.main_logoutButton);
         
         heading = (TextView) findViewById(R.id.main_headingText);
@@ -121,6 +123,20 @@ public class WGBuddyActivity extends Activity
 				public void onClick(View v) 
 				{
 					Intent intent = new Intent(WGBuddyActivity.this,Preferences.class);
+					startActivity(intent);
+				}
+    		}
+        );
+        
+        messenger.setOnClickListener
+        (
+    		new OnClickListener() 
+    		{
+				
+				@Override
+				public void onClick(View v) 
+				{
+					Intent intent = new Intent(WGBuddyActivity.this,Messenger.class);
 					startActivity(intent);
 				}
     		}
