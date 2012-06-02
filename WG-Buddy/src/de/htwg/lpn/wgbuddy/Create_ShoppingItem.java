@@ -9,6 +9,7 @@ import org.apache.http.message.BasicNameValuePair;
 import de.htwg.lpn.model.JSON;
 import android.app.Activity;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -20,6 +21,8 @@ import android.widget.TimePicker;
 
 public class Create_ShoppingItem  extends Activity
 {
+	private SharedPreferences settings = null;
+	
 	private Button addButton;
 	private EditText nameEditText;
 	private EditText descriptionEditText;
@@ -32,6 +35,8 @@ public class Create_ShoppingItem  extends Activity
     {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.create_shoppingitem);
+        
+        settings = getSharedPreferences(WGBuddyActivity.PREFS_NAME, 0);
         
         addButton = (Button) findViewById(R.id.shoppingItemAddButton);
         nameEditText = (EditText) findViewById(R.id.ShoppingItemNameEditText);
@@ -49,8 +54,8 @@ public class Create_ShoppingItem  extends Activity
 				public void onClick(View v) 
 				{
 					List<NameValuePair> nameValuePairs = new ArrayList<NameValuePair>();
-			        nameValuePairs.add(new BasicNameValuePair("wgId", "2"));
-			        nameValuePairs.add(new BasicNameValuePair("userId", "2"));
+			        nameValuePairs.add(new BasicNameValuePair("wgId", settings.getString("wg_id", "")));
+			        nameValuePairs.add(new BasicNameValuePair("userId", "0"));
 			        nameValuePairs.add(new BasicNameValuePair("name", nameEditText.getText().toString()));
 			        nameValuePairs.add(new BasicNameValuePair("comment", descriptionEditText.getText().toString()));
 			        nameValuePairs.add(new BasicNameValuePair("rating", String.valueOf(ratingBar.getRating())));
