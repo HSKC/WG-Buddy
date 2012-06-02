@@ -92,10 +92,11 @@ public class ShoppingList<T> extends Activity
         }
         
         
-        String url = settings.getString("pref_webserver", "") + "shopping.php?wgId=" + settings.getString("wg_id", "") + "&" + ((where != "")? where + "&" : "") + order + "&" + directionString;     
+        String parameter = "?wgId=" + settings.getString("wg_id", "") + "&" + ((where != "")? where + "&" : "") + order + "&" + directionString;
 
-        
-		ArrayList<HashMap<String, String>> list = JSONStuff.getMapListOfJsonArray(url, "Item");
+        ShoppingItem si = new ShoppingItem(settings);
+        ArrayList<HashMap<String, String>> list = si.get(parameter);
+       
         SimpleAdapter sa = new SimpleAdapter(this, list, R.layout.shoppinglist_entry, new String[] { "id", "id", "name", "comment", "rating", "createdDate" }, new int[] { R.id.shoppingListEntryCompletedButton, R.id.shoppingListEntryDeleteButton, R.id.shoppingBigText, R.id.shoppingSmallText, R.id.ratingBar, R.id.createdDate});
         
         ViewBinder vb = new ViewBinder() 
