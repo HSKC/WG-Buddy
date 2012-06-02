@@ -54,17 +54,18 @@ public class TaskDistributor extends Activity
 				TreeMap<Double, String> checkedusers = new TreeMap<Double, String>();
 				
 				ListView userList = (ListView) findViewById(R.id.taskUserList);
-				long checkedIDs[] = userList.getCheckItemIds();
+				ListAdapter adapter = userList.getAdapter();				
+				Integer count = adapter.getCount();
+				HashMap<String, Double> checkedUser = new HashMap<String, Double>();
 				
-				for(int i = 0; i < checkedIDs.length; i++)
+				for(int i = 0; i < count; i++)
 				{
-					CheckBox cb = (CheckBox) findViewById((int)checkedIDs[i]);
-					String name = cb.getText().toString();
-					Double points = findUserPoints(name);
-					
-					if(points != null)
-					{
-						checkedusers.put(points, name);
+					View entry = userList.getChildAt(i);
+					CheckBox checkbox = (CheckBox) entry.findViewById(R.id.task_userlistcheckbox);
+					if(checkbox.isChecked())
+					{						
+						HashMap<String, String> userData = (HashMap<String, String>) adapter.getItem(0);
+						checkedUser.put(userData.get("username"), Double.valueOf(userData.get("points")));
 					}
 				}
 				
@@ -76,7 +77,7 @@ public class TaskDistributor extends Activity
         user = new User(settings); 
         users = user.get("?wgId=" + settings.getString("wg_id", ""));
    
-	        SimpleAdapter sa = new SimpleAdapter(this, users, R.layout.taskdistributor_userentry, new String[] { "name"}, new int[] { R.id.task_userlistcheckbox});
+	    SimpleAdapter sa = new SimpleAdapter(this, users, R.layout.taskdistributor_userentry, new String[] { "username"}, new int[] { R.id.task_userlistcheckbox});
         
         ViewBinder vb = new ViewBinder() 
         {
@@ -87,7 +88,7 @@ public class TaskDistributor extends Activity
 				if(view.getId() == R.id.task_userlistcheckbox)
 				{
 					CheckBox cb = (CheckBox) view;
-					cb.setText(textRepresentation);
+					cb.setText((CharSequence) data);
 					cb.setChecked(true);
 					return true;
 				}
@@ -124,7 +125,7 @@ public class TaskDistributor extends Activity
 	{
 		for(int i = 0; i < users.size(); i++)
 		{
-			if(users.get(i).get("name").compareTo(name) == 0)
+			if(users.get(i).get("username").compareTo(name) == 0)
 			{
 				return Double.valueOf(users.get(i).get("points"));
 			}

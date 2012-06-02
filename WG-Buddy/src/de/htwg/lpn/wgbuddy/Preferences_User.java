@@ -77,7 +77,13 @@ public class Preferences_User extends Activity
     				ArrayList<HashMap<String, String>> userList = user.get("?username=" + username + "&password=" + password);
     				if(userList.size() == 1)
     				{
-	        			SharedPreferences.Editor editor = settings.edit();
+	        			if(Integer.valueOf(userList.get(0).get("status")) == 0)
+	        			{
+//	        				getActivateAccountDialog();
+//	        				return;
+	        			}
+    					
+    					SharedPreferences.Editor editor = settings.edit();
 	        			
 	        			// User Eigenschaften speichern.
 	        			editor.putString("user_id", userList.get(0).get("id"));
@@ -134,7 +140,7 @@ public class Preferences_User extends Activity
 
 			private void getEditTextDialog() 
 			{
-				geLostPasswordDialog();
+				getLostPasswordDialog();
 			}
 			
 		});
@@ -148,7 +154,93 @@ public class Preferences_User extends Activity
 		});
     }
 	
-	private void geLostPasswordDialog() 
+	private void getActivateAccountDialog() 
+	{
+		AlertDialog.Builder builder = new AlertDialog.Builder(Preferences_User.this);
+		
+		final EditText editText = new EditText(Preferences_User.this);
+		editText.setTransformationMethod(SingleLineTransformationMethod.getInstance());
+		editText.setHint("Schlüssel");
+		
+		builder.setMessage("Der Account wurde noch nicht aktiviert. Bitte geben Sie den Schlüssel ein, welcher Ihnen per E-Mail zugeschickt wurde.");
+		builder.setCancelable(true);
+		builder.setView(editText);
+		builder.setPositiveButton("Account aktivieren", new DialogInterface.OnClickListener() 
+		{
+           public void onClick(DialogInterface dialog, int id) 
+           {
+        	   	String key = Utilities.md5(editText.getText().toString().trim());
+	        	   			
+   			if(key.length() <= 0)
+   			{
+   				Utilities.message(Preferences_User.this, "Bitte alle Felder ausfüllen.", "OK");	//TODO :string.xml
+   				return;
+   			}
+   			
+   			User user = new User(settings);
+   			ArrayList<HashMap<String, String>> userList = user.get("?changeKey=" + key);
+
+   			if(userList.size() <= 0)
+   			{
+   				Utilities.message(Preferences_User.this, "Schlüssel falsch.", "OK");	//TODO :string.xml
+   				return;
+   			}
+   			
+   			for(HashMap<String, String> userEntry : userList)
+   			{
+//   				Date changeTimestamp = null;
+//   				SimpleDateFormat sdfToDate = new SimpleDateFormat("yyyy.MM.dd HH:mm:ss");
+//   	            try 
+//   	            {
+//						changeTimestamp = sdfToDate.parse(userEntry.get("changeTimestamp"));
+//					} 
+//   	            catch (ParseException e) 
+//   	            {
+//						// TODO Auto-generated catch block
+//						e.printStackTrace();
+//					}
+//   				
+//   	            if(changeTimestamp == null)
+//   	            {
+//   	            	Utilities.message(Preferences_User.this, "Leider ist ein unerwarteter Fehler aufgetreten.", "OK");	//TODO :string.xml
+//       				return;
+//   	            }
+//   	            
+//       			Date now = new Date();
+//       			
+//       			Calendar calendar = new GregorianCalendar();
+//       			calendar.setTime(changeTimestamp);
+//
+//       			// Add 3 days
+//       			calendar.add(Calendar.DAY_OF_MONTH, 3);
+//       			
+//       			// Falls der Schlüssel älter als drei Tage ist.
+//       			if(calendar.getTime().getTime() < now.getTime())
+//       			{
+//       				Utilities.message(Preferences_User.this, "Kein gültiger Schlüssel. Möglicherweise ist dieser zu alt. Sie können jedoch einen neuen anfordern.", "OK");	//TODO :string.xml
+//       				return;
+//       			}
+   				List<NameValuePair> nameValuePairs = new ArrayList<NameValuePair>();
+    			nameValuePairs.add(new BasicNameValuePair("changeKey", ""));
+    			nameValuePairs.add(new BasicNameValuePair("changeTimestamp", ""));
+				user.update(Integer.valueOf(userEntry.get("id")), nameValuePairs);
+   				}
+       		}
+		});
+		builder.setNegativeButton("Abbrechen", new DialogInterface.OnClickListener() 
+		{
+			@Override
+			public void onClick(DialogInterface dialog, int which) 
+			{
+				dialog.cancel();
+			}
+		});
+		       
+		AlertDialog alert = builder.create();
+		alert.show();
+	}
+	
+	private void getLostPasswordDialog() 
 	{
 		AlertDialog.Builder builder = new AlertDialog.Builder(Preferences_User.this);
 		
@@ -156,7 +248,7 @@ public class Preferences_User extends Activity
 		editText.setTransformationMethod(SingleLineTransformationMethod.getInstance());
 		editText.setHint("E-Mail");
 		
-		builder.setMessage("Bitte gebe deine E-Mail Adresse ein. Ein zufällig generierter  Schlüssel wird dann an deine E-Mial Adresse geschickt.");
+		builder.setMessage("Bitte gebe deine E-Mail Adresse ein. Ein zufällig generierter  Schlüssel wird dann an deine E-Mail Adresse geschickt.");
 		builder.setCancelable(true);
 		builder.setView(editText);
 		builder.setPositiveButton("Schlüssel anfordern", new DialogInterface.OnClickListener() 
