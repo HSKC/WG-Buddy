@@ -151,8 +151,21 @@ public class TaskDistributor extends Activity
 	{
 		List<NameValuePair> nameValuePairs = new ArrayList<NameValuePair>();
 		RatingBar rating = (RatingBar) findViewById(R.id.taskRatingBar);
-		nameValuePairs.add(new BasicNameValuePair("points", Double.toString(rating.getRating())));
+		nameValuePairs.add(new BasicNameValuePair("points", Double.toString(rating.getRating() + findUserPoints(id))));
 		user.update(Integer.valueOf(id), nameValuePairs);
+	}
+
+	private Double findUserPoints(String id) 
+	{
+		Double points = 0.0;
+		for(int i = 0; i < users.size(); i++)
+		{
+			if(users.get(i).get("id").compareTo(id) == 0)
+			{
+				points = Double.valueOf(users.get(i).get("points"));
+			}
+		}
+		return points;
 	}
 
 	protected String findUserEmail(String chosenUser) 
