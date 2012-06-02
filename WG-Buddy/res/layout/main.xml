@@ -27,7 +27,7 @@
         android:text="@string/main_taskdistributor" />
 
     <Button
-        android:id="@+id/main_chatButton"
+        android:id="@+id/main_messengerButton"
         android:layout_width="match_parent"
         android:textSize="16sp"
         android:drawableLeft="@drawable/chat"

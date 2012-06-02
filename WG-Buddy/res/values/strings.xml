@@ -80,6 +80,7 @@
         <item>Aufsteigend</item>
         <item>Absteigend</item>
     </string-array>
+        <string name="messenger_add">schreiben</string>
     
 
 </resources>
