@@ -124,9 +124,9 @@ public class RandomUser {
 	 */
 	private void findRandomItem(TreeMap<Double, String> randomTreeMap)
 	{
-		randomTreeMap.remove(randomTreeMap.ceilingEntry(Math.random()).getKey());
 		if(randomTreeMap.size() > 1)
 		{
+			randomTreeMap.remove(randomTreeMap.ceilingEntry(Math.random()).getKey());
 			findRandomItem(randomTreeMap);
 		}
 		else
