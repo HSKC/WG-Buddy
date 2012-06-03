@@ -79,7 +79,7 @@ public class TaskDistributor extends Activity
 				
 				sendMail(chosenUser);
 				
-				setNewUserPoints(findUserId(chosenUser));
+				updatePoints(findUserId(chosenUser));
 				
 				Toast.makeText(TaskDistributor.this, "User" + chosenUser + 
 						" wurde ausgewählt und benachrichtigt", Toast.LENGTH_SHORT).show();
@@ -147,7 +147,7 @@ public class TaskDistributor extends Activity
 		return id;
 	}
 
-	protected void setNewUserPoints(String id) 
+	protected void updatePoints(String id) 
 	{
 		List<NameValuePair> nameValuePairs = new ArrayList<NameValuePair>();
 		RatingBar rating = (RatingBar) findViewById(R.id.taskRatingBar);
