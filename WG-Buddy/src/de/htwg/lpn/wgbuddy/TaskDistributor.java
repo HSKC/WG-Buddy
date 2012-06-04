@@ -14,7 +14,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import de.htwg.lpn.model.User;
-import de.htwg.lpn.wgbuddy.random.RandomUser;
+import de.htwg.lpn.wgbuddy.utility.RandomUser;
 
 import android.app.Activity;
 import android.content.Intent;

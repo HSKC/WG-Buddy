@@ -36,7 +36,7 @@
         <activity android:name=".Create_WG"></activity>
         
         <activity android:name="Messenger"></activity>
-        <activity android:name="Create_Message"></activity>
+        <activity android:name=".Create_Message"></activity>
         
       	
 

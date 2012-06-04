@@ -1,4 +1,4 @@
-package de.htwg.lpn.wgbuddy;
+package de.htwg.lpn.wgbuddy.utility;
 
 import java.io.BufferedReader;
 import java.io.InputStream;
@@ -17,6 +17,8 @@ import org.apache.http.impl.client.DefaultHttpClient;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+
+import de.htwg.lpn.wgbuddy.AsyncJsonCall;
 
 import android.util.Log;
 
