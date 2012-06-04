@@ -105,14 +105,14 @@ public class Messenger extends Activity
 					
 					Context context = getApplicationContext();
 					String[] colors = context.getResources().getStringArray(R.array.messengercolors_array);
-					//nameview.setTextColor(Color.parseColor(colors[users.get(name)]));
+					int color = Color.parseColor(colors[users.get(name)%colors.length]);
 					
 					View parent = (View) view.getParent();
 					parent = (View) parent.getParent();
 					parent = (View) parent.getParent();
 					
 					Drawable d = context.getResources().getDrawable(R.drawable.message_border);
-					d.setColorFilter(Color.parseColor(colors[users.get(name)]), Mode.MULTIPLY);
+					d.setColorFilter(color, Mode.MULTIPLY);
 					parent.setBackgroundDrawable(d);
 					return true;
 				}
