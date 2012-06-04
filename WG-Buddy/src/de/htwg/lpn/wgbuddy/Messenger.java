@@ -3,12 +3,20 @@ package de.htwg.lpn.wgbuddy;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.HashSet;
+import java.util.Map;
+import java.util.Set;
 
 import de.htwg.lpn.model.Message;
 import de.htwg.lpn.model.ShoppingItem;
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.Color;
+import android.graphics.PorterDuff.Mode;
+import android.graphics.drawable.Drawable;
+import android.graphics.drawable.ShapeDrawable;
 import android.os.Bundle;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -61,12 +69,19 @@ public class Messenger extends Activity
        
         SimpleAdapter sa = new SimpleAdapter(this, list, R.layout.messenger_entry, new String[] { "title","userName","message","createdDate" }, new int[] { R.id.messenger_titleText,R.id.messenger_userText,R.id.messenger_messageText,R.id.messenger_timeText});
         
+        final Map<String,Integer> users = new HashMap<String,Integer>();
+        
+       
+        
         ViewBinder vb = new ViewBinder() 
         {
 			
+        	
+        	
 			@Override
 			public boolean setViewValue(View view, Object data, String textRepresentation) 
 			{
+				
 				if(view.getId() == R.id.messenger_timeText)
 				{
 					String datum = (String) data;
@@ -82,6 +97,23 @@ public class Messenger extends Activity
 					String name = (String) data;
 					TextView nameview = (TextView) view;
 					nameview.setText(getResources().getString(R.string.messenger_from) +" "+name);
+					
+					if(! users.containsKey(name))
+					{
+						users.put(name, users.size());
+					}
+					
+					Context context = getApplicationContext();
+					String[] colors = context.getResources().getStringArray(R.array.messengercolors_array);
+					//nameview.setTextColor(Color.parseColor(colors[users.get(name)]));
+					
+					View parent = (View) view.getParent();
+					parent = (View) parent.getParent();
+					parent = (View) parent.getParent();
+					
+					Drawable d = context.getResources().getDrawable(R.drawable.message_border);
+					d.setColorFilter(Color.parseColor(colors[users.get(name)]), Mode.MULTIPLY);
+					parent.setBackgroundDrawable(d);
 					return true;
 				}
 				else
