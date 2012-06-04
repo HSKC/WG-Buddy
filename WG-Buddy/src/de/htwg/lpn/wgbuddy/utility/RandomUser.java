@@ -1,4 +1,4 @@
-package de.htwg.lpn.wgbuddy.random;
+package de.htwg.lpn.wgbuddy.utility;
 
 
 
