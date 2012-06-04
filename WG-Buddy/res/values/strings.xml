@@ -86,5 +86,16 @@
         <string name="messengercreate_send">abschicken</string>
        	<string name="messenger_from">von</string>
     
+    <string-array name="messengercolors_array">
+        <item>#0000ff</item> <!-- Blue -->
+        <item>#00ff00</item> <!-- Green -->
+        <item>#ff00ff</item> <!-- Magenta -->
+        <item>#ff0000</item> <!-- Red -->
+        <item>#ffff00</item> <!-- Yellow -->
+        <item>#00ffff</item> 
+        <item>#888888</item>
+        <item>#cccccc</item>
+        <item>#444444</item>
+    </string-array>
 
 </resources>
