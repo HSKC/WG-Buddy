@@ -87,11 +87,18 @@
        	<string name="messenger_from">von</string>
     
     <string-array name="messengercolors_array">
-        <item>#0000ff</item> <!-- Blue -->
-        <item>#00ff00</item> <!-- Green -->
-        <item>#ff00ff</item> <!-- Magenta -->
+        <item>#ffff99</item> <!-- Pastelgelb -->
+        <item>#99CCff</item> <!-- Pastelblau -->
+        <item>#99ff99</item> <!-- Pastelgrün -->
+        <item>#cc99ff</item> <!-- Pastellila -->
+        
+        
         <item>#ff0000</item> <!-- Red -->
         <item>#ffff00</item> <!-- Yellow -->
+        <item>#0000ff</item> <!-- Blue -->
+        <item>#0D9100</item> <!-- Green -->
+        <item>#ff00ff</item> <!-- Magenta -->
+       
         <item>#00ffff</item> 
         <item>#888888</item>
         <item>#cccccc</item>
