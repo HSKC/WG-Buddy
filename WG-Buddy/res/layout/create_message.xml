@@ -10,12 +10,13 @@
         android:layout_height="wrap_content"
         android:text="@string/messengercreate_Title"
         android:textAppearance="?android:attr/textAppearanceMedium" />
-
+
     <EditText
         android:id="@+id/messagecreate_titleEdit"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:ems="10" >
+        android:ems="10" 
+        android:maxLength="22">
 
         <requestFocus />
     </EditText>
