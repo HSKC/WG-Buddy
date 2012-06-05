@@ -5,6 +5,8 @@ import java.util.HashMap;
 import java.util.List;
 import org.apache.http.NameValuePair;
 
+import de.htwg.lpn.wgbuddy.utility.JSON;
+
 import android.content.SharedPreferences;
 
 public class ObjectBase
