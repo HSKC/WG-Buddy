@@ -6,6 +6,7 @@ import java.util.HashMap;
 import de.htwg.lpn.model.User;
 import de.htwg.lpn.model.WG;
 import android.app.Activity;
+import android.app.PendingIntent;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -28,6 +29,8 @@ public class WGBuddyActivity extends Activity
 	private TextView heading;
 	
 	private SharedPreferences settings;
+	
+
 	
     @Override
     public void onCreate(Bundle savedInstanceState) 
@@ -170,5 +173,11 @@ public class WGBuddyActivity extends Activity
 				}
     		}
 		);   
+        
+        //Registrieren bei Google und Registrierungsid anfordern
+		Intent intent = new Intent("com.google.android.c2dm.intent.REGISTER");
+		intent.putExtra("app",PendingIntent.getBroadcast(this, 0, new Intent(), 0));
+		intent.putExtra("sender", "wgbuddy@domoprojekt.de");
+		startService(intent);
     }
 }
