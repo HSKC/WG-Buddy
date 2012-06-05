@@ -23,19 +23,21 @@
 	            android:layout_height="wrap_content"
 	            android:gravity="left"
 	            android:textColor="#000000"
-	            android:text="Title"
 	            android:textAppearance="?android:attr/textAppearanceMedium" />
 		    
 			<TextView
 			    android:id="@+id/messenger_userText"
 			    android:layout_width="wrap_content"
 			    android:layout_height="wrap_content"
-			    android:text="User"
 			    android:textColor="#000000"
 			    android:textAppearance="?android:attr/textAppearanceMedium" />
 			
+			
+			
 		</LinearLayout>
 
+	    
+	    
 	    <TextView
 	        android:id="@+id/messenger_timeText"
 	        android:layout_width="wrap_content"
@@ -43,12 +45,13 @@
 	        android:layout_alignParentRight="true"
 	        android:gravity="right"
 	        android:textColor="#000000"
-	        android:text="Time \n Date"
 	        android:textAppearance="?android:attr/textAppearanceMedium" />
 
     </RelativeLayout>
 
-
+				<View  android:layout_width="fill_parent"
+ 				android:layout_height="1dip"
+	 			android:background="#29000000" />/>
 
 
         <TextView
