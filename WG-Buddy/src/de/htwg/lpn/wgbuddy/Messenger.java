@@ -71,12 +71,8 @@ public class Messenger extends Activity
         
         final Map<String,Integer> users = new HashMap<String,Integer>();
         
-       
-        
         ViewBinder vb = new ViewBinder() 
         {
-			
-        	
         	
 			@Override
 			public boolean setViewValue(View view, Object data, String textRepresentation) 
@@ -84,6 +80,7 @@ public class Messenger extends Activity
 				
 				if(view.getId() == R.id.messenger_timeText)
 				{
+					//Change Dateformat
 					String datum = (String) data;
 					String time = datum.split(" ")[1];
 					datum = datum.split(" ")[0];
@@ -94,25 +91,32 @@ public class Messenger extends Activity
 				}
 				if(view.getId() == R.id.messenger_userText)
 				{
+					//set "by" before Name
 					String name = (String) data;
 					TextView nameview = (TextView) view;
 					nameview.setText(getResources().getString(R.string.messenger_from) +" "+name);
 					
+					//Add User to map
 					if(! users.containsKey(name))
 					{
 						users.put(name, users.size());
 					}
 					
+					//Get Color for index of User. so everyone gets a different color
 					Context context = getApplicationContext();
 					String[] colors = context.getResources().getStringArray(R.array.messengercolors_array);
 					int color = Color.parseColor(colors[users.get(name)%colors.length]);
 					
+					//Get the whole Messagebox
 					View parent = (View) view.getParent();
 					parent = (View) parent.getParent();
 					parent = (View) parent.getParent();
 					
+					//Get the white Shape out of the XML File an add a Colofilter with the Color
 					Drawable d = context.getResources().getDrawable(R.drawable.message_border);
 					d.setColorFilter(color, Mode.MULTIPLY);
+					
+					//set the Shape as Background
 					parent.setBackgroundDrawable(d);
 					return true;
 				}
