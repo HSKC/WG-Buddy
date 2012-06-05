@@ -1,4 +1,4 @@
-package de.htwg.lpn.model;
+package de.htwg.lpn.wgbuddy.utility;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -22,7 +22,6 @@ import org.json.JSONObject;
 
 import android.util.Log;
 import de.htwg.lpn.wgbuddy.AsyncJsonCall;
-import de.htwg.lpn.wgbuddy.utility.JSONStuff;
 
 public class JSON 
 {

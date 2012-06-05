@@ -6,7 +6,7 @@ import java.util.List;
 import org.apache.http.NameValuePair;
 import org.apache.http.message.BasicNameValuePair;
 
-import de.htwg.lpn.model.JSON;
+import de.htwg.lpn.wgbuddy.utility.JSON;
 import android.app.Activity;
 import android.content.Intent;
 import android.content.SharedPreferences;
