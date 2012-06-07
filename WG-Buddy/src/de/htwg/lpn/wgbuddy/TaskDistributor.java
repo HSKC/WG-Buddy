@@ -189,6 +189,6 @@ public class TaskDistributor extends Activity
 		emailIntent.putExtra(android.content.Intent.EXTRA_SUBJECT, "neue Aufgabe von WGBuddy");
 		emailIntent.putExtra(android.content.Intent.EXTRA_TEXT, "Du wurdes für die Aufgabe " + taskName.getText() + " ausgewählt");
 		emailIntent.setType("text/plain");
-		startActivity(Intent.createChooser(emailIntent, "verschicke Mail"));
+		startActivity(Intent.createChooser(emailIntent, "verschicke E-Mail"));
 	}
 }
