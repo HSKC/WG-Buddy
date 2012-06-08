@@ -18,13 +18,15 @@ public class TaskDistributorTest extends ActivityInstrumentationTestCase2<TaskDi
 		super("de.htwg.lpn.wgbuddy.TaskDistributor", TaskDistributor.class);
 	}
 
-	public void setUp() throws Exception {
+	public void setUp() throws Exception 
+	{
 		 mActivity = this.getActivity();
 		 tUserList = (ListView) mActivity.findViewById(R.id.taskUserList);
 		 tStart = (Button) mActivity.findViewById(R.id.taskGoButton);
 	}
 
-	public void test() {
+	public void testPreconditions() 
+	{
 		assertNotNull(tUserList);
 		assertNotNull(tStart);
 	}
