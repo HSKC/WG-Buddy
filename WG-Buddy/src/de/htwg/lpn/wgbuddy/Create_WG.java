@@ -9,6 +9,7 @@ import org.apache.http.message.BasicNameValuePair;
 import de.htwg.lpn.model.User;
 import de.htwg.lpn.model.Utilities;
 import de.htwg.lpn.model.WG;
+import de.htwg.lpn.wgbuddy.utility.Store;
 import android.app.Activity;
 import android.content.Intent;
 import android.content.SharedPreferences;
