@@ -37,6 +37,9 @@
         
         <activity android:name="Messenger"></activity>
         <activity android:name=".Create_Message"></activity>
+        <activity android:name=".Create_Task"></activity>
+        <activity android:name="UserTaskList"></activity>
+        <activity android:name="UserTaskCompleteEntry"></activity>
         
       	
 
