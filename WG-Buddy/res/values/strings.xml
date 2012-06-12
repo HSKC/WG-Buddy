@@ -23,7 +23,7 @@
     <string name="shopping_ItemAdd">Hinzufügen</string>
     <string name="shopping_ItemName">Name</string>
     <string name="taskdistributor_name">Name</string>
-    <string name="taskdistributor_go">Los</string>
+    <string name="taskdistributor_go">neue Aufgabe</string>
     <string name="taskdistributor_user1">User1</string>
     <string name="taskdistributor_user2">User2</string>
     <string name="taskdistributor_user3">User3</string>
@@ -104,5 +104,20 @@
         <item>#cccccc</item>
         <item>#444444</item>
     </string-array>
+    <string name="taskdistributor_myTasks">meine Aufgaben</string>
+    <string name="userTaskCleared">erledigt</string>
+    <string name="userTaskName">Aufgabe</string>
+    <string name="userTaskComment">Kommentar</string>
+    <string name="usertTaskRating">Punkte</string>
+    <string name="userTaskDeadline">Deadline</string>
+    <string name="userTaskgo">Los</string>
+    <string name="usertask_entryShowTask">Aufgabe anzeigen</string>
+    <string name="usertask_completeentryName">Aufgabe</string>
+    <string name="usertask_completeentrycomment">Kommentar</string>
+    <string name="usertsack_completeentrypoints">Punkte</string>
+    <string name="usertask_completeentrycreatedate">Ertellungsdatum</string>
+    <string name="usertask_completeentrydeadline">Deadline</string>
+    <string name="usertask_completeentrycleard">erledigt</string>
+    <string name="usertask_completeentrysend">Abschicken</string>
 
 </resources>

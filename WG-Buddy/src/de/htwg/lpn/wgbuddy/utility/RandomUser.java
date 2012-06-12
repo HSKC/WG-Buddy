@@ -10,6 +10,19 @@ import java.util.TreeMap;
 public class RandomUser {
 	
 	private Double totalPoints;
+	private TreeMap<String, Double> userlist;
+	private static RandomUser instance = null;
+	
+	private RandomUser(){}
+	
+	public static RandomUser getInstance()
+	{
+		if(instance == null)
+		{
+			instance = new RandomUser();
+		}
+		return instance;
+	}
 	
 	/**
 	 * berechnet wieviel prozent von der gesamtpunktzahl ein User hat
@@ -28,7 +41,7 @@ public class RandomUser {
 	 * @param userlist
 	 * @return
 	 */
-	public String getRandomUser(TreeMap<String, Double> userlist)
+	public String getRandomUser()
 	{
 		TreeMap<Double, String> randomTreeMap = createRandomTreeMap(createPreselectionMap(userlist));
 		findRandomItem(randomTreeMap);
@@ -133,5 +146,19 @@ public class RandomUser {
 		{
 			return;
 		}
+	}
+
+	/**
+	 * @return the userlist
+	 */
+	public TreeMap<String, Double> getUserlist() {
+		return userlist;
+	}
+
+	/**
+	 * @param userlist the userlist to set
+	 */
+	public void setUserlist(TreeMap<String, Double> userlist) {
+		this.userlist = userlist;
 	}
 }
