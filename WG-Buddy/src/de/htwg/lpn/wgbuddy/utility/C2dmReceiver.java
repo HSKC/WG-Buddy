@@ -1,20 +1,30 @@
 package de.htwg.lpn.wgbuddy.utility;
 
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
+
+import org.apache.http.NameValuePair;
+import org.apache.http.message.BasicNameValuePair;
+
+import de.htwg.lpn.model.User;
+import de.htwg.lpn.wgbuddy.WGBuddyActivity;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
 import android.util.Log;
 
 public class C2dmReceiver  extends BroadcastReceiver 
 {
 	private static String KEY = "c2dmPref";
-	private static String REGISTRATION_KEY = "registrationKey";
 	private Context context;
 	
 	@Override
 	public void onReceive(Context context, Intent intent) 
 	{
+		System.out.println("Received Async Message");
 	    this.context = context;
 		if (intent.getAction().equals("com.google.android.c2dm.intent.REGISTRATION")) 
 		{
@@ -68,11 +78,20 @@ public class C2dmReceiver  extends BroadcastReceiver
 	    else if (registration != null) 
 	    {
 	    	Log.d("c2dm", registration);	
-	    	Editor editor =context.getSharedPreferences(KEY, Context.MODE_PRIVATE).edit();
-	        editor.putString(REGISTRATION_KEY, registration);
+	    	Editor editor =context.getSharedPreferences(WGBuddyActivity.PREFS_NAME, 0).edit();
+	        editor.putString("registrationKey", registration);
+	        editor.putLong("registrationKeydate", new Date().getTime());
 			editor.commit();
-
-			//Hier PHP Skript aufrufen das die registrationid in der Db zum User speichert
+			
+			SharedPreferences settings = context.getApplicationContext().getSharedPreferences(WGBuddyActivity.PREFS_NAME, 0);
+			
+			User user = new User(settings);
+			List<NameValuePair> nameValuePairs = new ArrayList<NameValuePair>();
+			nameValuePairs.add(new BasicNameValuePair("android_key", registration));
+			
+			user.update(Integer.parseInt(settings.getString("user_id", "0")), nameValuePairs);
+			
+			//JSON.postData("http://wgbuddy.domoprojekt.de/googleService.php?deviceRegistrationId=" + registration);
 	    }
 	}
 	

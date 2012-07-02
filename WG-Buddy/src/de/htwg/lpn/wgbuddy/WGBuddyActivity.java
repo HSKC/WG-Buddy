@@ -1,6 +1,7 @@
 package de.htwg.lpn.wgbuddy;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 
 import de.htwg.lpn.model.User;
@@ -10,6 +11,7 @@ import android.app.PendingIntent;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.os.StrictMode;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
@@ -36,6 +38,9 @@ public class WGBuddyActivity extends Activity
     public void onCreate(Bundle savedInstanceState) 
     {
         super.onCreate(savedInstanceState);        
+        
+        StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
+        StrictMode.setThreadPolicy(policy); 
         
         settings = getSharedPreferences(PREFS_NAME, 0);
         SharedPreferences.Editor editor = settings.edit();
@@ -73,7 +78,28 @@ public class WGBuddyActivity extends Activity
         	editor.putString("wg_name", wgList.get(0).get("name"));
         	editor.putString("wg_password", wgList.get(0).get("password"));
         	editor.commit();
+        	
+	    	
         }
+        
+    	if(((! settings.contains("registrationKey")) && (! settings.contains("registrationKeydate"))) 
+    			||
+    				(settings.contains("registrationKeydate") 
+    						&& 
+    				(new Date(settings.getLong("registrationKeydate", 0)+86400000).getTime() < new Date().getTime())))
+    	{ 
+  	        //Registrieren bei Google und Registrierungsid anfordern
+  			Intent intent = new Intent("com.google.android.c2dm.intent.REGISTER");
+  			intent.putExtra("app",PendingIntent.getBroadcast(this, 0, new Intent(), 0));
+  			intent.putExtra("sender", "wgbuddy2012@googlemail.com");
+  			System.out.println("sended");
+  			getApplicationContext().startService(intent);
+    	}
+    	else
+    	{	
+          	System.out.println(settings.getString("registrationKey", ""));
+          	
+    	}
         	
     	//Applikation schon initialisiert. Lade Einstellungen
     	setContentView(R.layout.main);
@@ -174,10 +200,6 @@ public class WGBuddyActivity extends Activity
     		}
 		);   
         
-        //Registrieren bei Google und Registrierungsid anfordern
-		Intent intent = new Intent("com.google.android.c2dm.intent.REGISTER");
-		intent.putExtra("app",PendingIntent.getBroadcast(this, 0, new Intent(), 0));
-		intent.putExtra("sender", "wgbuddy@domoprojekt.de");
-		startService(intent);
+      
     }
 }
