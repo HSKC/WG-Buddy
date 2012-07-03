@@ -35,6 +35,7 @@ public class Create_WG extends Activity
     	setContentView(R.layout.create_wg);
     	
     	settings = getSharedPreferences(WGBuddyActivity.PREFS_NAME, 0);
+        Utilities.checkByPass(this, settings);
     	
     	nameTextView = (TextView) findViewById(R.id.create_wg_nameEdit);
     	passwordTextView = (TextView) findViewById(R.id.create_wg_passwordEdit);

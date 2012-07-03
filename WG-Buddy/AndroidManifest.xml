@@ -24,8 +24,8 @@
        
         
         <activity android:name=".Preferences"></activity>
-        <activity android:name=".Preferences_WG"></activity>
-        <activity android:name=".Preferences_User"></activity>
+        <activity android:name=".Login_WG"></activity>
+        <activity android:name=".Login_User"></activity>
         <activity android:name=".Preferences_Admin"></activity>
         
         <activity android:name=".TaskDistributor"></activity>

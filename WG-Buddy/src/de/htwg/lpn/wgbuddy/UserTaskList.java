@@ -24,6 +24,7 @@ import android.widget.SimpleAdapter.ViewBinder;
 import android.widget.TextView;
 import de.htwg.lpn.model.ShoppingItem;
 import de.htwg.lpn.model.Task;
+import de.htwg.lpn.model.Utilities;
 
 public class UserTaskList extends Activity 
 {
@@ -37,6 +38,10 @@ public class UserTaskList extends Activity
 	 {
 		 super.onCreate(savedInstanceState);
 	     setContentView(R.layout.usertasklist);
+	     
+	     settings = getSharedPreferences(WGBuddyActivity.PREFS_NAME, 0);
+         Utilities.checkByPass(this, settings);
+	     
 	     init();
 	     
 	     createList();

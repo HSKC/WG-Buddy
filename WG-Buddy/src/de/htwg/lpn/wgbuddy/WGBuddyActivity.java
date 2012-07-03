@@ -49,7 +49,7 @@ public class WGBuddyActivity extends Activity
         if(!settings.contains("user_id") || !settings.contains("user_name") || !settings.contains("user_email") || !settings.contains("user_password"))
         {
         	//Applikation das erste mal gestartet oder nicht Konfiguriert. Preferences aufrufen
-        	Intent intent = new Intent(WGBuddyActivity.this,Preferences_User.class);
+        	Intent intent = new Intent(WGBuddyActivity.this,Login_User.class);
 			startActivity(intent);
 			return;        	
         }
@@ -60,7 +60,7 @@ public class WGBuddyActivity extends Activity
         // Keiner WG zugewiesen
         if(userList.get(0).get("wgId").equals("0"))
         {
-        	Intent intent = new Intent(WGBuddyActivity.this,Preferences_WG.class);
+        	Intent intent = new Intent(WGBuddyActivity.this,Login_WG.class);
 			startActivity(intent);
 			return;  
         }
