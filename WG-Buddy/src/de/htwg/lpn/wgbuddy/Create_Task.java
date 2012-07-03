@@ -103,7 +103,6 @@ public class Create_Task extends Activity
 		nameValuePairs.add(new BasicNameValuePair("name", name.getText().toString()));
 		nameValuePairs.add(new BasicNameValuePair("comment", comment.getText().toString()));
 		nameValuePairs.add(new BasicNameValuePair("points", new Double(points.getRating()).toString()));
-		nameValuePairs.add(new BasicNameValuePair("createdDate", myDateFormat.format(new Date())));
 		nameValuePairs.add(new BasicNameValuePair("deadline", deadlineString));
 		nameValuePairs.add(new BasicNameValuePair("voteDeadline", ""));
 		nameValuePairs.add(new BasicNameValuePair("status", "0"));
