@@ -29,6 +29,8 @@ public class JSON
 	{
 	    HttpClient httpclient = new DefaultHttpClient();
 	    HttpPost httppost = new HttpPost(url);
+	    
+        System.out.println(url);
 
 	    try 
 	    {       
@@ -53,6 +55,7 @@ public class JSON
 	    {       
 	        httppost.setEntity(new UrlEncodedFormEntity(nameValuePairs));
 	        httpclient.execute(httppost);
+
 	        
 	    } 
 	    catch (ClientProtocolException e) 
@@ -72,7 +75,7 @@ public class JSON
 	{
 		ArrayList<HashMap<String, String>> mylist = new ArrayList<HashMap<String, String>>();
 		
-		JSONObject json = JSONStuff.getJSONfromURL(url);
+		JSONObject json = getJSONfromURL(url);
 		if(json != null)
 		{
 			
