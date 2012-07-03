@@ -8,6 +8,7 @@ import org.apache.http.NameValuePair;
 import org.apache.http.message.BasicNameValuePair;
 
 import de.htwg.lpn.model.ShoppingItem;
+import de.htwg.lpn.model.Utilities;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.Context;
@@ -130,7 +131,7 @@ public class ShoppingList<T> extends Activity
 									
 							si.update(id, nameValuePairs);
 							
-							refreshButton.performClick();
+							loadList();
 						}
 					});
 					return true;
@@ -150,7 +151,7 @@ public class ShoppingList<T> extends Activity
 							Integer id = (Integer) v.getTag();
 							si.delete(id);
 							
-							refreshButton.performClick();
+							loadList();
 						}
 					});
 					return true;
@@ -173,6 +174,7 @@ public class ShoppingList<T> extends Activity
         setContentView(R.layout.shoppinglist);
         
         settings = getSharedPreferences(WGBuddyActivity.PREFS_NAME, 0);
+        Utilities.checkByPass(this, settings);
         
         shoppingList = (ListView) findViewById(R.id.shoppinglist);
         addButton = (Button) findViewById(R.id.shoppinglistAddButton);

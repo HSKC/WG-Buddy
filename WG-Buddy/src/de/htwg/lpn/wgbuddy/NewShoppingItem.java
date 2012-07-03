@@ -7,6 +7,8 @@ import org.apache.http.NameValuePair;
 import org.apache.http.message.BasicNameValuePair;
 
 import de.htwg.lpn.model.ShoppingItem;
+import de.htwg.lpn.model.Utilities;
+import de.htwg.lpn.wgbuddy.utility.JSON;
 import android.app.Activity;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -36,6 +38,7 @@ public class NewShoppingItem  extends Activity
         setContentView(R.layout.shopping_item);
         
         settings = getSharedPreferences(WGBuddyActivity.PREFS_NAME, 0);
+        Utilities.checkByPass(this, settings);
         
         addButton = (Button) findViewById(R.id.shoppingItemAddButton);
         nameEditText = (EditText) findViewById(R.id.ShoppingItemNameEditText);
@@ -63,7 +66,16 @@ public class NewShoppingItem  extends Activity
 			        nameValuePairs.add(new BasicNameValuePair("deadline", date));
 			        
 			        ShoppingItem si = new ShoppingItem(settings);
-					si.insert(nameValuePairs);				
+					si.insert(nameValuePairs);			
+					
+			        List<NameValuePair> nameValuePairs2 = new ArrayList<NameValuePair>();
+			        nameValuePairs2.add(new BasicNameValuePair("wgId", settings.getString("wg_id", "")));
+			        nameValuePairs2.add(new BasicNameValuePair("msgType", "collapsed"));
+			        nameValuePairs2.add(new BasicNameValuePair("messageText", "ShoppingItem"));
+					
+					String message = "http://wgbuddy.domoprojekt.de/googleService.php"; 
+					
+					JSON.postData(message,nameValuePairs2);
 					
 					Intent intent = new Intent(NewShoppingItem.this, ShoppingList.class);
 					startActivity(intent);

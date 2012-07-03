@@ -10,6 +10,7 @@ import org.apache.http.message.BasicNameValuePair;
 import de.htwg.lpn.model.ObjectBase;
 import de.htwg.lpn.model.Task;
 import de.htwg.lpn.model.User;
+import de.htwg.lpn.model.Utilities;
 import android.app.Activity;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -40,6 +41,9 @@ public class UserTaskCompleteEntry extends Activity
 	 {
 		 super.onCreate(savedInstanceState);
 		 setContentView(R.layout.usertask_completeentry);
+		 
+		 settings = getSharedPreferences(WGBuddyActivity.PREFS_NAME, 0);
+        Utilities.checkByPass(this, settings);
 		 
 		 init();
 		  

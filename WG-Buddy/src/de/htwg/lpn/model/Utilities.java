@@ -2,11 +2,19 @@ package de.htwg.lpn.model;
 
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.regex.Pattern;
+
+import de.htwg.lpn.wgbuddy.Login_User;
+import de.htwg.lpn.wgbuddy.Login_WG;
+import de.htwg.lpn.wgbuddy.WGBuddyActivity;
 
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.Intent;
+import android.content.SharedPreferences;
 
 public class Utilities 
 {
@@ -78,5 +86,17 @@ public class Utilities
 		       
 		AlertDialog alert = builder.create();
 		alert.show();
+	}
+	
+	public static void checkByPass(Context context, SharedPreferences settings)
+	{
+		// Nicht eingeloggt.
+        if(!settings.contains("user_id") || !settings.contains("user_name") || !settings.contains("user_email") || !settings.contains("user_password") || !settings.contains("wg_id") || !settings.contains("wg_name") || !settings.contains("wg_password"))
+        {
+        	// Umleiten
+        	Intent intent = new Intent(context, Login_User.class);
+			context.startActivity(intent);
+			return;        	
+        }	
 	}
 }
