@@ -47,7 +47,7 @@ public class Preferences_WG extends Activity
 				public void onClick(View v) 
 				{
 					String name = nameTextView.getText().toString().trim();
-    				String password = Utilities.md5(passwordTextView.getText().toString().trim());
+    				String password = passwordTextView.getText().toString().trim();
         			
         			if(name.length() <= 0 && password.length() <= 0)
         			{
