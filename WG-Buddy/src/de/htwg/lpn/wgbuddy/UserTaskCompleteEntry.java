@@ -40,28 +40,15 @@ public class UserTaskCompleteEntry extends Activity
 	 {
 		 super.onCreate(savedInstanceState);
 		 setContentView(R.layout.usertask_completeentry);
-		 settings = getSharedPreferences(WGBuddyActivity.PREFS_NAME, 0);
-		 name = (EditText) findViewById(R.id.usertask_completeentrynametext);
-		 comment = (EditText) findViewById(R.id.usertask_completeentrycommenttext);
-		 createdDate = (EditText) findViewById(R.id.usertask_completeentrycreatedatetext);
-		 deadline = (EditText) findViewById(R.id.usertask_completeentrydeadlinetext);
-		 ratingBar = (RatingBar) findViewById(R.id.usertask_copleteentryratingBar);
-		 checkBox = (CheckBox) findViewById(R.id.usertask_completeentryclearedcheckBox);
 		 
-		 name.setText((CharSequence) getIntent().getExtras().getString("name"));
-		 comment.setText((CharSequence) getIntent().getExtras().getString("comment"));
-		 createdDate.setText((CharSequence) getIntent().getExtras().getString("createdDate"));
-		 deadline.setText((CharSequence) getIntent().getExtras().getString("deadline"));
-		 ratingBar.setRating((Double.valueOf(getIntent().getExtras().getString("points")).floatValue()));
-		 checkBox.setChecked((getIntent().getExtras().getString("status").compareTo("1") == 0) ? true : false); 
-		 
-		 user = new User(settings);
-		 users = user.get("?wgId=" + settings.getString("wg_id", ""));
-		 
-		 task = new Task(settings); 
-	     tasks = task.get("?wgId=" + settings.getString("wg_id", "") + "&userId=" + settings.getString("user_id", ""));
+		 init();
 		  
-		 if(checkBox.isChecked())
+		 isChecked();	 
+	}
+
+	private void isChecked() 
+	{
+		if(checkBox.isChecked())
 		 {
 			 checkBox.setEnabled(false);
 		 }
@@ -79,20 +66,50 @@ public class UserTaskCompleteEntry extends Activity
 						{
 							if(tasks.get(i).get("name").compareTo(name.getText().toString()) == 0)
 							{
-								List<NameValuePair> nameValuePairs = new ArrayList<NameValuePair>();
-								nameValuePairs.add(new BasicNameValuePair("status", "1"));
-								task.update(Integer.valueOf(tasks.get(i).get("id")), nameValuePairs);
-								updatePoints(tasks.get(i).get("userId"));
-								Intent intent = new Intent(UserTaskCompleteEntry.this, UserTaskList.class);
-								startActivity(intent);
+								updateTask(i);
 							}
 						}
 					}
 					
 				}
+
+				
 			});
 		 }
+	}
+
+	private void updateTask(int i)
+	{
+		List<NameValuePair> nameValuePairs = new ArrayList<NameValuePair>();
+		nameValuePairs.add(new BasicNameValuePair("status", "1"));
+		task.update(Integer.valueOf(tasks.get(i).get("id")), nameValuePairs);
+		updatePoints(tasks.get(i).get("userId"));
+		Intent intent = new Intent(UserTaskCompleteEntry.this, UserTaskList.class);
+		startActivity(intent);
+	}
+	
+	private void init() 
+	{
+		settings = getSharedPreferences(WGBuddyActivity.PREFS_NAME, 0);
+		name = (EditText) findViewById(R.id.usertask_completeentrynametext);
+		comment = (EditText) findViewById(R.id.usertask_completeentrycommenttext);
+		createdDate = (EditText) findViewById(R.id.usertask_completeentrycreatedatetext);
+		deadline = (EditText) findViewById(R.id.usertask_completeentrydeadlinetext);
+		ratingBar = (RatingBar) findViewById(R.id.usertask_copleteentryratingBar);
+		checkBox = (CheckBox) findViewById(R.id.usertask_completeentryclearedcheckBox);
 		 
+		name.setText((CharSequence) getIntent().getExtras().getString("name"));
+		comment.setText((CharSequence) getIntent().getExtras().getString("comment"));
+		createdDate.setText((CharSequence) getIntent().getExtras().getString("createdDate"));
+		deadline.setText((CharSequence) getIntent().getExtras().getString("deadline"));
+		ratingBar.setRating((Double.valueOf(getIntent().getExtras().getString("points")).floatValue()));
+		checkBox.setChecked((getIntent().getExtras().getString("status").compareTo("1") == 0) ? true : false); 
+		 
+		user = new User(settings);
+		users = user.get("?wgId=" + settings.getString("wg_id", ""));
+		 
+		task = new Task(settings); 
+	    tasks = task.get("?wgId=" + settings.getString("wg_id", "") + "&userId=" + settings.getString("user_id", ""));
 	}
 	
 	protected void updatePoints(String id) 
