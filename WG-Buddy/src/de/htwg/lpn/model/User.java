@@ -18,6 +18,12 @@ public class User extends ObjectBase
 		JSON.postData(url);
 	}
 	
+	public void sendInvite(String email)
+	{
+		String url = settings.getString("pref_webserver", "") + "mail.php?invite=" + email + "&username=" + settings.getString("user_name", "") + "&wg=" + settings.getString("wg_name", "") + "&pw=" + settings.getString("wg_password", "");
+		JSON.postData(url);
+	}
+	
 	public void sendTask(String id)
 	{
 		String url = settings.getString("pref_webserver", "") + "mail.php?task=" + id;

@@ -37,6 +37,7 @@ public class Create_User extends Activity
     	setContentView(R.layout.create_user);
     	
     	settings = getSharedPreferences(WGBuddyActivity.PREFS_NAME, 0);
+        Utilities.checkByPass(this, settings);
     	
     	usernameTextView = (TextView) findViewById(R.id.create_user_usernameEdit);
     	emailTextView = (TextView) findViewById(R.id.create_user_emailEdit);

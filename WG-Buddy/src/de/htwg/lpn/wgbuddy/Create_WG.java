@@ -35,6 +35,7 @@ public class Create_WG extends Activity
     	setContentView(R.layout.create_wg);
     	
     	settings = getSharedPreferences(WGBuddyActivity.PREFS_NAME, 0);
+        Utilities.checkByPass(this, settings);
     	
     	nameTextView = (TextView) findViewById(R.id.create_wg_nameEdit);
     	passwordTextView = (TextView) findViewById(R.id.create_wg_passwordEdit);
@@ -49,8 +50,8 @@ public class Create_WG extends Activity
 			public void onClick(View v) 
 			{
 				String name = nameTextView.getText().toString().trim();
-				String password = Utilities.md5(passwordTextView.getText().toString().trim());
-				String password2 = Utilities.md5(password2TextView.getText().toString().trim());
+				String password = passwordTextView.getText().toString().trim();
+				String password2 = password2TextView.getText().toString().trim();
 				
 				if(name.length() == 0 || password.length() == 0 || password2.length() == 0)
     			{

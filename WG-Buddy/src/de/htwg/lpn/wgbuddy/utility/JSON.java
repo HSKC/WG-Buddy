@@ -27,10 +27,12 @@ public class JSON
 {
 	public static void postData(String url) 
 	{
+		
+		
 	    HttpClient httpclient = new DefaultHttpClient();
 	    HttpPost httppost = new HttpPost(url);
 	    
-        System.out.println(url);
+       
 
 	    try 
 	    {       
@@ -48,6 +50,8 @@ public class JSON
 	
 	public static String postData(String url, List<NameValuePair> nameValuePairs) 
 	{
+		System.out.println(url);
+		
 	    HttpClient httpclient = new DefaultHttpClient();
 	    HttpPost httppost = new HttpPost(url);
 
@@ -60,11 +64,11 @@ public class JSON
 	    } 
 	    catch (ClientProtocolException e) 
 	    {
-	        // TODO Auto-generated catch block
+	        e.printStackTrace();
 	    } 
 	    catch (IOException e) 
 	    {
-	        // TODO Auto-generated catch block
+	    	e.printStackTrace();
 	    }
 	    
 	    return "Fehler";

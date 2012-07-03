@@ -9,6 +9,7 @@ import java.util.Set;
 
 import de.htwg.lpn.model.Message;
 import de.htwg.lpn.model.ShoppingItem;
+import de.htwg.lpn.model.Utilities;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
@@ -37,6 +38,9 @@ public class Messenger extends Activity
     {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.messenger);
+        
+        settings = getSharedPreferences(WGBuddyActivity.PREFS_NAME, 0);
+        Utilities.checkByPass(this, settings);
         
         messageList = (ListView) findViewById(R.id.messengerList);
         addButton = (Button) findViewById(R.id.messenger_add);

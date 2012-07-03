@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical" >
+
+    <TextView
+        android:id="@+id/wgpref_nameText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/preferences_wgidentificationtext" />
+    <EditText
+        android:id="@+id/wgpref_nameEdit"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:maxLength="20"
+        android:inputType="textNoSuggestions"
+        android:hint="@string/preferences_wgidentificationtext" />
+
+    <TextView
+        android:id="@+id/wgpref_passwordText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/preferences_wgpassword" />
+    <EditText
+        android:id="@+id/wgpref_passwordEdit"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:hint="@string/preferences_wgpassword"
+        android:inputType="textPassword" >
+        <requestFocus android:layout_width="match_parent" />
+
+    </EditText>
+
+    <Button
+        android:id="@+id/wgpref_connectButton"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/preferences_connect" />
+
+    <Button
+        android:id="@+id/wgpref_createButton"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/preferences_createNewWG" />
+
+</LinearLayout>

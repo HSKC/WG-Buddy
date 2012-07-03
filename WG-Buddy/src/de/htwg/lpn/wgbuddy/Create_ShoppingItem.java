@@ -6,6 +6,8 @@ import java.util.List;
 import org.apache.http.NameValuePair;
 import org.apache.http.message.BasicNameValuePair;
 
+import de.htwg.lpn.model.ShoppingItem;
+import de.htwg.lpn.model.Utilities;
 import de.htwg.lpn.wgbuddy.utility.JSON;
 import android.app.Activity;
 import android.content.Intent;
@@ -37,6 +39,8 @@ public class Create_ShoppingItem  extends Activity
         setContentView(R.layout.create_shoppingitem);
         
         settings = getSharedPreferences(WGBuddyActivity.PREFS_NAME, 0);
+        Utilities.checkByPass(this, settings);
+        
         
         addButton = (Button) findViewById(R.id.shoppingItemAddButton);
         nameEditText = (EditText) findViewById(R.id.ShoppingItemNameEditText);
@@ -62,11 +66,10 @@ public class Create_ShoppingItem  extends Activity
 			        
 			        String date = String.valueOf(deadlineDatePicker.getYear()) + "-" + String.valueOf(deadlineDatePicker.getMonth() + 1).toString() + "-" + String.valueOf(deadlineDatePicker.getDayOfMonth()) + " " + deadlineTimePicker.getCurrentHour().toString() + ":" + deadlineTimePicker.getCurrentMinute().toString() + ":00";
 			        nameValuePairs.add(new BasicNameValuePair("deadline", date));			        
-			        nameValuePairs.add(new BasicNameValuePair("status", "-1"));
-					
-			        String url = "http://wgbuddy.domoprojekt.de/shopping.php?insert";
-			        
-					JSON.postData(url, nameValuePairs);	
+			        nameValuePairs.add(new BasicNameValuePair("status", "-1"));					
+		        
+					ShoppingItem shopping = new ShoppingItem(settings);
+					shopping.insert(nameValuePairs);	
 					
 					String message = "http://wgbuddy.domoprojekt.de/?wgId=" + settings.getString("wg_id", "") + "&" + "msgType=collapsed" + "&" + "messageText=ShoppingItem";
 					

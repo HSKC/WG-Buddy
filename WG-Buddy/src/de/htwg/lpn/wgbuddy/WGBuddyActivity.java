@@ -7,14 +7,24 @@ import java.util.HashMap;
 import de.htwg.lpn.model.User;
 import de.htwg.lpn.model.WG;
 import android.app.Activity;
+
 import android.app.PendingIntent;
+
+import android.app.AlertDialog;
+import android.content.DialogInterface;
+
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+
 import android.os.StrictMode;
+
+import android.text.method.SingleLineTransformationMethod;
+
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.TextView;
 
 public class WGBuddyActivity extends Activity 
@@ -53,7 +63,7 @@ public class WGBuddyActivity extends Activity
         if(!settings.contains("user_id") || !settings.contains("user_name") || !settings.contains("user_email") || !settings.contains("user_password"))
         {
         	//Applikation das erste mal gestartet oder nicht Konfiguriert. Preferences aufrufen
-        	Intent intent = new Intent(WGBuddyActivity.this,Preferences_User.class);
+        	Intent intent = new Intent(WGBuddyActivity.this,Login_User.class);
 			startActivity(intent);
 			return;        	
         }
@@ -64,7 +74,7 @@ public class WGBuddyActivity extends Activity
         // Keiner WG zugewiesen
         if(userList.get(0).get("wgId").equals("0"))
         {
-        	Intent intent = new Intent(WGBuddyActivity.this,Preferences_WG.class);
+        	Intent intent = new Intent(WGBuddyActivity.this,Login_WG.class);
 			startActivity(intent);
 			return;  
         }
@@ -179,7 +189,35 @@ public class WGBuddyActivity extends Activity
 				@Override
 				public void onClick(View v) 
 				{
-					// TODO Auto-generated method stub				
+					AlertDialog.Builder builder = new AlertDialog.Builder(WGBuddyActivity.this);
+					
+					final EditText editText = new EditText(WGBuddyActivity.this);
+					editText.setTransformationMethod(SingleLineTransformationMethod.getInstance());
+					editText.setHint("E-Mail");
+					
+					builder.setMessage("Bitte gebe die E-Mail Adresse ein um eine Person einzuladen.");
+					builder.setCancelable(true);
+					builder.setView(editText);
+					builder.setPositiveButton("Einladen", new DialogInterface.OnClickListener() 
+					{
+			           public void onClick(DialogInterface dialog, int id) 
+			           {
+			        	   User user = new User(settings);
+			        	   user.sendInvite(editText.getText().toString());
+			        	   
+			           }
+					});
+					builder.setNegativeButton("Abbrechen", new DialogInterface.OnClickListener() 
+					{
+						@Override
+						public void onClick(DialogInterface dialog, int which) 
+						{
+							dialog.cancel();
+						}
+					});
+					       
+					AlertDialog alert = builder.create();
+					alert.show();
 				}
     		}
 		);

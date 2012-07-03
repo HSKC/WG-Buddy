@@ -1,7 +1,9 @@
 package de.htwg.lpn.wgbuddy;
 
+import de.htwg.lpn.model.Utilities;
 import android.app.Activity;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -12,12 +14,16 @@ public class Preferences extends Activity
 	private Button user;
 	private Button wg;
 	private Button admin;
+	private SharedPreferences settings;
 	
 	 @Override
 	    public void onCreate(Bundle savedInstanceState) 
 	    {
 	    	super.onCreate(savedInstanceState);
 	    	setContentView(R.layout.preferences);
+	    	
+	    	settings = getSharedPreferences(WGBuddyActivity.PREFS_NAME, 0);
+	        Utilities.checkByPass(this, settings);
 	    	
 	    	user = (Button) findViewById(R.id.mainpref_userButton);
 	    	wg = (Button) findViewById(R.id.mainpref_wgButton);
@@ -29,7 +35,7 @@ public class Preferences extends Activity
 				@Override
 				public void onClick(View v) 
 				{
-					Intent intent = new Intent(Preferences.this,Preferences_User.class);
+					Intent intent = new Intent(Preferences.this,Login_User.class);
 					startActivity(intent);
 				}
 			});
@@ -40,7 +46,7 @@ public class Preferences extends Activity
 				@Override
 				public void onClick(View v) 
 				{
-					Intent intent = new Intent(Preferences.this,Preferences_WG.class);
+					Intent intent = new Intent(Preferences.this,Login_WG.class);
 					startActivity(intent);
 				}
 			});
