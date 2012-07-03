@@ -46,7 +46,39 @@ public class Create_Task extends Activity
     {
 		super.onCreate(savedInstanceState);
 	    setContentView(R.layout.create_task);
-	    settings = getSharedPreferences(WGBuddyActivity.PREFS_NAME, 0);
+	    
+	    init();
+        
+        clickOnStartButton();
+    }
+
+	private void clickOnStartButton() 
+	{
+		start.setOnClickListener(new OnClickListener() 
+        {
+        	@Override
+			public void onClick(View v) 
+			{				
+				RandomUser randomUser = RandomUser.getInstance();
+				
+				String chosenUserName = randomUser.getRandomUser();
+				
+				Toast.makeText(Create_Task.this, "User" + chosenUserName + 
+						" wurde ausgewählt und benachrichtigt", Toast.LENGTH_SHORT).show();
+				
+				createNewTask(chosenUserName);
+				
+				Intent intent = new Intent(Create_Task.this, TaskDistributor.class);
+				startActivity(intent);
+	        }
+
+			
+        });
+	}
+
+	private void init() 
+	{
+		settings = getSharedPreferences(WGBuddyActivity.PREFS_NAME, 0);
 	    name = (TextView) findViewById(R.id.taskNameText);
 	    comment = (TextView) findViewById(R.id.userTaskComment);
 	    deadline = (DatePicker) findViewById(R.id.userTaskDatePicker);
@@ -57,41 +89,34 @@ public class Create_Task extends Activity
 		
 		user = new User(settings); 
         users = user.get("?wgId=" + settings.getString("wg_id", ""));
-        
-        start.setOnClickListener(new OnClickListener() 
-        {
-        	@Override
-			public void onClick(View v) 
-			{				
-				RandomUser randomUser = RandomUser.getInstance();
-				
-				String chosenUserName = randomUser.getRandomUser();
-				
-				sendMail(chosenUserName);
-				
-				Toast.makeText(Create_Task.this, "User" + chosenUserName + 
-						" wurde ausgewählt und benachrichtigt", Toast.LENGTH_SHORT).show();
-				
-				SimpleDateFormat myDateFormat = new SimpleDateFormat("dd.MM.yyyy");
-				String deadlineString = new Integer(deadline.getDayOfMonth()).toString() + "." + new Integer(deadline.getMonth()) + "." + new Integer(deadline.getYear());
-				
-				List<NameValuePair> nameValuePairs = new ArrayList<NameValuePair>();
-				nameValuePairs.add(new BasicNameValuePair("wgId", settings.getString("wg_id", "")));
-				nameValuePairs.add(new BasicNameValuePair("userId", findUserId(chosenUserName)));
-				nameValuePairs.add(new BasicNameValuePair("name", name.getText().toString()));
-				nameValuePairs.add(new BasicNameValuePair("comment", comment.getText().toString()));
-				nameValuePairs.add(new BasicNameValuePair("points", new Double(points.getRating()).toString()));
-				nameValuePairs.add(new BasicNameValuePair("createdDate", myDateFormat.format(new Date())));
-				nameValuePairs.add(new BasicNameValuePair("deadline", deadlineString));
-				nameValuePairs.add(new BasicNameValuePair("voteDeadline", ""));
-				nameValuePairs.add(new BasicNameValuePair("status", "0"));
-				task.insert(nameValuePairs);
-				
-				Intent intent = new Intent(Create_Task.this, TaskDistributor.class);
-				startActivity(intent);
-	        }
-        });
-    }
+	}
+	
+	private void createNewTask(String chosenUserName) 
+	{
+		SimpleDateFormat myDateFormat = new SimpleDateFormat("dd.MM.yyyy");
+		String deadlineString = new Integer(deadline.getDayOfMonth()).toString() + "." + new Integer(deadline.getMonth()) + "." + new Integer(deadline.getYear());
+		String userId = findUserId(chosenUserName);
+		
+		List<NameValuePair> nameValuePairs = new ArrayList<NameValuePair>();
+		nameValuePairs.add(new BasicNameValuePair("wgId", settings.getString("wg_id", "")));
+		nameValuePairs.add(new BasicNameValuePair("userId", userId));
+		nameValuePairs.add(new BasicNameValuePair("name", name.getText().toString()));
+		nameValuePairs.add(new BasicNameValuePair("comment", comment.getText().toString()));
+		nameValuePairs.add(new BasicNameValuePair("points", new Double(points.getRating()).toString()));
+		nameValuePairs.add(new BasicNameValuePair("deadline", deadlineString));
+		nameValuePairs.add(new BasicNameValuePair("voteDeadline", ""));
+		nameValuePairs.add(new BasicNameValuePair("status", "0"));
+		task.insert(nameValuePairs);
+		
+		ArrayList<HashMap<String, String>> tasks = task.get("?wgId=" + settings.getString("wg_id", "") + "&userId=" + userId);
+		
+		sendMail(tasks);
+	}
+
+	private void sendMail(ArrayList<HashMap<String, String>> tasks) 
+	{
+		user.sendTask(tasks.get(0).get("id"));
+	}
 	
 	protected String findUserId(String chosenUserName) 
 	{
@@ -105,14 +130,14 @@ public class Create_Task extends Activity
 		return chosenUser.get(0).get("email");
 	}
 	
-	private void sendMail(String chosenUser) {
-		Intent emailIntent = new Intent(Intent.ACTION_SENDTO);
-		EditText taskName = (EditText) findViewById(R.id.taskNameText);
-		
-		emailIntent.putExtra(android.content.Intent.EXTRA_EMAIL, findUserEmail(chosenUser));
-		emailIntent.putExtra(android.content.Intent.EXTRA_SUBJECT, "neue Aufgabe von WGBuddy");
-		emailIntent.putExtra(android.content.Intent.EXTRA_TEXT, "Du wurdes für die Aufgabe " + taskName.getText() + " ausgewählt");
-		emailIntent.setType("text/plain");
-		startActivity(Intent.createChooser(emailIntent, "verschicke E-Mail"));
-	}
+//	private void sendMail(String chosenUser) {
+//		Intent emailIntent = new Intent(Intent.ACTION_SENDTO);
+//		EditText taskName = (EditText) findViewById(R.id.taskNameText);
+//		
+//		emailIntent.putExtra(android.content.Intent.EXTRA_EMAIL, findUserEmail(chosenUser));
+//		emailIntent.putExtra(android.content.Intent.EXTRA_SUBJECT, "neue Aufgabe von WGBuddy");
+//		emailIntent.putExtra(android.content.Intent.EXTRA_TEXT, "Du wurdes für die Aufgabe " + taskName.getText() + " ausgewählt");
+//		emailIntent.setType("text/plain");
+//		startActivity(Intent.createChooser(emailIntent, "verschicke E-Mail"));
+//	}
 }
