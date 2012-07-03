@@ -28,4 +28,6 @@
     <string name="manage_adminuser3">User3</string>
     <string name="manage_adminDelete">Löschen</string>
     <string name="shoppingList_refresh">Aktualisieren</string>
+    <string name="taskdistributor_myTasks">meine Aufgaben</string>
+    <string name="userTaskCleared">erledigt</string>
 </resources>

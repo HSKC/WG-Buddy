@@ -41,57 +41,38 @@ public class TaskDistributor extends Activity
 	private SharedPreferences settings;
 	private User user;
 	private ArrayList<HashMap<String, String>> users;
+	private Button taskListButton;
 	
 	 @Override
     public void onCreate(Bundle savedInstanceState) 
     {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.taskdistributor);
-        settings = getSharedPreferences(WGBuddyActivity.PREFS_NAME, 0);
         
-        userList = (ListView) findViewById(R.id.taskUserList);
-        start = (Button) findViewById(R.id.taskGoButton);
-        start.setOnClickListener(new OnClickListener() 
-        {
-			
-			@Override
-			public void onClick(View v) 
-			{				
-				ListView userList = (ListView) findViewById(R.id.taskUserList);
-				ListAdapter adapter = userList.getAdapter();				
-				Integer count = adapter.getCount();
-				TreeMap<String, Double> checkedUser = new TreeMap<String, Double>();
-				
-				for(int i = 0; i < count; i++)
-				{
-					View entry = userList.getChildAt(i);
-					CheckBox checkbox = (CheckBox) entry.findViewById(R.id.task_userlistcheckbox);
-					if(checkbox.isChecked())
-					{						
-						HashMap<String, String> userData = (HashMap<String, String>) adapter.getItem(i);
-						checkedUser.put(userData.get("username"), Double.valueOf(userData.get("points")));
-					}
-				}
-				
-				RandomUser randomUser = new RandomUser();
-				
-				String chosenUser = randomUser.getRandomUser(checkedUser);
-				
-				sendMail(chosenUser);
-				
-				updatePoints(findUserId(chosenUser));
-				
-				Toast.makeText(TaskDistributor.this, "User" + chosenUser + 
-						" wurde ausgewählt und benachrichtigt", Toast.LENGTH_SHORT).show();
-			}
-
-			
-		});
+        init();
         
-        user = new User(settings); 
-        users = user.get("?wgId=" + settings.getString("wg_id", ""));
+        clickOnStartButton();
    
-	    SimpleAdapter sa = new SimpleAdapter(this, users, R.layout.taskdistributor_userentry, new String[] { "username"}, new int[] { R.id.task_userlistcheckbox});
+	    createList();
+		
+//	        ArrayList<String> names = new ArrayList<String>();
+//	        
+//	        for (HashMap<String, String> hashMap : users) 
+//	        {
+//	        	names.add(hashMap.get("name"));
+//			}
+//	        
+//	        userList = (ListView) findViewById(R.id.taskUserList);
+//	        
+//	        ListAdapter adapter = new ArrayAdapter<String>(getApplicationContext(),android.R.layout.select_dialog_multichoice,names);
+//	        
+//	        userList.setAdapter(adapter);
+//	        //TODO: Alle schon auswählen
+    }
+
+	private void createList() 
+	{
+		SimpleAdapter sa = new SimpleAdapter(this, users, R.layout.taskdistributor_userentry, new String[] { "username"}, new int[] { R.id.task_userlistcheckbox});
         
         ViewBinder vb = new ViewBinder() 
         {
@@ -116,79 +97,62 @@ public class TaskDistributor extends Activity
         
 		userList.setAdapter(sa);
 		
-		
-		
+		taskListButton = (Button) findViewById(R.id.myTaskButton);
+		taskListButton.setOnClickListener(new OnClickListener() {
+
+			@Override
+			public void onClick(View arg0)
+			{
+				Intent intent = new Intent(TaskDistributor.this, UserTaskList.class);
+				startActivity(intent);				
+			}
+			
+		});
+	}
+
+	private void clickOnStartButton() 
+	{
+		start.setOnClickListener(new OnClickListener() 
+        {
+			
+			@Override
+			public void onClick(View v) 
+			{			
+				ListAdapter adapter = userList.getAdapter();				
+				Integer count = adapter.getCount();
+				TreeMap<String, Double> checkedUser = new TreeMap<String, Double>();
+				
+				for(int i = 0; i < count; i++)
+				{
+					View entry = userList.getChildAt(i);
+					CheckBox checkbox = (CheckBox) entry.findViewById(R.id.task_userlistcheckbox);
+					if(checkbox.isChecked())
+					{						
+						HashMap<String, String> userData = (HashMap<String, String>) adapter.getItem(i);
+						checkedUser.put(userData.get("username"), Double.valueOf(userData.get("points")));
+					}
+				}
+				
+				RandomUser rand = RandomUser.getInstance();
+				rand.setUserlist(checkedUser);
+				
+				Intent intent = new Intent(TaskDistributor.this, Create_Task.class);
+				startActivity(intent);				
+			}
+
+			
+		});
+	}
+
+	private void init() 
+	{
+		settings = getSharedPreferences(WGBuddyActivity.PREFS_NAME, 0);
         
-//	        ArrayList<String> names = new ArrayList<String>();
-//	        
-//	        for (HashMap<String, String> hashMap : users) 
-//	        {
-//	        	names.add(hashMap.get("name"));
-//			}
-//	        
-//	        userList = (ListView) findViewById(R.id.taskUserList);
-//	        
-//	        ListAdapter adapter = new ArrayAdapter<String>(getApplicationContext(),android.R.layout.select_dialog_multichoice,names);
-//	        
-//	        userList.setAdapter(adapter);
-//	        //TODO: Alle schon auswählen
-    }
-
-	protected String findUserId(String chosenUser) 
-	{
-		String id = "";
-		for(int i = 0; i < users.size(); i++)
-		{
-			if(users.get(i).get("username").compareTo(chosenUser) == 0)
-			{
-				id = users.get(i).get("id");
-			}
-		}
-		return id;
+        userList = (ListView) findViewById(R.id.taskUserList);
+        start = (Button) findViewById(R.id.taskGoButton);
+        user = new User(settings); 
+        users = user.get("?wgId=" + settings.getString("wg_id", ""));
 	}
-
-	protected void updatePoints(String id) 
-	{
-		List<NameValuePair> nameValuePairs = new ArrayList<NameValuePair>();
-		RatingBar rating = (RatingBar) findViewById(R.id.taskRatingBar);
-		nameValuePairs.add(new BasicNameValuePair("points", Double.toString(rating.getRating() + findUserPoints(id))));
-		user.update(Integer.valueOf(id), nameValuePairs);
-	}
-
-	private Double findUserPoints(String id) 
-	{
-		Double points = 0.0;
-		for(int i = 0; i < users.size(); i++)
-		{
-			if(users.get(i).get("id").compareTo(id) == 0)
-			{
-				points = Double.valueOf(users.get(i).get("points"));
-			}
-		}
-		return points;
-	}
-
-	protected String findUserEmail(String chosenUser) 
-	{
-		String email = "";
-		for(int i = 0; i < users.size(); i++)
-		{
-			if(users.get(i).get("username").compareTo(chosenUser) == 0)
-			{
-				email = users.get(i).get("mail");
-			}
-		}
-		return email;
-	}
+	 
 	
-	private void sendMail(String chosenUser) {
-		Intent emailIntent = new Intent(Intent.ACTION_SENDTO);
-		EditText taskName = (EditText) findViewById(R.id.taskNameText);
-		
-		emailIntent.putExtra(android.content.Intent.EXTRA_EMAIL, findUserEmail(chosenUser));
-		emailIntent.putExtra(android.content.Intent.EXTRA_SUBJECT, "neue Aufgabe von WGBuddy");
-		emailIntent.putExtra(android.content.Intent.EXTRA_TEXT, "Du wurdes für die Aufgabe " + taskName.getText() + " ausgewählt");
-		emailIntent.setType("text/plain");
-		startActivity(Intent.createChooser(emailIntent, "verschicke Mail"));
-	}
 }
