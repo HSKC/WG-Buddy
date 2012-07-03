@@ -18,6 +18,7 @@
 
 	<!-- Send the registration id to the server -->
 	<uses-permission android:name="android.permission.INTERNET" />
+	<uses-permission android:name="android.permission.GET_TASKS"/>
     
     
     

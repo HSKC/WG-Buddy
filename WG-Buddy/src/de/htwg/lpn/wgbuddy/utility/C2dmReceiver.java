@@ -8,7 +8,9 @@ import org.apache.http.NameValuePair;
 import org.apache.http.message.BasicNameValuePair;
 
 import de.htwg.lpn.model.User;
+import de.htwg.lpn.wgbuddy.ShoppingList;
 import de.htwg.lpn.wgbuddy.WGBuddyActivity;
+import android.app.ActivityManager;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
@@ -90,14 +92,23 @@ public class C2dmReceiver  extends BroadcastReceiver
 			nameValuePairs.add(new BasicNameValuePair("android_key", registration));
 			
 			user.update(Integer.parseInt(settings.getString("user_id", "0")), nameValuePairs);
-			
-			//JSON.postData("http://wgbuddy.domoprojekt.de/googleService.php?deviceRegistrationId=" + registration);
+		    
 	    }
 	}
 	
 	private void handleMessage(Context context, Intent intent)
 	{
-		//Message verarbeiten
+        ActivityManager mActivityManager = (ActivityManager) context.getSystemService(Context.ACTIVITY_SERVICE);
+        List<ActivityManager.RunningTaskInfo> RunningTask = mActivityManager.getRunningTasks(1);
+        ActivityManager.RunningTaskInfo ar = RunningTask.get(0);
+        if(ar.topActivity.getClass().toString().compareTo(ShoppingList.class.toString()) == 0)
+        {
+        	System.out.println("WOHOOOOOOOO SHOPPINGLIST");
+        }
+        if(ar.topActivity.getClass().toString().compareTo(WGBuddyActivity.class.toString()) == 0)
+        {
+        	System.out.println("WOHOOOOOOOO WGBUDDY");
+        }
 	}
 	
 }

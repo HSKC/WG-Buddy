@@ -82,7 +82,7 @@ public class WGBuddyActivity extends Activity
 	    	
         }
         
-    	if(((! settings.contains("registrationKey")) && (! settings.contains("registrationKeydate"))) 
+    	if(true || ((! settings.contains("registrationKey")) && (! settings.contains("registrationKeydate"))) 
     			||
     				(settings.contains("registrationKeydate") 
     						&& 
