@@ -48,11 +48,71 @@ public class TaskDistributor extends Activity
     {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.taskdistributor);
-        settings = getSharedPreferences(WGBuddyActivity.PREFS_NAME, 0);
         
-        userList = (ListView) findViewById(R.id.taskUserList);
-        start = (Button) findViewById(R.id.taskGoButton);
-        start.setOnClickListener(new OnClickListener() 
+        init();
+        
+        clickOnStartButton();
+   
+	    createList();
+		
+//	        ArrayList<String> names = new ArrayList<String>();
+//	        
+//	        for (HashMap<String, String> hashMap : users) 
+//	        {
+//	        	names.add(hashMap.get("name"));
+//			}
+//	        
+//	        userList = (ListView) findViewById(R.id.taskUserList);
+//	        
+//	        ListAdapter adapter = new ArrayAdapter<String>(getApplicationContext(),android.R.layout.select_dialog_multichoice,names);
+//	        
+//	        userList.setAdapter(adapter);
+//	        //TODO: Alle schon auswählen
+    }
+
+	private void createList() 
+	{
+		SimpleAdapter sa = new SimpleAdapter(this, users, R.layout.taskdistributor_userentry, new String[] { "username"}, new int[] { R.id.task_userlistcheckbox});
+        
+        ViewBinder vb = new ViewBinder() 
+        {
+			
+			@Override
+			public boolean setViewValue(View view, Object data, String textRepresentation) 
+			{
+				if(view.getId() == R.id.task_userlistcheckbox)
+				{
+					CheckBox cb = (CheckBox) view;
+					cb.setText((CharSequence) data);
+					cb.setChecked(true);
+					return true;
+				}
+				else
+				{
+					return false;
+				}
+			}
+		};
+		sa.setViewBinder(vb);
+        
+		userList.setAdapter(sa);
+		
+		
+		taskListButton.setOnClickListener(new OnClickListener() {
+
+			@Override
+			public void onClick(View arg0)
+			{
+				Intent intent = new Intent(TaskDistributor.this, UserTaskList.class);
+				startActivity(intent);				
+			}
+			
+		});
+	}
+
+	private void clickOnStartButton() 
+	{
+		start.setOnClickListener(new OnClickListener() 
         {
 			
 			@Override
@@ -82,63 +142,18 @@ public class TaskDistributor extends Activity
 
 			
 		});
+	}
+
+	private void init() 
+	{
+		settings = getSharedPreferences(WGBuddyActivity.PREFS_NAME, 0);
         
+        userList = (ListView) findViewById(R.id.taskUserList);
+        start = (Button) findViewById(R.id.taskGoButton);
         user = new User(settings); 
         users = user.get("?wgId=" + settings.getString("wg_id", ""));
-   
-	    SimpleAdapter sa = new SimpleAdapter(this, users, R.layout.taskdistributor_userentry, new String[] { "username"}, new int[] { R.id.task_userlistcheckbox});
-        
-        ViewBinder vb = new ViewBinder() 
-        {
-			
-			@Override
-			public boolean setViewValue(View view, Object data, String textRepresentation) 
-			{
-				if(view.getId() == R.id.task_userlistcheckbox)
-				{
-					CheckBox cb = (CheckBox) view;
-					cb.setText((CharSequence) data);
-					cb.setChecked(true);
-					return true;
-				}
-				else
-				{
-					return false;
-				}
-			}
-		};
-		sa.setViewBinder(vb);
-        
-		userList.setAdapter(sa);
-		
-		taskListButton = (Button) findViewById(R.id.myTaskButton);
-		taskListButton.setOnClickListener(new OnClickListener() {
-
-			@Override
-			public void onClick(View arg0)
-			{
-				Intent intent = new Intent(TaskDistributor.this, UserTaskList.class);
-				startActivity(intent);				
-			}
-			
-		});
-		
-		
-        
-//	        ArrayList<String> names = new ArrayList<String>();
-//	        
-//	        for (HashMap<String, String> hashMap : users) 
-//	        {
-//	        	names.add(hashMap.get("name"));
-//			}
-//	        
-//	        userList = (ListView) findViewById(R.id.taskUserList);
-//	        
-//	        ListAdapter adapter = new ArrayAdapter<String>(getApplicationContext(),android.R.layout.select_dialog_multichoice,names);
-//	        
-//	        userList.setAdapter(adapter);
-//	        //TODO: Alle schon auswählen
-    }
+        taskListButton = (Button) findViewById(R.id.myTaskButton);
+	}
 	 
 	
 }

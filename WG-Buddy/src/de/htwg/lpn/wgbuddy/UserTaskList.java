@@ -37,13 +37,14 @@ public class UserTaskList extends Activity
 	 {
 		 super.onCreate(savedInstanceState);
 	     setContentView(R.layout.usertasklist);
-	     settings = getSharedPreferences(WGBuddyActivity.PREFS_NAME, 0);
-	     userTaskList = (ListView) findViewById(R.id.userTaskList);    
+	     init();
 	     
-	     task = new Task(settings); 
-	     tasks = task.get("?wgId=" + settings.getString("wg_id", "") + "&userId=" + settings.getString("user_id", ""));
-	     
-	     SimpleAdapter sa = new SimpleAdapter(this, tasks, R.layout.usertask_entry, new String[]{"name", "id"}, new int[]{R.id.usertask_entryName, R.id.usertaskEntryShowButton});
+	     createList();
+	 }
+
+	private void createList() 
+	{
+		 SimpleAdapter sa = new SimpleAdapter(this, tasks, R.layout.usertask_entry, new String[]{"name", "id"}, new int[]{R.id.usertask_entryName, R.id.usertaskEntryShowButton});
 	     
 	     ViewBinder vb = new ViewBinder() 
 	     {
@@ -94,5 +95,14 @@ public class UserTaskList extends Activity
 		sa.setViewBinder(vb);
 		
 		userTaskList.setAdapter(sa);
-	 }
+	}
+
+	private void init() 
+	{
+		settings = getSharedPreferences(WGBuddyActivity.PREFS_NAME, 0);
+	    userTaskList = (ListView) findViewById(R.id.userTaskList);    
+	     
+	    task = new Task(settings); 
+	    tasks = task.get("?wgId=" + settings.getString("wg_id", "") + "&userId=" + settings.getString("user_id", ""));
+	}
 }
