@@ -81,7 +81,6 @@ public class Create_Task extends Activity
 		settings = getSharedPreferences(WGBuddyActivity.PREFS_NAME, 0);
 	    name = (TextView) findViewById(R.id.taskNameText);
 	    comment = (TextView) findViewById(R.id.userTaskComment);
-	    deadline = (DatePicker) findViewById(R.id.userTaskDatePicker);
 	    points = (RatingBar) findViewById(R.id.taskRatingBar);
 	    start = (Button) findViewById(R.id.usertaskgoButton);
 		
