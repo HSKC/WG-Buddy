@@ -23,7 +23,6 @@
     <string name="shopping_ItemAdd">Hinzufügen</string>
     <string name="shopping_ItemName">Name</string>
     <string name="taskdistributor_name">Name</string>
-    <string name="taskdistributor_go">neue Aufgabe</string>
     <string name="taskdistributor_user1">User1</string>
     <string name="taskdistributor_user2">User2</string>
     <string name="taskdistributor_user3">User3</string>
@@ -33,6 +32,7 @@
     <string name="manage_adminuser3">User3</string>
     <string name="manage_adminDelete">Löschen</string>
     <string name="taskdistriubtor_userHeading">Teilnehmer:</string>
+    <string name="taskdistributor_go">neue Aufgabe</string>
     <string name="Deadline">Deadline</string>
     <string name="preferences_userText">Nutzereinstellungen</string>
     <string name="preferences_wgtext">WG Einstellungen</string>
@@ -110,7 +110,6 @@
     <string name="userTaskComment">Kommentar</string>
     <string name="usertTaskRating">Punkte</string>
     <string name="userTaskDeadline">Deadline</string>
-    <string name="userTaskgo">Los</string>
     <string name="usertask_entryShowTask">Aufgabe anzeigen</string>
     <string name="usertask_completeentryName">Aufgabe</string>
     <string name="usertask_completeentrycomment">Kommentar</string>
@@ -119,5 +118,6 @@
     <string name="usertask_completeentrydeadline">Deadline</string>
     <string name="usertask_completeentrycleard">erledigt</string>
     <string name="usertask_completeentrysend">Abschicken</string>
+    <string name="userTaskgo">los</string>
 
 </resources>
