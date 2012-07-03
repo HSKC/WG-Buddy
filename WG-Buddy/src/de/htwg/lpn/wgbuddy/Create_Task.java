@@ -12,6 +12,7 @@ import org.apache.http.message.BasicNameValuePair;
 
 import de.htwg.lpn.model.Task;
 import de.htwg.lpn.model.User;
+import de.htwg.lpn.model.Utilities;
 import de.htwg.lpn.wgbuddy.utility.RandomUser;
 import android.app.Activity;
 import android.content.Intent;
@@ -46,6 +47,9 @@ public class Create_Task extends Activity
     {
 		super.onCreate(savedInstanceState);
 	    setContentView(R.layout.create_task);
+	    
+	    settings = getSharedPreferences(WGBuddyActivity.PREFS_NAME, 0);
+        Utilities.checkByPass(this, settings);
 	    
 	    init();
         

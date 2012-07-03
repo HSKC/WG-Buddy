@@ -6,6 +6,7 @@ import java.util.List;
 import org.apache.http.NameValuePair;
 import org.apache.http.message.BasicNameValuePair;
 
+import de.htwg.lpn.model.Utilities;
 import de.htwg.lpn.wgbuddy.utility.JSON;
 import android.app.Activity;
 import android.content.Intent;
@@ -37,6 +38,8 @@ public class Create_ShoppingItem  extends Activity
         setContentView(R.layout.create_shoppingitem);
         
         settings = getSharedPreferences(WGBuddyActivity.PREFS_NAME, 0);
+        Utilities.checkByPass(this, settings);
+        
         
         addButton = (Button) findViewById(R.id.shoppingItemAddButton);
         nameEditText = (EditText) findViewById(R.id.ShoppingItemNameEditText);

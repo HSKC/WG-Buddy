@@ -14,6 +14,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import de.htwg.lpn.model.User;
+import de.htwg.lpn.model.Utilities;
 import de.htwg.lpn.wgbuddy.utility.RandomUser;
 
 import android.app.Activity;
@@ -48,6 +49,9 @@ public class TaskDistributor extends Activity
     {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.taskdistributor);
+        
+        settings = getSharedPreferences(WGBuddyActivity.PREFS_NAME, 0);
+        Utilities.checkByPass(this, settings);
         
         init();
         

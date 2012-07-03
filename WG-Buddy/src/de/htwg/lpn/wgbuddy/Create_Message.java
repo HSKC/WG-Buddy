@@ -7,6 +7,7 @@ import org.apache.http.NameValuePair;
 import org.apache.http.message.BasicNameValuePair;
 
 import de.htwg.lpn.model.Message;
+import de.htwg.lpn.model.Utilities;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -29,6 +30,9 @@ public class Create_Message extends Activity
     {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.create_message);
+        
+        settings = getSharedPreferences(WGBuddyActivity.PREFS_NAME, 0);
+        Utilities.checkByPass(this, settings);
         
         send = (Button) findViewById(R.id.messagecreate_sendButton);
         title = (EditText) findViewById(R.id.messagecreate_titleEdit);

@@ -7,6 +7,7 @@ import org.apache.http.NameValuePair;
 import org.apache.http.message.BasicNameValuePair;
 
 import de.htwg.lpn.model.ShoppingItem;
+import de.htwg.lpn.model.Utilities;
 import android.app.Activity;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -36,6 +37,7 @@ public class NewShoppingItem  extends Activity
         setContentView(R.layout.shopping_item);
         
         settings = getSharedPreferences(WGBuddyActivity.PREFS_NAME, 0);
+        Utilities.checkByPass(this, settings);
         
         addButton = (Button) findViewById(R.id.shoppingItemAddButton);
         nameEditText = (EditText) findViewById(R.id.ShoppingItemNameEditText);
