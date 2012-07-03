@@ -74,7 +74,7 @@ public class Preferences_User extends Activity
     				}
         			
     				User user = new User(settings);
-    				ArrayList<HashMap<String, String>> userList = user.get("?username=" + username + "&password=" + password);
+    				ArrayList<HashMap<String, String>> userList = user.get("?username=" + username + "&password=" + password + "&auth_username=" + username + "&auth_password=" + password);
     				if(userList.size() == 1)
     				{
 	        			if(Integer.valueOf(userList.get(0).get("status")) == 0)
