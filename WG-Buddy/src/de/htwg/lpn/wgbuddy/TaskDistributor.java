@@ -97,7 +97,7 @@ public class TaskDistributor extends Activity
         
 		userList.setAdapter(sa);
 		
-		taskListButton = (Button) findViewById(R.id.myTaskButton);
+		
 		taskListButton.setOnClickListener(new OnClickListener() {
 
 			@Override
@@ -152,6 +152,7 @@ public class TaskDistributor extends Activity
         start = (Button) findViewById(R.id.taskGoButton);
         user = new User(settings); 
         users = user.get("?wgId=" + settings.getString("wg_id", ""));
+        taskListButton = (Button) findViewById(R.id.myTaskButton);
 	}
 	 
 	

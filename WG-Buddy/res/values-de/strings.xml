@@ -21,7 +21,7 @@
     <string name="shopping_ItemAdd">Hinzufügen</string>
     <string name="shopping_ItemName">Name</string>
     <string name="taskdistributor_name">Aufgabenname</string>
-    <string name="taskdistributor_go">Los</string>
+    <string name="taskdistributor_go">neue Aufgabe</string>
     <string name="taskdistribution_Congrats">Gratuliere user x wurde ausgewählt</string>
     <string name="manage_adminuser1">User1</string>
     <string name="manage_adminuser2">User2</string>
