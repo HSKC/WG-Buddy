@@ -101,13 +101,19 @@ public class C2dmReceiver  extends BroadcastReceiver
         ActivityManager mActivityManager = (ActivityManager) context.getSystemService(Context.ACTIVITY_SERVICE);
         List<ActivityManager.RunningTaskInfo> RunningTask = mActivityManager.getRunningTasks(1);
         ActivityManager.RunningTaskInfo ar = RunningTask.get(0);
-        if(ar.topActivity.getClass().toString().compareTo(ShoppingList.class.toString()) == 0)
+        
+        System.out.println((ar.topActivity).getClassName().toString());
+
+        System.out.println(ShoppingList.class.toString());
+        System.out.println(WGBuddyActivity.class.toString());
+        
+        if(ar.topActivity.getClassName().toString().compareTo(ShoppingList.class.toString().split(" ")[1]) == 0)
         {
-        	System.out.println("WOHOOOOOOOO SHOPPINGLIST");
+        	
         }
-        if(ar.topActivity.getClass().toString().compareTo(WGBuddyActivity.class.toString()) == 0)
+        if(ar.topActivity.getClassName().toString().compareTo(WGBuddyActivity.class.toString().split(" ")[1]) == 0)
         {
-        	System.out.println("WOHOOOOOOOO WGBUDDY");
+        	
         }
 	}
 	
