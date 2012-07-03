@@ -13,6 +13,8 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemClickListener;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
@@ -31,6 +33,7 @@ public class UserTaskList extends Activity
 	private SharedPreferences settings;
 	private Task task;
 	private ArrayList<HashMap<String, String>> tasks;
+	private ArrayList<String> idList;
 
 	 @Override
 	 public void onCreate(Bundle savedInstanceState) 
@@ -44,7 +47,7 @@ public class UserTaskList extends Activity
 
 	private void createList() 
 	{
-		 SimpleAdapter sa = new SimpleAdapter(this, tasks, R.layout.usertask_entry, new String[]{"name", "id"}, new int[]{R.id.usertask_entryName, R.id.usertaskEntryShowButton});
+		 SimpleAdapter sa = new SimpleAdapter(this, tasks, R.layout.usertask_entry, new String[]{"name", "id"}, new int[]{R.id.usertask_entryName, R.id.textid});
 	     
 	     ViewBinder vb = new ViewBinder() 
 	     {
@@ -58,32 +61,11 @@ public class UserTaskList extends Activity
 					name.setText((CharSequence) data);
 					return true;
 				}
-				else if(view.getId() == R.id.usertaskEntryShowButton)
+				else if(view.getId() == R.id.textid)
 				{
-					final String id = data.toString();
-					Button showTaskButton = (Button) view;
-					showTaskButton.setTag(id);
-					showTaskButton.setOnClickListener(new OnClickListener() 
-					{
-						
-						@Override
-						public void onClick(View v) 
-						{
-							
-							String par = "?wgId=" + settings.getString("wg_id", "") + "&userId=" + settings.getString("user_id", "") + "&id=" + id;
-							ArrayList<HashMap<String, String>> selectedTask = task.get(par);
-							
-							Intent intent = new Intent(UserTaskList.this, UserTaskCompleteEntry.class);
-							intent.putExtra("name", selectedTask.get(0).get("name"));
-							intent.putExtra("comment", selectedTask.get(0).get("comment"));
-							intent.putExtra("createdDate", selectedTask.get(0).get("createdDate"));
-							intent.putExtra("deadline", selectedTask.get(0).get("deadline"));
-							intent.putExtra("points", selectedTask.get(0).get("points"));
-							intent.putExtra("status", selectedTask.get(0).get("status"));
-							startActivity(intent);
-						}
-
-					});
+					
+					idList.add(data.toString());
+					
 					return true;
 				}
 				else
@@ -95,6 +77,24 @@ public class UserTaskList extends Activity
 		sa.setViewBinder(vb);
 		
 		userTaskList.setAdapter(sa);
+		userTaskList.setOnItemClickListener(new OnItemClickListener() 
+		{
+
+			@Override
+			public void onItemClick(AdapterView<?> arg0, View arg1, int arg2, long arg3) 
+			{				
+				String id = idList.get(arg2);
+				String par = "?wgId=" + settings.getString("wg_id", "") + "&userId=" + settings.getString("user_id", "") + "&id=" + id;
+				ArrayList<HashMap<String, String>> selectedTask = task.get(par);
+			
+				Intent intent = new Intent(UserTaskList.this, UserTaskCompleteEntry.class);
+				intent.putExtra("name", selectedTask.get(0).get("name"));
+				intent.putExtra("comment", selectedTask.get(0).get("comment")); 
+				intent.putExtra("points", selectedTask.get(0).get("points"));
+				intent.putExtra("status", selectedTask.get(0).get("status"));
+				startActivity(intent);
+			}
+		});
 	}
 
 	private void init() 
@@ -104,5 +104,6 @@ public class UserTaskList extends Activity
 	     
 	    task = new Task(settings); 
 	    tasks = task.get("?wgId=" + settings.getString("wg_id", "") + "&userId=" + settings.getString("user_id", ""));
+	    idList = new ArrayList<String>();
 	}
 }
