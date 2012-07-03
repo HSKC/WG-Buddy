@@ -72,7 +72,8 @@ public class WGBuddyActivity extends Activity
         if(!settings.contains("wg_id") || !settings.contains("wg_name") || !settings.contains("wg_password"))
         {
         	WG wg = new WG(settings);
-        	ArrayList<HashMap<String, String>> wgList = wg.get("?id=" + settings.getString(userList.get(0).get("wgId"), ""));
+        	String string = userList.get(0).get("wgId");
+        	ArrayList<HashMap<String, String>> wgList = wg.get("?id=" + string);
         	
         	editor.putString("wg_id", wgList.get(0).get("id"));
         	editor.putString("wg_name", wgList.get(0).get("name"));

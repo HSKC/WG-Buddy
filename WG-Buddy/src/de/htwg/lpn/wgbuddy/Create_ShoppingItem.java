@@ -66,7 +66,12 @@ public class Create_ShoppingItem  extends Activity
 					
 			        String url = "http://wgbuddy.domoprojekt.de/shopping.php?insert";
 			        
-					JSON.postData(url, nameValuePairs);					
+					JSON.postData(url, nameValuePairs);	
+					
+					String message = "http://wgbuddy.domoprojekt.de/?wgId=" + settings.getString("wg_id", "") + "&" + "msgType=collapsed" + "&" + "messageText=ShoppingItem";
+					
+					JSON.postData(message);
+					
 					
 					Intent intent = new Intent(Create_ShoppingItem.this, ShoppingList.class);
 					startActivity(intent);
