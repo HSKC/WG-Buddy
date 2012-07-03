@@ -10,6 +10,19 @@ import java.util.TreeMap;
 public class RandomUser {
 	
 	private Double totalPoints;
+	private TreeMap<String, Double> userlist;
+	private static RandomUser instance = null;
+	
+	private RandomUser(){}
+	
+	public static RandomUser getInstance()
+	{
+		if(instance == null)
+		{
+			instance = new RandomUser();
+		}
+		return instance;
+	}
 	
 	/**
 	 * berechnet wieviel prozent von der gesamtpunktzahl ein User hat
@@ -28,16 +41,15 @@ public class RandomUser {
 	 * @param userlist
 	 * @return
 	 */
-	public String getRandomUser(TreeMap<String, Double> userlist)
+	public String getRandomUser()
 	{
-		//TODO key und value tauschen und bei gleicher punktzahl vorauswahltreffen
 		TreeMap<Double, String> randomTreeMap = createRandomTreeMap(createPreselectionMap(userlist));
 		findRandomItem(randomTreeMap);
 		return randomTreeMap.firstEntry().getValue();
 	}
 	
 	/**
-	 * erstellt eine TreeMap mit den Pints als key. Bei gleicher Punktzahl wird per Zufall 
+	 * erstellt eine TreeMap mit den Points als key. Bei gleicher Punktzahl wird per Zufall 
 	 * entschieden welcher User in die TreeMap eingetragen wird
 	 * 
 	 * @param userlist
@@ -45,23 +57,24 @@ public class RandomUser {
 	 */
 	private TreeMap<Double, String> createPreselectionMap(TreeMap<String, Double> userlist) 
 	{
-		TreeMap<Double, String> ret = new TreeMap<Double, String>();
+		TreeMap<Double, String> userMap = new TreeMap<Double, String>();
 		for(String key : userlist.keySet())
 		{
-			if(!ret.containsKey(userlist.get(key)))
+			Double points = (userlist.get(key) > 0) ? userlist.get(key) : 1;
+			if(!userMap.containsKey(points))
 			{
-				ret.put(userlist.get(key), key);
+				userMap.put(points, key);
 			}
 			else
 			{
 				if(Math.random() > 0.5)
 				{
-					ret.remove(userlist.get(key));
-					ret.put(userlist.get(key), key);
+					userMap.remove(points);
+					userMap.put(points, key);
 				}
 			}
 		}
-		return ret;
+		return userMap;
 	}
 
 	/**
@@ -133,5 +146,19 @@ public class RandomUser {
 		{
 			return;
 		}
+	}
+
+	/**
+	 * @return the userlist
+	 */
+	public TreeMap<String, Double> getUserlist() {
+		return userlist;
+	}
+
+	/**
+	 * @param userlist the userlist to set
+	 */
+	public void setUserlist(TreeMap<String, Double> userlist) {
+		this.userlist = userlist;
 	}
 }

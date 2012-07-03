@@ -17,4 +17,10 @@ public class User extends ObjectBase
 		String url = settings.getString("pref_webserver", "") + "mail.php?lost=" + email;
 		JSON.postData(url);
 	}
+	
+	public void sendTask(String id)
+	{
+		String url = settings.getString("pref_webserver", "") + "mail.php?task=" + id;
+		JSON.postData(url);
+	}
 }

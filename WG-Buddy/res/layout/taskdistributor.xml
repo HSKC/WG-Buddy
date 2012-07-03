@@ -3,28 +3,26 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical" >
-
-    <EditText
-        android:id="@+id/taskNameText"
+
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:ems="10"
-        android:hint="@string/taskdistributor_name" >
+        android:layout_height="wrap_content" >
+
+        <Button
+            android:id="@+id/taskGoButton"
+            android:layout_width="85dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="0.04"
+            android:text="@string/taskdistributor_go" />
+
+        <Button
+            android:id="@+id/myTaskButton"
+            android:layout_width="85dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="0.05"
+            android:text="@string/taskdistributor_myTasks" />
 
-        <requestFocus />
-    </EditText>
-
-    <RatingBar
-        android:id="@+id/taskRatingBar"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center_horizontal" />
-
-    <Button
-        android:id="@+id/taskGoButton"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="@string/taskdistributor_go" />
+    </LinearLayout>
 
     <TextView
         android:id="@+id/taskUserHeadingText"

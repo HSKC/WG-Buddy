@@ -27,4 +27,6 @@
     <string name="manage_adminuser2">User2</string>
     <string name="manage_adminuser3">User3</string>
     <string name="manage_adminDelete">Löschen</string>
+    <string name="taskdistributor_myTasks">my Tasks</string>
+    <string name="userTaskCleared">cleared</string>
 </resources>
