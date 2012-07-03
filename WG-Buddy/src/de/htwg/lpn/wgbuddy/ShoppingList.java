@@ -131,7 +131,7 @@ public class ShoppingList<T> extends Activity
 									
 							si.update(id, nameValuePairs);
 							
-							refreshButton.performClick();
+							loadList();
 						}
 					});
 					return true;
@@ -151,7 +151,7 @@ public class ShoppingList<T> extends Activity
 							Integer id = (Integer) v.getTag();
 							si.delete(id);
 							
-							refreshButton.performClick();
+							loadList();
 						}
 					});
 					return true;
