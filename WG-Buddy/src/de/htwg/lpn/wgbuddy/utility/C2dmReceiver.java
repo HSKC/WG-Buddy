@@ -33,13 +33,16 @@ public class C2dmReceiver  extends BroadcastReceiver
 	{
 		System.out.println("Received Async Message");
 	    this.context = context;
-		if (intent.getAction().equals("com.google.android.c2dm.intent.REGISTRATION")) 
-		{
-	        handleRegistration(context, intent);
-	    } 
-		else if (intent.getAction().equals("com.google.android.c2dm.intent.RECEIVE")) 
+	    if(WGBuddyActivity.usepush)
 	    {
-	        handleMessage(context, intent);
+			if (intent.getAction().equals("com.google.android.c2dm.intent.REGISTRATION")) 
+			{
+		        handleRegistration(context, intent);
+		    } 
+			else if (intent.getAction().equals("com.google.android.c2dm.intent.RECEIVE")) 
+		    {
+		        handleMessage(context, intent);
+		    }
 	    }
 	}
 	

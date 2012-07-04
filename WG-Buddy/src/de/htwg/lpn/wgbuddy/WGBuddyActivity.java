@@ -31,6 +31,7 @@ public class WGBuddyActivity extends Activity
 {
 	public static final String PREFS_NAME = "WGBuddyPreferences";
 	public static final String WEBSERVER = "http://wgbuddy.domoprojekt.de/";
+	public static boolean usepush = true;
 	
 	private Button shoppinglist;
 	private Button taskdistributor;
