@@ -10,6 +10,7 @@ import de.htwg.lpn.model.ShoppingItem;
 import de.htwg.lpn.model.Utilities;
 import de.htwg.lpn.wgbuddy.utility.JSON;
 import android.app.Activity;
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -40,7 +41,7 @@ public class Create_ShoppingItem  extends Activity
         
         settings = getSharedPreferences(WGBuddyActivity.PREFS_NAME, 0);
         Utilities.checkByPass(this, settings);
-        
+        final Activity that = this;
         
         addButton = (Button) findViewById(R.id.shoppingItemAddButton);
         nameEditText = (EditText) findViewById(R.id.ShoppingItemNameEditText);
@@ -57,6 +58,9 @@ public class Create_ShoppingItem  extends Activity
 				@Override
 				public void onClick(View v) 
 				{
+					
+					 ProgressDialog pd = ProgressDialog.show(that, "Working..", "", true, false);
+					
 					List<NameValuePair> nameValuePairs = new ArrayList<NameValuePair>();
 			        nameValuePairs.add(new BasicNameValuePair("wgId", settings.getString("wg_id", "")));
 			        nameValuePairs.add(new BasicNameValuePair("userId", "0"));
@@ -75,6 +79,17 @@ public class Create_ShoppingItem  extends Activity
 					
 					JSON.postData(message);
 					
+			        if(WGBuddyActivity.usepush)
+			        {
+						List<NameValuePair> nameValuePairs2 = new ArrayList<NameValuePair>();
+				        nameValuePairs2.add(new BasicNameValuePair("wgId", settings.getString("wg_id", "")));
+				        nameValuePairs2.add(new BasicNameValuePair("msgType", "collapsed"));
+				        nameValuePairs2.add(new BasicNameValuePair("messageText", "ShoppingItem"));
+						
+						String message2 = "http://wgbuddy.domoprojekt.de/googleService.php"; 
+						
+						JSON.postData(message2,nameValuePairs2);
+			        }
 					
 					Intent intent = new Intent(Create_ShoppingItem.this, ShoppingList.class);
 					startActivity(intent);

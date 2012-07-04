@@ -8,6 +8,7 @@ import org.apache.http.message.BasicNameValuePair;
 
 import de.htwg.lpn.model.Message;
 import de.htwg.lpn.model.Utilities;
+import de.htwg.lpn.wgbuddy.utility.JSON;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -58,6 +59,17 @@ public class Create_Message extends Activity
 		        Message message = new Message(settings);
 		        message.insert(nameValuePairs);
 		        
+		        if(WGBuddyActivity.usepush)
+		        {
+					List<NameValuePair> nameValuePairs2 = new ArrayList<NameValuePair>();
+			        nameValuePairs2.add(new BasicNameValuePair("wgId", settings.getString("wg_id", "")));
+			        nameValuePairs2.add(new BasicNameValuePair("msgType", "collapsed"));
+			        nameValuePairs2.add(new BasicNameValuePair("messageText", "Chat"));
+					
+					String message2 = "http://wgbuddy.domoprojekt.de/googleService.php"; 
+					
+					JSON.postData(message2,nameValuePairs2);
+		        }
 		        Intent intent = new Intent(Create_Message.this,Messenger.class);
 		        startActivity(intent);
 			}
