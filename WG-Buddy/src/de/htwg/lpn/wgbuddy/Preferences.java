@@ -1,6 +1,6 @@
 package de.htwg.lpn.wgbuddy;
 
-import de.htwg.lpn.model.Utilities;
+import de.htwg.lpn.wgbuddy.utility.Utilities;
 import android.app.Activity;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -35,7 +35,7 @@ public class Preferences extends Activity
 				@Override
 				public void onClick(View v) 
 				{
-					Intent intent = new Intent(Preferences.this,Login_User.class);
+					Intent intent = new Intent(Preferences.this,Preferences_User.class);
 					startActivity(intent);
 				}
 			});
@@ -46,7 +46,7 @@ public class Preferences extends Activity
 				@Override
 				public void onClick(View v) 
 				{
-					Intent intent = new Intent(Preferences.this,Login_WG.class);
+					Intent intent = new Intent(Preferences.this,Preferences_WG.class);
 					startActivity(intent);
 				}
 			});

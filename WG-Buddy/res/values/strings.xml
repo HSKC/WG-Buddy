@@ -40,6 +40,7 @@
     <string name="preferences_login">Login</string>
     <string name="preferences_password">Passwort</string>
     <string name="preferences_createuser">Neuen User erstellen</string>
+    <string name="preferences_leaveWG">WG verlassen</string>
     <string name="createuser_name">Name</string>
     <string name="createuser_email">Email-Adresse</string>
     <string name="createuser_email2">Email-Adresse (wiederholen)</string>

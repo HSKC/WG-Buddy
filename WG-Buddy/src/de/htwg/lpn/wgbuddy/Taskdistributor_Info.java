@@ -2,7 +2,7 @@ package de.htwg.lpn.wgbuddy;
 
 import java.util.ArrayList;
 
-import de.htwg.lpn.model.Utilities;
+import de.htwg.lpn.wgbuddy.utility.Utilities;
 
 import android.app.Activity;
 import android.content.SharedPreferences;

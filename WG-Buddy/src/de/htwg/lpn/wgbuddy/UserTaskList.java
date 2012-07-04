@@ -24,7 +24,7 @@ import android.widget.SimpleAdapter.ViewBinder;
 import android.widget.TextView;
 import de.htwg.lpn.model.ShoppingItem;
 import de.htwg.lpn.model.Task;
-import de.htwg.lpn.model.Utilities;
+import de.htwg.lpn.wgbuddy.utility.Utilities;
 
 public class UserTaskList extends Activity 
 {

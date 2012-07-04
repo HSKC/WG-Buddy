@@ -7,8 +7,8 @@ import org.apache.http.NameValuePair;
 import org.apache.http.message.BasicNameValuePair;
 
 import de.htwg.lpn.model.User;
-import de.htwg.lpn.model.Utilities;
 import de.htwg.lpn.model.WG;
+import de.htwg.lpn.wgbuddy.utility.Utilities;
 import android.app.Activity;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -98,6 +98,7 @@ public class Create_WG extends Activity
 	    			editor.putString("wg_id", wgList.get(0).get("id"));
         		    editor.putString("wg_name", wgList.get(0).get("name"));
         		    editor.putString("wg_password", wgList.get(0).get("password"));
+        		    editor.putString("wg_adminId", wgList.get(0).get("adminId"));
 	    		    editor.commit();
 	    		    
 	    		    // WG-ID im User speichern.
