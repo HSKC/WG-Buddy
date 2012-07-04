@@ -13,6 +13,7 @@ import org.apache.http.message.BasicNameValuePair;
 import de.htwg.lpn.model.Task;
 import de.htwg.lpn.model.User;
 import de.htwg.lpn.model.Utilities;
+import de.htwg.lpn.wgbuddy.utility.JSON;
 import de.htwg.lpn.wgbuddy.utility.RandomUser;
 import android.app.Activity;
 import android.content.Intent;
@@ -114,6 +115,18 @@ public class Create_Task extends Activity
 		
 		ArrayList<HashMap<String, String>> tasks = task.get("?wgId=" + settings.getString("wg_id", "") + "&userId=" + userId);
 		
+        if(WGBuddyActivity.usepush)
+        {
+			List<NameValuePair> nameValuePairs2 = new ArrayList<NameValuePair>();
+	        nameValuePairs2.add(new BasicNameValuePair("wgId", settings.getString("wg_id", "")));
+	        nameValuePairs2.add(new BasicNameValuePair("msgType", "collapsed"));
+	        nameValuePairs2.add(new BasicNameValuePair("messageText", "TaskDistributor"));
+			
+			String message2 = "http://wgbuddy.domoprojekt.de/googleService.php"; 
+		
+			JSON.postData(message2,nameValuePairs2);
+        }
+        
 		sendMail(tasks);
 	}
 
