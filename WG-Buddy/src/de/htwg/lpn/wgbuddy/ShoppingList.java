@@ -9,7 +9,7 @@ import org.apache.http.message.BasicNameValuePair;
 
 import de.htwg.lpn.model.ShoppingItem;
 import de.htwg.lpn.model.User;
-import de.htwg.lpn.model.Utilities;
+import de.htwg.lpn.wgbuddy.utility.Utilities;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.Context;

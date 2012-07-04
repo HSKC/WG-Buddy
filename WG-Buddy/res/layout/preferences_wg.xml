@@ -3,47 +3,26 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical" >
-
-    <TextView
-        android:id="@+id/wgpref_nameText"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/preferences_wgidentificationtext" />
-    <EditText
-        android:id="@+id/wgpref_nameEdit"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:ems="10"
-        android:maxLength="20"
-        android:inputType="textNoSuggestions"
-        android:hint="@string/preferences_wgidentificationtext" />
-
-    <TextView
-        android:id="@+id/wgpref_passwordText"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/preferences_wgpassword" />
-    <EditText
-        android:id="@+id/wgpref_passwordEdit"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:ems="10"
-        android:hint="@string/preferences_wgpassword"
-        android:inputType="textPassword" >
-        <requestFocus android:layout_width="match_parent" />
-
-    </EditText>
 
     <Button
-        android:id="@+id/wgpref_connectButton"
+        android:id="@+id/preferences_leaveButton"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/preferences_connect" />
+        android:text="@string/preferences_leaveWG" />    
 
-    <Button
-        android:id="@+id/wgpref_createButton"
+    
+    <TextView 
+        android:text="WG-Mitbewohner"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+    
+    <ListView
+        android:id="@+id/preferences_wg_list"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/preferences_createNewWG" />
+        android:dividerHeight="2dp"
+        android:orientation="vertical" >
+        
+    </ListView>
 
 </LinearLayout>

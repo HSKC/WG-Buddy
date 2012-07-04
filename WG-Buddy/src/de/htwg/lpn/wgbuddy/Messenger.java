@@ -9,7 +9,7 @@ import java.util.Set;
 
 import de.htwg.lpn.model.Message;
 import de.htwg.lpn.model.ShoppingItem;
-import de.htwg.lpn.model.Utilities;
+import de.htwg.lpn.wgbuddy.utility.Utilities;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
