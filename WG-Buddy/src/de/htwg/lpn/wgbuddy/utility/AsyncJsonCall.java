@@ -1,4 +1,4 @@
-package de.htwg.lpn.wgbuddy;
+package de.htwg.lpn.wgbuddy.utility;
 
 import java.io.IOException;
 import java.io.InputStream;
