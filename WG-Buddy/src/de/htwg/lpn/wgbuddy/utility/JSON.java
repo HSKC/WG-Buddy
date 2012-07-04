@@ -27,8 +27,12 @@ public class JSON
 {
 	public static void postData(String url) 
 	{
+		
+		
 	    HttpClient httpclient = new DefaultHttpClient();
 	    HttpPost httppost = new HttpPost(url);
+	    
+       
 
 	    try 
 	    {       
@@ -46,6 +50,8 @@ public class JSON
 	
 	public static String postData(String url, List<NameValuePair> nameValuePairs) 
 	{
+		System.out.println(url);
+		
 	    HttpClient httpclient = new DefaultHttpClient();
 	    HttpPost httppost = new HttpPost(url);
 
@@ -53,15 +59,16 @@ public class JSON
 	    {       
 	        httppost.setEntity(new UrlEncodedFormEntity(nameValuePairs));
 	        httpclient.execute(httppost);
+
 	        
 	    } 
 	    catch (ClientProtocolException e) 
 	    {
-	        // TODO Auto-generated catch block
+	        e.printStackTrace();
 	    } 
 	    catch (IOException e) 
 	    {
-	        // TODO Auto-generated catch block
+	    	e.printStackTrace();
 	    }
 	    
 	    return "Fehler";
@@ -72,7 +79,7 @@ public class JSON
 	{
 		ArrayList<HashMap<String, String>> mylist = new ArrayList<HashMap<String, String>>();
 		
-		JSONObject json = JSONStuff.getJSONfromURL(url);
+		JSONObject json = getJSONfromURL(url);
 		if(json != null)
 		{
 			
