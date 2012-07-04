@@ -71,10 +71,8 @@ public class Create_ShoppingItem  extends Activity
 					ShoppingItem shopping = new ShoppingItem(settings);
 					shopping.insert(nameValuePairs);	
 					
-					String message = "http://wgbuddy.domoprojekt.de/?wgId=" + settings.getString("wg_id", "") + "&" + "msgType=collapsed" + "&" + "messageText=ShoppingItem";
-					
+					String message = "http://wgbuddy.domoprojekt.de/googleService.php?wgId=" + settings.getString("wg_id", "") + "&" + "msgType=collapsed" + "&" + "messageText=ShoppingItem";					
 					JSON.postData(message);
-					
 					
 					Intent intent = new Intent(Create_ShoppingItem.this, ShoppingList.class);
 					startActivity(intent);

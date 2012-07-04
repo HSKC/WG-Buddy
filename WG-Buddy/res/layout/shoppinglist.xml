@@ -2,38 +2,35 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical" >
-    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:orientation="horizontal" >
-    
-	    <Button
-	        android:id="@+id/shoppinglistAddButton"
-	        android:layout_width="wrap_content"
-	        android:layout_height="wrap_content"
-	        android:text="@string/shoppinglist_add" />
-	    
-	    <Button
-	        android:id="@+id/shoppinglistRefreshButton"
-	        android:layout_width="wrap_content"
-	        android:layout_height="wrap_content"
-	        android:text="@string/shoppingList_refresh" />
-	    
-	    <Button
-	        android:id="@+id/shoppinglistOptionsButton"
-	        android:layout_width="wrap_content"
-	        android:layout_height="wrap_content"
-	        android:text="@string/shoppingList_options" />
-	    
-    </LinearLayout>
-    
+    android:orientation="vertical" >
+
+    <RadioGroup
+        android:id="@+id/shoppingList_radio_filter"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal" >
+
+	        <RadioButton
+	            android:id="@+id/shoppingList_radio_filterAll"
+	            android:layout_width="wrap_content"
+	            android:layout_height="wrap_content"
+	            android:checked="true"
+	            android:text="Alle anzeigen" />
+	
+	        <RadioButton
+	            android:id="@+id/shoppingList_radio_filterMy"
+	            android:layout_width="wrap_content"
+	            android:layout_height="wrap_content"
+	            android:text="Meine anzeigen" />
+
+    </RadioGroup>
+
     <ListView
         android:id="@+id/shoppinglist"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:dividerHeight="2dp"
         android:orientation="vertical" >
-        
     </ListView>
 
 </LinearLayout>
