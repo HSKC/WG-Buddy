@@ -2,6 +2,7 @@
 <LinearLayout  xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="fill_parent"
     android:layout_height="wrap_content"
+    android:id="@+id/shoppingList_Entry"
     android:orientation="vertical" > 
     
 		<LinearLayout
@@ -10,9 +11,9 @@
 	    android:orientation="horizontal" >
 	    
 	    	<LinearLayout
-		     android:layout_width="wrap_content" 
-		     android:layout_weight="1"
-		     android:layout_height="wrap_content"	     
+		     android:layout_width="wrap_content" 		     
+		     android:layout_height="wrap_content"
+		     android:layout_weight="1"	     
 		     android:orientation="vertical" >
 		     
 				<TextView
@@ -46,18 +47,54 @@
 		 		</RelativeLayout> 
 			</LinearLayout> 
 		    
-		<ImageButton
-		    android:id="@+id/shoppingListEntryCompletedButton"
-		    android:layout_width="wrap_content"
-		    android:layout_height="wrap_content"
-		    android:src="@drawable/checksmall" />	
+		<LinearLayout
+		     android:layout_width="wrap_content" 		     
+		     android:layout_height="wrap_content"
+		     android:gravity="center"
+		     android:orientation="vertical" >
+				 
+		    <LinearLayout
+			     android:layout_width="wrap_content" 		     
+			     android:layout_height="wrap_content"     
+			     android:orientation="horizontal" >
+					
+				<ImageButton
+				    android:id="@+id/shoppingListEntryCompletedButton"
+				    android:layout_width="wrap_content"
+				    android:layout_height="wrap_content"		    
+				    android:background="@drawable/checksmall" />
+				
+				<ImageButton
+				    android:id="@+id/shoppingListEntryShoppingButton"
+				    android:layout_width="wrap_content"
+				    android:layout_height="wrap_content"
+				    android:background="@drawable/checksmall" />	
+				
 		
-
-		<ImageButton
-		    android:id="@+id/shoppingListEntryDeleteButton"
-		    android:layout_width="wrap_content"
-		    android:layout_height="wrap_content"
-		    android:src="@drawable/crosssmall" />
+				<ImageButton
+				    android:id="@+id/shoppingListEntryDeleteButton"
+				    android:layout_width="wrap_content"
+				    android:layout_height="wrap_content"
+				    android:background="@drawable/crosssmall" />
+			</LinearLayout>
+			
+		    <LinearLayout
+			     android:layout_width="wrap_content" 		     
+			     android:layout_height="wrap_content"
+			     android:gravity="center"	     
+			     android:orientation="horizontal" >
+				
+			    <TextView
+				    android:id="@+id/shoppingUsername"
+				    android:layout_width="wrap_content"
+				    android:layout_height="wrap_content"
+				    android:gravity="center"
+				    android:text="Username"
+				    android:textAppearance="?android:attr/textAppearanceSmall" />    
+		        
+			</LinearLayout>
+		    
+		</LinearLayout>
 
 		</LinearLayout>
 		
