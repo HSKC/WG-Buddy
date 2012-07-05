@@ -170,9 +170,5 @@ public class C2dmReceiver  extends BroadcastReceiver
               intent2.addFlags(intent2.FLAG_ACTIVITY_NEW_TASK);
               context.startActivity(intent2);
         }
-
-        
-        
 	}
-	
 }
