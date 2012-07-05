@@ -7,8 +7,8 @@ import org.apache.http.NameValuePair;
 import org.apache.http.message.BasicNameValuePair;
 
 import de.htwg.lpn.model.ShoppingItem;
-import de.htwg.lpn.model.Utilities;
 import de.htwg.lpn.wgbuddy.utility.JSON;
+import de.htwg.lpn.wgbuddy.utility.Utilities;
 import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Intent;

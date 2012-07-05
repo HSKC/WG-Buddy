@@ -1,5 +1,6 @@
-package de.htwg.lpn.model;
+package de.htwg.lpn.wgbuddy.utility;
 
+import java.lang.reflect.Method;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
@@ -87,6 +88,7 @@ public class Utilities
 		AlertDialog alert = builder.create();
 		alert.show();
 	}
+	
 	
 	public static void checkByPass(Context context, SharedPreferences settings)
 	{
