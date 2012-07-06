@@ -12,9 +12,7 @@ import org.apache.http.message.BasicNameValuePair;
 
 import de.htwg.lpn.model.Task;
 import de.htwg.lpn.model.User;
-import de.htwg.lpn.wgbuddy.utility.JSON;
 import de.htwg.lpn.wgbuddy.utility.RandomUser;
-import de.htwg.lpn.wgbuddy.utility.Utilities;
 import android.app.Activity;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -48,9 +46,6 @@ public class Create_Task extends Activity
     {
 		super.onCreate(savedInstanceState);
 	    setContentView(R.layout.create_task);
-	    
-	    settings = getSharedPreferences(WGBuddyActivity.PREFS_NAME, 0);
-        Utilities.checkByPass(this, settings);
 	    
 	    init();
         
@@ -86,7 +81,6 @@ public class Create_Task extends Activity
 		settings = getSharedPreferences(WGBuddyActivity.PREFS_NAME, 0);
 	    name = (TextView) findViewById(R.id.taskNameText);
 	    comment = (TextView) findViewById(R.id.userTaskComment);
-	    deadline = (DatePicker) findViewById(R.id.userTaskDatePicker);
 	    points = (RatingBar) findViewById(R.id.taskRatingBar);
 	    start = (Button) findViewById(R.id.usertaskgoButton);
 		
@@ -115,18 +109,6 @@ public class Create_Task extends Activity
 		
 		ArrayList<HashMap<String, String>> tasks = task.get("?wgId=" + settings.getString("wg_id", "") + "&userId=" + userId);
 		
-        if(WGBuddyActivity.usepush)
-        {
-			List<NameValuePair> nameValuePairs2 = new ArrayList<NameValuePair>();
-	        nameValuePairs2.add(new BasicNameValuePair("wgId", settings.getString("wg_id", "")));
-	        nameValuePairs2.add(new BasicNameValuePair("msgType", "collapsed"));
-	        nameValuePairs2.add(new BasicNameValuePair("messageText", "TaskDistributor"));
-			
-			String message2 = "http://wgbuddy.domoprojekt.de/googleService.php"; 
-		
-			JSON.postData(message2,nameValuePairs2);
-        }
-        
 		sendMail(tasks);
 	}
 

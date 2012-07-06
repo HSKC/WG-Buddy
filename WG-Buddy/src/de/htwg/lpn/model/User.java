@@ -1,9 +1,5 @@
 package de.htwg.lpn.model;
 
-import java.util.List;
-
-import org.apache.http.NameValuePair;
-
 import de.htwg.lpn.wgbuddy.utility.JSON;
 import android.content.SharedPreferences;
 
@@ -18,20 +14,13 @@ public class User extends ObjectBase
 	
 	public void getNewKey(String email)
 	{
-		String url = settings.getString("pref_webserver", "") + "mail.php?lost=" + email + "&" + authCode;
-		JSON.postData(url);
-	}
-	
-	public void sendInvite(String email)
-	{
-		String url = settings.getString("pref_webserver", "") + "mail.php?invite=" + email + "&username=" + settings.getString("user_name", "") + "&wg=" + settings.getString("wg_name", "") + "&pw=" + settings.getString("wg_password", "") + "&" + authCode;
+		String url = settings.getString("pref_webserver", "") + "mail.php?lost=" + email;
 		JSON.postData(url);
 	}
 	
 	public void sendTask(String id)
 	{
-		String url = settings.getString("pref_webserver", "") + "mail.php?task=" + id + "&" + authCode;
+		String url = settings.getString("pref_webserver", "") + "mail.php?task=" + id;
 		JSON.postData(url);
 	}
-
 }
