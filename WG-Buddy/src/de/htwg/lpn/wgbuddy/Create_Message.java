@@ -57,7 +57,7 @@ public class Create_Message extends Activity
 		        nameValuePairs.add(new BasicNameValuePair("message", message.getText().toString()));
 		        
 		        Message message = new Message(settings);
-		        message.insert(nameValuePairs);
+		        message.insert(nameValuePairs,Create_Message.this);
 		        
 		        if(WGBuddyActivity.usepush)
 		        {
@@ -68,7 +68,7 @@ public class Create_Message extends Activity
 					
 					String message2 = "http://wgbuddy.domoprojekt.de/googleService.php"; 
 					
-					JSON.postData(message2,nameValuePairs2);
+					JSON.postData(message2,nameValuePairs2,Create_Message.this);
 		        }
 		        Intent intent = new Intent(Create_Message.this,Messenger.class);
 		        startActivity(intent);
