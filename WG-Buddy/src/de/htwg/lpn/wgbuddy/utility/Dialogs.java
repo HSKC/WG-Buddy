@@ -495,5 +495,13 @@ public class Dialogs
 		       
 		AlertDialog alert = builder.create();
 		alert.show();	
-	}	
+	}
+	
+	public static void getAboutDialog(Context context, SharedPreferences settings)
+	{
+		String text = "WG Buddy ist eine von Jens Küblbeck, Felix Offergeld und Dominik Wieland entwickelte App.\n\n";
+    	text += "Version 1.0\n\n";
+    	text += "Im Handbuch finden Sie weiter Informationen.";	        	
+    	Utilities.message(context, text, "OK", "http://wgbuddy.domoprojekt.de/WGBuddy%20Anwenderhandbuch.htm");
+	}
 }

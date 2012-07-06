@@ -22,6 +22,7 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.net.Uri;
 
 public class Utilities 
 {
@@ -88,6 +89,32 @@ public class Utilities
            public void onClick(DialogInterface dialog, int id) 
            {
         	   dialog.cancel();
+           }
+		});
+		       
+		AlertDialog alert = builder.create();
+		alert.show();
+	}
+	
+	public static void message(final Context context, String text, String buttonText, final String link)
+	{
+		AlertDialog.Builder builder = new AlertDialog.Builder(context);
+		builder.setMessage(text);
+		builder.setCancelable(false);
+		builder.setPositiveButton(buttonText, new DialogInterface.OnClickListener() 
+		{
+           public void onClick(DialogInterface dialog, int id) 
+           {
+        	   dialog.cancel();
+           }
+		});
+		
+		builder.setNegativeButton("Handbuch", new DialogInterface.OnClickListener() 
+		{
+           public void onClick(DialogInterface dialog, int id) 
+           {
+        	   Intent i = new Intent(Intent.ACTION_VIEW, Uri.parse(link));
+               context.startActivity(i);
            }
 		});
 		       
