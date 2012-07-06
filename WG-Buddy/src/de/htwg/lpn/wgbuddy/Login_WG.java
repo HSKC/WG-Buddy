@@ -72,7 +72,6 @@ public class Login_WG extends Activity
 	        			editor.putString("wg_id", wgList.get(0).get("id"));
 	        		    editor.putString("wg_name", wgList.get(0).get("name"));
 	        		    editor.putString("wg_password", wgList.get(0).get("password"));
-	        		    editor.putString("wg_adminId", wgList.get(0).get("adminId"));
 	        		    
 	        		    editor.commit();
 	        		    

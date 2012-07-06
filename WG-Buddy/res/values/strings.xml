@@ -34,13 +34,18 @@
     <string name="taskdistriubtor_userHeading">Teilnehmer:</string>
     <string name="taskdistributor_go">neue Aufgabe</string>
     <string name="Deadline">Deadline</string>
+    
     <string name="preferences_userText">Nutzereinstellungen</string>
     <string name="preferences_wgtext">WG Einstellungen</string>
     <string name="preferences_amintext">Adminmenü</string>
     <string name="preferences_login">Login</string>
     <string name="preferences_password">Passwort</string>
     <string name="preferences_createuser">Neuen User erstellen</string>
+    <string name="preferences_changeAdmin">Admin wechseln</string>
     <string name="preferences_leaveWG">WG verlassen</string>
+    <string name="preferences_changePassword">Passwort ändern</string>
+    <string name="preferences_changeWGPassword">WG Passwort ändern</string>
+    
     <string name="createuser_name">Name</string>
     <string name="createuser_email">Email-Adresse</string>
     <string name="createuser_email2">Email-Adresse (wiederholen)</string>
