@@ -20,6 +20,7 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.util.Log;
 
@@ -28,23 +29,18 @@ public class JSON
 	
 	public static void postData(String url, Context context) 
 	{
-		
-		
+		ProgressDialog mydialog = new ProgressDialog(context);
+		mydialog.setTitle("Please wait");
+		mydialog.show();
+		System.out.println("SHOW");
 		HttpClient httpclient = new DefaultHttpClient();
 		HttpPost httppost = new HttpPost(url);
 	    
-		AsyncPost asp = new AsyncPost(context);
-       
+		AsyncPost asp = new AsyncPost(mydialog);
+
 		asp.execute(httppost);
 		
-		try
-		{
-			asp.get();
-		}
-		catch(Exception e)
-		{
-			e.printStackTrace();
-		}
+
 	}
 	
 	public static void postData(String url) 
@@ -70,27 +66,27 @@ public class JSON
 	    }
 	}
 	
-	public static String postData(String url, List<NameValuePair> nameValuePairs, Context context) 
+	public static void postData(String url, List<NameValuePair> nameValuePairs, Context context) 
 	{
-     
-			HttpPost httppost = new HttpPost(url);
-			try
-			{
-			
+		ProgressDialog mydialog = new ProgressDialog(context);
+		mydialog.setTitle("Please wait");
+		mydialog.show();
+		System.out.println("SHOW");
+		
+		HttpPost httppost = new HttpPost(url);
+		try
+		{
 			httppost.setEntity(new UrlEncodedFormEntity(nameValuePairs));
-		    
-			AsyncPost asp = new AsyncPost(context);
-	       
-			asp.execute(httppost);
-			
+		}
+		catch(Exception e)
+		{
+			e.printStackTrace();
+		}
+		
+		AsyncPost asp = new AsyncPost(mydialog);
+		System.out.println("SHOW");
+		asp.execute(httppost);
 
-				asp.get();
-			}
-			catch(Exception e)
-			{
-				e.printStackTrace();
-			}
-			return "Fehler";
 	}	
 	
 	public static String postData(String url, List<NameValuePair> nameValuePairs) 
