@@ -33,7 +33,8 @@
         android:id="@+id/create_wg_passwordEdit"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:ems="10" />
+        android:ems="10"
+        android:inputType="textPassword" />
 
     <TextView
         android:id="@+id/create_wg_password2Text"
@@ -46,7 +47,8 @@
         android:id="@+id/create_wg_password2Edit"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:ems="10" />
+        android:ems="10"
+        android:inputType="textPassword" />
 
     <Button
         android:id="@+id/create_wg_createButton"
