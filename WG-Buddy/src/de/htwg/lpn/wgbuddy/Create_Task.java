@@ -33,7 +33,6 @@ public class Create_Task extends Activity
 {
 	private TextView name;
 	private TextView comment;
-	private DatePicker deadline;
 	private RatingBar points;
 	private SharedPreferences settings;
 	private Task task;
@@ -58,21 +57,26 @@ public class Create_Task extends Activity
         {
         	@Override
 			public void onClick(View v) 
-			{				
-				RandomUser randomUser = RandomUser.getInstance();
-				
-				String chosenUserName = randomUser.getRandomUser();
-				
-				Toast.makeText(Create_Task.this, "User" + chosenUserName + 
-						" wurde ausgewählt und benachrichtigt", Toast.LENGTH_SHORT).show();
-				
-				createNewTask(chosenUserName);
-				
-				Intent intent = new Intent(Create_Task.this, TaskDistributor.class);
-				startActivity(intent);
+			{	
+        		if(name.getText().toString().compareTo("") != 0 && comment.getText().toString().compareTo("") != 0)
+        		{
+					RandomUser randomUser = RandomUser.getInstance();
+					
+					String chosenUserName = randomUser.getRandomUser();
+					
+					Toast.makeText(Create_Task.this, "User" + chosenUserName + 
+							" wurde ausgewählt und benachrichtigt", Toast.LENGTH_SHORT).show();
+					
+					createNewTask(chosenUserName);
+					
+					Intent intent = new Intent(Create_Task.this, TaskDistributor.class);
+					startActivity(intent);
+        		}
+        		else
+        		{
+					Toast.makeText(Create_Task.this, "Die Felder Aufgabe und Kommentar müssen beschrieben sein", Toast.LENGTH_SHORT).show();
+        		}
 	        }
-
-			
         });
 	}
 
@@ -92,8 +96,6 @@ public class Create_Task extends Activity
 	
 	private void createNewTask(String chosenUserName) 
 	{
-		SimpleDateFormat myDateFormat = new SimpleDateFormat("dd.MM.yyyy");
-		String deadlineString = new Integer(deadline.getDayOfMonth()).toString() + "." + new Integer(deadline.getMonth()) + "." + new Integer(deadline.getYear());
 		String userId = findUserId(chosenUserName);
 		
 		List<NameValuePair> nameValuePairs = new ArrayList<NameValuePair>();
@@ -102,7 +104,7 @@ public class Create_Task extends Activity
 		nameValuePairs.add(new BasicNameValuePair("name", name.getText().toString()));
 		nameValuePairs.add(new BasicNameValuePair("comment", comment.getText().toString()));
 		nameValuePairs.add(new BasicNameValuePair("points", new Double(points.getRating()).toString()));
-		nameValuePairs.add(new BasicNameValuePair("deadline", deadlineString));
+		nameValuePairs.add(new BasicNameValuePair("deadline", ""));
 		nameValuePairs.add(new BasicNameValuePair("voteDeadline", ""));
 		nameValuePairs.add(new BasicNameValuePair("status", "0"));
 		task.insert(nameValuePairs);
