@@ -12,11 +12,15 @@ import org.apache.http.message.BasicNameValuePair;
 
 import de.htwg.lpn.model.Task;
 import de.htwg.lpn.model.User;
+import de.htwg.lpn.wgbuddy.utility.Dialogs;
 import de.htwg.lpn.wgbuddy.utility.RandomUser;
 import android.app.Activity;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
@@ -75,6 +79,34 @@ public class Create_Task extends Activity
 			
         });
 	}
+	
+	@Override
+	public boolean onCreateOptionsMenu(Menu menu) 
+	{
+	    MenuInflater inflater = getMenuInflater();
+	    inflater.inflate(R.menu.basic_menu, menu);
+	    return true;
+	}
+	
+	@Override
+	public boolean onOptionsItemSelected(MenuItem item) 
+	{
+		Intent intent;
+		switch (item.getItemId()) 
+        {        	
+	        case R.id.about:
+	        	Dialogs.getAboutDialog(Create_Task.this, settings);
+	        	return true;
+	        	
+	        case R.id.menu:
+	        	intent = new Intent(Create_Task.this, WGBuddyActivity.class);
+				startActivity(intent);	
+	        	return true;
+	        	
+	        default:
+	        	return super.onOptionsItemSelected(item);
+        }
+    }
 
 	private void init() 
 	{

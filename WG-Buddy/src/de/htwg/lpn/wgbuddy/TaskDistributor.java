@@ -14,6 +14,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import de.htwg.lpn.model.User;
+import de.htwg.lpn.wgbuddy.utility.Dialogs;
 import de.htwg.lpn.wgbuddy.utility.RandomUser;
 import de.htwg.lpn.wgbuddy.utility.Utilities;
 
@@ -21,6 +22,9 @@ import android.app.Activity;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.ArrayAdapter;
@@ -73,6 +77,39 @@ public class TaskDistributor extends Activity
 //	        userList.setAdapter(adapter);
 //	        //TODO: Alle schon auswählen
     }
+	 
+	 @Override
+		public boolean onCreateOptionsMenu(Menu menu) 
+		{
+		    MenuInflater inflater = getMenuInflater();
+		    inflater.inflate(R.menu.basicrefresh_menu, menu);
+		    return true;
+		}
+		
+		@Override
+		public boolean onOptionsItemSelected(MenuItem item) 
+		{
+			Intent intent;
+			switch (item.getItemId()) 
+	        {   
+		        case R.id.refresh:
+		        	finish();
+		        	startActivity(getIntent());
+		        	return true;
+			
+		        case R.id.about:
+		        	Dialogs.getAboutDialog(TaskDistributor.this, settings);
+		        	return true;
+		        	
+		        case R.id.menu:
+		        	intent = new Intent(TaskDistributor.this, WGBuddyActivity.class);
+					startActivity(intent);	
+		        	return true;
+		        	
+		        default:
+		        	return super.onOptionsItemSelected(item);
+	        }
+	    }
 
 	private void createList() 
 	{

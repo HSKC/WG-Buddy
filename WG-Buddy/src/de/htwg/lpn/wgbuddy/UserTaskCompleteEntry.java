@@ -11,6 +11,9 @@ import android.app.Activity;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.CompoundButton.OnCheckedChangeListener;
@@ -18,6 +21,7 @@ import android.widget.EditText;
 import android.widget.RatingBar;
 import de.htwg.lpn.model.Task;
 import de.htwg.lpn.model.User;
+import de.htwg.lpn.wgbuddy.utility.Dialogs;
 
 public class UserTaskCompleteEntry extends Activity
 {
@@ -41,6 +45,39 @@ public class UserTaskCompleteEntry extends Activity
 		  
 		 isChecked();	 
 	}
+	
+	@Override
+	public boolean onCreateOptionsMenu(Menu menu) 
+	{
+	    MenuInflater inflater = getMenuInflater();
+	    inflater.inflate(R.menu.basicrefresh_menu, menu);
+	    return true;
+	}
+	
+	@Override
+	public boolean onOptionsItemSelected(MenuItem item) 
+	{
+		Intent intent;
+		switch (item.getItemId()) 
+        {   
+	        case R.id.refresh:
+	        	finish();
+	        	startActivity(getIntent());
+	        	return true;
+		
+	        case R.id.about:
+	        	Dialogs.getAboutDialog(UserTaskCompleteEntry.this, settings);
+	        	return true;
+	        	
+	        case R.id.menu:
+	        	intent = new Intent(UserTaskCompleteEntry.this, WGBuddyActivity.class);
+				startActivity(intent);	
+	        	return true;
+	        	
+	        default:
+	        	return super.onOptionsItemSelected(item);
+        }
+    }
 
 	private void isChecked() 
 	{

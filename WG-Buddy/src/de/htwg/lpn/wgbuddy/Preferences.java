@@ -9,8 +9,12 @@ import de.htwg.lpn.wgbuddy.utility.Utilities;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
@@ -115,4 +119,37 @@ public class Preferences extends Activity
 			}
 		});
     }	
+	
+	@Override
+	public boolean onCreateOptionsMenu(Menu menu) 
+	{
+	    MenuInflater inflater = getMenuInflater();
+	    inflater.inflate(R.menu.basicrefresh_menu, menu);
+	    return true;
+	}
+	
+	@Override
+	public boolean onOptionsItemSelected(MenuItem item) 
+	{
+		Intent intent;
+		switch (item.getItemId()) 
+        {   
+	        case R.id.refresh:
+	        	finish();
+	        	startActivity(getIntent());
+	        	return true;
+		
+	        case R.id.about:
+	        	Dialogs.getAboutDialog(Preferences.this, settings);
+	        	return true;
+	        	
+	        case R.id.menu:
+	        	intent = new Intent(Preferences.this, WGBuddyActivity.class);
+				startActivity(intent);	
+	        	return true;
+	        	
+	        default:
+	        	return super.onOptionsItemSelected(item);
+        }
+    }
 }

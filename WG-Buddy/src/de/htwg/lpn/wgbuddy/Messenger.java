@@ -9,6 +9,7 @@ import java.util.Set;
 
 import de.htwg.lpn.model.Message;
 import de.htwg.lpn.model.ShoppingItem;
+import de.htwg.lpn.wgbuddy.utility.Dialogs;
 import de.htwg.lpn.wgbuddy.utility.Utilities;
 import android.app.Activity;
 import android.content.Context;
@@ -74,10 +75,7 @@ public class Messenger extends Activity
 				return true;
         	
 	        case R.id.about:
-	        	String text = "Dies ist eine von Jens Küblbeck, Felix Offergeld und Dominik Wieland entwickelte App.\n";
-	        	text += "Version 1.0";
-	        	text += "Das Benutzerhandbuch finden Sie unter dem Link ...";	        	
-	        	Utilities.message(this, text, "OK");
+	        	Dialogs.getAboutDialog(Messenger.this, settings);
 	        	return true;
 	        	
 	        case R.id.menu:

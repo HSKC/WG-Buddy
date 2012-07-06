@@ -21,6 +21,9 @@ import android.os.Bundle;
 import android.text.InputType;
 import android.text.method.PasswordTransformationMethod;
 import android.text.method.SingleLineTransformationMethod;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
@@ -153,5 +156,27 @@ public class Login_User extends Activity
 				Dialogs.getChangePasswordWithKeyDialog(Login_User.this, settings);				
 			}
 		});
+    }
+	
+	@Override
+	public boolean onCreateOptionsMenu(Menu menu) 
+	{
+	    MenuInflater inflater = getMenuInflater();
+	    inflater.inflate(R.menu.about_menu, menu);
+	    return true;
+	}
+	
+	@Override
+	public boolean onOptionsItemSelected(MenuItem item) 
+	{
+		switch (item.getItemId()) 
+        {        	
+	        case R.id.about:
+	        	Dialogs.getAboutDialog(Login_User.this, settings);
+	        	return true;
+	        	
+	        default:
+	        	return super.onOptionsItemSelected(item);
+        }
     }	
 }

@@ -9,6 +9,7 @@ import org.apache.http.message.BasicNameValuePair;
 
 import de.htwg.lpn.model.ShoppingItem;
 import de.htwg.lpn.model.User;
+import de.htwg.lpn.wgbuddy.utility.Dialogs;
 import de.htwg.lpn.wgbuddy.utility.Utilities;
 import android.app.Activity;
 import android.app.AlertDialog;
@@ -121,10 +122,7 @@ public class ShoppingList extends Activity
 				return true;
         	
 	        case R.id.about:
-	        	String text = "Dies ist eine von Jens Küblbeck, Felix Offergeld und Dominik Wieland entwickelte App.\n";
-	        	text += "Version 1.0";
-	        	text += "Das Benutzerhandbuch finden Sie unter dem Link ...";	        	
-	        	Utilities.message(this, text, "OK");
+	        	Dialogs.getAboutDialog(ShoppingList.this, settings);
 	        	return true;
 	        	
 	        case R.id.menu:
@@ -136,6 +134,20 @@ public class ShoppingList extends Activity
 	        	return super.onOptionsItemSelected(item);
         }
     }
+	
+	@Override
+	public boolean onKeyDown(int keyCode, KeyEvent event)  
+	{
+	    if (keyCode == KeyEvent.KEYCODE_BACK)
+	    {
+
+	       Intent intent = new Intent(ShoppingList.this, WGBuddyActivity.class);
+	       startActivity(intent);
+	       
+	        return true;
+	    }
+	    return super.onKeyDown(keyCode, event);
+	}
 	
 	private void loadList()
 	{
@@ -298,22 +310,7 @@ public class ShoppingList extends Activity
 		sa.setViewBinder(vb);
 		sa.notifyDataSetChanged();
         shoppingList.setAdapter(sa);
-	}
-	
-
-	@Override
-	public boolean onKeyDown(int keyCode, KeyEvent event)  
-	{
-	    if (keyCode == KeyEvent.KEYCODE_BACK)
-	    {
-
-	       Intent intent = new Intent(ShoppingList.this, WGBuddyActivity.class);
-	       startActivity(intent);
-	       
-	        return true;
-	    }
-	    return super.onKeyDown(keyCode, event);
-	}
+	}	
 	
 	public void getShoppingListOptionsDialog()
 	{

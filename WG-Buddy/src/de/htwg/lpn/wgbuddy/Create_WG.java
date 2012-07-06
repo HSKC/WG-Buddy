@@ -8,11 +8,15 @@ import org.apache.http.message.BasicNameValuePair;
 
 import de.htwg.lpn.model.User;
 import de.htwg.lpn.model.WG;
+import de.htwg.lpn.wgbuddy.utility.Dialogs;
 import de.htwg.lpn.wgbuddy.utility.Utilities;
 import android.app.Activity;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
@@ -70,8 +74,6 @@ public class Create_WG extends Activity
 					return;
 				}
 				
-				
-				Store store = ((Store)getApplicationContext());
 				WG wg = new WG(settings);
 				ArrayList<HashMap<String, String>> wgList = wg.get("?name=" + name);
 				if(wgList.size() > 0)
@@ -118,5 +120,27 @@ public class Create_WG extends Activity
 				}
 			}
 		});
+    }
+	
+	@Override
+	public boolean onCreateOptionsMenu(Menu menu) 
+	{
+	    MenuInflater inflater = getMenuInflater();
+	    inflater.inflate(R.menu.about_menu, menu);
+	    return true;
+	}
+	
+	@Override
+	public boolean onOptionsItemSelected(MenuItem item) 
+	{
+		switch (item.getItemId()) 
+        {        	
+	        case R.id.about:
+	        	Dialogs.getAboutDialog(Create_WG.this, settings);
+	        	return true;
+	        	
+	        default:
+	        	return super.onOptionsItemSelected(item);
+        }
     }
 }

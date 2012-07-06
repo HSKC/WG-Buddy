@@ -6,6 +6,7 @@ import java.util.HashMap;
 
 import de.htwg.lpn.model.User;
 import de.htwg.lpn.model.WG;
+import de.htwg.lpn.wgbuddy.utility.Dialogs;
 import android.app.Activity;
 
 import android.app.PendingIntent;
@@ -21,6 +22,9 @@ import android.os.StrictMode;
 
 import android.text.method.SingleLineTransformationMethod;
 
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
@@ -253,8 +257,28 @@ public class WGBuddyActivity extends Activity
 					startActivity(intent);
 				}
     		}
-		);   
-        
-      
+		);
+    }
+    
+    @Override
+	public boolean onCreateOptionsMenu(Menu menu) 
+	{
+	    MenuInflater inflater = getMenuInflater();
+	    inflater.inflate(R.menu.about_menu, menu);
+	    return true;
+	}
+	
+	@Override
+	public boolean onOptionsItemSelected(MenuItem item) 
+	{
+		switch (item.getItemId()) 
+        {        	
+	        case R.id.about:
+	        	Dialogs.getAboutDialog(WGBuddyActivity.this, settings);
+	        	return true;
+	        	
+	        default:
+	        	return super.onOptionsItemSelected(item);
+        }
     }
 }
