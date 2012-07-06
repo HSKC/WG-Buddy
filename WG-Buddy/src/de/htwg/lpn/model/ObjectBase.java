@@ -7,6 +7,7 @@ import org.apache.http.NameValuePair;
 
 import de.htwg.lpn.wgbuddy.utility.JSON;
 
+import android.content.Context;
 import android.content.SharedPreferences;
 
 public class ObjectBase
@@ -45,6 +46,12 @@ public class ObjectBase
 		JSON.postData(url, nameValuePairs);
 	}
 	
+	public void insert(List<NameValuePair> nameValuePairs, Context context)
+	{
+		String url = settings.getString("pref_webserver", "") + phpPage + "?insert&" + authCode;
+		JSON.postData(url, nameValuePairs,context);
+	}
+	
 	public void update(Integer id, List<NameValuePair> nameValuePairs)
 	{
 		String url = settings.getString("pref_webserver", "") + phpPage + "?update=" + String.valueOf(id) + "&" + authCode;
@@ -55,5 +62,11 @@ public class ObjectBase
 	{
 		String url = settings.getString("pref_webserver", "") + phpPage + "?delete=" + String.valueOf(id) + "&" + authCode;
 		JSON.postData(url);
+	}
+	
+	public void delete(Integer id, Context context)
+	{
+		String url = settings.getString("pref_webserver", "") + phpPage + "?delete=" + String.valueOf(id) + "&" + authCode;
+		JSON.postData(url,context);
 	}
 }
