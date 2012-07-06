@@ -57,7 +57,7 @@ public class WGBuddyActivity extends Activity
         SharedPreferences.Editor editor = settings.edit();
         editor.putString("pref_webserver", "http://wgbuddy.domoprojekt.de/");
         editor.commit();
-        
+      
     	super.onCreate(savedInstanceState);
         
         // Nicht eingeloggt.

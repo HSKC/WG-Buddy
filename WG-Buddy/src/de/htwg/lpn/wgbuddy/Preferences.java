@@ -1,66 +1,126 @@
 package de.htwg.lpn.wgbuddy;
 
+import java.util.ArrayList;
+import java.util.HashMap;
+
+import de.htwg.lpn.model.User;
+import de.htwg.lpn.wgbuddy.utility.Dialogs;
 import de.htwg.lpn.wgbuddy.utility.Utilities;
 import android.app.Activity;
-import android.content.Intent;
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
+import android.widget.ListView;
+import android.widget.SimpleAdapter;
+
 
 public class Preferences extends Activity 
 {
-	private Button user;
-	private Button wg;
-	private Button admin;
-	private SharedPreferences settings;
+    private SharedPreferences settings;
+	private ListView wgUserList;
+	private Button changePasswordButton;
+	private Button leaveWGButton;	
+	private Button changeAdminButton;
+	private Button changeWGPasswordButton;
 	
-	 @Override
-	    public void onCreate(Bundle savedInstanceState) 
-	    {
-	    	super.onCreate(savedInstanceState);
-	    	setContentView(R.layout.preferences);
-	    	
-	    	settings = getSharedPreferences(WGBuddyActivity.PREFS_NAME, 0);
-	        Utilities.checkByPass(this, settings);
-	    	
-	    	user = (Button) findViewById(R.id.mainpref_userButton);
-	    	wg = (Button) findViewById(R.id.mainpref_wgButton);
-	    	admin = (Button) findViewById(R.id.mainpref_adminButton);
-	    	
-	    	user.setOnClickListener(new OnClickListener() 
-	    	{
+	@Override
+    public void onCreate(Bundle savedInstanceState) 
+    {
+		super.onCreate(savedInstanceState);
+        setContentView(R.layout.preferences);  
+        
+        wgUserList = (ListView) findViewById(R.id.preferences_wg_list);
+        leaveWGButton = (Button) findViewById(R.id.preferences_leaveButton);
+        changePasswordButton = (Button) findViewById(R.id.preferences_changePasswordButton);
+        changeWGPasswordButton = (Button) findViewById(R.id.preferences_changeWGPasswordButton);
+        changeAdminButton = (Button) findViewById(R.id.preferences_changeAdminButton);        
+        
+        settings = getSharedPreferences(WGBuddyActivity.PREFS_NAME, 0);
+        Utilities.checkByPass(this, settings);
+        
+        String wgAdminId = Utilities.getWGAdminId(settings);
+        String userId = settings.getString("user_id", "");
+        
+        if(wgAdminId.compareTo(userId) != 0)
+        {
+        	changeWGPasswordButton.setVisibility(View.GONE);
+        	changeAdminButton.setVisibility(View.GONE);
+        }        
+        
+        User user = new User(settings);
+        ArrayList<HashMap<String, String>> userList = user.get("?wgId=" + settings.getString("wg_id", ""));
+        
+        SimpleAdapter adapter = new SimpleAdapter(this, userList, R.layout.preferences_wglist_entry, new String[] { "username" }, new int[] { R.id.preferences_wglist_name});
+        wgUserList.setAdapter(adapter);
+        
+        changePasswordButton.setOnClickListener(new OnClickListener() 
+        {
+			@Override
+			public void onClick(View v) 
+			{
+				Dialogs.getChangePasswordDialog(Preferences.this, settings);
+			}
+		});
+        
+        leaveWGButton.setOnClickListener(new OnClickListener() 
+        {
+			@Override
+			public void onClick(View v) 
+			{					
+				AlertDialog.Builder builder = new AlertDialog.Builder(Preferences.this);
+				builder.setMessage("Sind Sie sicher, dass Sie die WG verlassen möchten? Sie werden anschließend automatisch ausgeloggt.");
+				builder.setCancelable(true);
 				
-				@Override
-				public void onClick(View v) 
+				builder.setPositiveButton("WG verlassen", new DialogInterface.OnClickListener() 
 				{
-					Intent intent = new Intent(Preferences.this,Preferences_User.class);
-					startActivity(intent);
-				}
-			});
-	    	
-	    	wg.setOnClickListener(new OnClickListener() 
-	    	{
+		           public void onClick(DialogInterface dialog, int id) 
+		           {			        	  			        	   
+		        	  User user = new User(settings);
+		        	  
+		        	  if(Utilities.getWGAdminId(settings).compareTo(settings.getString("user_id", "")) == 0)
+	        	  	  {
+		        		  Dialogs.getChangeAdminDialog(Preferences.this, settings, true);
+					  }
+		        	  else
+		        	  {		        	  
+		        		  Utilities.leaveWG(Preferences.this, settings, user);
+		        	  }
+		           }				
+				});
 				
-				@Override
-				public void onClick(View v) 
+				builder.setNegativeButton("Abbrechen", new DialogInterface.OnClickListener() 
 				{
-					Intent intent = new Intent(Preferences.this,Preferences_WG.class);
-					startActivity(intent);
-				}
-			});
-	    	
-	    	admin.setOnClickListener(new OnClickListener() 
-	    	{
-				
-				@Override
-				public void onClick(View v) 
-				{
-					Intent intent = new Intent(Preferences.this,Preferences_Admin.class);
-					startActivity(intent);
-				}
-			});
-	    	
-	    }
+		           public void onClick(DialogInterface dialog, int id) 
+		           {
+		        	   dialog.cancel();
+		           }
+				});
+				       
+				AlertDialog alert = builder.create();
+				alert.show();									
+			}
+		});
+        
+        changeWGPasswordButton.setOnClickListener(new OnClickListener() 
+        {
+			@Override
+			public void onClick(View v) 
+			{
+				Dialogs.getChangeWGPasswordDialog(Preferences.this, settings);
+			}
+		});
+        
+        changeAdminButton.setOnClickListener(new OnClickListener() 
+        {
+			@Override
+			public void onClick(View v) 
+			{
+				Dialogs.getChangeAdminDialog(Preferences.this, settings, false);			
+			}
+		});
+    }	
 }

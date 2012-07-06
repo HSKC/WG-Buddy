@@ -3,23 +3,43 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical" >
-
+    
     <Button
-        android:id="@+id/mainpref_userButton"
+        android:id="@+id/preferences_changePasswordButton"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/preferences_userText" />
-
+        android:text="@string/preferences_changePassword" />    
+
     <Button
-        android:id="@+id/mainpref_wgButton"
+        android:id="@+id/preferences_leaveButton"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/preferences_wgtext" />
-
+        android:text="@string/preferences_leaveWG" /> 
+        
     <Button
-        android:id="@+id/mainpref_adminButton"
+        android:id="@+id/preferences_changeWGPasswordButton"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/preferences_amintext" />
+        android:text="@string/preferences_changeWGPassword" />
+    
+    <Button
+        android:id="@+id/preferences_changeAdminButton"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/preferences_changeAdmin" />
+    
+    <TextView 
+        android:text="WG-Bewohner"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+    
+    <ListView
+        android:id="@+id/preferences_wg_list"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:dividerHeight="2dp"
+        android:orientation="vertical" >
+        
+    </ListView>
 
 </LinearLayout>

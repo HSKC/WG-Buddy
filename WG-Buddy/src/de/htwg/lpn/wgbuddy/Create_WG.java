@@ -35,7 +35,6 @@ public class Create_WG extends Activity
     	setContentView(R.layout.create_wg);
     	
     	settings = getSharedPreferences(WGBuddyActivity.PREFS_NAME, 0);
-        Utilities.checkByPass(this, settings);
     	
     	nameTextView = (TextView) findViewById(R.id.create_wg_nameEdit);
     	passwordTextView = (TextView) findViewById(R.id.create_wg_passwordEdit);
@@ -84,8 +83,8 @@ public class Create_WG extends Activity
 				
 				// Insert User into DB.
 				ArrayList<NameValuePair> nameValuePairs = new ArrayList<NameValuePair>();
-				nameValuePairs.add(new BasicNameValuePair("adminId", settings.getString("user_id", "")));
 				nameValuePairs.add(new BasicNameValuePair("name", name));
+				nameValuePairs.add(new BasicNameValuePair("adminId", settings.getString("user_id", "")));
 				nameValuePairs.add(new BasicNameValuePair("password", password));    				
 				wg.insert(nameValuePairs);
 				
@@ -98,7 +97,6 @@ public class Create_WG extends Activity
 	    			editor.putString("wg_id", wgList.get(0).get("id"));
         		    editor.putString("wg_name", wgList.get(0).get("name"));
         		    editor.putString("wg_password", wgList.get(0).get("password"));
-        		    editor.putString("wg_adminId", wgList.get(0).get("adminId"));
 	    		    editor.commit();
 	    		    
 	    		    // WG-ID im User speichern.

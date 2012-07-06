@@ -7,8 +7,14 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.regex.Pattern;
 
+import org.apache.http.NameValuePair;
+import org.apache.http.message.BasicNameValuePair;
+
+import de.htwg.lpn.model.User;
+import de.htwg.lpn.model.WG;
 import de.htwg.lpn.wgbuddy.Login_User;
 import de.htwg.lpn.wgbuddy.Login_WG;
+import de.htwg.lpn.wgbuddy.Preferences;
 import de.htwg.lpn.wgbuddy.WGBuddyActivity;
 
 import android.app.AlertDialog;
@@ -100,5 +106,26 @@ public class Utilities
 			context.startActivity(intent);
 			return;        	
         }	
+	}
+	
+	public static void leaveWG(Context context, SharedPreferences settings, User user) 
+	{
+		ArrayList<NameValuePair> nameValuePairs = new ArrayList<NameValuePair>();
+		 nameValuePairs.add(new BasicNameValuePair("wgId", settings.getString("0", ""))); 
+		 user.update(Integer.valueOf(settings.getString("user_id", "")), nameValuePairs);
+		  
+		 SharedPreferences.Editor editor = settings.edit();      		    
+		 editor.clear();
+		 editor.commit();        		    
+		 Intent intent = new Intent(context, WGBuddyActivity.class);
+		 context.startActivity(intent);
+	}
+	
+	public static String getWGAdminId(SharedPreferences settings)
+	{
+		WG wg = new WG(settings);
+		ArrayList<HashMap<String, String>> wgList = wg.get("?id=" + settings.getString("wg_id", ""));
+		
+		return wgList.get(0).get("adminId");
 	}
 }
