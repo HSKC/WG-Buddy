@@ -20,10 +20,33 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import android.content.Context;
 import android.util.Log;
 
 public class JSON 
 {
+	
+	public static void postData(String url, Context context) 
+	{
+		
+		
+		HttpClient httpclient = new DefaultHttpClient();
+		HttpPost httppost = new HttpPost(url);
+	    
+		AsyncPost asp = new AsyncPost(context);
+       
+		asp.execute(httppost);
+		
+		try
+		{
+			asp.get();
+		}
+		catch(Exception e)
+		{
+			e.printStackTrace();
+		}
+	}
+	
 	public static void postData(String url) 
 	{
 		
@@ -46,6 +69,29 @@ public class JSON
 	        // TODO Auto-generated catch block
 	    }
 	}
+	
+	public static String postData(String url, List<NameValuePair> nameValuePairs, Context context) 
+	{
+     
+			HttpPost httppost = new HttpPost(url);
+			try
+			{
+			
+			httppost.setEntity(new UrlEncodedFormEntity(nameValuePairs));
+		    
+			AsyncPost asp = new AsyncPost(context);
+	       
+			asp.execute(httppost);
+			
+
+				asp.get();
+			}
+			catch(Exception e)
+			{
+				e.printStackTrace();
+			}
+			return "Fehler";
+	}	
 	
 	public static String postData(String url, List<NameValuePair> nameValuePairs) 
 	{
