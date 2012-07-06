@@ -7,6 +7,7 @@ import java.util.HashMap;
 import de.htwg.lpn.model.User;
 import de.htwg.lpn.model.WG;
 import de.htwg.lpn.wgbuddy.utility.Dialogs;
+import de.htwg.lpn.wgbuddy.utility.Utilities;
 import android.app.Activity;
 
 import android.app.PendingIntent;
@@ -16,6 +17,7 @@ import android.content.DialogInterface;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.SharedPreferences.Editor;
 import android.os.Bundle;
 
 import android.os.StrictMode;
@@ -66,14 +68,33 @@ public class WGBuddyActivity extends Activity
         // Nicht eingeloggt.
         if(!settings.contains("user_id") || !settings.contains("user_name") || !settings.contains("user_email") || !settings.contains("user_password"))
         {
-        	//Applikation das erste mal gestartet oder nicht Konfiguriert. Preferences aufrufen
+        	//Applikation das erste mal gestartet oder nicht konfiguriert. Login aufrufen
         	Intent intent = new Intent(WGBuddyActivity.this,Login_User.class);
 			startActivity(intent);
 			return;        	
         }
         
+        // Konto freigeschalten?
+        if(!settings.contains("user_status"))
+        {
+        	Intent intent = new Intent(WGBuddyActivity.this, Activate_User.class);
+			startActivity(intent);
+        }
+        	
+        
         User user = new User(settings);
         ArrayList<HashMap<String, String>> userList = user.get("?id=" + settings.getString("user_id", ""));
+        
+        if(userList.size() == 0)
+        {
+        	SharedPreferences.Editor e = settings.edit();      		    
+		    e.clear();
+		    e.commit();
+		    
+		    Intent intent = new Intent(WGBuddyActivity.this,Login_User.class);
+			startActivity(intent);
+			return;   
+        }
         
         // Keiner WG zugewiesen
         if(userList.get(0).get("wgId").equals("0"))

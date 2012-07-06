@@ -12,9 +12,15 @@ public class User extends ObjectBase
 		arrayName = "User";
 	}
 	
-	public void getNewKey(String email)
+	public void sendChangeKey(String email)
 	{
 		String url = settings.getString("pref_webserver", "") + "mail.php?lost=" + email + "&" + authCode;
+		JSON.postData(url);
+	}
+	
+	public void sendActivateKey(String email)
+	{
+		String url = settings.getString("pref_webserver", "") + "mail.php?activate=" + email + "&" + authCode;
 		JSON.postData(url);
 	}
 	

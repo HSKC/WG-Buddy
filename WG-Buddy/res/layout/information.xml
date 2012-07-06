@@ -22,9 +22,8 @@
     android:background="@android:color/darker_gray" />
     
     
-    
     <TextView 
-        android:text="@string/information_wgName"
+        android:text="@string/information_wgAdmin"
         android:textSize="18dip"
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />
@@ -42,7 +41,7 @@
     
     
     <TextView 
-        android:text="@string/information_wgName"
+        android:text="@string/information_wgPassword"
         android:textSize="18dip"
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />

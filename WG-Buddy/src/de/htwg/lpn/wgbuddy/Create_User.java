@@ -118,15 +118,20 @@ public class Create_User extends Activity
 				userList = user.get("?email=" + email);
 				if(userList.size() == 1)
 				{
+					user.sendActivateKey(email);
+					
+					
 					// Insert Values into SharedPreferences.				
 	    			SharedPreferences.Editor editor = settings.edit();        		    
 	    			editor.putString("user_id", userList.get(0).get("id"));
         		    editor.putString("user_name", userList.get(0).get("username"));
         		    editor.putString("user_password", userList.get(0).get("password"));
-        		    editor.putString("user_email", userList.get(0).get("email"));
-	    		    editor.commit();        		    
+        		    editor.putString("user_email", userList.get(0).get("email"));        		    
+        		    editor.remove("user_status");
+        		    
+	    		    editor.commit();
 					
-	    		    Intent intent = new Intent(Create_User.this,WGBuddyActivity.class);
+	    		    Intent intent = new Intent(Create_User.this, Activate_User.class);
 	     		    startActivity(intent);
 				}
 				else if(userList.size() > 1)	// Dürfte nie passieren...

@@ -50,8 +50,6 @@ public class Create_Message extends Activity
 			@Override
 			public void onClick(View v) 
 			{
-				
-				
 				List<NameValuePair> nameValuePairs = new ArrayList<NameValuePair>();
 		        nameValuePairs.add(new BasicNameValuePair("wgId", settings.getString("wg_id", "")));
 		        nameValuePairs.add(new BasicNameValuePair("userId",settings.getString("user_id", "0")));
@@ -70,7 +68,7 @@ public class Create_Message extends Activity
 			        nameValuePairs2.add(new BasicNameValuePair("msgType", "collapsed"));
 			        nameValuePairs2.add(new BasicNameValuePair("messageText", "Chat"));
 					
-					String message2 = "http://wgbuddy.domoprojekt.de/googleService.php"; 
+					String message2 = "http://wgbuddy.domoprojekt.de/googleService.php"; //TODO: GoogleService-Klasse
 					
 					JSON.postData(message2,nameValuePairs2,Create_Message.this);
 		        }

@@ -32,18 +32,24 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:ems="10"
-        android:inputType="textPassword" />
-
+        android:inputType="textPassword" />
     <Button
         android:id="@+id/userpref_saveButton"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/preferences_login" />
+        android:text="@string/preferences_login" />
+        
     <Button
         android:id="@+id/userpref_createButton"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/preferences_createuser" />
+        android:text="@string/preferences_createuser" />
+    
+    <Button
+        android:id="@+id/userpref_activateButton"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/preferences_activateAccount" />
     <Button
         android:id="@+id/userpref_passwordButton"
         android:layout_width="match_parent"
