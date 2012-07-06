@@ -5,6 +5,7 @@
     <string name="main_taskdistributor">Aufgabenverteilung</string>
     <string name="main_settings">Einstellungen</string>
     <string name="main_chat">Chat</string>
+    <string name="main_information">Information</string>
     <string name="main_invite">Einladen</string>
     <string name="main_logout">Logout</string>
 
@@ -35,9 +36,6 @@
     <string name="taskdistributor_go">neue Aufgabe</string>
     <string name="Deadline">Deadline</string>
     
-    <string name="preferences_userText">Nutzereinstellungen</string>
-    <string name="preferences_wgtext">WG Einstellungen</string>
-    <string name="preferences_amintext">Adminmenü</string>
     <string name="preferences_login">Login</string>
     <string name="preferences_password">Passwort</string>
     <string name="preferences_createuser">Neuen User erstellen</string>
