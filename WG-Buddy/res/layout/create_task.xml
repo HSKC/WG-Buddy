@@ -3,20 +3,23 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical" >
-
+
+
     <TextView
         android:id="@+id/textView1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/userTaskName" />
-
+
+
     <EditText
         android:id="@+id/taskNameText"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:ems="10"
         android:inputType="textPersonName" />
-
+
+
     <TextView
         android:id="@+id/textView2"
         android:layout_width="wrap_content"
@@ -32,29 +35,25 @@
 
         <requestFocus />
     </EditText>
-
+
+
     <TextView
         android:id="@+id/textView3"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/usertTaskRating" />
-
+
+
     <RatingBar
         android:id="@+id/taskRatingBar"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content" />
-
-    <TextView
-        android:id="@+id/textView4"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/userTaskDeadline" />
-
-    <DatePicker
-        android:id="@+id/userTaskDatePicker"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
-
+
+
+
+
+
+
     <Button
         android:id="@+id/usertaskgoButton"
         android:layout_width="match_parent"

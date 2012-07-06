@@ -69,7 +69,6 @@
     <string-array name="shoppingListType_array">
         <item>Alle Einträge</item>
         <item>Offene Einträge</item>
-        <item>Werden gekauft</item>
         <item>Gekaufte Einträge</item>
     </string-array>
     
