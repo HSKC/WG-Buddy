@@ -73,10 +73,7 @@ public class Create_ShoppingItem  extends Activity
 			        nameValuePairs.add(new BasicNameValuePair("status", "-1"));					
 		        
 					ShoppingItem shopping = new ShoppingItem(settings);
-					shopping.insert(nameValuePairs);	
-					
-					String message = "http://wgbuddy.domoprojekt.de/googleService.php?wgId=" + settings.getString("wg_id", "") + "&" + "msgType=collapsed" + "&" + "messageText=ShoppingItem";					
-					JSON.postData(message);
+					shopping.insert(nameValuePairs,Create_ShoppingItem.this);	
 					
 			        if(WGBuddyActivity.usepush)
 			        {
@@ -87,7 +84,7 @@ public class Create_ShoppingItem  extends Activity
 						
 						String message2 = "http://wgbuddy.domoprojekt.de/googleService.php"; 
 						
-						JSON.postData(message2,nameValuePairs2);
+						JSON.postData(message2,nameValuePairs2,Create_ShoppingItem.this);
 			        }
 					
 					Intent intent = new Intent(Create_ShoppingItem.this, ShoppingList.class);

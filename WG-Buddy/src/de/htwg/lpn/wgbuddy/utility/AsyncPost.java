@@ -14,27 +14,27 @@ import android.app.ProgressDialog;
 import android.content.Context;
 import android.os.AsyncTask;
 
-public class AsyncPost extends AsyncTask<HttpPost, Void, Void> 
+public class AsyncPost extends AsyncTask<HttpPost, Void, String> 
 {
 	Context context;
 	ProgressDialog mydialog;
 	
-	public AsyncPost(Context context) 
+	public AsyncPost(ProgressDialog dialog) 
 	{
-		this.context = context;
-		mydialog = new ProgressDialog(this.context);
+		mydialog = dialog;
 	}
 	
-	@Override
-	protected void onPreExecute() 
-	{
-		mydialog.setTitle("Please wait");
-		mydialog.show();          
-	}
+//	@Override
+//	protected void onPreExecute() 
+//	{
+//		System.out.println("SHOW2");
+//		mydialog.setTitle("Please wait");
+//		mydialog.show();          
+//	}
 	
 
 	@Override
-	protected Void doInBackground(HttpPost... params) 
+	protected String doInBackground(HttpPost... params) 
 	{
 		HttpClient httpclient = new DefaultHttpClient();
 
@@ -53,10 +53,11 @@ public class AsyncPost extends AsyncTask<HttpPost, Void, Void>
 		return null;
 
 	}
-
-
-	protected void onPostExecute(Long Result)
+	
+	@Override
+	protected void onPostExecute(String s)
 	{
+		System.out.println("DISMISS");
 		mydialog.dismiss();
 	}
 }
