@@ -1,11 +1,7 @@
 package de.htwg.lpn.model;
 
-import java.util.List;
-
-import org.apache.http.NameValuePair;
-
-import de.htwg.lpn.wgbuddy.utility.JSON;
 import android.content.SharedPreferences;
+import de.htwg.lpn.wgbuddy.utility.JSON;
 
 public class User extends ObjectBase
 {

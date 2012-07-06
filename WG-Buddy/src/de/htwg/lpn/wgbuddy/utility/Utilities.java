@@ -1,6 +1,5 @@
 package de.htwg.lpn.wgbuddy.utility;
 
-import java.lang.reflect.Method;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
@@ -10,19 +9,17 @@ import java.util.regex.Pattern;
 import org.apache.http.NameValuePair;
 import org.apache.http.message.BasicNameValuePair;
 
-import de.htwg.lpn.model.User;
-import de.htwg.lpn.model.WG;
-import de.htwg.lpn.wgbuddy.Login_User;
-import de.htwg.lpn.wgbuddy.Login_WG;
-import de.htwg.lpn.wgbuddy.Preferences;
-import de.htwg.lpn.wgbuddy.WGBuddyActivity;
-
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.net.Uri;
+
+import de.htwg.lpn.model.User;
+import de.htwg.lpn.model.WG;
+import de.htwg.lpn.wgbuddy.Login_User;
+import de.htwg.lpn.wgbuddy.WGBuddyActivity;
 
 public class Utilities 
 {

@@ -33,7 +33,6 @@ public class JSON
 		mydialog.setTitle("Please wait");
 		mydialog.show();
 		System.out.println("SHOW");
-		HttpClient httpclient = new DefaultHttpClient();
 		HttpPost httppost = new HttpPost(url);
 	    
 		AsyncPost asp = new AsyncPost(mydialog);
@@ -147,7 +146,7 @@ public class JSON
 					try 
 					{
 						JSONObject e = jsonarray.getJSONObject(i);
-						Iterator iter = e.keys();
+						Iterator<?> iter = e.keys();
 						while(iter.hasNext())
 						{
 							String key = (String)iter.next();
