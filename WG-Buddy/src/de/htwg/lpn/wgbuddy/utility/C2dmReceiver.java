@@ -25,14 +25,10 @@ import android.util.Log;
 
 public class C2dmReceiver  extends BroadcastReceiver 
 {
-	private static String KEY = "c2dmPref";
-	private Context context;
-	
 	@Override
 	public void onReceive(Context context, Intent intent) 
 	{
 		System.out.println("Received Async Message");
-	    this.context = context;
 	    if(WGBuddyActivity.usepush)
 	    {
 			if (intent.getAction().equals("com.google.android.c2dm.intent.REGISTRATION")) 
@@ -155,19 +151,19 @@ public class C2dmReceiver  extends BroadcastReceiver
         if(ar.topActivity.getClassName().toString().compareTo(ShoppingList.class.toString().split(" ")[1]) == 0)
         {
         	  Intent intent2 = new Intent(context,ShoppingList.class);
-              intent2.addFlags(intent2.FLAG_ACTIVITY_NEW_TASK);
+              intent2.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
               context.startActivity(intent2);
         }
         else if(ar.topActivity.getClassName().toString().compareTo(TaskDistributor.class.toString().split(" ")[1]) == 0)
         {
         	  Intent intent2 = new Intent(context,TaskDistributor.class);
-              intent2.addFlags(intent2.FLAG_ACTIVITY_NEW_TASK);
+              intent2.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
               context.startActivity(intent2);
         }
         else if(ar.topActivity.getClassName().toString().compareTo(Messenger.class.toString().split(" ")[1]) == 0)
         {
         	  Intent intent2 = new Intent(context,Messenger.class);
-              intent2.addFlags(intent2.FLAG_ACTIVITY_NEW_TASK);
+              intent2.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
               context.startActivity(intent2);
         }
 	}

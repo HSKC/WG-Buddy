@@ -6,10 +6,6 @@ import java.util.List;
 import org.apache.http.NameValuePair;
 import org.apache.http.message.BasicNameValuePair;
 
-import de.htwg.lpn.model.ShoppingItem;
-import de.htwg.lpn.wgbuddy.utility.Dialogs;
-import de.htwg.lpn.wgbuddy.utility.JSON;
-import de.htwg.lpn.wgbuddy.utility.Utilities;
 import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Intent;
@@ -21,10 +17,12 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
-import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.RatingBar;
-import android.widget.TimePicker;
+import de.htwg.lpn.model.ShoppingItem;
+import de.htwg.lpn.wgbuddy.utility.Dialogs;
+import de.htwg.lpn.wgbuddy.utility.JSON;
+import de.htwg.lpn.wgbuddy.utility.Utilities;
 
 public class Create_ShoppingItem  extends Activity
 {

@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name">WG-Buddy</string>
+    
     <string name="main_shoppinglist">Einkaufszettel</string>
     <string name="main_taskdistributor">Aufgabenverteilung</string>
     <string name="main_settings">Einstellungen</string>
@@ -16,26 +17,8 @@
     <string name="preferences_save">speichern</string>
     <string name="preferences_username">Name</string>
     <string name="preferences_email">E-Mail</string>
-
     <string name="preferences_adminpassword">Adminpassword</string>
     <string name="preferenes_createWG">Erstellen</string>
-    <string name="shoppinglist_list">Einkaufsliste</string>
-    <string name="shoppinglist_add">Hinzufügen</string>
-    <string name="shopping_ItemAdd">Hinzufügen</string>
-    <string name="shopping_ItemName">Name</string>
-    <string name="taskdistributor_name">Name</string>
-    <string name="taskdistributor_user1">User1</string>
-    <string name="taskdistributor_user2">User2</string>
-    <string name="taskdistributor_user3">User3</string>
-    <string name="taskdistribution_Congrats">Gratuliere user x wurde ausgewählt</string>
-    <string name="manage_adminuser1">User1</string>
-    <string name="manage_adminuser2">User2</string>
-    <string name="manage_adminuser3">User3</string>
-    <string name="manage_adminDelete">Löschen</string>
-    <string name="taskdistriubtor_userHeading">Teilnehmer:</string>
-    <string name="taskdistributor_go">neue Aufgabe</string>
-    <string name="Deadline">Deadline</string>
-    
     <string name="preferences_login">Login</string>
     <string name="preferences_password">Passwort</string>
     <string name="preferences_createuser">Neuen User erstellen</string>
@@ -44,18 +27,49 @@
     <string name="preferences_changePassword">Passwort ändern</string>
     <string name="preferences_changeWGPassword">WG Passwort ändern</string>
     
+    <string name="information_wgName">WG-Name</string>
+    <string name="information_wgAdmin">WG-Admin</string>
+    <string name="information_wgPassword">WG-Passwort</string>
+    <string name="information_wgUser">WG-Bewohner</string>
+    
+    <string name="shoppinglist_list">Einkaufsliste</string>
+    <string name="shoppinglist_add">Hinzufügen</string>
+    <string name="shoppinglist_complete">Gekauft</string>
+    <string name="shoppinglist_delete">Löschen</string>
+    <string name="shoppinglist_showAll">Alle anzeigen</string>
+    <string name="shoppinglist_showMy">Meine anzeigen</string>
+    <string name="shopping_ItemAdd">Hinzufügen</string>
+    <string name="shopping_ItemName">Name</string>
+    
+    
+    <string name="taskdistributor_name">Name</string>
+    <string name="taskdistributor_user1">User1</string>
+    <string name="taskdistributor_user2">User2</string>
+    <string name="taskdistributor_user3">User3</string>
+    <string name="taskdistribution_Congrats">Gratuliere user x wurde ausgewählt</string>
+    
+    <string name="manage_adminuser1">User1</string>
+    <string name="manage_adminuser2">User2</string>
+    <string name="manage_adminuser3">User3</string>
+    <string name="manage_adminDelete">Löschen</string>
+    <string name="taskdistriubtor_userHeading">Teilnehmer:</string>
+    <string name="taskdistributor_go">neue Aufgabe</string>
+    <string name="Deadline">Deadline</string>    
+    
     <string name="createuser_name">Name</string>
     <string name="createuser_email">Email-Adresse</string>
     <string name="createuser_email2">Email-Adresse (wiederholen)</string>
-    <string name="createuser_password">Passwort</string>
-    <string name="createuser_create">Erstellen</string>
-    <string name="createwg_create">Erstellen</string>
-    <string name="createwg_name">WG-Name</string>
-    <string name="createwg_password">Passwort</string>
-    <string name="createwg_password2">Passwort (wiederholen)</string>
+    <string name="createuser_password">Passwort</string>    
     <string name="createuser_password2">Passwort (wiederholen)</string>
     <string name="createuser_lostpwd">Passwort vergessen</string>
     <string name="createuser_changePassword">Passwort ändern</string>
+    <string name="createuser_create">Erstellen</string>    
+    
+    <string name="createwg_create">Erstellen</string>
+    <string name="createwg_name">WG-Name</string>
+    <string name="createwg_password">Passwort</string>
+    <string name="createwg_password2">Passwort (wiederholen)</string>    
+
     <string name="shoppingRating">Wichtigkeit</string>
     <string name="shoppingDescription">Beschreibung</string>
     <string name="shoppingList_refresh">Aktualisieren</string>

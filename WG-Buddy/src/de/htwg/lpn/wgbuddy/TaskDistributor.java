@@ -2,21 +2,7 @@ package de.htwg.lpn.wgbuddy;
 
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
-import java.util.Map.Entry;
-import java.util.Set;
 import java.util.TreeMap;
-
-import org.apache.http.NameValuePair;
-import org.apache.http.message.BasicNameValuePair;
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
-
-import de.htwg.lpn.model.User;
-import de.htwg.lpn.wgbuddy.utility.Dialogs;
-import de.htwg.lpn.wgbuddy.utility.RandomUser;
-import de.htwg.lpn.wgbuddy.utility.Utilities;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -27,16 +13,16 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
-import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.CheckBox;
-import android.widget.EditText;
 import android.widget.ListAdapter;
 import android.widget.ListView;
-import android.widget.RatingBar;
 import android.widget.SimpleAdapter;
 import android.widget.SimpleAdapter.ViewBinder;
-import android.widget.Toast;
+import de.htwg.lpn.model.User;
+import de.htwg.lpn.wgbuddy.utility.Dialogs;
+import de.htwg.lpn.wgbuddy.utility.RandomUser;
+import de.htwg.lpn.wgbuddy.utility.Utilities;
 
 public class TaskDistributor extends Activity 
 {
@@ -169,6 +155,7 @@ public class TaskDistributor extends Activity
 					CheckBox checkbox = (CheckBox) entry.findViewById(R.id.task_userlistcheckbox);
 					if(checkbox.isChecked())
 					{						
+						@SuppressWarnings("unchecked")
 						HashMap<String, String> userData = (HashMap<String, String>) adapter.getItem(i);
 						checkedUser.put(userData.get("username"), Double.valueOf(userData.get("points")));
 					}

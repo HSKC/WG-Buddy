@@ -1,10 +1,7 @@
 package de.htwg.lpn.wgbuddy.utility;
 
 import java.io.IOException;
-import java.io.InputStream;
 
-import org.apache.http.HttpEntity;
-import org.apache.http.HttpResponse;
 import org.apache.http.client.ClientProtocolException;
 import org.apache.http.client.HttpClient;
 import org.apache.http.client.methods.HttpPost;

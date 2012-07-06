@@ -29,7 +29,8 @@ public class Taskdistributor_Info extends Activity
 	    Utilities.checkByPass(this, settings);
 	    
 	    Bundle bundle = this.getIntent().getExtras();
-	    ArrayList<String> users = (ArrayList<String>) bundle.get("users");
+	    @SuppressWarnings("unchecked")
+		ArrayList<String> users = (ArrayList<String>) bundle.get("users");
 	    long[] ids = (long[]) bundle.get("checked");
 	    
 	    text = (TextView) findViewById(R.id.taskinfo_Userview);

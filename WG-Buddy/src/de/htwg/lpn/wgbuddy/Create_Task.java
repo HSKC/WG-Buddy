@@ -2,18 +2,12 @@ package de.htwg.lpn.wgbuddy;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
-import java.util.TreeMap;
 
 import org.apache.http.NameValuePair;
 import org.apache.http.message.BasicNameValuePair;
 
-import de.htwg.lpn.model.Task;
-import de.htwg.lpn.model.User;
-import de.htwg.lpn.wgbuddy.utility.Dialogs;
-import de.htwg.lpn.wgbuddy.utility.RandomUser;
 import android.app.Activity;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -24,14 +18,14 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
-import android.widget.CheckBox;
 import android.widget.DatePicker;
-import android.widget.EditText;
-import android.widget.ListAdapter;
-import android.widget.ListView;
 import android.widget.RatingBar;
 import android.widget.TextView;
 import android.widget.Toast;
+import de.htwg.lpn.model.Task;
+import de.htwg.lpn.model.User;
+import de.htwg.lpn.wgbuddy.utility.Dialogs;
+import de.htwg.lpn.wgbuddy.utility.RandomUser;
 
 public class Create_Task extends Activity 
 {
@@ -42,7 +36,6 @@ public class Create_Task extends Activity
 	private SharedPreferences settings;
 	private Task task;
 	private User user;
-	private ArrayList<HashMap<String, String>> users;
 	private Button start;
 	
 	@Override
@@ -75,8 +68,6 @@ public class Create_Task extends Activity
 				Intent intent = new Intent(Create_Task.this, TaskDistributor.class);
 				startActivity(intent);
 	        }
-
-			
         });
 	}
 	
@@ -119,12 +110,12 @@ public class Create_Task extends Activity
 		task = new Task(settings);
 		
 		user = new User(settings); 
-        users = user.get("?wgId=" + settings.getString("wg_id", ""));
+        user.get("?wgId=" + settings.getString("wg_id", ""));
 	}
 	
 	private void createNewTask(String chosenUserName) 
 	{
-		SimpleDateFormat myDateFormat = new SimpleDateFormat("dd.MM.yyyy");
+		new SimpleDateFormat("dd.MM.yyyy");
 		String deadlineString = new Integer(deadline.getDayOfMonth()).toString() + "." + new Integer(deadline.getMonth()) + "." + new Integer(deadline.getYear());
 		String userId = findUserId(chosenUserName);
 		
