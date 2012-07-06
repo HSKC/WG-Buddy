@@ -30,8 +30,6 @@ public class Create_ShoppingItem  extends Activity
 	private EditText nameEditText;
 	private EditText descriptionEditText;
 	private RatingBar ratingBar;
-	private DatePicker deadlineDatePicker;
-	private TimePicker deadlineTimePicker;
 	
 	@Override
     public void onCreate(Bundle savedInstanceState) 
@@ -41,14 +39,11 @@ public class Create_ShoppingItem  extends Activity
         
         settings = getSharedPreferences(WGBuddyActivity.PREFS_NAME, 0);
         Utilities.checkByPass(this, settings);
-        final Activity that = this;
         
         addButton = (Button) findViewById(R.id.shoppingItemAddButton);
         nameEditText = (EditText) findViewById(R.id.ShoppingItemNameEditText);
         descriptionEditText = (EditText) findViewById(R.id.ShoppingDescriptionEditText);
         ratingBar = (RatingBar) findViewById(R.id.shoppingItemRatingBar);
-        deadlineDatePicker = (DatePicker) findViewById(R.id.shoppingDeadlineDatePicker);
-        deadlineTimePicker = (TimePicker) findViewById(R.id.shoppingDeadLineTimePicker);
         
         addButton.setOnClickListener
         (
@@ -59,7 +54,7 @@ public class Create_ShoppingItem  extends Activity
 				public void onClick(View v) 
 				{
 					
-					 ProgressDialog pd = ProgressDialog.show(that, "Working..", "", true, false);
+					 ProgressDialog pd = ProgressDialog.show(Create_ShoppingItem.this, "Working..", "", true, false);
 					
 					List<NameValuePair> nameValuePairs = new ArrayList<NameValuePair>();
 			        nameValuePairs.add(new BasicNameValuePair("wgId", settings.getString("wg_id", "")));
@@ -67,9 +62,6 @@ public class Create_ShoppingItem  extends Activity
 			        nameValuePairs.add(new BasicNameValuePair("name", nameEditText.getText().toString()));
 			        nameValuePairs.add(new BasicNameValuePair("comment", descriptionEditText.getText().toString()));
 			        nameValuePairs.add(new BasicNameValuePair("rating", String.valueOf(ratingBar.getRating())));
-			        
-			        String date = String.valueOf(deadlineDatePicker.getYear()) + "-" + String.valueOf(deadlineDatePicker.getMonth() + 1).toString() + "-" + String.valueOf(deadlineDatePicker.getDayOfMonth()) + " " + deadlineTimePicker.getCurrentHour().toString() + ":" + deadlineTimePicker.getCurrentMinute().toString() + ":00";
-			        nameValuePairs.add(new BasicNameValuePair("deadline", date));			        
 			        nameValuePairs.add(new BasicNameValuePair("status", "-1"));					
 		        
 					ShoppingItem shopping = new ShoppingItem(settings);
