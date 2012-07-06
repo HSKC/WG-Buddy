@@ -35,15 +35,14 @@ public class WGBuddyActivity extends Activity
 	
 	private Button shoppinglist;
 	private Button taskdistributor;
-	private Button preferences;
-	private Button invite;
 	private Button messenger;
+	private Button preferences;
+	private Button information;
+	private Button invite;
 	private Button logout;
 	private TextView heading;
 	
 	private SharedPreferences settings;
-	
-
 	
     @Override
     public void onCreate(Bundle savedInstanceState) 
@@ -57,7 +56,7 @@ public class WGBuddyActivity extends Activity
         SharedPreferences.Editor editor = settings.edit();
         editor.putString("pref_webserver", "http://wgbuddy.domoprojekt.de/");
         editor.commit();
-        
+      
     	super.onCreate(savedInstanceState);
         
         // Nicht eingeloggt.
@@ -117,10 +116,11 @@ public class WGBuddyActivity extends Activity
     	setContentView(R.layout.main);
     	
         shoppinglist = (Button) findViewById(R.id.main_shoppingListButton);
-        taskdistributor = (Button) findViewById(R.id.main_taskDistributorButton);
-        preferences = (Button) findViewById(R.id.main_preferencesButton);
-        invite = (Button) findViewById(R.id.main_addButton);
+        taskdistributor = (Button) findViewById(R.id.main_taskDistributorButton);        
         messenger = (Button) findViewById(R.id.main_messengerButton);
+        preferences = (Button) findViewById(R.id.main_preferencesButton);
+        information = (Button) findViewById(R.id.main_informationButton);        
+        invite = (Button) findViewById(R.id.main_addButton);
         logout = (Button) findViewById(R.id.main_logoutButton);
         
         heading = (TextView) findViewById(R.id.main_headingText);
@@ -155,6 +155,21 @@ public class WGBuddyActivity extends Activity
     		}
         );
         
+        
+        messenger.setOnClickListener
+        (
+    		new OnClickListener() 
+    		{
+				
+				@Override
+				public void onClick(View v) 
+				{
+					Intent intent = new Intent(WGBuddyActivity.this,Messenger.class);
+					startActivity(intent);
+				}
+    		}
+        );
+        
         preferences.setOnClickListener
         (
     		new OnClickListener() 
@@ -169,7 +184,7 @@ public class WGBuddyActivity extends Activity
     		}
         );
         
-        messenger.setOnClickListener
+        information.setOnClickListener
         (
     		new OnClickListener() 
     		{
@@ -177,7 +192,7 @@ public class WGBuddyActivity extends Activity
 				@Override
 				public void onClick(View v) 
 				{
-					Intent intent = new Intent(WGBuddyActivity.this,Messenger.class);
+					Intent intent = new Intent(WGBuddyActivity.this,Information.class);
 					startActivity(intent);
 				}
     		}
