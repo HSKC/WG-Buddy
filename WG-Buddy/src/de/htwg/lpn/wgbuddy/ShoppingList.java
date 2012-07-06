@@ -19,6 +19,7 @@ import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
+import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -41,7 +42,7 @@ import android.widget.Spinner;
 import android.widget.TextView;
 
 
-public class ShoppingList<T> extends Activity 
+public class ShoppingList extends Activity 
 {
 	private SharedPreferences settings = null;
 	
@@ -313,7 +314,7 @@ public class ShoppingList<T> extends Activity
 						{
 							ShoppingItem si = new ShoppingItem(settings);
 							Integer id = (Integer) v.getTag();
-							si.delete(id);
+							si.delete(id,ShoppingList.this);
 							
 							loadList();
 						}
@@ -329,6 +330,20 @@ public class ShoppingList<T> extends Activity
 		sa.setViewBinder(vb);
 		sa.notifyDataSetChanged();
         shoppingList.setAdapter(sa);
+	}
+	
+	@Override
+	public boolean onKeyDown(int keyCode, KeyEvent event)  
+	{
+	    if (keyCode == KeyEvent.KEYCODE_BACK)
+	    {
+
+	       Intent intent = new Intent(ShoppingList.this, WGBuddyActivity.class);
+	       startActivity(intent);
+	       
+	        return true;
+	    }
+	    return super.onKeyDown(keyCode, event);
 	}
 	
 	public void getOptionsDialog()
