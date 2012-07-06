@@ -495,6 +495,5 @@ public class Dialogs
 		       
 		AlertDialog alert = builder.create();
 		alert.show();	
-	}
-	
+	}	
 }
