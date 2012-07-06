@@ -15,9 +15,6 @@ import android.app.AlertDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.graphics.Color;
-import android.graphics.drawable.ColorDrawable;
-import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
@@ -39,7 +36,6 @@ import android.widget.RatingBar;
 import android.widget.SimpleAdapter;
 import android.widget.SimpleAdapter.ViewBinder;
 import android.widget.Spinner;
-import android.widget.TextView;
 
 
 public class ShoppingList extends Activity 
@@ -153,10 +149,6 @@ public class ShoppingList extends Activity
         }
         else if(type == 2)
         {
-        	where = "status=0";
-        }
-        else if(type == 3)
-        {
         	where = "status=1";
         }
         
@@ -218,7 +210,7 @@ public class ShoppingList extends Activity
         	}
         }
        
-        SimpleAdapter sa = new SimpleAdapter(this, list, R.layout.shoppinglist_entry, new String[] { "id", "id", "id", "name", "comment", "rating", "createdDate", "username", "status" }, new int[] { R.id.shoppingListEntryCompletedButton, R.id.shoppingListEntryShoppingButton, R.id.shoppingListEntryDeleteButton, R.id.shoppingBigText, R.id.shoppingSmallText, R.id.ratingBar, R.id.createdDate, R.id.shoppingUsername, R.id.shoppingList_Entry});
+        SimpleAdapter sa = new SimpleAdapter(this, list, R.layout.shoppinglist_entry, new String[] { "id", "id", "name", "comment", "rating", "createdDate", "username", "status" }, new int[] { R.id.shoppingListEntryCompletedButton, R.id.shoppingListEntryDeleteButton, R.id.shoppingBigText, R.id.shoppingSmallText, R.id.ratingBar, R.id.createdDate, R.id.shoppingUsername, R.id.shoppingList_Entry});
         
         ViewBinder vb = new ViewBinder() 
         {
@@ -276,32 +268,7 @@ public class ShoppingList extends Activity
 						}
 					});
 					return true;
-				}
-				else if(view.getId() == R.id.shoppingListEntryShoppingButton)
-				{
-					ImageButton button = (ImageButton) view;
-					Integer id = Integer.valueOf(data.toString());
-					button.setTag(id);
-					button.setOnClickListener(new OnClickListener() 
-					{
-						
-						@Override
-						public void onClick(View v) 
-						{
-							ShoppingItem si = new ShoppingItem(settings);
-							Integer id = (Integer) v.getTag();
-							
-							List<NameValuePair> nameValuePairs = new ArrayList<NameValuePair>();
-							nameValuePairs.add(new BasicNameValuePair("userId", settings.getString("user_id", "")));
-							nameValuePairs.add(new BasicNameValuePair("status", "0"));
-									
-							si.update(id, nameValuePairs);
-							
-							loadList();
-						}
-					});
-					return true;
-				}
+				}				
 				else if(view.getId() == R.id.shoppingListEntryDeleteButton)
 				{
 					ImageButton button = (ImageButton) view;

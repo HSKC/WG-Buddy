@@ -62,14 +62,7 @@
 				    android:id="@+id/shoppingListEntryCompletedButton"
 				    android:layout_width="wrap_content"
 				    android:layout_height="wrap_content"		    
-				    android:background="@drawable/checksmall" />
-				
-				<ImageButton
-				    android:id="@+id/shoppingListEntryShoppingButton"
-				    android:layout_width="wrap_content"
-				    android:layout_height="wrap_content"
-				    android:background="@drawable/dollar" />	
-				
+				    android:background="@drawable/checksmall" />				
 		
 				<ImageButton
 				    android:id="@+id/shoppingListEntryDeleteButton"
