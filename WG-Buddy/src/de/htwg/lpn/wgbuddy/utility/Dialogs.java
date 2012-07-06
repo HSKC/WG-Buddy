@@ -113,39 +113,6 @@ public class Dialogs
     			
     			for(HashMap<String, String> userEntry : userList)
     			{
-//    				Date changeTimestamp = null;
-//    				SimpleDateFormat sdfToDate = new SimpleDateFormat("yyyy.MM.dd HH:mm:ss");
-//    	            try 
-//    	            {
-//						changeTimestamp = sdfToDate.parse(userEntry.get("changeTimestamp"));
-//					} 
-//    	            catch (ParseException e) 
-//    	            {
-//						// TODO Auto-generated catch block
-//						e.printStackTrace();
-//					}
-//    				
-//    	            if(changeTimestamp == null)
-//    	            {
-//    	            	Utilities.message(Preferences_User.this, "Leider ist ein unerwarteter Fehler aufgetreten.", "OK");	//TODO :string.xml
-//        				return;
-//    	            }
-//    	            
-//        			Date now = new Date();
-//        			
-//        			Calendar calendar = new GregorianCalendar();
-//        			calendar.setTime(changeTimestamp);
-//
-//        			// Add 3 days
-//        			calendar.add(Calendar.DAY_OF_MONTH, 3);
-//        			
-//        			// Falls der Schlüssel älter als drei Tage ist.
-//        			if(calendar.getTime().getTime() < now.getTime())
-//        			{
-//        				Utilities.message(Preferences_User.this, "Kein gültiger Schlüssel. Möglicherweise ist dieser zu alt. Sie können jedoch einen neuen anfordern.", "OK");	//TODO :string.xml
-//        				return;
-//        			}
-        			
         			if(!password.equals(password2))
         			{
         				Utilities.message(context, context.getString(R.string.utilities_passwordDifferent), context.getString(R.string.utilities_ok));
@@ -155,7 +122,6 @@ public class Dialogs
         			List<NameValuePair> nameValuePairs = new ArrayList<NameValuePair>();
         			nameValuePairs.add(new BasicNameValuePair("password", password));
         			nameValuePairs.add(new BasicNameValuePair("changeKey", ""));
-        			nameValuePairs.add(new BasicNameValuePair("changeTimestamp", ""));
     				user.update(Integer.valueOf(userEntry.get("id")), nameValuePairs);
     				
     				Utilities.message(context, context.getString(R.string.utilities_passwordChangeSucceed), context.getString(R.string.utilities_ok));
