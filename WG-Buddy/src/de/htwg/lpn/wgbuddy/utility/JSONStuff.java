@@ -18,6 +18,7 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import de.htwg.lpn.wgbuddy.AsyncJsonCall;
 
 import android.util.Log;
 

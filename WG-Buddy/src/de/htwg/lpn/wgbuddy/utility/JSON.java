@@ -21,6 +21,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import android.util.Log;
+import de.htwg.lpn.wgbuddy.AsyncJsonCall;
 
 public class JSON 
 {
