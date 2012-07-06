@@ -19,6 +19,9 @@ import android.graphics.PorterDuff.Mode;
 import android.graphics.drawable.Drawable;
 import android.graphics.drawable.ShapeDrawable;
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
@@ -31,7 +34,6 @@ public class Messenger extends Activity
 {
 	private ListView messageList;
 	private SharedPreferences settings;
-	private Button addButton;
 	
 	@Override
     public void onCreate(Bundle savedInstanceState) 
@@ -43,22 +45,50 @@ public class Messenger extends Activity
         Utilities.checkByPass(this, settings);
         
         messageList = (ListView) findViewById(R.id.messengerList);
-        addButton = (Button) findViewById(R.id.messenger_add);
         
         settings = getSharedPreferences(WGBuddyActivity.PREFS_NAME, 0);
-        addButton.setOnClickListener(new OnClickListener() 
-        {
-			@Override
-			public void onClick(View v) 
-			{
-				Intent intent = new Intent(Messenger.this, Create_Message.class);
-				startActivity(intent);
-			}
-		});
-        
         
 	    getList();   
 	}
+	
+	@Override
+	public boolean onCreateOptionsMenu(Menu menu) 
+	{
+	    MenuInflater inflater = getMenuInflater();
+	    inflater.inflate(R.menu.messenger_menu, menu);
+	    return true;
+	}
+	
+	public boolean onOptionsItemSelected(MenuItem item) 
+	{
+		Intent intent;
+		switch (item.getItemId()) 
+        {
+       		case R.id.add:
+        		intent = new Intent(Messenger.this, Create_Message.class);
+				startActivity(intent);				
+				return true;
+        	
+        	case R.id.refresh:
+        		getList();
+				return true;
+        	
+	        case R.id.about:
+	        	String text = "Dies ist eine von Jens Küblbeck, Felix Offergeld und Dominik Wieland entwickelte App.\n";
+	        	text += "Version 1.0";
+	        	text += "Das Benutzerhandbuch finden Sie unter dem Link ...";	        	
+	        	Utilities.message(this, text, "OK");
+	        	return true;
+	        	
+	        case R.id.menu:
+	        	intent = new Intent(Messenger.this, WGBuddyActivity.class);
+				startActivity(intent);	
+	        	return true;
+	        	
+	        default:
+	        	return super.onOptionsItemSelected(item);
+        }
+    }
 	 
 	private void getList()
 	{

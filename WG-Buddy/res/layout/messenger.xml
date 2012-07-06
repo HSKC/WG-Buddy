@@ -2,28 +2,20 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical" >
-    <Button
-        android:id="@+id/messenger_add"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="@string/messenger_add"
-        android:layout_alignParentBottom="true"
-         />
-    
+    android:orientation="vertical" >
+    
 	<ListView
 	    android:id="@+id/messengerList"
 	    android:layout_width="match_parent"
 	    android:layout_height="wrap_content"
-	    android:layout_above="@+id/messenger_add"
 	    android:layout_alignParentTop="true"
 	    android:divider="#00000000"
 	    android:dividerHeight="3dp"
 	    android:footerDividersEnabled="true"
 	    android:orientation="vertical"
+	    android:paddingBottom="3dp"
 	    android:paddingLeft="5dp"
-	    android:paddingRight="5dp"
-	    android:paddingBottom="3dp" >
+	    android:paddingRight="5dp" >
 
        </ListView>
 

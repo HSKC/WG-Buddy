@@ -104,6 +104,7 @@ public class ShoppingList<T> extends Activity
 	    return true;
 	}
 	
+	@Override
 	public boolean onOptionsItemSelected(MenuItem item) 
 	{
 		Intent intent;
@@ -119,7 +120,7 @@ public class ShoppingList<T> extends Activity
 				return true;
 				
         	case R.id.settings:
-        		getOptionsDialog();
+        		getShoppingListOptionsDialog();
 				return true;
         	
 	        case R.id.about:
@@ -331,7 +332,7 @@ public class ShoppingList<T> extends Activity
         shoppingList.setAdapter(sa);
 	}
 	
-	public void getOptionsDialog()
+	public void getShoppingListOptionsDialog()
 	{
 		AlertDialog.Builder builder;
 
