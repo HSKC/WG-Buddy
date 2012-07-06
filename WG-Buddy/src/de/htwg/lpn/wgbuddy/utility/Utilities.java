@@ -15,9 +15,11 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.net.Uri;
+import android.widget.Toast;
 
 import de.htwg.lpn.model.User;
 import de.htwg.lpn.model.WG;
+import de.htwg.lpn.wgbuddy.Create_Task;
 import de.htwg.lpn.wgbuddy.Login_User;
 import de.htwg.lpn.wgbuddy.WGBuddyActivity;
 
@@ -93,6 +95,11 @@ public class Utilities
 		alert.show();
 	}
 	
+	public static void toastMessage(Context context, String text)
+	{
+		Toast.makeText(context, text, Toast.LENGTH_SHORT).show();
+	}
+	
 	public static void message(final Context context, String text, String buttonText, final String link)
 	{
 		AlertDialog.Builder builder = new AlertDialog.Builder(context);
@@ -123,7 +130,7 @@ public class Utilities
 	public static void checkByPass(Context context, SharedPreferences settings)
 	{
 		// Nicht eingeloggt.
-        if(!settings.contains("user_id") || !settings.contains("user_name") || !settings.contains("user_email") || !settings.contains("user_password") || !settings.contains("wg_id") || !settings.contains("wg_name") || !settings.contains("wg_password"))
+        if(!settings.contains("user_status") || !settings.contains("user_id") || !settings.contains("user_name") || !settings.contains("user_email") || !settings.contains("user_password") || !settings.contains("wg_id") || !settings.contains("wg_name") || !settings.contains("wg_password"))
         {
         	// Umleiten
         	Intent intent = new Intent(context, Login_User.class);

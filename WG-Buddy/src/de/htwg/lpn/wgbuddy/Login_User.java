@@ -27,6 +27,7 @@ public class Login_User extends Activity
 	private EditText passwordTextView;
 	private Button saveButton;
 	private Button createButton;
+	private Button activateButton;
 	private Button lostPasswordButton;
 	private Button changePasswordButton;
 	
@@ -41,6 +42,7 @@ public class Login_User extends Activity
         usernameTextView = (EditText) findViewById(R.id.userpref_nameEdit);
         passwordTextView = (EditText) findViewById(R.id.userpref_passwordEdit);
         saveButton = (Button) findViewById(R.id.userpref_saveButton);
+        activateButton = (Button) findViewById(R.id.userpref_activateButton);
         createButton = (Button) findViewById(R.id.userpref_createButton);
         lostPasswordButton = (Button) findViewById(R.id.userpref_passwordButton);
         changePasswordButton = (Button) findViewById(R.id.userpref_changePasswordButton);
@@ -71,13 +73,17 @@ public class Login_User extends Activity
     				ArrayList<HashMap<String, String>> userList = user.get("?username=" + username + "&password=" + password);
     				if(userList.size() == 1)
     				{
-	        			if(Integer.valueOf(userList.get(0).get("status")) == 0)
-	        			{
-//	        				getActivateAccountDialog();
-//	        				return;
-	        			}
-    					
     					SharedPreferences.Editor editor = settings.edit();
+    					
+    					if(Integer.valueOf(userList.get(0).get("status")) == 0)
+	        			{
+    						Intent intent = new Intent(Login_User.this, Activate_User.class);
+    		        		startActivity(intent);        				
+	        			}
+    					else
+    					{
+    						editor.putString("user_status", userList.get(0).get("status"));
+    					}    					
 	        			
 	        			// User Eigenschaften speichern.
 	        			editor.putString("user_id", userList.get(0).get("id"));
@@ -124,17 +130,22 @@ public class Login_User extends Activity
 			}
 		});
         
+        activateButton.setOnClickListener(new OnClickListener() 
+        {
+			@Override
+			public void onClick(View v) 
+			{
+				Intent intent = new Intent(Login_User.this, Activate_User.class);
+        		startActivity(intent);
+			}
+		});
+        
         lostPasswordButton.setOnClickListener(new OnClickListener() 
         {
 			@Override
 			public void onClick(View v) 
 			{
-				getEditTextDialog();				
-			}
-
-			private void getEditTextDialog() 
-			{
-				Dialogs.getLostPasswordDialog(Login_User.this, settings);
+				Dialogs.getLostPasswordDialog(Login_User.this, settings);				
 			}
 			
 		});

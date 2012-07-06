@@ -51,7 +51,6 @@ public class Create_ShoppingItem  extends Activity
         (
     		new OnClickListener() 
     		{
-				
 				@Override
 				public void onClick(View v) 
 				{
@@ -76,7 +75,7 @@ public class Create_ShoppingItem  extends Activity
 				        nameValuePairs2.add(new BasicNameValuePair("msgType", "collapsed"));
 				        nameValuePairs2.add(new BasicNameValuePair("messageText", "ShoppingItem"));
 						
-						String message2 = "http://wgbuddy.domoprojekt.de/googleService.php"; 
+						String message2 = "http://wgbuddy.domoprojekt.de/googleService.php";  // TODO
 						
 						JSON.postData(message2,nameValuePairs2,Create_ShoppingItem.this);
 			        }

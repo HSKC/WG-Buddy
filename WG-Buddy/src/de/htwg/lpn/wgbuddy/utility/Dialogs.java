@@ -9,11 +9,14 @@ import org.apache.http.message.BasicNameValuePair;
 
 import de.htwg.lpn.model.User;
 import de.htwg.lpn.model.WG;
+import de.htwg.lpn.wgbuddy.Activate_User;
+import de.htwg.lpn.wgbuddy.R;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.SharedPreferences;
+import android.content.SharedPreferences.Editor;
 import android.text.method.PasswordTransformationMethod;
 import android.text.method.SingleLineTransformationMethod;
 import android.view.View;
@@ -24,115 +27,29 @@ import android.widget.LinearLayout;
 import android.widget.Spinner;
 
 public class Dialogs 
-{
-	public static void getActivateAccountDialog(final Context context, final SharedPreferences settings) 
-	{
-		AlertDialog.Builder builder = new AlertDialog.Builder(context);
-		
-		final EditText editText = new EditText(context);
-		editText.setTransformationMethod(SingleLineTransformationMethod.getInstance());
-		editText.setHint("Schlüssel");
-		
-		builder.setMessage("Der Account wurde noch nicht aktiviert. Bitte geben Sie den Schlüssel ein, welcher Ihnen per E-Mail zugeschickt wurde.");
-		builder.setCancelable(true);
-		builder.setView(editText);
-		builder.setPositiveButton("Account aktivieren", new DialogInterface.OnClickListener() 
-		{
-           public void onClick(DialogInterface dialog, int id) 
-           {
-        	   	String key = Utilities.md5(editText.getText().toString().trim());
-	        	   			
-   			if(key.length() <= 0)
-   			{
-   				Utilities.message(context, "Bitte alle Felder ausfüllen.", "OK");	//TODO :string.xml
-   				return;
-   			}
-   			
-   			User user = new User(settings);
-   			ArrayList<HashMap<String, String>> userList = user.get("?changeKey=" + key);
-
-   			if(userList.size() <= 0)
-   			{
-   				Utilities.message(context, "Schlüssel falsch.", "OK");	//TODO :string.xml
-   				return;
-   			}
-   			
-   			for(HashMap<String, String> userEntry : userList)
-   			{
-//   				Date changeTimestamp = null;
-//   				SimpleDateFormat sdfToDate = new SimpleDateFormat("yyyy.MM.dd HH:mm:ss");
-//   	            try 
-//   	            {
-//						changeTimestamp = sdfToDate.parse(userEntry.get("changeTimestamp"));
-//					} 
-//   	            catch (ParseException e) 
-//   	            {
-//						// TODO Auto-generated catch block
-//						e.printStackTrace();
-//					}
-//   				
-//   	            if(changeTimestamp == null)
-//   	            {
-//   	            	Utilities.message(Preferences_User.this, "Leider ist ein unerwarteter Fehler aufgetreten.", "OK");	//TODO :string.xml
-//       				return;
-//   	            }
-//   	            
-//       			Date now = new Date();
-//       			
-//       			Calendar calendar = new GregorianCalendar();
-//       			calendar.setTime(changeTimestamp);
-//
-//       			// Add 3 days
-//       			calendar.add(Calendar.DAY_OF_MONTH, 3);
-//       			
-//       			// Falls der Schlüssel älter als drei Tage ist.
-//       			if(calendar.getTime().getTime() < now.getTime())
-//       			{
-//       				Utilities.message(Preferences_User.this, "Kein gültiger Schlüssel. Möglicherweise ist dieser zu alt. Sie können jedoch einen neuen anfordern.", "OK");	//TODO :string.xml
-//       				return;
-//       			}
-   				List<NameValuePair> nameValuePairs = new ArrayList<NameValuePair>();
-    			nameValuePairs.add(new BasicNameValuePair("changeKey", ""));
-    			nameValuePairs.add(new BasicNameValuePair("changeTimestamp", ""));
-				user.update(Integer.valueOf(userEntry.get("id")), nameValuePairs);
-   				}
-       		}
-		});
-		builder.setNegativeButton("Abbrechen", new DialogInterface.OnClickListener() 
-		{
-			@Override
-			public void onClick(DialogInterface dialog, int which) 
-			{
-				dialog.cancel();
-			}
-		});
-		       
-		AlertDialog alert = builder.create();
-		alert.show();
-	}
-	
+{	
 	public static void getLostPasswordDialog(final Context context, final SharedPreferences settings) 
 	{
 		AlertDialog.Builder builder = new AlertDialog.Builder(context);
 		
 		final EditText editText = new EditText(context);
 		editText.setTransformationMethod(SingleLineTransformationMethod.getInstance());
-		editText.setHint("E-Mail");
+		editText.setHint(context.getString(R.string.utilities_email));
 		
-		builder.setMessage("Bitte gebe deine E-Mail Adresse ein. Ein zufällig generierter  Schlüssel wird dann an deine E-Mail Adresse geschickt.");
+		builder.setMessage(context.getString(R.string.utilities_lostPasswordMessage));
 		builder.setCancelable(true);
 		builder.setView(editText);
-		builder.setPositiveButton("Schlüssel anfordern", new DialogInterface.OnClickListener() 
+		builder.setPositiveButton(context.getString(R.string.utilities_keyOrder), new DialogInterface.OnClickListener() 
 		{
            public void onClick(DialogInterface dialog, int id) 
            {
         	   User user = new User(settings);
-        	   user.getNewKey(editText.getText().toString());
+        	   user.sendChangeKey(editText.getText().toString().trim());
         	   
         	   getChangePasswordWithKeyDialog(context, settings);
            }
 		});
-		builder.setNegativeButton("Abbrechen", new DialogInterface.OnClickListener() 
+		builder.setNegativeButton(context.getString(R.string.utilities_cancel), new DialogInterface.OnClickListener() 
 		{
 			@Override
 			public void onClick(DialogInterface dialog, int which) 
@@ -154,13 +71,13 @@ public class Dialogs
 		final EditText password2EditText = new EditText(context);
 		
 		keyEditText.setTransformationMethod(SingleLineTransformationMethod.getInstance());
-		keyEditText.setHint("Schlüssel");
+		keyEditText.setHint(context.getString(R.string.utilities_key));
 		
 		passwordEditText.setTransformationMethod(PasswordTransformationMethod.getInstance());
-		passwordEditText.setHint("Passwort");
+		passwordEditText.setHint(context.getString(R.string.utilities_password));
 		
 		password2EditText.setTransformationMethod(PasswordTransformationMethod.getInstance());
-		password2EditText.setHint("Passwort wiederholen");
+		password2EditText.setHint(context.getString(R.string.utilities_password2));
 		
 		final LinearLayout layout = new LinearLayout(context);
 		layout.setOrientation(LinearLayout.VERTICAL);
@@ -168,10 +85,10 @@ public class Dialogs
 		layout.addView(passwordEditText);
 		layout.addView(password2EditText);
 		
-		builder.setMessage("Geben Sie bitte entweder den Ihnen zugeschickten Schlüssel, sowie ein neues Passwort ein.");
+		builder.setMessage(context.getString(R.string.utilities_keyMessage));
 		builder.setCancelable(false);
 		builder.setView(layout);
-		builder.setPositiveButton("Passwort ändern", new DialogInterface.OnClickListener() 
+		builder.setPositiveButton(context.getString(R.string.utilities_passwordChange), new DialogInterface.OnClickListener() 
 		{
            public void onClick(DialogInterface dialog, int id) 
            {		        	   
@@ -181,7 +98,7 @@ public class Dialogs
     			
     			if(key.length() <= 0 && password.length() <= 0 && password2.length() <= 0)
     			{
-    				Utilities.message(context, "Bitte alle Felder ausfüllen.", "OK");	//TODO :string.xml
+    				Utilities.message(context, context.getString(R.string.utilities_fillAllFields), context.getString(R.string.utilities_ok));
     				return;
     			}
     			
@@ -190,7 +107,7 @@ public class Dialogs
 
     			if(userList.size() <= 0)
     			{
-    				Utilities.message(context, "Schlüssel falsch.", "OK");	//TODO :string.xml
+    				Utilities.message(context, context.getString(R.string.utilities_keyWrong), context.getString(R.string.utilities_ok));
     				return;		
     			}
     			
@@ -231,7 +148,7 @@ public class Dialogs
         			
         			if(!password.equals(password2))
         			{
-        				Utilities.message(context, "Passwörter stimmen nicht überein.", "OK");	//TODO :string.xml
+        				Utilities.message(context, context.getString(R.string.utilities_passwordDifferent), context.getString(R.string.utilities_ok));
         				return;
         			}
         			
@@ -241,11 +158,11 @@ public class Dialogs
         			nameValuePairs.add(new BasicNameValuePair("changeTimestamp", ""));
     				user.update(Integer.valueOf(userEntry.get("id")), nameValuePairs);
     				
-    				Utilities.message(context, "Passwort wurde erfolgreich geändert.", "OK");
+    				Utilities.message(context, context.getString(R.string.utilities_passwordChangeSucceed), context.getString(R.string.utilities_ok));
     			}
            }
 		});
-		builder.setNegativeButton("Abbrechen", new DialogInterface.OnClickListener() 
+		builder.setNegativeButton(context.getString(R.string.utilities_cancel), new DialogInterface.OnClickListener() 
 		{
 			@Override
 			public void onClick(DialogInterface dialog, int which) 
@@ -267,13 +184,13 @@ public class Dialogs
 		final EditText password2EditText = new EditText(context);
 		
 		keyEditText.setTransformationMethod(PasswordTransformationMethod.getInstance());
-		keyEditText.setHint("Altes Passwort");
+		keyEditText.setHint(context.getString(R.string.utilities_passwordOld));
 		
 		passwordEditText.setTransformationMethod(PasswordTransformationMethod.getInstance());
-		passwordEditText.setHint("Passwort");
+		passwordEditText.setHint(context.getString(R.string.utilities_password));
 		
 		password2EditText.setTransformationMethod(PasswordTransformationMethod.getInstance());
-		password2EditText.setHint("Passwort wiederholen");
+		password2EditText.setHint(context.getString(R.string.utilities_password2));
 		
 		final LinearLayout layout = new LinearLayout(context);
 		layout.setOrientation(LinearLayout.VERTICAL);
@@ -281,10 +198,10 @@ public class Dialogs
 		layout.addView(passwordEditText);
 		layout.addView(password2EditText);
 		
-		builder.setMessage("Geben Sie bitte ihr altes Password, sowie ein neues Passwort ein.");
+		builder.setMessage(context.getString(R.string.utilities_passwordOldNewMessage));
 		builder.setCancelable(false);
 		builder.setView(layout);
-		builder.setPositiveButton("Passwort ändern", new DialogInterface.OnClickListener() 
+		builder.setPositiveButton(context.getString(R.string.utilities_passwordChange), new DialogInterface.OnClickListener() 
 		{
            public void onClick(DialogInterface dialog, int id) 
            {		        	   
@@ -295,7 +212,7 @@ public class Dialogs
     			
     			if(key.length() <= 0 && password.length() <= 0 && password2.length() <= 0)
     			{
-    				Utilities.message(context, "Bitte alle Felder ausfüllen.", "OK");	//TODO :string.xml
+    				Utilities.message(context, context.getString(R.string.utilities_fillAllFields), context.getString(R.string.utilities_ok));
     				return;
     			}
     			
@@ -304,7 +221,7 @@ public class Dialogs
 				
 				if(userList.size() <= 0)
     			{
-    				Utilities.message(context, "Passwort falsch.", "OK");	//TODO :string.xml
+    				Utilities.message(context, context.getString(R.string.utilities_passwordWrong), context.getString(R.string.utilities_ok));
     				return;
     			}    					
     			
@@ -313,7 +230,7 @@ public class Dialogs
     			{
         			if(!password.equals(password2))
         			{
-        				Utilities.message(context, "Passwörter stimmen nicht überein.", "OK");	//TODO :string.xml
+        				Utilities.message(context, context.getString(R.string.utilities_passwordDifferent), context.getString(R.string.utilities_ok));
         				return;
         			}
         			
@@ -325,12 +242,12 @@ public class Dialogs
     		        editor.putString("user_password", password);
     		        editor.commit();
     		        
-    		        Utilities.message(context, "Passwort wurde erfolgreich geändert.", "OK");
+    		        Utilities.message(context, context.getString(R.string.utilities_passwordChangeSucceed), context.getString(R.string.utilities_ok));
     			}
            }
 		});
 		
-		builder.setNegativeButton("Abbrechen", new DialogInterface.OnClickListener() 
+		builder.setNegativeButton(context.getString(R.string.utilities_cancel), new DialogInterface.OnClickListener() 
 		{
 			@Override
 			public void onClick(DialogInterface dialog, int which) 
@@ -352,13 +269,13 @@ public class Dialogs
 		final EditText password2EditText = new EditText(context);
 		
 		keyEditText.setTransformationMethod(PasswordTransformationMethod.getInstance());
-		keyEditText.setHint("Altes Passwort");
+		keyEditText.setHint(context.getString(R.string.utilities_passwordOld));
 		
 		passwordEditText.setTransformationMethod(PasswordTransformationMethod.getInstance());
-		passwordEditText.setHint("Passwort");
+		passwordEditText.setHint(context.getString(R.string.utilities_password));
 		
 		password2EditText.setTransformationMethod(PasswordTransformationMethod.getInstance());
-		password2EditText.setHint("Passwort wiederholen");
+		password2EditText.setHint(context.getString(R.string.utilities_password2));
 		
 		final LinearLayout layout = new LinearLayout(context);
 		layout.setOrientation(LinearLayout.VERTICAL);
@@ -366,10 +283,10 @@ public class Dialogs
 		layout.addView(passwordEditText);
 		layout.addView(password2EditText);
 		
-		builder.setMessage("Geben Sie bitte das alte WG Passwort, sowie ein neues WG Passwort ein.");
+		builder.setMessage(context.getString(R.string.utilities_passwordWGOldNewMessage));
 		builder.setCancelable(false);
 		builder.setView(layout);
-		builder.setPositiveButton("Passwort ändern", new DialogInterface.OnClickListener() 
+		builder.setPositiveButton(context.getString(R.string.utilities_passwordChange), new DialogInterface.OnClickListener() 
 		{
            public void onClick(DialogInterface dialog, int id) 
            {		        	   
@@ -379,7 +296,7 @@ public class Dialogs
     			
     			if(oldPassword.length() <= 0 && password.length() <= 0 && password2.length() <= 0)
     			{
-    				Utilities.message(context, "Bitte alle Felder ausfüllen.", "OK");	//TODO :string.xml
+    				Utilities.message(context, context.getString(R.string.utilities_fillAllFields), context.getString(R.string.utilities_ok));
     				return;
     			}
     			
@@ -388,7 +305,7 @@ public class Dialogs
     				
 				if(wgList.size() <= 0)
     			{
-    				Utilities.message(context, "Passwort falsch.", "OK");	//TODO :string.xml
+    				Utilities.message(context, context.getString(R.string.utilities_passwordWrong), context.getString(R.string.utilities_ok));
     				return;
     			}
     			
@@ -396,7 +313,7 @@ public class Dialogs
     			{
         			if(!password.equals(password2))
         			{
-        				Utilities.message(context, "Passwörter stimmen nicht überein.", "OK");	//TODO :string.xml
+        				Utilities.message(context, context.getString(R.string.utilities_passwordDifferent), context.getString(R.string.utilities_ok));
         				return;
         			}
         			
@@ -404,12 +321,12 @@ public class Dialogs
         			nameValuePairs.add(new BasicNameValuePair("password", password));
     				wg.update(Integer.valueOf(wgEntry.get("id")), nameValuePairs);
     				
-    				Utilities.message(context, "Passwort wurde erfolgreich geändert.", "OK");
+    				Utilities.message(context, context.getString(R.string.utilities_passwordChangeSucceed), context.getString(R.string.utilities_ok));
     			}
            }
 		});
 		
-		builder.setNegativeButton("Abbrechen", new DialogInterface.OnClickListener() 
+		builder.setNegativeButton(context.getString(R.string.utilities_cancel), new DialogInterface.OnClickListener() 
 		{
 			@Override
 			public void onClick(DialogInterface dialog, int which) 
@@ -427,7 +344,6 @@ public class Dialogs
 		AlertDialog.Builder builder = new AlertDialog.Builder(context);
 		
 		final Spinner spinner = new Spinner(context);
-		
 		
 		User user = new User(settings);
         ArrayList<HashMap<String, String>> userList = user.get("?wgId=" + settings.getString("wg_id", ""));
@@ -456,10 +372,10 @@ public class Dialogs
 			}
 		});
 		
-		builder.setMessage("Sie müssen einen neuen Admin auswählen.");
+		builder.setMessage(context.getString(R.string.utilities_selectNewAdmin));
 		builder.setCancelable(false);
 		builder.setView(spinner);
-		builder.setPositiveButton("OK", new DialogInterface.OnClickListener() 
+		builder.setPositiveButton(context.getString(R.string.utilities_ok), new DialogInterface.OnClickListener() 
 		{
            public void onClick(DialogInterface dialog, int id) 
            {
@@ -484,7 +400,7 @@ public class Dialogs
            }
 		});
 		
-		builder.setNegativeButton("Abbrechen", new DialogInterface.OnClickListener() 
+		builder.setNegativeButton(context.getString(R.string.utilities_cancel), new DialogInterface.OnClickListener() 
 		{
 			@Override
 			public void onClick(DialogInterface dialog, int which) 
@@ -499,9 +415,6 @@ public class Dialogs
 	
 	public static void getAboutDialog(Context context, SharedPreferences settings)
 	{
-		String text = "WG Buddy ist eine von Jens Küblbeck, Felix Offergeld und Dominik Wieland entwickelte App.\n\n";
-    	text += "Version 1.0\n\n";
-    	text += "Im Handbuch finden Sie weiter Informationen.";	        	
-    	Utilities.message(context, text, "OK", "http://wgbuddy.domoprojekt.de/WGBuddy%20Anwenderhandbuch.htm");
+    	Utilities.message(context, context.getString(R.string.utilities_aboutText), context.getString(R.string.utilities_ok), context.getString(R.string.utilities_aboutLink));
 	}
 }
