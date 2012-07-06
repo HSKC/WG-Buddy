@@ -48,6 +48,8 @@
         
         <activity android:name=".Preferences"></activity>
         
+        <activity android:name=".Information"></activity>
+        
         <activity android:name=".TaskDistributor"></activity>
         <activity android:name=".Taskdistributor_Info"></activity>       
         

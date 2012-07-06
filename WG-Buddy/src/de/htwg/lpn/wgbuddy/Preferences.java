@@ -21,7 +21,6 @@ import android.widget.SimpleAdapter;
 public class Preferences extends Activity 
 {
     private SharedPreferences settings;
-	private ListView wgUserList;
 	private Button changePasswordButton;
 	private Button leaveWGButton;	
 	private Button changeAdminButton;
@@ -33,7 +32,6 @@ public class Preferences extends Activity
 		super.onCreate(savedInstanceState);
         setContentView(R.layout.preferences);  
         
-        wgUserList = (ListView) findViewById(R.id.preferences_wg_list);
         leaveWGButton = (Button) findViewById(R.id.preferences_leaveButton);
         changePasswordButton = (Button) findViewById(R.id.preferences_changePasswordButton);
         changeWGPasswordButton = (Button) findViewById(R.id.preferences_changeWGPasswordButton);
@@ -49,13 +47,7 @@ public class Preferences extends Activity
         {
         	changeWGPasswordButton.setVisibility(View.GONE);
         	changeAdminButton.setVisibility(View.GONE);
-        }        
-        
-        User user = new User(settings);
-        ArrayList<HashMap<String, String>> userList = user.get("?wgId=" + settings.getString("wg_id", ""));
-        
-        SimpleAdapter adapter = new SimpleAdapter(this, userList, R.layout.preferences_wglist_entry, new String[] { "username" }, new int[] { R.id.preferences_wglist_name});
-        wgUserList.setAdapter(adapter);
+        }
         
         changePasswordButton.setOnClickListener(new OnClickListener() 
         {
