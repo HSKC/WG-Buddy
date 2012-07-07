@@ -20,7 +20,7 @@ import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.EditText;
 
-public class Login_User extends Activity
+public class User_Login extends Activity
 {
 	private SharedPreferences settings = null;
 	private EditText usernameTextView;
@@ -35,9 +35,9 @@ public class Login_User extends Activity
     public void onCreate(Bundle savedInstanceState) 
     {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.login_user);
+        setContentView(R.layout.user_login);
         
-        settings = getSharedPreferences(WGBuddyActivity.PREFS_NAME, 0);
+        settings = getSharedPreferences(Main.PREFS_NAME, 0);
         
         usernameTextView = (EditText) findViewById(R.id.userpref_nameEdit);
         passwordTextView = (EditText) findViewById(R.id.userpref_passwordEdit);
@@ -59,13 +59,13 @@ public class Login_User extends Activity
         			
         			if(username.length() <= 0 && password.length() <= 0)
         			{
-        				Utilities.message(Login_User.this, "Bitte alle Felder ausfüllen.", "OK");	//TODO :string.xml
+        				Utilities.message(User_Login.this, "Bitte alle Felder ausfüllen.", "OK");	//TODO :string.xml
         				return;
         			}
         			
         			if(!Utilities.checkOnlyAllowedCharacter(username))
     				{
-    					Utilities.message(Login_User.this, "Benutzername enthält unerlaubte Zeichen. Es sind nur folgende Zeichen erlaubt: a-z A-Z äöü ÄÖÜ ß 0-9 _", "OK"); //TODO TEXT in string.xml
+    					Utilities.message(User_Login.this, "Benutzername enthält unerlaubte Zeichen. Es sind nur folgende Zeichen erlaubt: a-z A-Z äöü ÄÖÜ ß 0-9 _", "OK"); //TODO TEXT in string.xml
     					return;
     				}
         			
@@ -77,7 +77,7 @@ public class Login_User extends Activity
     					
     					if(Integer.valueOf(userList.get(0).get("status")) == 0)
 	        			{
-    						Intent intent = new Intent(Login_User.this, Activate_User.class);
+    						Intent intent = new Intent(User_Login.this, User_Activate.class);
     		        		startActivity(intent);        				
 	        			}
     					else
@@ -108,12 +108,12 @@ public class Login_User extends Activity
 	        		    
 	        		    editor.commit();
 	        		    
-			        	Intent intent = new Intent(Login_User.this,WGBuddyActivity.class);
+			        	Intent intent = new Intent(User_Login.this,Main.class);
 		        		startActivity(intent);
     				}
     				else
     				{        					
-    					Utilities.message(Login_User.this, "Der eingegebene Benutzername oder das Passwort ist falsch", "OK");	//TODO :string.xml
+    					Utilities.message(User_Login.this, "Der eingegebene Benutzername oder das Passwort ist falsch", "OK");	//TODO :string.xml
     				}
         			
         		}
@@ -125,7 +125,7 @@ public class Login_User extends Activity
 			@Override
 			public void onClick(View v) 
 			{
-				Intent intent = new Intent(Login_User.this,Create_User.class);
+				Intent intent = new Intent(User_Login.this,User_Create.class);
      		    startActivity(intent);
 			}
 		});
@@ -135,7 +135,7 @@ public class Login_User extends Activity
 			@Override
 			public void onClick(View v) 
 			{
-				Intent intent = new Intent(Login_User.this, Activate_User.class);
+				Intent intent = new Intent(User_Login.this, User_Activate.class);
         		startActivity(intent);
 			}
 		});
@@ -145,7 +145,7 @@ public class Login_User extends Activity
 			@Override
 			public void onClick(View v) 
 			{
-				Dialogs.getLostPasswordDialog(Login_User.this, settings);				
+				Dialogs.getLostPasswordDialog(User_Login.this, settings);				
 			}
 			
 		});
@@ -154,7 +154,7 @@ public class Login_User extends Activity
 			@Override
 			public void onClick(View v) 
 			{
-				Dialogs.getChangePasswordWithKeyDialog(Login_User.this, settings);				
+				Dialogs.getChangePasswordWithKeyDialog(User_Login.this, settings);				
 			}
 		});
     }
@@ -173,7 +173,7 @@ public class Login_User extends Activity
 		switch (item.getItemId()) 
         {        	
 	        case R.id.about:
-	        	Dialogs.getAboutDialog(Login_User.this, settings);
+	        	Dialogs.getAboutDialog(User_Login.this, settings);
 	        	return true;
 	        	
 	        default:

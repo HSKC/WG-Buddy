@@ -26,7 +26,7 @@ import de.htwg.lpn.model.User;
 import de.htwg.lpn.model.WG;
 import de.htwg.lpn.wgbuddy.utility.Dialogs;
 
-public class WGBuddyActivity extends Activity
+public class Main extends Activity
 {
 	public static final String PREFS_NAME = "WGBuddyPreferences";
 	public static final String WEBSERVER = "http://wgbuddy.domoprojekt.de/";
@@ -66,7 +66,7 @@ public class WGBuddyActivity extends Activity
 		{
 			// Applikation das erste mal gestartet oder nicht konfiguriert.
 			// Login aufrufen
-			Intent intent = new Intent(WGBuddyActivity.this, Login_User.class);
+			Intent intent = new Intent(Main.this, User_Login.class);
 			startActivity(intent);
 			return;
 		}
@@ -74,8 +74,8 @@ public class WGBuddyActivity extends Activity
 		// Konto freigeschalten?
 		if (!settings.contains("user_status"))
 		{
-			Intent intent = new Intent(WGBuddyActivity.this,
-					Activate_User.class);
+			Intent intent = new Intent(Main.this,
+					User_Activate.class);
 			startActivity(intent);
 		}
 
@@ -89,7 +89,7 @@ public class WGBuddyActivity extends Activity
 			e.clear();
 			e.commit();
 
-			Intent intent = new Intent(WGBuddyActivity.this, Login_User.class);
+			Intent intent = new Intent(Main.this, User_Login.class);
 			startActivity(intent);
 			return;
 		}
@@ -97,7 +97,7 @@ public class WGBuddyActivity extends Activity
 		// Keiner WG zugewiesen
 		if (userList.get(0).get("wgId").equals("0"))
 		{
-			Intent intent = new Intent(WGBuddyActivity.this, Login_WG.class);
+			Intent intent = new Intent(Main.this, WG_Login.class);
 			startActivity(intent);
 			return;
 		}
@@ -158,8 +158,8 @@ public class WGBuddyActivity extends Activity
 			@Override
 			public void onClick(View v)
 			{
-				Intent intent = new Intent(WGBuddyActivity.this,
-						ShoppingList.class);
+				Intent intent = new Intent(Main.this,
+						Shopping_List.class);
 				startActivity(intent);
 			}
 		});
@@ -170,7 +170,7 @@ public class WGBuddyActivity extends Activity
 			@Override
 			public void onClick(View v)
 			{
-				Intent intent = new Intent(WGBuddyActivity.this, TaskList.class);
+				Intent intent = new Intent(Main.this, Task_List.class);
 				startActivity(intent);
 			}
 		});
@@ -181,7 +181,7 @@ public class WGBuddyActivity extends Activity
 			@Override
 			public void onClick(View v)
 			{
-				Intent intent = new Intent(WGBuddyActivity.this, Messenger.class);
+				Intent intent = new Intent(Main.this, Message_List.class);
 				startActivity(intent);
 			}
 		});
@@ -192,7 +192,7 @@ public class WGBuddyActivity extends Activity
 			@Override
 			public void onClick(View v)
 			{
-				Intent intent = new Intent(WGBuddyActivity.this,
+				Intent intent = new Intent(Main.this,
 						Preferences.class);
 				startActivity(intent);
 			}
@@ -204,7 +204,7 @@ public class WGBuddyActivity extends Activity
 			@Override
 			public void onClick(View v)
 			{
-				Intent intent = new Intent(WGBuddyActivity.this,
+				Intent intent = new Intent(Main.this,
 						Information.class);
 				startActivity(intent);
 			}
@@ -216,9 +216,9 @@ public class WGBuddyActivity extends Activity
 			public void onClick(View v)
 			{
 				AlertDialog.Builder builder = new AlertDialog.Builder(
-						WGBuddyActivity.this);
+						Main.this);
 
-				final EditText editText = new EditText(WGBuddyActivity.this);
+				final EditText editText = new EditText(Main.this);
 				editText.setTransformationMethod(SingleLineTransformationMethod
 						.getInstance());
 				editText.setHint("E-Mail");
@@ -261,8 +261,8 @@ public class WGBuddyActivity extends Activity
 				editor.clear();
 				editor.commit();
 
-				Intent intent = new Intent(WGBuddyActivity.this,
-						WGBuddyActivity.class);
+				Intent intent = new Intent(Main.this,
+						Main.class);
 				startActivity(intent);
 			}
 		});
@@ -282,7 +282,7 @@ public class WGBuddyActivity extends Activity
 		switch (item.getItemId())
 		{
 			case R.id.about:
-				Dialogs.getAboutDialog(WGBuddyActivity.this, settings);
+				Dialogs.getAboutDialog(Main.this, settings);
 				return true;
 
 			default:

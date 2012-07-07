@@ -1,7 +1,21 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name">WG-Buddy</string>
-    <string name="create_task_title">WG-Buddy > Aufgaben > Aufgabe erstellen</string>
+    
+    <string name="information_title">WG-Buddy > Information</string>
+    <string name="main_title">WG-Buddy > Hauptmenü</string>
+    <string name="message_create_title">WG-Buddy > Nachrichten> Nachricht erstellen</string>
+    <string name="message_list_title">WG-Buddy > Nachrichten</string>
+    <string name="preferences_title">WG-Buddy > Einstellungen</string>
+    <string name="shopping_create_title">WG-Buddy > Einkaufsliste > Artikel hinzufügen</string>
+    <string name="shopping_list_title">WG-Buddy > Einkaufsliste</string>
+    <string name="task_create_title">WG-Buddy > Aufgaben > Aufgabe erstellen</string>
+    <string name="task_list_title">WG-Buddy > Aufgaben</string>
+    <string name="user_activate_title">WG-Buddy > Benutzer aktivieren</string>
+    <string name="user_create_title">WG-Buddy > Benutzer erstellen</string>
+    <string name="user_login_title">WG-Buddy > Login</string>    
+    <string name="wg_create_title">WG-Buddy > WG erstellen</string>
+    <string name="wg_login_title">WG-Buddy > WG beitreten</string>
     
     <string name="main_shoppinglist">Einkaufszettel</string>
     <string name="main_taskdistributor">Aufgaben</string>

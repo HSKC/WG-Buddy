@@ -18,10 +18,10 @@ import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
 import android.util.Log;
 import de.htwg.lpn.model.User;
-import de.htwg.lpn.wgbuddy.Messenger;
-import de.htwg.lpn.wgbuddy.ShoppingList;
-import de.htwg.lpn.wgbuddy.TaskList;
-import de.htwg.lpn.wgbuddy.WGBuddyActivity;
+import de.htwg.lpn.wgbuddy.Message_List;
+import de.htwg.lpn.wgbuddy.Shopping_List;
+import de.htwg.lpn.wgbuddy.Task_List;
+import de.htwg.lpn.wgbuddy.Main;
 
 public class C2dmReceiver  extends BroadcastReceiver 
 {
@@ -29,7 +29,7 @@ public class C2dmReceiver  extends BroadcastReceiver
 	public void onReceive(Context context, Intent intent) 
 	{
 		System.out.println("Received Async Message");
-	    if(WGBuddyActivity.usepush)
+	    if(Main.usepush)
 	    {
 			if (intent.getAction().equals("com.google.android.c2dm.intent.REGISTRATION")) 
 			{
@@ -84,12 +84,12 @@ public class C2dmReceiver  extends BroadcastReceiver
 	    else if (registration != null) 
 	    {
 	    	Log.d("c2dm", registration);	
-	    	Editor editor =context.getSharedPreferences(WGBuddyActivity.PREFS_NAME, 0).edit();
+	    	Editor editor =context.getSharedPreferences(Main.PREFS_NAME, 0).edit();
 	        editor.putString("registrationKey", registration);
 	        editor.putLong("registrationKeydate", new Date().getTime());
 			editor.commit();
 			
-			SharedPreferences settings = context.getApplicationContext().getSharedPreferences(WGBuddyActivity.PREFS_NAME, 0);
+			SharedPreferences settings = context.getApplicationContext().getSharedPreferences(Main.PREFS_NAME, 0);
 			
 			User user = new User(settings);
 			List<NameValuePair> nameValuePairs = new ArrayList<NameValuePair>();
@@ -108,8 +108,8 @@ public class C2dmReceiver  extends BroadcastReceiver
         
         System.out.println((ar.topActivity).getClassName().toString());
 
-        System.out.println(ShoppingList.class.toString());
-        System.out.println(WGBuddyActivity.class.toString());
+        System.out.println(Shopping_List.class.toString());
+        System.out.println(Main.class.toString());
         
         String messagetype = intent.getStringExtra("message");
         
@@ -123,21 +123,21 @@ public class C2dmReceiver  extends BroadcastReceiver
         if(messagetype.equals("ShoppingItem"))
         {
         	notification = new Notification(android.R.drawable.stat_notify_chat,  "Einkaufsliste wurde geupdated",System.currentTimeMillis());
-        	contentIntent = PendingIntent.getActivity(context.getApplicationContext(), 0,new Intent(context.getApplicationContext(),ShoppingList.class),PendingIntent.FLAG_UPDATE_CURRENT);     	
+        	contentIntent = PendingIntent.getActivity(context.getApplicationContext(), 0,new Intent(context.getApplicationContext(),Shopping_List.class),PendingIntent.FLAG_UPDATE_CURRENT);     	
             contentTitle = "WG Buddy";
             contentText = "Einkaufsliste wurde geupdated";
         }
         else if(messagetype.equals("Task"))
         {
         	notification = new Notification(android.R.drawable.stat_notify_chat,  "Aufgaben wurden geupdated",System.currentTimeMillis());
-        	contentIntent = PendingIntent.getActivity(context.getApplicationContext(), 0,new Intent(context.getApplicationContext(), TaskList.class),PendingIntent.FLAG_UPDATE_CURRENT);     	
+        	contentIntent = PendingIntent.getActivity(context.getApplicationContext(), 0,new Intent(context.getApplicationContext(), Task_List.class),PendingIntent.FLAG_UPDATE_CURRENT);     	
             contentTitle = "WG Buddy";
             contentText = "Aufgaben wurden geupdated";
         }        
         else if(messagetype.equals("Message"))
         {
         	notification = new Notification(android.R.drawable.stat_notify_chat,  "Es sind neue Nachrichten im Chat",System.currentTimeMillis());
-        	contentIntent = PendingIntent.getActivity(context.getApplicationContext(), 0,new Intent(context.getApplicationContext(),Messenger.class),PendingIntent.FLAG_UPDATE_CURRENT);     	
+        	contentIntent = PendingIntent.getActivity(context.getApplicationContext(), 0,new Intent(context.getApplicationContext(),Message_List.class),PendingIntent.FLAG_UPDATE_CURRENT);     	
             contentTitle = "WG Buddy";
             contentText = "Es sind neue Nachrichten im Chat";
         }
@@ -148,21 +148,21 @@ public class C2dmReceiver  extends BroadcastReceiver
         
         notMan.notify(0, notification);
         
-        if(ar.topActivity.getClassName().toString().compareTo(ShoppingList.class.toString().split(" ")[1]) == 0)
+        if(ar.topActivity.getClassName().toString().compareTo(Shopping_List.class.toString().split(" ")[1]) == 0)
         {
-        	  Intent intent2 = new Intent(context,ShoppingList.class);
+        	  Intent intent2 = new Intent(context,Shopping_List.class);
               intent2.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
               context.startActivity(intent2);
         }
-        else if(ar.topActivity.getClassName().toString().compareTo(TaskList.class.toString().split(" ")[1]) == 0)
+        else if(ar.topActivity.getClassName().toString().compareTo(Task_List.class.toString().split(" ")[1]) == 0)
         {
-        	  Intent intent2 = new Intent(context, TaskList.class);
+        	  Intent intent2 = new Intent(context, Task_List.class);
               intent2.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
               context.startActivity(intent2);
         }
-        else if(ar.topActivity.getClassName().toString().compareTo(Messenger.class.toString().split(" ")[1]) == 0)
+        else if(ar.topActivity.getClassName().toString().compareTo(Message_List.class.toString().split(" ")[1]) == 0)
         {
-        	  Intent intent2 = new Intent(context,Messenger.class);
+        	  Intent intent2 = new Intent(context,Message_List.class);
               intent2.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
               context.startActivity(intent2);
         }

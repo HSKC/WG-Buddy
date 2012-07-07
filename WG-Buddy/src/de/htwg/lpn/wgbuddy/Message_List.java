@@ -23,7 +23,7 @@ import android.widget.SimpleAdapter;
 import android.widget.SimpleAdapter.ViewBinder;
 import android.widget.TextView;
 
-public class Messenger extends Activity
+public class Message_List extends Activity
 {
 	private ListView messageList;
 	private SharedPreferences settings;
@@ -34,12 +34,12 @@ public class Messenger extends Activity
         super.onCreate(savedInstanceState);
         setContentView(R.layout.messenger);
         
-        settings = getSharedPreferences(WGBuddyActivity.PREFS_NAME, 0);
+        settings = getSharedPreferences(Main.PREFS_NAME, 0);
         Utilities.checkByPass(this, settings);
         
         messageList = (ListView) findViewById(R.id.messengerList);
         
-        settings = getSharedPreferences(WGBuddyActivity.PREFS_NAME, 0);
+        settings = getSharedPreferences(Main.PREFS_NAME, 0);
         
 	    getList();   
 	}
@@ -58,7 +58,7 @@ public class Messenger extends Activity
 		switch (item.getItemId()) 
         {
        		case R.id.add:
-        		intent = new Intent(Messenger.this, Create_Message.class);
+        		intent = new Intent(Message_List.this, Message_Create.class);
 				startActivity(intent);				
 				return true;
         	
@@ -67,11 +67,11 @@ public class Messenger extends Activity
 				return true;
         	
 	        case R.id.about:
-	        	Dialogs.getAboutDialog(Messenger.this, settings);
+	        	Dialogs.getAboutDialog(Message_List.this, settings);
 	        	return true;
 	        	
 	        case R.id.menu:
-	        	intent = new Intent(Messenger.this, WGBuddyActivity.class);
+	        	intent = new Intent(Message_List.this, Main.class);
 				startActivity(intent);	
 	        	return true;
 	        	

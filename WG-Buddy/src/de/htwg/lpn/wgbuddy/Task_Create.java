@@ -40,7 +40,7 @@ import de.htwg.lpn.wgbuddy.utility.RandomUser;
 import de.htwg.lpn.wgbuddy.utility.Utilities;
 import de.htwg.lpn.wgbuddy.utility.WorkerThread;
 
-public class Create_Task extends Activity
+public class Task_Create extends Activity
 {
 	private SharedPreferences settings;
 
@@ -61,11 +61,9 @@ public class Create_Task extends Activity
 	public void onCreate(Bundle savedInstanceState)
 	{
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.create_task);
-		
-		setTitle(getString(R.string.create_task_title));
+		setContentView(R.layout.task_create);
 
-		settings = getSharedPreferences(WGBuddyActivity.PREFS_NAME, 0);
+		settings = getSharedPreferences(Main.PREFS_NAME, 0);
 
 		name_TextView = (TextView) findViewById(R.id.taskNameText);
 		comment_TextView = (TextView) findViewById(R.id.userTaskComment);
@@ -79,7 +77,7 @@ public class Create_Task extends Activity
 		user = new User(settings);
 
 		users = user.get("?wgId=" + settings.getString("wg_id", ""));
-		SimpleAdapter sa = new SimpleAdapter(this, users, R.layout.taskdistributor_userentry, new String[] { "username" }, new int[] { R.id.task_userlistcheckbox });
+		SimpleAdapter sa = new SimpleAdapter(this, users, R.layout.task_user_entry, new String[] { "username" }, new int[] { R.id.task_userlistcheckbox });
 
 		ViewBinder vb = new ViewBinder()
 		{
@@ -127,7 +125,7 @@ public class Create_Task extends Activity
 
 				if (name.compareTo("") != 0 && comment.compareTo("") != 0)
 				{
-					ProgressDialog pd = ProgressDialog.show(Create_Task.this, "", getString(R.string.utilities_pleaseWait));
+					ProgressDialog pd = ProgressDialog.show(Task_Create.this, "", getString(R.string.utilities_pleaseWait));
 					Handler handler = new Handler()
 					{
 						@Override
@@ -137,9 +135,9 @@ public class Create_Task extends Activity
 
 							String name = (String) msg.obj;
 
-							Utilities.toastMessage(Create_Task.this, getString(R.string.task_created) + name);
+							Utilities.toastMessage(Task_Create.this, getString(R.string.task_created) + name);
 
-							Intent intent = new Intent(Create_Task.this, TaskList.class);
+							Intent intent = new Intent(Task_Create.this, Task_List.class);
 							startActivity(intent);
 						}
 					};
@@ -189,7 +187,7 @@ public class Create_Task extends Activity
 
 							createNewTask(chosenUserName);
 
-							if (WGBuddyActivity.usepush)
+							if (Main.usepush)
 							{
 								GoogleService gs = new GoogleService(settings);
 								gs.sendMessageToPhone("Task");
@@ -205,7 +203,7 @@ public class Create_Task extends Activity
 				}
 				else
 				{
-					Utilities.toastMessage(Create_Task.this, getString(R.string.utilities_allFields));
+					Utilities.toastMessage(Task_Create.this, getString(R.string.utilities_allFields));
 				}
 			}
 		});
@@ -226,11 +224,11 @@ public class Create_Task extends Activity
 		switch (item.getItemId())
 		{
 			case R.id.about:
-				Dialogs.getAboutDialog(Create_Task.this, settings);
+				Dialogs.getAboutDialog(Task_Create.this, settings);
 				return true;
 
 			case R.id.menu:
-				intent = new Intent(Create_Task.this, WGBuddyActivity.class);
+				intent = new Intent(Task_Create.this, Main.class);
 				startActivity(intent);
 				return true;
 
@@ -253,7 +251,7 @@ public class Create_Task extends Activity
 
 		task.insert(nameValuePairs);
 
-		if (WGBuddyActivity.usepush)
+		if (Main.usepush)
 		{
 			GoogleService gs = new GoogleService(settings);
 			gs.sendMessageToPhone("Task");

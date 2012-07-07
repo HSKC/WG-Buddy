@@ -28,7 +28,7 @@ import de.htwg.lpn.wgbuddy.utility.Dialogs;
 import de.htwg.lpn.wgbuddy.utility.Utilities;
 import de.htwg.lpn.wgbuddy.utility.WorkerThread;
 
-public class Create_ShoppingItem  extends Activity
+public class Shopping_Create  extends Activity
 {
 	private SharedPreferences settings = null;
 	
@@ -41,9 +41,9 @@ public class Create_ShoppingItem  extends Activity
     public void onCreate(Bundle savedInstanceState) 
     {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.create_shoppingitem);
+        setContentView(R.layout.shopping_create);
         
-        settings = getSharedPreferences(WGBuddyActivity.PREFS_NAME, 0);
+        settings = getSharedPreferences(Main.PREFS_NAME, 0);
         Utilities.checkByPass(this, settings);
         
         addButton = (Button) findViewById(R.id.shoppingItemAddButton);
@@ -58,7 +58,7 @@ public class Create_ShoppingItem  extends Activity
 				@Override
 				public void onClick(View v) 
 				{
-					ProgressDialog pd = ProgressDialog.show(Create_ShoppingItem.this, "", getString(R.string.utilities_pleaseWait));
+					ProgressDialog pd = ProgressDialog.show(Shopping_Create.this, "", getString(R.string.utilities_pleaseWait));
 					Handler handler = new Handler()
 					{
 						@Override
@@ -66,9 +66,9 @@ public class Create_ShoppingItem  extends Activity
 						{
 							super.handleMessage(msg);
 							
-							Utilities.toastMessage(Create_ShoppingItem.this, getString(R.string.shopping_created));
+							Utilities.toastMessage(Shopping_Create.this, getString(R.string.shopping_created));
 
-							Intent intent = new Intent(Create_ShoppingItem.this, ShoppingList.class);
+							Intent intent = new Intent(Shopping_Create.this, Shopping_List.class);
 							startActivity(intent);
 						}
 					};
@@ -89,9 +89,9 @@ public class Create_ShoppingItem  extends Activity
 					        nameValuePairs.add(new BasicNameValuePair("status", "0"));					
 				        
 							ShoppingItem shopping = new ShoppingItem(settings);
-							shopping.insert(nameValuePairs,Create_ShoppingItem.this);	
+							shopping.insert(nameValuePairs,Shopping_Create.this);	
 							
-					        if(WGBuddyActivity.usepush)
+					        if(Main.usepush)
 					        {
 								GoogleService gs = new GoogleService(settings);
 								gs.sendMessageToPhone("ShoppingItem");
@@ -124,11 +124,11 @@ public class Create_ShoppingItem  extends Activity
 		switch (item.getItemId()) 
         {        	
 	        case R.id.about:
-	        	Dialogs.getAboutDialog(Create_ShoppingItem.this, settings);
+	        	Dialogs.getAboutDialog(Shopping_Create.this, settings);
 	        	return true;
 	        	
 	        case R.id.menu:
-	        	intent = new Intent(Create_ShoppingItem.this, WGBuddyActivity.class);
+	        	intent = new Intent(Shopping_Create.this, Main.class);
 				startActivity(intent);	
 	        	return true;
 	        	

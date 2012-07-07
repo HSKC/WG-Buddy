@@ -22,7 +22,7 @@ import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.TextView;
 
-public class Create_WG extends Activity 
+public class WG_Create extends Activity 
 {
 	private SharedPreferences settings = null;
 	
@@ -36,9 +36,9 @@ public class Create_WG extends Activity
     public void onCreate(Bundle savedInstanceState) 
     {
     	super.onCreate(savedInstanceState);
-    	setContentView(R.layout.create_wg);
+    	setContentView(R.layout.wg_create);
     	
-    	settings = getSharedPreferences(WGBuddyActivity.PREFS_NAME, 0);
+    	settings = getSharedPreferences(Main.PREFS_NAME, 0);
     	
     	nameTextView = (TextView) findViewById(R.id.create_wg_nameEdit);
     	passwordTextView = (TextView) findViewById(R.id.create_wg_passwordEdit);
@@ -58,19 +58,19 @@ public class Create_WG extends Activity
 				
 				if(name.length() == 0 || password.length() == 0 || password2.length() == 0)
     			{
-					Utilities.message(Create_WG.this, "Bitte alle Felder ausfüllen.", "OK"); //TODO TEXT in string.xml
+					Utilities.message(WG_Create.this, "Bitte alle Felder ausfüllen.", "OK"); //TODO TEXT in string.xml
 					return;
     			}
 				
 				if(!Utilities.checkOnlyAllowedCharacter(name))
 				{
-					Utilities.message(Create_WG.this, "WG-Name enthält unerlaubte Zeichen. Es sind nur folgende Zeichen erlaubt: a-z A-Z 0-9", "OK"); //TODO TEXT in string.xml
+					Utilities.message(WG_Create.this, "WG-Name enthält unerlaubte Zeichen. Es sind nur folgende Zeichen erlaubt: a-z A-Z 0-9", "OK"); //TODO TEXT in string.xml
 					return;
 				}	
 				
 				if(!password.equals(password2))
 				{
-					Utilities.message(Create_WG.this, "Passwörter stimmen nicht überein.", "OK"); //TODO TEXT in string.xml
+					Utilities.message(WG_Create.this, "Passwörter stimmen nicht überein.", "OK"); //TODO TEXT in string.xml
 					return;
 				}
 				
@@ -78,7 +78,7 @@ public class Create_WG extends Activity
 				ArrayList<HashMap<String, String>> wgList = wg.get("?name=" + name);
 				if(wgList.size() > 0)
 				{
-					Utilities.message(Create_WG.this, "WG-Name ist schon vergeben.", "OK"); //TODO TEXT in string.xml
+					Utilities.message(WG_Create.this, "WG-Name ist schon vergeben.", "OK"); //TODO TEXT in string.xml
 					return;
 				}
 
@@ -107,16 +107,16 @@ public class Create_WG extends Activity
 					userNameValuePairs.add(new BasicNameValuePair("wgId", settings.getString("wg_id", ""))); 				
 					user.update(Integer.valueOf(settings.getString("user_id", "")), userNameValuePairs);
 					
-	    		    Intent intent = new Intent(Create_WG.this,WGBuddyActivity.class);
+	    		    Intent intent = new Intent(WG_Create.this,Main.class);
 	     		    startActivity(intent);
 				}
 				else if(wgList.size() > 1)	// Dürfte nie passieren...
 				{
-					Utilities.message(Create_WG.this, "Fehler: WG-Name schon vorhanden.", "OK");
+					Utilities.message(WG_Create.this, "Fehler: WG-Name schon vorhanden.", "OK");
 				}
 				else // Dürfte nie passieren...
 				{
-					Utilities.message(Create_WG.this, "Fehler beim Speichern. Versuchen Sie es bitte erneut.", "OK");
+					Utilities.message(WG_Create.this, "Fehler beim Speichern. Versuchen Sie es bitte erneut.", "OK");
 				}
 			}
 		});
@@ -136,7 +136,7 @@ public class Create_WG extends Activity
 		switch (item.getItemId()) 
         {        	
 	        case R.id.about:
-	        	Dialogs.getAboutDialog(Create_WG.this, settings);
+	        	Dialogs.getAboutDialog(WG_Create.this, settings);
 	        	return true;
 	        	
 	        default:
