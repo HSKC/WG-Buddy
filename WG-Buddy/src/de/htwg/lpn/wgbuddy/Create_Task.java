@@ -210,7 +210,7 @@ public class Create_Task extends Activity
 		
 		ArrayList<HashMap<String, String>> tasks = task.get("?wgId=" + settings.getString("wg_id", "") + "&userId=" + userId);
 		
-		//sendMail(tasks);
+		sendMail(tasks);
 	}
 
 	private void sendMail(ArrayList<HashMap<String, String>> tasks) 
