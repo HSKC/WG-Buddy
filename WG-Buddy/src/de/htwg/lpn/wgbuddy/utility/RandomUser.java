@@ -25,7 +25,7 @@ public class RandomUser {
 	}
 	
 	/**
-	 * berechnet wieviel prozent von der gesamtpunktzahl ein User hat
+	 * Berechnet wieviel Prozent von der Gesamtpunktzahl ein User hat
 	 * 
 	 * @param points
 	 * @return

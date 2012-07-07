@@ -38,18 +38,12 @@ public class JSON
 		AsyncPost asp = new AsyncPost(mydialog);
 
 		asp.execute(httppost);
-		
-
 	}
 	
 	public static void postData(String url) 
 	{
-		
-		
 	    HttpClient httpclient = new DefaultHttpClient();
 	    HttpPost httppost = new HttpPost(url);
-	    
-       
 
 	    try 
 	    {       
@@ -122,10 +116,7 @@ public class JSON
 		JSONObject json = getJSONfromURL(url);
 		if(json != null)
 		{
-			
 	        JSONArray jsonarray = null;
-	        
-	        
 	        
 	        try 
 	        {

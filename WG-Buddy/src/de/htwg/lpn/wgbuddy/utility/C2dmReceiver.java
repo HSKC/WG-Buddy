@@ -7,11 +7,6 @@ import java.util.List;
 import org.apache.http.NameValuePair;
 import org.apache.http.message.BasicNameValuePair;
 
-import de.htwg.lpn.model.User;
-import de.htwg.lpn.wgbuddy.Messenger;
-import de.htwg.lpn.wgbuddy.ShoppingList;
-import de.htwg.lpn.wgbuddy.TaskDistributor;
-import de.htwg.lpn.wgbuddy.WGBuddyActivity;
 import android.app.ActivityManager;
 import android.app.Notification;
 import android.app.NotificationManager;
@@ -22,6 +17,11 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
 import android.util.Log;
+import de.htwg.lpn.model.User;
+import de.htwg.lpn.wgbuddy.Messenger;
+import de.htwg.lpn.wgbuddy.ShoppingList;
+import de.htwg.lpn.wgbuddy.TaskList;
+import de.htwg.lpn.wgbuddy.WGBuddyActivity;
 
 public class C2dmReceiver  extends BroadcastReceiver 
 {
@@ -130,7 +130,7 @@ public class C2dmReceiver  extends BroadcastReceiver
         else if(messagetype.equals("TaskDistributor"))
         {
         	notification = new Notification(android.R.drawable.stat_notify_chat,  "Aufgaben wurden geupdated",System.currentTimeMillis());
-        	contentIntent = PendingIntent.getActivity(context.getApplicationContext(), 0,new Intent(context.getApplicationContext(),TaskDistributor.class),PendingIntent.FLAG_UPDATE_CURRENT);     	
+        	contentIntent = PendingIntent.getActivity(context.getApplicationContext(), 0,new Intent(context.getApplicationContext(), TaskList.class),PendingIntent.FLAG_UPDATE_CURRENT);     	
             contentTitle = "WG Buddy";
             contentText = "Aufgaben wurden geupdated";
         }        
@@ -154,9 +154,9 @@ public class C2dmReceiver  extends BroadcastReceiver
               intent2.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
               context.startActivity(intent2);
         }
-        else if(ar.topActivity.getClassName().toString().compareTo(TaskDistributor.class.toString().split(" ")[1]) == 0)
+        else if(ar.topActivity.getClassName().toString().compareTo(TaskList.class.toString().split(" ")[1]) == 0)
         {
-        	  Intent intent2 = new Intent(context,TaskDistributor.class);
+        	  Intent intent2 = new Intent(context, TaskList.class);
               intent2.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
               context.startActivity(intent2);
         }

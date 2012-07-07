@@ -63,7 +63,7 @@ public class Create_ShoppingItem  extends Activity
 			        nameValuePairs.add(new BasicNameValuePair("name", nameEditText.getText().toString()));
 			        nameValuePairs.add(new BasicNameValuePair("comment", descriptionEditText.getText().toString()));
 			        nameValuePairs.add(new BasicNameValuePair("rating", String.valueOf(ratingBar.getRating())));
-			        nameValuePairs.add(new BasicNameValuePair("status", "-1"));					
+			        nameValuePairs.add(new BasicNameValuePair("status", "0"));					
 		        
 					ShoppingItem shopping = new ShoppingItem(settings);
 					shopping.insert(nameValuePairs,Create_ShoppingItem.this);	

@@ -7,16 +7,11 @@ import java.util.List;
 import org.apache.http.NameValuePair;
 import org.apache.http.message.BasicNameValuePair;
 
-import de.htwg.lpn.model.User;
-import de.htwg.lpn.model.WG;
-import de.htwg.lpn.wgbuddy.Activate_User;
-import de.htwg.lpn.wgbuddy.R;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.SharedPreferences;
-import android.content.SharedPreferences.Editor;
 import android.text.method.PasswordTransformationMethod;
 import android.text.method.SingleLineTransformationMethod;
 import android.view.View;
@@ -25,6 +20,9 @@ import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.Spinner;
+import de.htwg.lpn.model.User;
+import de.htwg.lpn.model.WG;
+import de.htwg.lpn.wgbuddy.R;
 
 public class Dialogs 
 {	
