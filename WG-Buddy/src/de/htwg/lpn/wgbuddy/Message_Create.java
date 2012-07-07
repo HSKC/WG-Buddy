@@ -22,7 +22,7 @@ import de.htwg.lpn.model.Message;
 import de.htwg.lpn.wgbuddy.utility.Dialogs;
 import de.htwg.lpn.wgbuddy.utility.Utilities;
 
-public class Create_Message extends Activity
+public class Message_Create extends Activity
 {
 	private SharedPreferences settings = null;
 	private Button send;
@@ -33,15 +33,15 @@ public class Create_Message extends Activity
 	public void onCreate(Bundle savedInstanceState)
 	{
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.create_message);
+		setContentView(R.layout.messenger_create);
 
-		settings = getSharedPreferences(WGBuddyActivity.PREFS_NAME, 0);
+		settings = getSharedPreferences(Main.PREFS_NAME, 0);
 		Utilities.checkByPass(this, settings);
 
 		send = (Button) findViewById(R.id.messagecreate_sendButton);
 		title = (EditText) findViewById(R.id.messagecreate_titleEdit);
 		message = (EditText) findViewById(R.id.messagecreate_messageEdit);
-		settings = getSharedPreferences(WGBuddyActivity.PREFS_NAME, 0);
+		settings = getSharedPreferences(Main.PREFS_NAME, 0);
 
 		send.setOnClickListener(new OnClickListener()
 		{
@@ -62,14 +62,14 @@ public class Create_Message extends Activity
 						.getText().toString()));
 
 				Message message = new Message(settings);
-				message.insert(nameValuePairs, Create_Message.this);
+				message.insert(nameValuePairs, Message_Create.this);
 
-				if (WGBuddyActivity.usepush)
+				if (Main.usepush)
 				{
 					GoogleService gs = new GoogleService(settings);
 					gs.sendMessageToPhone("Message");
 				}
-				Intent intent = new Intent(Create_Message.this, Messenger.class);
+				Intent intent = new Intent(Message_Create.this, Message_List.class);
 				startActivity(intent);
 			}
 		});
@@ -90,11 +90,11 @@ public class Create_Message extends Activity
 		switch (item.getItemId())
 		{
 			case R.id.about:
-				Dialogs.getAboutDialog(Create_Message.this, settings);
+				Dialogs.getAboutDialog(Message_Create.this, settings);
 				return true;
 
 			case R.id.menu:
-				intent = new Intent(Create_Message.this, WGBuddyActivity.class);
+				intent = new Intent(Message_Create.this, Main.class);
 				startActivity(intent);
 				return true;
 

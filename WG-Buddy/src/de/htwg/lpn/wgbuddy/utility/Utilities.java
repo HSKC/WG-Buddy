@@ -18,8 +18,8 @@ import android.net.Uri;
 import android.widget.Toast;
 import de.htwg.lpn.model.User;
 import de.htwg.lpn.model.WG;
-import de.htwg.lpn.wgbuddy.Login_User;
-import de.htwg.lpn.wgbuddy.WGBuddyActivity;
+import de.htwg.lpn.wgbuddy.User_Login;
+import de.htwg.lpn.wgbuddy.Main;
 
 public class Utilities 
 {
@@ -136,7 +136,7 @@ public class Utilities
         if(!settings.contains("user_status") || !settings.contains("user_id") || !settings.contains("user_name") || !settings.contains("user_email") || !settings.contains("user_password") || !settings.contains("wg_id") || !settings.contains("wg_name") || !settings.contains("wg_password"))
         {
         	// Umleiten
-        	Intent intent = new Intent(context, Login_User.class);
+        	Intent intent = new Intent(context, User_Login.class);
 			context.startActivity(intent);
 			return;        	
         }	
@@ -151,7 +151,7 @@ public class Utilities
 		 SharedPreferences.Editor editor = settings.edit();      		    
 		 editor.clear();
 		 editor.commit();        		    
-		 Intent intent = new Intent(context, WGBuddyActivity.class);
+		 Intent intent = new Intent(context, Main.class);
 		 context.startActivity(intent);
 	}
 	

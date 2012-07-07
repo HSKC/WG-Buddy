@@ -45,7 +45,7 @@ import de.htwg.lpn.wgbuddy.utility.Dialogs;
 import de.htwg.lpn.wgbuddy.utility.Utilities;
 import de.htwg.lpn.wgbuddy.utility.WorkerThread;
 
-public class ShoppingList<V> extends Activity
+public class Shopping_List<V> extends Activity
 {
 	private SharedPreferences settings = null;
 
@@ -67,9 +67,9 @@ public class ShoppingList<V> extends Activity
 	public void onCreate(Bundle savedInstanceState)
 	{
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.shoppinglist);
+		setContentView(R.layout.shopping_list);
 
-		settings = getSharedPreferences(WGBuddyActivity.PREFS_NAME, 0);
+		settings = getSharedPreferences(Main.PREFS_NAME, 0);
 		Utilities.checkByPass(this, settings);
 
 		shoppingItem = new ShoppingItem(settings);
@@ -116,7 +116,7 @@ public class ShoppingList<V> extends Activity
 		switch (item.getItemId())
 		{
 			case R.id.add:
-				intent = new Intent(ShoppingList.this, Create_ShoppingItem.class);
+				intent = new Intent(Shopping_List.this, Shopping_Create.class);
 				startActivity(intent);
 				return true;
 
@@ -129,11 +129,11 @@ public class ShoppingList<V> extends Activity
 				return true;
 
 			case R.id.about:
-				Dialogs.getAboutDialog(ShoppingList.this, settings);
+				Dialogs.getAboutDialog(Shopping_List.this, settings);
 				return true;
 
 			case R.id.menu:
-				intent = new Intent(ShoppingList.this, WGBuddyActivity.class);
+				intent = new Intent(Shopping_List.this, Main.class);
 				startActivity(intent);
 				return true;
 
@@ -148,7 +148,7 @@ public class ShoppingList<V> extends Activity
 		if (keyCode == KeyEvent.KEYCODE_BACK)
 		{
 
-			Intent intent = new Intent(this, WGBuddyActivity.class);
+			Intent intent = new Intent(this, Main.class);
 			startActivity(intent);
 
 			return true;
@@ -227,7 +227,7 @@ public class ShoppingList<V> extends Activity
 			}
 		}
 
-		SimpleAdapter sa = new SimpleAdapter(this, list, R.layout.shoppinglist_entry, new String[] { "id", "id", "name", "comment", "rating", "createdDate", "username", "status" }, new int[] {
+		SimpleAdapter sa = new SimpleAdapter(this, list, R.layout.shopping_list_entry, new String[] { "id", "id", "name", "comment", "rating", "createdDate", "username", "status" }, new int[] {
 		R.id.shoppingListEntryCompletedButton, R.id.shoppingListEntryDeleteButton, R.id.shoppingBigText, R.id.shoppingSmallText, R.id.ratingBar, R.id.createdDate, R.id.shoppingUsername,
 		R.id.shoppingList_Entry });
 
@@ -270,7 +270,7 @@ public class ShoppingList<V> extends Activity
 						@Override
 						public boolean onTouch(View v, MotionEvent event)
 						{
-							ProgressDialog pd = ProgressDialog.show(ShoppingList.this, "", getString(R.string.utilities_pleaseWait));
+							ProgressDialog pd = ProgressDialog.show(Shopping_List.this, "", getString(R.string.utilities_pleaseWait));
 							Handler handler = new Handler()
 							{
 								@Override
@@ -282,14 +282,14 @@ public class ShoppingList<V> extends Activity
 									{
 										case 0:
 											getList();
-											Utilities.toastMessage(ShoppingList.this, getString(R.string.shopping_alreadyDeleted));
+											Utilities.toastMessage(Shopping_List.this, getString(R.string.shopping_alreadyDeleted));
 											break;
 										case 1:
-											Utilities.toastMessage(ShoppingList.this, getString(R.string.shopping_alreadyPurchased));
+											Utilities.toastMessage(Shopping_List.this, getString(R.string.shopping_alreadyPurchased));
 											break;
 										case 2:
 											getList();
-											Utilities.toastMessage(ShoppingList.this, getString(R.string.shopping_completedItem));
+											Utilities.toastMessage(Shopping_List.this, getString(R.string.shopping_completedItem));
 											break;
 									}
 								}
@@ -322,7 +322,7 @@ public class ShoppingList<V> extends Activity
 
 									shoppingItem.update(id, nameValuePairs);
 
-									if (WGBuddyActivity.usepush)
+									if (Main.usepush)
 									{
 										GoogleService gs = new GoogleService(settings);
 										gs.sendMessageToPhone("ShoppingItem");
@@ -353,7 +353,7 @@ public class ShoppingList<V> extends Activity
 						@Override
 						public boolean onTouch(View v, MotionEvent event)
 						{
-							ProgressDialog pd = ProgressDialog.show(ShoppingList.this, "", getString(R.string.utilities_pleaseWait));
+							ProgressDialog pd = ProgressDialog.show(Shopping_List.this, "", getString(R.string.utilities_pleaseWait));
 							Handler handler = new Handler()
 							{
 								@Override
@@ -361,7 +361,7 @@ public class ShoppingList<V> extends Activity
 								{
 									super.handleMessage(msg);
 									getList();
-									Utilities.toastMessage(ShoppingList.this, getString(R.string.shopping_deletedItem));
+									Utilities.toastMessage(Shopping_List.this, getString(R.string.shopping_deletedItem));
 								}
 							};
 
@@ -370,9 +370,9 @@ public class ShoppingList<V> extends Activity
 								@Override
 								public Message call()
 								{
-									shoppingItem.delete(id, ShoppingList.this);
+									shoppingItem.delete(id, Shopping_List.this);
 
-									if (WGBuddyActivity.usepush)
+									if (Main.usepush)
 									{
 										GoogleService gs = new GoogleService(settings);
 										gs.sendMessageToPhone("ShoppingItem");
@@ -405,9 +405,9 @@ public class ShoppingList<V> extends Activity
 	{
 		AlertDialog.Builder builder;
 
-		builder = new AlertDialog.Builder(ShoppingList.this);
+		builder = new AlertDialog.Builder(Shopping_List.this);
 
-		LayoutInflater inflater = (LayoutInflater) ShoppingList.this.getSystemService(LAYOUT_INFLATER_SERVICE);
+		LayoutInflater inflater = (LayoutInflater) Shopping_List.this.getSystemService(LAYOUT_INFLATER_SERVICE);
 		View layout = inflater.inflate(R.layout.list_optionsdialog, (ViewGroup) findViewById(R.id.shoppingList_optionsDialogLayout));
 
 		builder.setView(layout);

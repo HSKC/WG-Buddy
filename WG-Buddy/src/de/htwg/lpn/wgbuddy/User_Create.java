@@ -23,7 +23,7 @@ import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.TextView;
 
-public class Create_User extends Activity 
+public class User_Create extends Activity 
 {
 	private SharedPreferences settings = null;
 	
@@ -39,9 +39,9 @@ public class Create_User extends Activity
     public void onCreate(Bundle savedInstanceState) 
     {
     	super.onCreate(savedInstanceState);
-    	setContentView(R.layout.create_user);
+    	setContentView(R.layout.user_create);
     	
-    	settings = getSharedPreferences(WGBuddyActivity.PREFS_NAME, 0);
+    	settings = getSharedPreferences(Main.PREFS_NAME, 0);
     	
     	usernameTextView = (TextView) findViewById(R.id.create_user_usernameEdit);
     	emailTextView = (TextView) findViewById(R.id.create_user_emailEdit);
@@ -65,31 +65,31 @@ public class Create_User extends Activity
 				
 				if(username.length() == 0 || email.length() == 0 || email2.length() == 0 || password.length() == 0 || password2.length() == 0)
     			{
-					Utilities.message(Create_User.this, "Bitte alle Felder ausfüllen.", "OK"); //TODO TEXT in string.xml
+					Utilities.message(User_Create.this, "Bitte alle Felder ausfüllen.", "OK"); //TODO TEXT in string.xml
 					return;
     			}				
 				
 				if(!Utilities.checkOnlyAllowedCharacter(username))
 				{
-					Utilities.message(Create_User.this, "Benutzername enthält unerlaubte Zeichen. Es sind nur folgende Zeichen erlaubt: a-z A-Z äöü ÄÖÜ ß 0-9 _", "OK"); //TODO TEXT in string.xml
+					Utilities.message(User_Create.this, "Benutzername enthält unerlaubte Zeichen. Es sind nur folgende Zeichen erlaubt: a-z A-Z äöü ÄÖÜ ß 0-9 _", "OK"); //TODO TEXT in string.xml
 					return;
 				}
 				
 				if(!Patterns.EMAIL_ADDRESS.matcher(email).matches())
 				{
-					Utilities.message(Create_User.this, "E-Mail-Adresse ist fehlerhaft.", "OK"); //TODO TEXT in string.xml
+					Utilities.message(User_Create.this, "E-Mail-Adresse ist fehlerhaft.", "OK"); //TODO TEXT in string.xml
 					return;
 				}
 				
 				if(!email.equals(email2))
 				{
-					Utilities.message(Create_User.this, "E-Mail-Adressen stimmen nicht überein.", "OK"); //TODO TEXT in string.xml
+					Utilities.message(User_Create.this, "E-Mail-Adressen stimmen nicht überein.", "OK"); //TODO TEXT in string.xml
 					return;
 				}
 				
 				if(!password.equals(password2))
 				{
-					Utilities.message(Create_User.this, "Passwörter stimmen nicht überein.", "OK"); //TODO TEXT in string.xml
+					Utilities.message(User_Create.this, "Passwörter stimmen nicht überein.", "OK"); //TODO TEXT in string.xml
 					return;
 				}
 				
@@ -98,14 +98,14 @@ public class Create_User extends Activity
 				ArrayList<HashMap<String, String>> userList = user.get("?username=" + username);
 				if(userList.size() > 0)
 				{
-					Utilities.message(Create_User.this, "Benutzername ist schon vergeben.", "OK"); //TODO TEXT in string.xml
+					Utilities.message(User_Create.this, "Benutzername ist schon vergeben.", "OK"); //TODO TEXT in string.xml
 					return;
 				}
 				
 				ArrayList<HashMap<String, String>> listEmail = user.get("?email=" + email);
 				if(listEmail.size() > 0)
 				{
-					Utilities.message(Create_User.this, "E-Mail ist schon vergeben.", "OK"); //TODO TEXT in string.xml
+					Utilities.message(User_Create.this, "E-Mail ist schon vergeben.", "OK"); //TODO TEXT in string.xml
 					return;
 				}
 				
@@ -133,16 +133,16 @@ public class Create_User extends Activity
         		    
 	    		    editor.commit();
 					
-	    		    Intent intent = new Intent(Create_User.this, Activate_User.class);
+	    		    Intent intent = new Intent(User_Create.this, User_Activate.class);
 	     		    startActivity(intent);
 				}
 				else if(userList.size() > 1)	// Dürfte nie passieren...
 				{
-					Utilities.message(Create_User.this, "Fehler: Benutzername schon vorhanden.", "OK");
+					Utilities.message(User_Create.this, "Fehler: Benutzername schon vorhanden.", "OK");
 				}
 				else // Dürfte nie passieren...
 				{
-					Utilities.message(Create_User.this, "Fehler beim Speichern. Versuchen Sie es bitte erneut.", "OK");
+					Utilities.message(User_Create.this, "Fehler beim Speichern. Versuchen Sie es bitte erneut.", "OK");
 				}
 			}
 		});
@@ -162,7 +162,7 @@ public class Create_User extends Activity
 		switch (item.getItemId()) 
         {        	
 	        case R.id.about:
-	        	Dialogs.getAboutDialog(Create_User.this, settings);
+	        	Dialogs.getAboutDialog(User_Create.this, settings);
 	        	return true;
 	        	
 	        default:

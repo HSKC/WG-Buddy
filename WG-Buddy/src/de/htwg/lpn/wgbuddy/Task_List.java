@@ -46,7 +46,7 @@ import de.htwg.lpn.wgbuddy.utility.Dialogs;
 import de.htwg.lpn.wgbuddy.utility.Utilities;
 import de.htwg.lpn.wgbuddy.utility.WorkerThread;
 
-public class TaskList extends Activity
+public class Task_List extends Activity
 {
 	private SharedPreferences settings;
 
@@ -68,9 +68,9 @@ public class TaskList extends Activity
 	public void onCreate(Bundle savedInstanceState)
 	{
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.tasklist);
+		setContentView(R.layout.task_list);
 
-		settings = getSharedPreferences(WGBuddyActivity.PREFS_NAME, 0);
+		settings = getSharedPreferences(Main.PREFS_NAME, 0);
 		Utilities.checkByPass(this, settings);
 
 		task = new Task(settings);
@@ -119,7 +119,7 @@ public class TaskList extends Activity
 		switch (item.getItemId())
 		{
 			case R.id.add:
-				intent = new Intent(this, Create_Task.class);
+				intent = new Intent(this, Task_Create.class);
 				startActivity(intent);
 				return true;
 
@@ -136,7 +136,7 @@ public class TaskList extends Activity
 				return true;
 
 			case R.id.menu:
-				intent = new Intent(this, WGBuddyActivity.class);
+				intent = new Intent(this, Main.class);
 				startActivity(intent);
 				return true;
 
@@ -151,7 +151,7 @@ public class TaskList extends Activity
 		if (keyCode == KeyEvent.KEYCODE_BACK)
 		{
 
-			Intent intent = new Intent(this, WGBuddyActivity.class);
+			Intent intent = new Intent(this, Main.class);
 			startActivity(intent);
 
 			return true;
@@ -230,7 +230,7 @@ public class TaskList extends Activity
 			}
 		}
 
-		SimpleAdapter sa = new SimpleAdapter(this, list, R.layout.shoppinglist_entry, new String[] { "id", "id", "name", "comment", "points", "createdDate", "username", "status" }, new int[] {
+		SimpleAdapter sa = new SimpleAdapter(this, list, R.layout.shopping_list_entry, new String[] { "id", "id", "name", "comment", "points", "createdDate", "username", "status" }, new int[] {
 		R.id.shoppingListEntryCompletedButton, R.id.shoppingListEntryDeleteButton, R.id.shoppingBigText, R.id.shoppingSmallText, R.id.ratingBar, R.id.createdDate, R.id.shoppingUsername,
 		R.id.shoppingList_Entry });
 
@@ -272,7 +272,7 @@ public class TaskList extends Activity
 						@Override
 						public boolean onTouch(View v, MotionEvent event)
 						{
-							ProgressDialog pd = ProgressDialog.show(TaskList.this, "", getString(R.string.utilities_pleaseWait));
+							ProgressDialog pd = ProgressDialog.show(Task_List.this, "", getString(R.string.utilities_pleaseWait));
 							Handler handler = new Handler()
 							{
 								@Override
@@ -284,17 +284,17 @@ public class TaskList extends Activity
 									{
 										case 0:
 											getList();
-											Utilities.toastMessage(TaskList.this, getString(R.string.task_alreadyDeleted));
+											Utilities.toastMessage(Task_List.this, getString(R.string.task_alreadyDeleted));
 											break;
 										case 1:
-											Utilities.toastMessage(TaskList.this, getString(R.string.task_alreadyDone));
+											Utilities.toastMessage(Task_List.this, getString(R.string.task_alreadyDone));
 											break;	
 										case 2:
-											Utilities.toastMessage(TaskList.this, getString(R.string.task_otherUser));
+											Utilities.toastMessage(Task_List.this, getString(R.string.task_otherUser));
 											break;
 										case 3:
 											getList();
-											Utilities.toastMessage(TaskList.this, getString(R.string.task_completedItem));
+											Utilities.toastMessage(Task_List.this, getString(R.string.task_completedItem));
 											break;
 									}
 								}
@@ -343,7 +343,7 @@ public class TaskList extends Activity
 									
 									user.update(Integer.valueOf(settings.getString("user_id", "")), userNameValuePairs);
 
-									if (WGBuddyActivity.usepush)
+									if (Main.usepush)
 									{
 										GoogleService gs = new GoogleService(settings);
 										gs.sendMessageToPhone("Task");
@@ -373,7 +373,7 @@ public class TaskList extends Activity
 						@Override
 						public boolean onTouch(View v, MotionEvent event)
 						{
-							ProgressDialog pd = ProgressDialog.show(TaskList.this, "", getString(R.string.utilities_pleaseWait));
+							ProgressDialog pd = ProgressDialog.show(Task_List.this, "", getString(R.string.utilities_pleaseWait));
 							Handler handler = new Handler()
 							{
 								@Override
@@ -381,7 +381,7 @@ public class TaskList extends Activity
 								{
 									super.handleMessage(msg);
 									getList();
-									Utilities.toastMessage(TaskList.this, getString(R.string.task_deletedItem));
+									Utilities.toastMessage(Task_List.this, getString(R.string.task_deletedItem));
 								}
 							};
 
@@ -390,9 +390,9 @@ public class TaskList extends Activity
 								@Override
 								public Message call()
 								{
-									task.delete(id, TaskList.this);
+									task.delete(id, Task_List.this);
 
-									if (WGBuddyActivity.usepush)
+									if (Main.usepush)
 									{
 										GoogleService gs = new GoogleService(settings);
 										gs.sendMessageToPhone("Task");
@@ -448,7 +448,7 @@ public class TaskList extends Activity
 	{
 		AlertDialog.Builder builder;
 
-		builder = new AlertDialog.Builder(TaskList.this);
+		builder = new AlertDialog.Builder(Task_List.this);
 
 		LayoutInflater inflater = (LayoutInflater) getSystemService(LAYOUT_INFLATER_SERVICE);
 		View layout = inflater.inflate(R.layout.list_optionsdialog, (ViewGroup) findViewById(R.id.shoppingList_optionsDialogLayout));

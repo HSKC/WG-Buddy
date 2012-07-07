@@ -20,7 +20,7 @@ import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.EditText;
 
-public class Activate_User  extends Activity 
+public class User_Activate  extends Activity 
 {
 	private SharedPreferences settings;
 	
@@ -32,9 +32,9 @@ public class Activate_User  extends Activity
     public void onCreate(Bundle savedInstanceState) 
     {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activate_user);
+        setContentView(R.layout.user_activate);
         
-        settings = getSharedPreferences(WGBuddyActivity.PREFS_NAME, 0);
+        settings = getSharedPreferences(Main.PREFS_NAME, 0);
         
         sendButton = (Button) findViewById(R.id.activate_user_send);
         newKeyButton = (Button) findViewById(R.id.activate_user_newKey);
@@ -54,7 +54,7 @@ public class Activate_User  extends Activity
 				
 				if(key.length() <= 0)
 	   			{
-	   				Utilities.message(Activate_User.this, getString(R.string.utilities_fillAllFields), getString(R.string.utilities_ok));	
+	   				Utilities.message(User_Activate.this, getString(R.string.utilities_fillAllFields), getString(R.string.utilities_ok));	
 	   				return;
 	   			}
 	   			
@@ -63,7 +63,7 @@ public class Activate_User  extends Activity
 	
 	   			if(userList.size() <= 0)
 	   			{
-	   				Utilities.message(Activate_User.this, getString(R.string.utilities_keyWrong), getString(R.string.utilities_ok));	
+	   				Utilities.message(User_Activate.this, getString(R.string.utilities_keyWrong), getString(R.string.utilities_ok));	
 	   				return;
 	   			}
 	   			
@@ -74,14 +74,14 @@ public class Activate_User  extends Activity
 	    			nameValuePairs.add(new BasicNameValuePair("status", "1"));
 					user.update(Integer.valueOf(userEntry.get("id")), nameValuePairs);					
 					
-					Utilities.toastMessage(Activate_User.this, getString(R.string.utilities_accountActivateSuceed));
+					Utilities.toastMessage(User_Activate.this, getString(R.string.utilities_accountActivateSuceed));
 					
 					Editor editor = settings.edit();
 					
 					editor.putString("user_status", "1");
 		        	editor.commit();
 					
-					Intent intent = new Intent(Activate_User.this, WGBuddyActivity.class);
+					Intent intent = new Intent(User_Activate.this, Main.class);
 					startActivity(intent);
 					return; 
 	   			}
@@ -96,7 +96,7 @@ public class Activate_User  extends Activity
 				Mail mail = new Mail(settings);
 				mail.sendActivateKey(settings.getString("user_email", ""));
 				
-				Utilities.toastMessage(Activate_User.this, getString(R.string.utilities_activateEmailSendedMessage));
+				Utilities.toastMessage(User_Activate.this, getString(R.string.utilities_activateEmailSendedMessage));
 			}
 		});
     }

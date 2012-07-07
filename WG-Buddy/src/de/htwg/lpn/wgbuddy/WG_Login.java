@@ -22,7 +22,7 @@ import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.EditText;
 
-public class Login_WG extends Activity
+public class WG_Login extends Activity
 {
 	private SharedPreferences settings = null;
 	private EditText nameTextView;
@@ -34,9 +34,9 @@ public class Login_WG extends Activity
     public void onCreate(Bundle savedInstanceState) 
     {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.login_wg);
+        setContentView(R.layout.wg_login);
         
-        settings = getSharedPreferences(WGBuddyActivity.PREFS_NAME, 0);
+        settings = getSharedPreferences(Main.PREFS_NAME, 0);
         
         nameTextView 		= (EditText) findViewById(R.id.wgpref_nameEdit);
         passwordTextView 	= (EditText) findViewById(R.id.wgpref_passwordEdit);
@@ -55,13 +55,13 @@ public class Login_WG extends Activity
         			
         			if(name.length() <= 0 && password.length() <= 0)
         			{
-        				Utilities.message(Login_WG.this, "Bitte alle Felder ausfüllen.", "OK");	//TODO :string.xml
+        				Utilities.message(WG_Login.this, "Bitte alle Felder ausfüllen.", "OK");	//TODO :string.xml
         				return;
         			}
         			
         			if(!Utilities.checkOnlyAllowedCharacter(name))
     				{
-    					Utilities.message(Login_WG.this, "WG-Name enthält unerlaubte Zeichen. Es sind nur folgende Zeichen erlaubt: a-z A-Z äöü ÄÖÜ ß 0-9 _", "OK"); //TODO TEXT in string.xml
+    					Utilities.message(WG_Login.this, "WG-Name enthält unerlaubte Zeichen. Es sind nur folgende Zeichen erlaubt: a-z A-Z äöü ÄÖÜ ß 0-9 _", "OK"); //TODO TEXT in string.xml
     					return;
     				}
         				
@@ -69,7 +69,7 @@ public class Login_WG extends Activity
     				ArrayList<HashMap<String, String>> wgList = wg.get("?name=" + name + "&password=" + password);
     				if(wgList.size() == 1)
     				{
-        				SharedPreferences settings = getSharedPreferences(WGBuddyActivity.PREFS_NAME, 0);
+        				SharedPreferences settings = getSharedPreferences(Main.PREFS_NAME, 0);
 	        			SharedPreferences.Editor editor = settings.edit();		        			
 	        			
 	        			// WG Eigenschaften speichern.
@@ -85,12 +85,12 @@ public class Login_WG extends Activity
 						userNameValuePairs.add(new BasicNameValuePair("wgId", settings.getString("wg_id", ""))); 				
 						user.update(Integer.valueOf(settings.getString("user_id", "")), userNameValuePairs);
 	        		    
-			        	Intent intent = new Intent(Login_WG.this, WGBuddyActivity.class);
+			        	Intent intent = new Intent(WG_Login.this, Main.class);
 		        		startActivity(intent);
     				}
     				else
     				{        					
-    					Utilities.message(Login_WG.this, "Der eingegebene WG-Name oder das Passwort ist falsch", "OK");	//TODO :string.xml
+    					Utilities.message(WG_Login.this, "Der eingegebene WG-Name oder das Passwort ist falsch", "OK");	//TODO :string.xml
     				}
     			}
         	}
@@ -102,7 +102,7 @@ public class Login_WG extends Activity
 			@Override
 			public void onClick(View v) 
 			{
-				Intent intent = new Intent(Login_WG.this,Create_WG.class);
+				Intent intent = new Intent(WG_Login.this,WG_Create.class);
 				startActivity(intent);
 			}
 		});        
@@ -122,7 +122,7 @@ public class Login_WG extends Activity
 		switch (item.getItemId()) 
         {        	
 	        case R.id.about:
-	        	Dialogs.getAboutDialog(Login_WG.this, settings);
+	        	Dialogs.getAboutDialog(WG_Login.this, settings);
 	        	return true;
 	        	
 	        default:

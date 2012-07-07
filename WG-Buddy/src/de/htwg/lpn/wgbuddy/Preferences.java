@@ -36,7 +36,7 @@ public class Preferences extends Activity
         changeWGPasswordButton = (Button) findViewById(R.id.preferences_changeWGPasswordButton);
         changeAdminButton = (Button) findViewById(R.id.preferences_changeAdminButton);        
         
-        settings = getSharedPreferences(WGBuddyActivity.PREFS_NAME, 0);
+        settings = getSharedPreferences(Main.PREFS_NAME, 0);
         Utilities.checkByPass(this, settings);
         
         String wgAdminId = Utilities.getWGAdminId(settings);
@@ -139,7 +139,7 @@ public class Preferences extends Activity
 	        	return true;
 	        	
 	        case R.id.menu:
-	        	intent = new Intent(Preferences.this, WGBuddyActivity.class);
+	        	intent = new Intent(Preferences.this, Main.class);
 				startActivity(intent);	
 	        	return true;
 	        	

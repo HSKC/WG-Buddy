@@ -38,7 +38,7 @@ public class Information extends Activity
         wgPassword = (TextView) findViewById(R.id.information_wgPassword);
         wgUserList = (ListView) findViewById(R.id.information_wg_list);
         
-        settings = getSharedPreferences(WGBuddyActivity.PREFS_NAME, 0);
+        settings = getSharedPreferences(Main.PREFS_NAME, 0);
         Utilities.checkByPass(this, settings);       
         User user = new User(settings);
         
@@ -83,7 +83,7 @@ public class Information extends Activity
 	        	return true;
 	        	
 	        case R.id.menu:
-	        	intent = new Intent(Information.this, WGBuddyActivity.class);
+	        	intent = new Intent(Information.this, Main.class);
 				startActivity(intent);	
 	        	return true;
 	        	
