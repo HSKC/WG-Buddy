@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name">WG-Buddy</string>
+    <string name="create_task_title">WG-Buddy > Aufgaben > Aufgabe erstellen</string>
     
     <string name="main_shoppinglist">Einkaufszettel</string>
     <string name="main_taskdistributor">Aufgaben</string>
@@ -104,7 +105,8 @@
     <string name="utilities_activateMessage">Der Account wurde noch nicht aktiviert. Bitte geben Sie den Schlüssel ein, welcher Ihnen per E-Mail zugeschickt wurde.</string>
     <string name="utilities_activateEmailSendedMessage">Eine E-Mail mit dem Schlüssel wurde Ihnen zugesendet.</string>
     <string name="utilities_accountActivateSuceed">Account wurde erfolgreich aktiviert!</string>
-    <string name="utilities_pleaseWait">Bitte warten...</string>
+    <string name="utilities_pleaseWait">Bitte warten</string>
+    <string name="utilities_allFields">Alle Felder müssen ausgefüllt sein!</string>
     
     
 	<string name="utilities_activateAccount">Account aktivieren</string>
@@ -178,11 +180,11 @@
     <string name="tasklist_showAll">Alle anzeigen</string>
     <string name="tasklist_showMy">Meine anzeigen</string>
     <string name="task_alreadyDeleted">Fehler: Aufgabe nicht mehr vorhanden.</string>
-    <string name="task_alreadyDone">Aufgabe wurde schon erledigt.</string>
-    <string name="task_completedItem">Aufgabe wurde als erledigt gekennzeichnet.</string>
-    <string name="task_created">Aufgabe wurde erfolgreich erstellt.</string>
-    <string name="task_deletedItem">Aufgabe wurde erfolgreich gelöscht.</string>
-    <string name="task_otherUser">Aufgabe ist einer anderen Person zugeteilt.</string>
+    <string name="task_alreadyDone">Die Aufgabe wurde schon erledigt.</string>
+    <string name="task_completedItem">Die Aufgabe wurde als erledigt gekennzeichnet.</string>
+    <string name="task_created">Die Aufgabe wurde erfolgreich erstellt.\n Folgender WG-Bewohner wurde für die Aufgabe ausgewählt und per E-Mail benachrichtigt: </string>
+    <string name="task_deletedItem">Die Aufgabe wurde erfolgreich gelöscht.</string>
+    <string name="task_otherUser">Die Aufgabe ist einer anderen Person zugeteilt.</string>    
     
     
     <string name="userTaskgo">los</string>
