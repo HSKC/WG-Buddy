@@ -3,22 +3,28 @@ package de.htwg.lpn.wgbuddy;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.concurrent.Callable;
 
 import org.apache.http.NameValuePair;
 import org.apache.http.message.BasicNameValuePair;
 
 import android.app.Activity;
 import android.app.AlertDialog;
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.view.View.OnTouchListener;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -32,13 +38,15 @@ import android.widget.RatingBar;
 import android.widget.SimpleAdapter;
 import android.widget.SimpleAdapter.ViewBinder;
 import android.widget.Spinner;
+import de.htwg.lpn.model.GoogleService;
 import de.htwg.lpn.model.ShoppingItem;
 import de.htwg.lpn.model.User;
 import de.htwg.lpn.wgbuddy.utility.Dialogs;
 import de.htwg.lpn.wgbuddy.utility.Utilities;
+import de.htwg.lpn.wgbuddy.utility.WorkerThread;
 
 
-public class ShoppingList extends Activity 
+public class ShoppingList<V> extends Activity 
 {
 	private SharedPreferences settings = null;
 	
@@ -55,8 +63,6 @@ public class ShoppingList extends Activity
 	ArrayAdapter<CharSequence> directionAdapter = null;
 	
 	private ShoppingItem shoppingItem;
-	
-	private HashMap<String, HashMap<String, String>> shoppingMap = new HashMap<String, HashMap<String,String>>();
 	
 	@Override
     public void onCreate(Bundle savedInstanceState) 
@@ -208,12 +214,9 @@ public class ShoppingList extends Activity
 
         User user = new User(settings);
         ArrayList<HashMap<String, String>> list = shoppingItem.get(parameter);
-        shoppingMap.clear();
         
         for(HashMap<String, String> map : list)
         {
-        	shoppingMap.put(map.get("id"), map);
-        	
         	if(map.get("userId").equals("0"))
         	{
         		map.put("username", "Keiner");
@@ -265,37 +268,83 @@ public class ShoppingList extends Activity
 				else if(view.getId() == R.id.shoppingListEntryCompletedButton)
 				{
 					ImageButton button = (ImageButton) view;
-					Integer id = Integer.valueOf(data.toString());
+					final Integer id = Integer.valueOf(data.toString());
 					button.setTag(id);
 					
-					if(!shoppingMap.containsKey(id.toString()))
-					{
-						button.setVisibility(View.INVISIBLE);
-						return true;
-					}
-					
-					Integer userId = Integer.valueOf(shoppingMap.get(id.toString()).get("userId"));
-					Integer status = Integer.valueOf(shoppingMap.get(id.toString()).get("status"));
-					
-					if(userId != Integer.valueOf(settings.getString("user_id", "")) || status == 1)
-					{
-						button.setVisibility(View.INVISIBLE);
-					}
-					
-					button.setOnClickListener(new OnClickListener() 
+					button.setOnTouchListener(new OnTouchListener()
 					{
 						@Override
-						public void onClick(View v) 
+						public boolean onTouch(View v, MotionEvent event)
 						{
-							Integer id = (Integer) v.getTag();
-							
-							List<NameValuePair> nameValuePairs = new ArrayList<NameValuePair>();
-							nameValuePairs.add(new BasicNameValuePair("userId", settings.getString("user_id", "")));
-							nameValuePairs.add(new BasicNameValuePair("status", "1"));
+							ProgressDialog pd = ProgressDialog.show(ShoppingList.this, "", getString(R.string.utilities_pleaseWait));
+				        	Handler handler = new Handler()
+				        	{
+				        		@Override
+				                public void handleMessage(Message msg) 
+				                {
+				        			super.handleMessage(msg);	
+				        			
+				        			switch(msg.arg1)
+				        			{
+				        				case 0:				        					
+				        					getList();	
+				        					Utilities.toastMessage(ShoppingList.this, getString(R.string.shopping_alreadyDeleted));
+				        					break;
+				        				case 1:
+				        					Utilities.toastMessage(ShoppingList.this, getString(R.string.shopping_alreadyPurchased));
+				        					break;
+				        				case 2:
+				        					getList();	
+				        					Utilities.toastMessage(ShoppingList.this, getString(R.string.shopping_completedItem));
+				        					break;
+				        			}				        			
+				                }
+				        	};
+				        	
+				        	Callable<Message> callable = new Callable<Message>()
+							{
+								@Override
+								public Message call() throws Exception
+								{
+									Message message = new Message();
 									
-							shoppingItem.update(id, nameValuePairs);
+									ArrayList<HashMap<String, String>> i = shoppingItem.get("?id=" + id.toString());
+									
+									if(i.size() == 0)
+									{										
+										message.arg1 = 0;										 
+										return message;
+									}
+									
+									if(i.get(0).get("status").compareTo("1") == 0)
+									{
+										message.arg1 = 1;
+										return message;
+									}							
+									
+									List<NameValuePair> nameValuePairs = new ArrayList<NameValuePair>();
+									nameValuePairs.add(new BasicNameValuePair("userId", settings.getString("user_id", "")));
+									nameValuePairs.add(new BasicNameValuePair("status", "1"));
+											
+									shoppingItem.update(id, nameValuePairs);						
+									
+									
+									if(WGBuddyActivity.usepush)
+							        {
+										GoogleService gs = new GoogleService(settings);
+										gs.sendMessageToPhone("ShoppingItem");
+							        }						
+									
+									message.arg1 = 2;
+									return message;
+								}
+				        		
+							};				        	
+				        	
+							WorkerThread workerThread = new WorkerThread(callable, pd, handler);
+						    workerThread.start();
 							
-							getList();
+							return true;
 						}
 					});
 					return true;
@@ -303,21 +352,50 @@ public class ShoppingList extends Activity
 				else if(view.getId() == R.id.shoppingListEntryDeleteButton)
 				{
 					ImageButton button = (ImageButton) view;
-					Integer id = Integer.valueOf(data.toString());
-					button.setTag(id);					
+					final Integer id = Integer.valueOf(data.toString());
+					button.setTag(id);		
 					
-					button.setOnClickListener(new OnClickListener() 
+					button.setOnTouchListener(new OnTouchListener()
 					{
-						
 						@Override
-						public void onClick(View v) 
+						public boolean onTouch(View v, MotionEvent event)
 						{
-							Integer id = (Integer) v.getTag();
-							shoppingItem.delete(id,ShoppingList.this);
-							
-							getList();
+				        	ProgressDialog pd = ProgressDialog.show(ShoppingList.this, "", getString(R.string.utilities_pleaseWait));
+				        	Handler handler = new Handler()
+				        	{
+				        		@Override
+				                public void handleMessage(Message msg) 
+				                {
+				        			super.handleMessage(msg);
+				                	getList();
+				        			Utilities.toastMessage(ShoppingList.this, getString(R.string.shopping_deletedItem));
+				                }
+				        	};
+				        	
+				        	Callable<Message> callable = new Callable<Message>()
+		        			{
+								@Override
+								public Message call()
+								{
+									shoppingItem.delete(id, ShoppingList.this);
+									
+									if(WGBuddyActivity.usepush)
+							        {
+										GoogleService gs = new GoogleService(settings);
+										gs.sendMessageToPhone("ShoppingList");
+							        }
+									
+									return new Message();									
+								}
+							};
+				        	
+							WorkerThread workerThread = new WorkerThread(callable, pd, handler);
+						    workerThread.start();
+						    
+						    return true;
 						}
 					});
+					
 					return true;
 				}
 				else
@@ -327,9 +405,8 @@ public class ShoppingList extends Activity
 			}
 		};
 		sa.setViewBinder(vb);
-		sa.notifyDataSetChanged();
         shoppingList.setAdapter(sa);
-	}	
+	}
 	
 	public void getShoppingListOptionsDialog()
 	{

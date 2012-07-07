@@ -127,14 +127,14 @@ public class C2dmReceiver  extends BroadcastReceiver
             contentTitle = "WG Buddy";
             contentText = "Einkaufsliste wurde geupdated";
         }
-        else if(messagetype.equals("TaskDistributor"))
+        else if(messagetype.equals("Task"))
         {
         	notification = new Notification(android.R.drawable.stat_notify_chat,  "Aufgaben wurden geupdated",System.currentTimeMillis());
         	contentIntent = PendingIntent.getActivity(context.getApplicationContext(), 0,new Intent(context.getApplicationContext(), TaskList.class),PendingIntent.FLAG_UPDATE_CURRENT);     	
             contentTitle = "WG Buddy";
             contentText = "Aufgaben wurden geupdated";
         }        
-        else if(messagetype.equals("Chat"))
+        else if(messagetype.equals("Message"))
         {
         	notification = new Notification(android.R.drawable.stat_notify_chat,  "Es sind neue Nachrichten im Chat",System.currentTimeMillis());
         	contentIntent = PendingIntent.getActivity(context.getApplicationContext(), 0,new Intent(context.getApplicationContext(),Messenger.class),PendingIntent.FLAG_UPDATE_CURRENT);     	

@@ -20,7 +20,6 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import android.app.ProgressDialog;
 import android.content.Context;
 import android.util.Log;
 
@@ -29,13 +28,9 @@ public class JSON
 	
 	public static void postData(String url, Context context) 
 	{
-		ProgressDialog mydialog = new ProgressDialog(context);
-		mydialog.setTitle("Please wait");
-		mydialog.show();
-		System.out.println("SHOW");
 		HttpPost httppost = new HttpPost(url);
 	    
-		AsyncPost asp = new AsyncPost(mydialog);
+		AsyncPost asp = new AsyncPost();
 
 		asp.execute(httppost);
 	}
@@ -61,11 +56,7 @@ public class JSON
 	
 	public static void postData(String url, List<NameValuePair> nameValuePairs, Context context) 
 	{
-		ProgressDialog mydialog = new ProgressDialog(context);
-		mydialog.setTitle("Please wait");
-		mydialog.show();
-		System.out.println("SHOW");
-		
+
 		HttpPost httppost = new HttpPost(url);
 		try
 		{
@@ -76,8 +67,7 @@ public class JSON
 			e.printStackTrace();
 		}
 		
-		AsyncPost asp = new AsyncPost(mydialog);
-		System.out.println("SHOW");
+		AsyncPost asp = new AsyncPost();
 		asp.execute(httppost);
 
 	}	

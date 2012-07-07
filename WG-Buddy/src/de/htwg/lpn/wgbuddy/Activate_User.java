@@ -7,6 +7,7 @@ import java.util.List;
 import org.apache.http.NameValuePair;
 import org.apache.http.message.BasicNameValuePair;
 
+import de.htwg.lpn.model.Mail;
 import de.htwg.lpn.model.User;
 import de.htwg.lpn.wgbuddy.utility.Utilities;
 import android.app.Activity;
@@ -92,8 +93,8 @@ public class Activate_User  extends Activity
 			@Override
 			public void onClick(View v) 
 			{
-				User user = new User(settings);
-				user.sendActivateKey(settings.getString("user_email", ""));
+				Mail mail = new Mail(settings);
+				mail.sendActivateKey(settings.getString("user_email", ""));
 				
 				Utilities.toastMessage(Activate_User.this, getString(R.string.utilities_activateEmailSendedMessage));
 			}

@@ -6,6 +6,7 @@ import java.util.HashMap;
 import org.apache.http.NameValuePair;
 import org.apache.http.message.BasicNameValuePair;
 
+import de.htwg.lpn.model.Mail;
 import de.htwg.lpn.model.User;
 import de.htwg.lpn.wgbuddy.utility.Dialogs;
 import de.htwg.lpn.wgbuddy.utility.Utilities;
@@ -118,7 +119,8 @@ public class Create_User extends Activity
 				userList = user.get("?email=" + email);
 				if(userList.size() == 1)
 				{
-					user.sendActivateKey(email);
+					Mail mail = new Mail(settings);
+					mail.sendActivateKey(email);
 					
 					
 					// Insert Values into SharedPreferences.				

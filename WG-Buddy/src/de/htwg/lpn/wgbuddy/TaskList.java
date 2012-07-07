@@ -54,7 +54,7 @@ public class TaskList extends Activity
 	ArrayAdapter<CharSequence> directionAdapter = null;
 	
 	private Task task;
-	private HashMap<String, HashMap<String, String>> taskMap = new HashMap<String, HashMap<String,String>>();
+	private HashMap<Integer, HashMap<String, String>> taskMap = new HashMap<Integer, HashMap<String,String>>();
 	
 	@Override
 	public void onCreate(Bundle savedInstanceState)
@@ -195,7 +195,7 @@ public class TaskList extends Activity
 
 		for (HashMap<String, String> map : list)
 		{
-			taskMap.put(map.get("id"), map);
+			taskMap.put(Integer.valueOf(map.get("id")), map);
 			
 			if (map.get("userId").equals("0"))
 			{
@@ -256,14 +256,14 @@ public class TaskList extends Activity
 					Integer id = Integer.valueOf(data.toString());
 					button.setTag(id);
 					
-					if(!taskMap.containsKey(id.toString()))
+					if(!taskMap.containsKey(id))
 					{
 						button.setVisibility(View.INVISIBLE);
 						return true;
 					}
 					
-					Integer userId = Integer.valueOf(taskMap.get(id.toString()).get("userId"));
-					Integer status = Integer.valueOf(taskMap.get(id.toString()).get("status"));
+					Integer userId = Integer.valueOf(taskMap.get(id).get("userId"));
+					Integer status = Integer.valueOf(taskMap.get(id).get("status"));
 					
 					if(userId != Integer.valueOf(settings.getString("user_id", "")) || status == 1)
 					{
@@ -296,13 +296,13 @@ public class TaskList extends Activity
 					Integer id = Integer.valueOf(data.toString());
 					button.setTag(id);
 					
-					if(!taskMap.containsKey(id.toString()))
+					if(!taskMap.containsKey(id))
 					{
 						button.setVisibility(View.INVISIBLE);
 						return true;
 					}
 					
-					Integer userId = Integer.valueOf(taskMap.get(id.toString()).get("userId"));
+					Integer userId = Integer.valueOf(taskMap.get(id).get("userId"));
 					
 					if(userId != Integer.valueOf(settings.getString("user_id", "")))
 					{
