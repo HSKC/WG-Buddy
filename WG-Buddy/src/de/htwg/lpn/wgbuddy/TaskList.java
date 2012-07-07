@@ -44,8 +44,6 @@ public class TaskList extends Activity
 	private ListView taskList;
 	private RadioGroup filterRadioGroup;
 
-	private ArrayList<String> idList;
-
 	private Integer type = 0;
 	private Integer sort = 0;
 	private Integer direction = 0;
@@ -81,7 +79,7 @@ public class TaskList extends Activity
 				R.array.shoppingListDirection_array,
 				android.R.layout.simple_spinner_item);
 
-		idList = new ArrayList<String>();
+		new ArrayList<String>();
 
 		filterRadioGroup
 				.setOnCheckedChangeListener(new OnCheckedChangeListener()
