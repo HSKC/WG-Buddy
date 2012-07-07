@@ -98,6 +98,11 @@ public class Utilities
 		Toast.makeText(context, text, Toast.LENGTH_LONG).show();
 	}
 	
+	public static void toastMessage(Context context, String text, int duration)
+	{
+		Toast.makeText(context, text, duration).show();
+	}
+	
 	public static void message(final Context context, String text, String buttonText, final String link)
 	{
 		AlertDialog.Builder builder = new AlertDialog.Builder(context);
