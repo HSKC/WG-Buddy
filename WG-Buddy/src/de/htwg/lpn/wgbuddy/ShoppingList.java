@@ -45,55 +45,48 @@ import de.htwg.lpn.wgbuddy.utility.Dialogs;
 import de.htwg.lpn.wgbuddy.utility.Utilities;
 import de.htwg.lpn.wgbuddy.utility.WorkerThread;
 
-
-public class ShoppingList<V> extends Activity 
+public class ShoppingList<V> extends Activity
 {
 	private SharedPreferences settings = null;
-	
+
 	private ListView shoppingList;
 	private RadioGroup filterRadioGroup;
-	
+
 	private Integer type = 0;
 	private Integer sort = 0;
 	private Integer direction = 0;
 	private Integer filter = 0;
-	
-	ArrayAdapter<CharSequence> typeAdapter = null;
-	ArrayAdapter<CharSequence> sortAdapter = null;	
-	ArrayAdapter<CharSequence> directionAdapter = null;
-	
-	private ShoppingItem shoppingItem;
-	
-	@Override
-    public void onCreate(Bundle savedInstanceState) 
-    {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.shoppinglist);
-        
-        settings = getSharedPreferences(WGBuddyActivity.PREFS_NAME, 0);
-        Utilities.checkByPass(this, settings);
-        
-        shoppingItem = new ShoppingItem(settings);
-        
-        shoppingList = (ListView) findViewById(R.id.shoppinglist); 
-        filterRadioGroup = (RadioGroup) findViewById(R.id.shoppingList_radio_filter);
-        
-		typeAdapter = ArrayAdapter.createFromResource(this,
-				R.array.shoppingListType_array,
-				android.R.layout.simple_spinner_item);
-		sortAdapter = ArrayAdapter.createFromResource(this,
-				R.array.shoppingListSort_array,
-				android.R.layout.simple_spinner_item);
-		directionAdapter = ArrayAdapter.createFromResource(this,
-				R.array.shoppingListDirection_array,
-				android.R.layout.simple_spinner_item);
 
-        filterRadioGroup.setOnCheckedChangeListener(new OnCheckedChangeListener() 
-        {			
+	ArrayAdapter<CharSequence> typeAdapter = null;
+	ArrayAdapter<CharSequence> sortAdapter = null;
+	ArrayAdapter<CharSequence> directionAdapter = null;
+
+	private ShoppingItem shoppingItem;
+
+	@Override
+	public void onCreate(Bundle savedInstanceState)
+	{
+		super.onCreate(savedInstanceState);
+		setContentView(R.layout.shoppinglist);
+
+		settings = getSharedPreferences(WGBuddyActivity.PREFS_NAME, 0);
+		Utilities.checkByPass(this, settings);
+
+		shoppingItem = new ShoppingItem(settings);
+
+		shoppingList = (ListView) findViewById(R.id.shoppinglist);
+		filterRadioGroup = (RadioGroup) findViewById(R.id.shoppingList_radio_filter);
+
+		typeAdapter = ArrayAdapter.createFromResource(this, R.array.shoppingListType_array, android.R.layout.simple_spinner_item);
+		sortAdapter = ArrayAdapter.createFromResource(this, R.array.shoppingListSort_array, android.R.layout.simple_spinner_item);
+		directionAdapter = ArrayAdapter.createFromResource(this, R.array.shoppingListDirection_array, android.R.layout.simple_spinner_item);
+
+		filterRadioGroup.setOnCheckedChangeListener(new OnCheckedChangeListener()
+		{
 			@Override
-			public void onCheckedChanged(RadioGroup group, int checkedId) 
+			public void onCheckedChanged(RadioGroup group, int checkedId)
 			{
-				if(checkedId == R.id.shoppingList_radio_filterAll)
+				if (checkedId == R.id.shoppingList_radio_filterAll)
 				{
 					filter = 0;
 				}
@@ -104,298 +97,298 @@ public class ShoppingList<V> extends Activity
 				getList();
 			}
 		});
-        
-        getList();       
-    }
 
-	
-	@Override
-	public boolean onCreateOptionsMenu(Menu menu) 
-	{
-	    MenuInflater inflater = getMenuInflater();
-	    inflater.inflate(R.menu.shoppinglist_menu, menu);
-	    return true;
+		getList();
 	}
-	
+
 	@Override
-	public boolean onOptionsItemSelected(MenuItem item) 
+	public boolean onCreateOptionsMenu(Menu menu)
+	{
+		MenuInflater inflater = getMenuInflater();
+		inflater.inflate(R.menu.shoppinglist_menu, menu);
+		return true;
+	}
+
+	@Override
+	public boolean onOptionsItemSelected(MenuItem item)
 	{
 		Intent intent;
-		switch (item.getItemId()) 
-        {
-       		case R.id.add:
-        		intent = new Intent(ShoppingList.this, Create_ShoppingItem.class);
-				startActivity(intent);				
+		switch (item.getItemId())
+		{
+			case R.id.add:
+				intent = new Intent(ShoppingList.this, Create_ShoppingItem.class);
+				startActivity(intent);
 				return true;
-        	
-        	case R.id.refresh:
-        		getList();
-				return true;
-				
-        	case R.id.settings:
-        		getShoppingListOptionsDialog();
-				return true;
-        	
-	        case R.id.about:
-	        	Dialogs.getAboutDialog(ShoppingList.this, settings);
-	        	return true;
-	        	
-	        case R.id.menu:
-	        	intent = new Intent(ShoppingList.this, WGBuddyActivity.class);
-				startActivity(intent);	
-	        	return true;
-	        	
-	        default:
-	        	return super.onOptionsItemSelected(item);
-        }
-    }
-	
-	@Override
-	public boolean onKeyDown(int keyCode, KeyEvent event)  
-	{
-	    if (keyCode == KeyEvent.KEYCODE_BACK)
-	    {
 
-	       Intent intent = new Intent(ShoppingList.this, WGBuddyActivity.class);
-	       startActivity(intent);
-	       
-	        return true;
-	    }
-	    return super.onKeyDown(keyCode, event);
+			case R.id.refresh:
+				getList();
+				return true;
+
+			case R.id.settings:
+				getShoppingListOptionsDialog();
+				return true;
+
+			case R.id.about:
+				Dialogs.getAboutDialog(ShoppingList.this, settings);
+				return true;
+
+			case R.id.menu:
+				intent = new Intent(ShoppingList.this, WGBuddyActivity.class);
+				startActivity(intent);
+				return true;
+
+			default:
+				return super.onOptionsItemSelected(item);
+		}
 	}
-	
+
+	@Override
+	public boolean onKeyDown(int keyCode, KeyEvent event)
+	{
+		if (keyCode == KeyEvent.KEYCODE_BACK)
+		{
+
+			Intent intent = new Intent(this, WGBuddyActivity.class);
+			startActivity(intent);
+
+			return true;
+		}
+		return super.onKeyDown(keyCode, event);
+	}
+
 	private void getList()
 	{
-        String where = "";
-        String order = "";
-        String directionString = "";        
-        
-        if(type == 1)
-        {
-        	where = "status=0";
-        }
-        else if(type == 2)
-        {
-        	where = "status=1";
-        }
-        
-        if(filter == 1)
-        {
-        	where += "&userId=" + settings.getString("user_id", "");
-        }
-        
-        if(sort == 0)
-        {
-        	order = "orderby=name";
-        }
-        else if(sort == 1)
-        {
-        	order = "orderby=createdDate";
-        }
-        else if(sort == 2)
-        {
-        	order = "orderby=points";
-        }
-        else if(sort == 3)
-        {
-        	order = "orderby=userId";
-        }
-        
-        if(direction == 0)
-        {
-        	directionString = "direction=ASC";
-        }
-        else 
-        {
-        	directionString = "direction=DESC";
-        }
-        
-        String parameter = "?wgId=" + settings.getString("wg_id", "") + "&" + ((where != "")? where + "&" : "") + order + "&" + directionString;
+		String where = "";
+		String order = "";
+		String directionString = "";
 
-        User user = new User(settings);
-        ArrayList<HashMap<String, String>> list = shoppingItem.get(parameter);
-        
-        for(HashMap<String, String> map : list)
-        {
-        	if(map.get("userId").equals("0"))
-        	{
-        		map.put("username", "Keiner");
-        	}
-        	else
-        	{
+		if (type == 1)
+		{
+			where = "status=0";
+		}
+		else if (type == 2)
+		{
+			where = "status=1";
+		}
+
+		if (filter == 1)
+		{
+			where += "&userId=" + settings.getString("user_id", "");
+		}
+
+		if (sort == 0)
+		{
+			order = "orderby=name";
+		}
+		else if (sort == 1)
+		{
+			order = "orderby=createdDate";
+		}
+		else if (sort == 2)
+		{
+			order = "orderby=points";
+		}
+		else if (sort == 3)
+		{
+			order = "orderby=userId";
+		}
+
+		if (direction == 0)
+		{
+			directionString = "direction=ASC";
+		}
+		else
+		{
+			directionString = "direction=DESC";
+		}
+
+		String parameter = "?wgId=" + settings.getString("wg_id", "") + "&" + ((where != "") ? where + "&" : "") + order + "&" + directionString;
+
+		User user = new User(settings);
+		ArrayList<HashMap<String, String>> list = shoppingItem.get(parameter);
+
+		for (HashMap<String, String> map : list)
+		{
+			if (map.get("userId").equals("0"))
+			{
+				map.put("username", "Keiner");
+			}
+			else
+			{
 				ArrayList<HashMap<String, String>> userList = user.get("?id=" + map.get("userId"));
-				if(userList.size() > 0)
+				if (userList.size() > 0)
 				{
 					map.put("username", userList.get(0).get("username"));
 				}
 				else
 				{
-					map.put("username", "Keiner");				
+					map.put("username", "Keiner");
 				}
-        	}
-        }
-       
-        SimpleAdapter sa = new SimpleAdapter(this, list, R.layout.shoppinglist_entry, new String[] { "id", "id", "name", "comment", "rating", "createdDate", "username", "status" }, new int[] { R.id.shoppingListEntryCompletedButton, R.id.shoppingListEntryDeleteButton, R.id.shoppingBigText, R.id.shoppingSmallText, R.id.ratingBar, R.id.createdDate, R.id.shoppingUsername, R.id.shoppingList_Entry});
-        
-        ViewBinder vb = new ViewBinder() 
-        {
-			
+			}
+		}
+
+		SimpleAdapter sa = new SimpleAdapter(this, list, R.layout.shoppinglist_entry, new String[] { "id", "id", "name", "comment", "rating", "createdDate", "username", "status" }, new int[] {
+		R.id.shoppingListEntryCompletedButton, R.id.shoppingListEntryDeleteButton, R.id.shoppingBigText, R.id.shoppingSmallText, R.id.ratingBar, R.id.createdDate, R.id.shoppingUsername,
+		R.id.shoppingList_Entry });
+
+		ViewBinder vb = new ViewBinder()
+		{
+
 			@Override
-			public boolean setViewValue(View view, Object data, String textRepresentation) 
+			public boolean setViewValue(View view, Object data, String textRepresentation)
 			{
-				if(view.getId() == R.id.ratingBar)
+				if (view.getId() == R.id.ratingBar)
 				{
 					RatingBar rb = (RatingBar) view;
 					rb.setRating(Float.valueOf(data.toString()));
 					return true;
 				}
-				else if(view.getId() == R.id.shoppingList_Entry)
+				else if (view.getId() == R.id.shoppingList_Entry)
 				{
 					LinearLayout ll = (LinearLayout) view;
-					
-					if(textRepresentation.compareTo("0") == 0)
+
+					if (textRepresentation.compareTo("0") == 0)
 					{
 						ll.setBackgroundResource(R.drawable.border_red);
-						
+
 					}
-					else if(textRepresentation.compareTo("1") == 0)
+					else if (textRepresentation.compareTo("1") == 0)
 					{
 						ll.setBackgroundResource(R.drawable.border_green);
 					}
-					
+
 					return true;
 				}
-				else if(view.getId() == R.id.shoppingListEntryCompletedButton)
+				else if (view.getId() == R.id.shoppingListEntryCompletedButton)
 				{
 					ImageButton button = (ImageButton) view;
 					final Integer id = Integer.valueOf(data.toString());
 					button.setTag(id);
-					
+
 					button.setOnTouchListener(new OnTouchListener()
 					{
 						@Override
 						public boolean onTouch(View v, MotionEvent event)
 						{
 							ProgressDialog pd = ProgressDialog.show(ShoppingList.this, "", getString(R.string.utilities_pleaseWait));
-				        	Handler handler = new Handler()
-				        	{
-				        		@Override
-				                public void handleMessage(Message msg) 
-				                {
-				        			super.handleMessage(msg);	
-				        			
-				        			switch(msg.arg1)
-				        			{
-				        				case 0:				        					
-				        					getList();	
-				        					Utilities.toastMessage(ShoppingList.this, getString(R.string.shopping_alreadyDeleted));
-				        					break;
-				        				case 1:
-				        					Utilities.toastMessage(ShoppingList.this, getString(R.string.shopping_alreadyPurchased));
-				        					break;
-				        				case 2:
-				        					getList();	
-				        					Utilities.toastMessage(ShoppingList.this, getString(R.string.shopping_completedItem));
-				        					break;
-				        			}				        			
-				                }
-				        	};
-				        	
-				        	Callable<Message> callable = new Callable<Message>()
+							Handler handler = new Handler()
+							{
+								@Override
+								public void handleMessage(Message msg)
+								{
+									super.handleMessage(msg);
+
+									switch (msg.arg1)
+									{
+										case 0:
+											getList();
+											Utilities.toastMessage(ShoppingList.this, getString(R.string.shopping_alreadyDeleted));
+											break;
+										case 1:
+											Utilities.toastMessage(ShoppingList.this, getString(R.string.shopping_alreadyPurchased));
+											break;
+										case 2:
+											getList();
+											Utilities.toastMessage(ShoppingList.this, getString(R.string.shopping_completedItem));
+											break;
+									}
+								}
+							};
+
+							Callable<Message> callable = new Callable<Message>()
 							{
 								@Override
 								public Message call() throws Exception
 								{
 									Message message = new Message();
-									
-									ArrayList<HashMap<String, String>> i = shoppingItem.get("?id=" + id.toString());
-									
-									if(i.size() == 0)
-									{										
-										message.arg1 = 0;										 
+
+									ArrayList<HashMap<String, String>> selectedItem = shoppingItem.get("?id=" + id.toString());
+
+									if (selectedItem.size() == 0)
+									{
+										message.arg1 = 0;
 										return message;
 									}
-									
-									if(i.get(0).get("status").compareTo("1") == 0)
+
+									if (selectedItem.get(0).get("status").compareTo("1") == 0)
 									{
 										message.arg1 = 1;
 										return message;
-									}							
-									
+									}
+
 									List<NameValuePair> nameValuePairs = new ArrayList<NameValuePair>();
 									nameValuePairs.add(new BasicNameValuePair("userId", settings.getString("user_id", "")));
 									nameValuePairs.add(new BasicNameValuePair("status", "1"));
-											
-									shoppingItem.update(id, nameValuePairs);						
-									
-									
-									if(WGBuddyActivity.usepush)
-							        {
+
+									shoppingItem.update(id, nameValuePairs);
+
+									if (WGBuddyActivity.usepush)
+									{
 										GoogleService gs = new GoogleService(settings);
 										gs.sendMessageToPhone("ShoppingItem");
-							        }						
-									
+									}
+
 									message.arg1 = 2;
 									return message;
 								}
-				        		
-							};				        	
-				        	
+
+							};
+
 							WorkerThread workerThread = new WorkerThread(callable, pd, handler);
-						    workerThread.start();
-							
+							workerThread.start();
+
 							return true;
 						}
 					});
 					return true;
-				}				
-				else if(view.getId() == R.id.shoppingListEntryDeleteButton)
+				}
+				else if (view.getId() == R.id.shoppingListEntryDeleteButton)
 				{
 					ImageButton button = (ImageButton) view;
 					final Integer id = Integer.valueOf(data.toString());
-					button.setTag(id);		
-					
+					button.setTag(id);
+
 					button.setOnTouchListener(new OnTouchListener()
 					{
 						@Override
 						public boolean onTouch(View v, MotionEvent event)
 						{
-				        	ProgressDialog pd = ProgressDialog.show(ShoppingList.this, "", getString(R.string.utilities_pleaseWait));
-				        	Handler handler = new Handler()
-				        	{
-				        		@Override
-				                public void handleMessage(Message msg) 
-				                {
-				        			super.handleMessage(msg);
-				                	getList();
-				        			Utilities.toastMessage(ShoppingList.this, getString(R.string.shopping_deletedItem));
-				                }
-				        	};
-				        	
-				        	Callable<Message> callable = new Callable<Message>()
-		        			{
+							ProgressDialog pd = ProgressDialog.show(ShoppingList.this, "", getString(R.string.utilities_pleaseWait));
+							Handler handler = new Handler()
+							{
+								@Override
+								public void handleMessage(Message msg)
+								{
+									super.handleMessage(msg);
+									getList();
+									Utilities.toastMessage(ShoppingList.this, getString(R.string.shopping_deletedItem));
+								}
+							};
+
+							Callable<Message> callable = new Callable<Message>()
+							{
 								@Override
 								public Message call()
 								{
 									shoppingItem.delete(id, ShoppingList.this);
-									
-									if(WGBuddyActivity.usepush)
-							        {
+
+									if (WGBuddyActivity.usepush)
+									{
 										GoogleService gs = new GoogleService(settings);
-										gs.sendMessageToPhone("ShoppingList");
-							        }
-									
-									return new Message();									
+										gs.sendMessageToPhone("ShoppingItem");
+									}
+
+									return new Message();
 								}
 							};
-				        	
+
 							WorkerThread workerThread = new WorkerThread(callable, pd, handler);
-						    workerThread.start();
-						    
-						    return true;
+							workerThread.start();
+
+							return true;
 						}
 					});
-					
+
 					return true;
 				}
 				else
@@ -405,90 +398,87 @@ public class ShoppingList<V> extends Activity
 			}
 		};
 		sa.setViewBinder(vb);
-        shoppingList.setAdapter(sa);
+		shoppingList.setAdapter(sa);
 	}
-	
+
 	public void getShoppingListOptionsDialog()
 	{
 		AlertDialog.Builder builder;
 
 		builder = new AlertDialog.Builder(ShoppingList.this);
-		
+
 		LayoutInflater inflater = (LayoutInflater) ShoppingList.this.getSystemService(LAYOUT_INFLATER_SERVICE);
 		View layout = inflater.inflate(R.layout.list_optionsdialog, (ViewGroup) findViewById(R.id.shoppingList_optionsDialogLayout));
-		
+
 		builder.setView(layout);
-		
+
 		final AlertDialog alertDialog = builder.create();
-		alertDialog.show();			        
-        
-        typeAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        
-        Spinner typeSpinner = (Spinner) layout.findViewById(R.id.listTypeSpinner);
-        
-        typeSpinner.setAdapter(typeAdapter);
-        typeSpinner.setSelection(type);
-        typeSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() 
-        {
-			public void onItemSelected(AdapterView<?> parent, View view, int pos, long id) 
+		alertDialog.show();
+
+		typeAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+
+		Spinner typeSpinner = (Spinner) layout.findViewById(R.id.listTypeSpinner);
+
+		typeSpinner.setAdapter(typeAdapter);
+		typeSpinner.setSelection(type);
+		typeSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener()
+		{
+			public void onItemSelected(AdapterView<?> parent, View view, int pos, long id)
 			{
 				type = pos;
 			}
 
 			@Override
-			public void onNothingSelected(AdapterView<?> arg0) 
+			public void onNothingSelected(AdapterView<?> arg0)
 			{
 			}
 		});
-        
-    	sortAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        
-		
+
+		sortAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+
 		Spinner sortSpinner = (Spinner) layout.findViewById(R.id.shoppingListSortSpinner);
-        
+
 		sortSpinner.setAdapter(sortAdapter);
 		sortSpinner.setSelection(sort);
-        sortSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() 
-        {
-			public void onItemSelected(AdapterView<?> parent, View view, int pos, long id) 
+		sortSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener()
+		{
+			public void onItemSelected(AdapterView<?> parent, View view, int pos, long id)
 			{
 				sort = pos;
 			}
 
 			@Override
-			public void onNothingSelected(AdapterView<?> arg0) 
+			public void onNothingSelected(AdapterView<?> arg0)
 			{
 			}
 		});
-        
-    	directionAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        
-		
+
+		directionAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+
 		Spinner directionSpinner = (Spinner) layout.findViewById(R.id.listDirectionSpinner);
-        
+
 		directionSpinner.setAdapter(directionAdapter);
 		directionSpinner.setSelection(direction);
-        directionSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() 
-        {
-			public void onItemSelected(AdapterView<?> parent, View view, int pos, long id) 
+		directionSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener()
+		{
+			public void onItemSelected(AdapterView<?> parent, View view, int pos, long id)
 			{
 				direction = pos;
 			}
 
 			@Override
-			public void onNothingSelected(AdapterView<?> arg0) 
+			public void onNothingSelected(AdapterView<?> arg0)
 			{
 			}
 		});
-        
-        
-        Button okButton = (Button) layout.findViewById(R.id.shoppingListOptionsDialogButton);
-        okButton.setOnClickListener(new OnClickListener() 
-        {
-			
+
+		Button okButton = (Button) layout.findViewById(R.id.shoppingListOptionsDialogButton);
+		okButton.setOnClickListener(new OnClickListener()
+		{
+
 			@Override
-			public void onClick(View v) 
-			{							
+			public void onClick(View v)
+			{
 				alertDialog.dismiss();
 				getList();
 			}

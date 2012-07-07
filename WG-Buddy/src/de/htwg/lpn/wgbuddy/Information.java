@@ -54,7 +54,7 @@ public class Information extends Activity
         
         ArrayList<HashMap<String, String>> userList = user.get("?wgId=" + settings.getString("wg_id", ""));        
         
-        SimpleAdapter adapter = new SimpleAdapter(this, userList, R.layout.information_wglist_entry, new String[] { "username", "email" }, new int[] { R.id.information_wglist_name, R.id.information_wglist_email});
+        SimpleAdapter adapter = new SimpleAdapter(this, userList, R.layout.information_wglist_entry, new String[] { "username", "email", "points" }, new int[] { R.id.information_wglist_name, R.id.information_wglist_email, R.id.information_wglist_points});
         wgUserList.setAdapter(adapter);        
         
     }

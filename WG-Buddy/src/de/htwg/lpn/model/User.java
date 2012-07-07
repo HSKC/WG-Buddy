@@ -1,7 +1,6 @@
 package de.htwg.lpn.model;
 
 import android.content.SharedPreferences;
-import de.htwg.lpn.wgbuddy.utility.JSON;
 
 public class User extends ObjectBase
 {

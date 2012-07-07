@@ -176,6 +176,12 @@
     <string name="usertask_completeentrysend">Abschicken</string>
     <string name="tasklist_showAll">Alle anzeigen</string>
     <string name="tasklist_showMy">Meine anzeigen</string>
+    <string name="task_alreadyDeleted">Fehler: Aufgabe nicht mehr vorhanden.</string>
+    <string name="task_alreadyDone">Aufgabe wurde schon erledigt.</string>
+    <string name="task_completedItem">Aufgabe wurde als erledigt gekennzeichnet.</string>
+    <string name="task_deletedItem">Aufgabe wurde erfolgreich gelöscht.</string>
+    <string name="task_otherUser">Aufgabe ist einer anderen Person zugeteilt.</string>
+    
     
     <string name="userTaskgo">los</string>
 
