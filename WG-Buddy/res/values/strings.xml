@@ -45,6 +45,7 @@
     <string name="shopping_alreadyPurchased">Artikel wurde schon eingekauft.</string>
     <string name="shopping_completedItem">Artikel wurde als gekauft gekennzeichnet.</string>
     <string name="shopping_deletedItem">Artikel wurde erfolgreich gelöscht.</string>
+    <string name="shopping_created">Artikel wurde erfolgreich erstellt.</string>
     
     <string name="taskdistributor_name">Name</string>
     <string name="taskdistributor_user1">User1</string>
@@ -179,6 +180,7 @@
     <string name="task_alreadyDeleted">Fehler: Aufgabe nicht mehr vorhanden.</string>
     <string name="task_alreadyDone">Aufgabe wurde schon erledigt.</string>
     <string name="task_completedItem">Aufgabe wurde als erledigt gekennzeichnet.</string>
+    <string name="task_created">Aufgabe wurde erfolgreich erstellt.</string>
     <string name="task_deletedItem">Aufgabe wurde erfolgreich gelöscht.</string>
     <string name="task_otherUser">Aufgabe ist einer anderen Person zugeteilt.</string>
     
