@@ -1,43 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="vertical" >
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content" >
-
-        <Button
-            android:id="@+id/taskGoButton"
-            android:layout_width="85dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="0.04"
-            android:text="@string/taskdistributor_go" />
-
-        <Button
-            android:id="@+id/myTaskButton"
-            android:layout_width="85dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="0.05"
-            android:text="@string/taskdistributor_myTasks" />
-
-    </LinearLayout>
-
-    <TextView
-        android:id="@+id/taskUserHeadingText"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/taskdistriubtor_userHeading"
-        android:textAppearance="?android:attr/textAppearanceMedium" />
-
-    <ListView
-        android:id="@+id/taskUserList"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical" 
-        android:headerDividersEnabled="false"
-        android:footerDividersEnabled="false">
-    </ListView>
-
-</LinearLayout>

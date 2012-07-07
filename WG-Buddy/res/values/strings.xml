@@ -3,7 +3,7 @@
     <string name="app_name">WG-Buddy</string>
     
     <string name="main_shoppinglist">Einkaufszettel</string>
-    <string name="main_taskdistributor">Aufgabenverteilung</string>
+    <string name="main_taskdistributor">Aufgaben</string>
     <string name="main_settings">Einstellungen</string>
     <string name="main_chat">Chat</string>
     <string name="main_information">Information</string>
@@ -52,7 +52,7 @@
     <string name="manage_adminuser2">User2</string>
     <string name="manage_adminuser3">User3</string>
     <string name="manage_adminDelete">Löschen</string>
-    <string name="taskdistriubtor_userHeading">Teilnehmer:</string>
+    <string name="taskdistriubtor_userHeading">Teilnehmer</string>
     <string name="taskdistributor_go">neue Aufgabe</string>
     <string name="Deadline">Deadline</string>    
     
@@ -72,13 +72,10 @@
 
     <string name="shoppingRating">Wichtigkeit</string>
     <string name="shoppingDescription">Beschreibung</string>
-    <string name="shoppingList_refresh">Aktualisieren</string>
-    <string name="shoppingList_options">Einstellungen</string>
-    <string name="shoppingList_optionsDialog_Title">Einstellungen</string>
-    <string name="shoppingList_optionsDialog_filterText">Filter</string>
-    <string name="shoppingList_optionsDialog_sortText">Sortieren nach</string>
-    <string name="shoppingList_optionsDialog_directionText">Richtung</string>
-    <string name="shoppingList_optionsButton">OK</string>
+    <string name="list_options">Einstellungen</string>
+    <string name="list_optionsDialog_filterText">Filter</string>
+    <string name="list_optionsDialog_sortText">Sortieren nach</string>
+    <string name="list_optionsDialog_directionText">Richtung</string>
     
     <string name="utilities_ok">OK</string>
     <string name="utilities_cancel">Abbrechen</string>
@@ -117,6 +114,12 @@
         <item>Gekaufte Einträge</item>
     </string-array>
     
+    <string-array name="taskListType_array">
+        <item>Alle Aufgaben</item>
+        <item>Offene Aufgaben</item>
+        <item>Abgeschlossene Aufgaben</item>
+    </string-array>
+    
     <string-array name="shoppingListSort_array">
         <item>Name</item>
         <item>Datum</item>
@@ -139,7 +142,6 @@
         <item>#99CCff</item> <!-- Pastelblau -->
         <item>#99ff99</item> <!-- Pastelgrün -->
         <item>#cc99ff</item> <!-- Pastellila -->
-        
         
         <item>#ff0000</item> <!-- Red -->
         <item>#ffff00</item> <!-- Yellow -->
@@ -167,6 +169,9 @@
     <string name="usertask_completeentrydeadline">Deadline</string>
     <string name="usertask_completeentrycleard">erledigt</string>
     <string name="usertask_completeentrysend">Abschicken</string>
+    <string name="tasklist_showAll">Alle anzeigen</string>
+    <string name="tasklist_showMy">Meine anzeigen</string>
+    
     <string name="userTaskgo">los</string>
 
 </resources>

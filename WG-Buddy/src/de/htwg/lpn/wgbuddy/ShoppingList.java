@@ -7,13 +7,8 @@ import java.util.List;
 import org.apache.http.NameValuePair;
 import org.apache.http.message.BasicNameValuePair;
 
-import de.htwg.lpn.model.ShoppingItem;
-import de.htwg.lpn.model.User;
-import de.htwg.lpn.wgbuddy.utility.Dialogs;
-import de.htwg.lpn.wgbuddy.utility.Utilities;
 import android.app.Activity;
 import android.app.AlertDialog;
-import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -37,6 +32,10 @@ import android.widget.RatingBar;
 import android.widget.SimpleAdapter;
 import android.widget.SimpleAdapter.ViewBinder;
 import android.widget.Spinner;
+import de.htwg.lpn.model.ShoppingItem;
+import de.htwg.lpn.model.User;
+import de.htwg.lpn.wgbuddy.utility.Dialogs;
+import de.htwg.lpn.wgbuddy.utility.Utilities;
 
 
 public class ShoppingList extends Activity 
@@ -55,7 +54,7 @@ public class ShoppingList extends Activity
 	ArrayAdapter<CharSequence> sortAdapter = null;	
 	ArrayAdapter<CharSequence> directionAdapter = null;
 	
-	
+	private ShoppingItem shoppingItem;
 	
 	@Override
     public void onCreate(Bundle savedInstanceState) 
@@ -66,13 +65,21 @@ public class ShoppingList extends Activity
         settings = getSharedPreferences(WGBuddyActivity.PREFS_NAME, 0);
         Utilities.checkByPass(this, settings);
         
+        shoppingItem = new ShoppingItem(settings);
+        
         shoppingList = (ListView) findViewById(R.id.shoppinglist); 
         filterRadioGroup = (RadioGroup) findViewById(R.id.shoppingList_radio_filter);
         
-        typeAdapter = ArrayAdapter.createFromResource(this, R.array.shoppingListType_array, android.R.layout.simple_spinner_item);
-        sortAdapter = ArrayAdapter.createFromResource(this, R.array.shoppingListSort_array, android.R.layout.simple_spinner_item);
-        directionAdapter = ArrayAdapter.createFromResource(this, R.array.shoppingListDirection_array, android.R.layout.simple_spinner_item);
-        
+		typeAdapter = ArrayAdapter.createFromResource(this,
+				R.array.shoppingListType_array,
+				android.R.layout.simple_spinner_item);
+		sortAdapter = ArrayAdapter.createFromResource(this,
+				R.array.shoppingListSort_array,
+				android.R.layout.simple_spinner_item);
+		directionAdapter = ArrayAdapter.createFromResource(this,
+				R.array.shoppingListDirection_array,
+				android.R.layout.simple_spinner_item);
+
         filterRadioGroup.setOnCheckedChangeListener(new OnCheckedChangeListener() 
         {			
 			@Override
@@ -86,11 +93,11 @@ public class ShoppingList extends Activity
 				{
 					filter = 1;
 				}
-				loadList();
+				getList();
 			}
 		});
         
-        loadList();       
+        getList();       
     }
 
 	
@@ -114,7 +121,7 @@ public class ShoppingList extends Activity
 				return true;
         	
         	case R.id.refresh:
-        		loadList();
+        		getList();
 				return true;
 				
         	case R.id.settings:
@@ -149,7 +156,7 @@ public class ShoppingList extends Activity
 	    return super.onKeyDown(keyCode, event);
 	}
 	
-	private void loadList()
+	private void getList()
 	{
         String where = "";
         String order = "";
@@ -157,7 +164,7 @@ public class ShoppingList extends Activity
         
         if(type == 1)
         {
-        	where = "status=-1";
+        	where = "status=0";
         }
         else if(type == 2)
         {
@@ -179,7 +186,7 @@ public class ShoppingList extends Activity
         }
         else if(sort == 2)
         {
-        	order = "orderby=rating";
+        	order = "orderby=points";
         }
         else if(sort == 3)
         {
@@ -195,12 +202,10 @@ public class ShoppingList extends Activity
         	directionString = "direction=DESC";
         }
         
-        
         String parameter = "?wgId=" + settings.getString("wg_id", "") + "&" + ((where != "")? where + "&" : "") + order + "&" + directionString;
 
-        ShoppingItem si = new ShoppingItem(settings);
         User user = new User(settings);
-        ArrayList<HashMap<String, String>> list = si.get(parameter);
+        ArrayList<HashMap<String, String>> list = shoppingItem.get(parameter);
         
         for(HashMap<String, String> map : list)
         {
@@ -233,21 +238,17 @@ public class ShoppingList extends Activity
 				if(view.getId() == R.id.ratingBar)
 				{
 					RatingBar rb = (RatingBar) view;
-					rb.setRating(Integer.valueOf(data.toString()));
+					rb.setRating(Float.valueOf(data.toString()));
 					return true;
 				}
 				else if(view.getId() == R.id.shoppingList_Entry)
 				{
 					LinearLayout ll = (LinearLayout) view;
 					
-					if(textRepresentation.compareTo("-1") == 0)
+					if(textRepresentation.compareTo("0") == 0)
 					{
 						ll.setBackgroundResource(R.drawable.border_red);
 						
-					}
-					else if(textRepresentation.compareTo("0") == 0)
-					{
-						ll.setBackgroundResource(R.drawable.border_orange);
 					}
 					else if(textRepresentation.compareTo("1") == 0)
 					{
@@ -261,22 +262,34 @@ public class ShoppingList extends Activity
 					ImageButton button = (ImageButton) view;
 					Integer id = Integer.valueOf(data.toString());
 					button.setTag(id);
+					
+					ArrayList<HashMap<String, String>>  si = shoppingItem.get("?id=" + id.toString());
+					
+					if(si.size() == 0)
+					{
+						button.setVisibility(View.INVISIBLE);
+						return true;
+					}
+					
+					if(Integer.valueOf(si.get(0).get("userId")) != 0 || Integer.valueOf(si.get(0).get("status")) == 1)
+					{
+						button.setVisibility(View.INVISIBLE);
+					}
+					
 					button.setOnClickListener(new OnClickListener() 
 					{
-						
 						@Override
 						public void onClick(View v) 
 						{
-							ShoppingItem si = new ShoppingItem(settings);
 							Integer id = (Integer) v.getTag();
 							
 							List<NameValuePair> nameValuePairs = new ArrayList<NameValuePair>();
 							nameValuePairs.add(new BasicNameValuePair("userId", settings.getString("user_id", "")));
 							nameValuePairs.add(new BasicNameValuePair("status", "1"));
 									
-							si.update(id, nameValuePairs);
+							shoppingItem.update(id, nameValuePairs);
 							
-							loadList();
+							getList();
 						}
 					});
 					return true;
@@ -285,18 +298,18 @@ public class ShoppingList extends Activity
 				{
 					ImageButton button = (ImageButton) view;
 					Integer id = Integer.valueOf(data.toString());
-					button.setTag(id);
+					button.setTag(id);					
+					
 					button.setOnClickListener(new OnClickListener() 
 					{
 						
 						@Override
 						public void onClick(View v) 
 						{
-							ShoppingItem si = new ShoppingItem(settings);
 							Integer id = (Integer) v.getTag();
-							si.delete(id,ShoppingList.this);
+							shoppingItem.delete(id,ShoppingList.this);
 							
-							loadList();
+							getList();
 						}
 					});
 					return true;
@@ -316,11 +329,10 @@ public class ShoppingList extends Activity
 	{
 		AlertDialog.Builder builder;
 
-		Context mContext = ShoppingList.this;
-		builder = new AlertDialog.Builder(mContext);
+		builder = new AlertDialog.Builder(ShoppingList.this);
 		
-		LayoutInflater inflater = (LayoutInflater) mContext.getSystemService(LAYOUT_INFLATER_SERVICE);
-		View layout = inflater.inflate(R.layout.shoppinglist_optionsdialog, (ViewGroup) findViewById(R.id.shoppingList_optionsDialogLayout));
+		LayoutInflater inflater = (LayoutInflater) ShoppingList.this.getSystemService(LAYOUT_INFLATER_SERVICE);
+		View layout = inflater.inflate(R.layout.list_optionsdialog, (ViewGroup) findViewById(R.id.shoppingList_optionsDialogLayout));
 		
 		builder.setView(layout);
 		
@@ -329,7 +341,7 @@ public class ShoppingList extends Activity
         
         typeAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         
-        Spinner typeSpinner = (Spinner) layout.findViewById(R.id.shoppingListTypeSpinner);
+        Spinner typeSpinner = (Spinner) layout.findViewById(R.id.listTypeSpinner);
         
         typeSpinner.setAdapter(typeAdapter);
         typeSpinner.setSelection(type);
@@ -369,7 +381,7 @@ public class ShoppingList extends Activity
     	directionAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         
 		
-		Spinner directionSpinner = (Spinner) layout.findViewById(R.id.shoppingListDirectionSpinner);
+		Spinner directionSpinner = (Spinner) layout.findViewById(R.id.listDirectionSpinner);
         
 		directionSpinner.setAdapter(directionAdapter);
 		directionSpinner.setSelection(direction);
@@ -395,7 +407,7 @@ public class ShoppingList extends Activity
 			public void onClick(View v) 
 			{							
 				alertDialog.dismiss();
-				loadList();
+				getList();
 			}
 		});
 	}

@@ -29,12 +29,11 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/shoppingRating" />
-
+
     <RatingBar
         android:id="@+id/shoppingItemRatingBar"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content" />
-
 
     <Button
         android:id="@+id/shoppingItemAddButton"

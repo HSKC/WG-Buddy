@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical" >
+    
+    <RadioGroup
+        android:id="@+id/taskList_radio_filter"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal" >
+
+	        <RadioButton
+	            android:id="@+id/taskList_radio_filterAll"
+	            android:layout_width="wrap_content"
+	            android:layout_height="wrap_content"
+	            android:checked="true"
+	            android:text="@string/tasklist_showAll" />
+	
+	        <RadioButton
+	            android:id="@+id/taskList_radio_filterMy"
+	            android:layout_width="wrap_content"
+	            android:layout_height="wrap_content"
+	            android:text="@string/tasklist_showMy" />
+
+    </RadioGroup>
+    
+    <ListView
+        android:id="@+id/userTaskList"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical" 
+        android:headerDividersEnabled="false"
+        android:footerDividersEnabled="false">
+    </ListView>
+
+</LinearLayout>

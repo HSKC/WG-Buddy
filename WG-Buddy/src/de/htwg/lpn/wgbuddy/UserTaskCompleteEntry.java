@@ -117,7 +117,7 @@ public class UserTaskCompleteEntry extends Activity
 		nameValuePairs.add(new BasicNameValuePair("status", "1"));
 		task.update(Integer.valueOf(tasks.get(i).get("id")), nameValuePairs);
 		updatePoints(tasks.get(i).get("userId"));
-		Intent intent = new Intent(UserTaskCompleteEntry.this, UserTaskList.class);
+		Intent intent = new Intent(UserTaskCompleteEntry.this, TaskList.class);
 		startActivity(intent);
 	}
 	
