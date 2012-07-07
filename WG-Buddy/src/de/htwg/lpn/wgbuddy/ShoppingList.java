@@ -239,6 +239,7 @@ public class ShoppingList extends Activity
 				{
 					RatingBar rb = (RatingBar) view;
 					rb.setRating(Float.valueOf(data.toString()));
+					System.out.println(rb.getStepSize());
 					return true;
 				}
 				else if(view.getId() == R.id.shoppingList_Entry)
