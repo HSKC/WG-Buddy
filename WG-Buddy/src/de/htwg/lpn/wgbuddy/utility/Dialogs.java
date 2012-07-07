@@ -20,6 +20,7 @@ import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.Spinner;
+import de.htwg.lpn.model.Mail;
 import de.htwg.lpn.model.User;
 import de.htwg.lpn.model.WG;
 import de.htwg.lpn.wgbuddy.R;
@@ -41,8 +42,8 @@ public class Dialogs
 		{
            public void onClick(DialogInterface dialog, int id) 
            {
-        	   User user = new User(settings);
-        	   user.sendChangeKey(editText.getText().toString().trim());
+        	   Mail mail = new Mail(settings);
+        	   mail.sendChangeKey(editText.getText().toString().trim());
         	   
         	   getChangePasswordWithKeyDialog(context, settings);
            }

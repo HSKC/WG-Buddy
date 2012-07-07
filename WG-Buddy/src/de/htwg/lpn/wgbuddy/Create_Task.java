@@ -28,6 +28,8 @@ import android.widget.SimpleAdapter;
 import android.widget.TextView;
 import android.widget.Toast;
 import android.widget.SimpleAdapter.ViewBinder;
+import de.htwg.lpn.model.GoogleService;
+import de.htwg.lpn.model.Mail;
 import de.htwg.lpn.model.Task;
 import de.htwg.lpn.model.User;
 import de.htwg.lpn.wgbuddy.utility.Dialogs;
@@ -206,16 +208,24 @@ public class Create_Task extends Activity
 		nameValuePairs.add(new BasicNameValuePair("comment", comment.getText().toString()));
 		nameValuePairs.add(new BasicNameValuePair("points", new Double(points.getRating()).toString()));
 		nameValuePairs.add(new BasicNameValuePair("status", "0"));
+		
 		task.insert(nameValuePairs);
 		
-		ArrayList<HashMap<String, String>> tasks = task.get("?wgId=" + settings.getString("wg_id", "") + "&userId=" + userId);
+		if(WGBuddyActivity.usepush)
+        {
+			GoogleService gs = new GoogleService(settings);
+			gs.sendMessageToPhone("Task");
+        }
 		
+		
+		ArrayList<HashMap<String, String>> tasks = task.get("?wgId=" + settings.getString("wg_id", "") + "&userId=" + userId);		
 		sendMail(tasks);
 	}
 
 	private void sendMail(ArrayList<HashMap<String, String>> tasks) 
 	{
-		user.sendTask(tasks.get(0).get("id"));
+		Mail mail = new Mail(settings);
+		mail.sendTask(tasks.get(0).get("id"));
 	}
 	
 	protected String findUserId(String chosenUserName) 

@@ -21,6 +21,7 @@ import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+import de.htwg.lpn.model.Mail;
 import de.htwg.lpn.model.User;
 import de.htwg.lpn.model.WG;
 import de.htwg.lpn.wgbuddy.utility.Dialogs;
@@ -230,8 +231,8 @@ public class WGBuddyActivity extends Activity
 						{
 							public void onClick(DialogInterface dialog, int id)
 							{
-								User user = new User(settings);
-								user.sendInvite(editText.getText().toString());
+								Mail mail = new Mail(settings);
+								mail.sendInvite(editText.getText().toString());
 
 							}
 						});

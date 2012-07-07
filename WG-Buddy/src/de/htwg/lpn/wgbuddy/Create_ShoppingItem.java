@@ -19,9 +19,9 @@ import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.RatingBar;
+import de.htwg.lpn.model.GoogleService;
 import de.htwg.lpn.model.ShoppingItem;
 import de.htwg.lpn.wgbuddy.utility.Dialogs;
-import de.htwg.lpn.wgbuddy.utility.JSON;
 import de.htwg.lpn.wgbuddy.utility.Utilities;
 
 public class Create_ShoppingItem  extends Activity
@@ -54,7 +54,6 @@ public class Create_ShoppingItem  extends Activity
 				@Override
 				public void onClick(View v) 
 				{
-					
 					ProgressDialog.show(Create_ShoppingItem.this, "Working..", "", true, false);
 					
 					List<NameValuePair> nameValuePairs = new ArrayList<NameValuePair>();
@@ -70,14 +69,8 @@ public class Create_ShoppingItem  extends Activity
 					
 			        if(WGBuddyActivity.usepush)
 			        {
-						List<NameValuePair> nameValuePairs2 = new ArrayList<NameValuePair>();
-				        nameValuePairs2.add(new BasicNameValuePair("wgId", settings.getString("wg_id", "")));
-				        nameValuePairs2.add(new BasicNameValuePair("msgType", "collapsed"));
-				        nameValuePairs2.add(new BasicNameValuePair("messageText", "ShoppingItem"));
-						
-						String message2 = "http://wgbuddy.domoprojekt.de/googleService.php";  // TODO
-						
-						JSON.postData(message2,nameValuePairs2,Create_ShoppingItem.this);
+						GoogleService gs = new GoogleService(settings);
+						gs.sendMessageToPhone("ShoppingItem");
 			        }
 					
 					Intent intent = new Intent(Create_ShoppingItem.this, ShoppingList.class);

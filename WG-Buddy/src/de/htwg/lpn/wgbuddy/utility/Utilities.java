@@ -95,7 +95,7 @@ public class Utilities
 	
 	public static void toastMessage(Context context, String text)
 	{
-		Toast.makeText(context, text, Toast.LENGTH_SHORT).show();
+		Toast.makeText(context, text, Toast.LENGTH_LONG).show();
 	}
 	
 	public static void message(final Context context, String text, String buttonText, final String link)
@@ -156,5 +156,5 @@ public class Utilities
 		ArrayList<HashMap<String, String>> wgList = wg.get("?id=" + settings.getString("wg_id", ""));
 		
 		return wgList.get(0).get("adminId");
-	}
+	}	
 }

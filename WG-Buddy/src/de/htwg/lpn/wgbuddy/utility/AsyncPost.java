@@ -7,19 +7,12 @@ import org.apache.http.client.HttpClient;
 import org.apache.http.client.methods.HttpPost;
 import org.apache.http.impl.client.DefaultHttpClient;
 
-import android.app.ProgressDialog;
 import android.content.Context;
 import android.os.AsyncTask;
 
 public class AsyncPost extends AsyncTask<HttpPost, Void, String> 
 {
 	Context context;
-	ProgressDialog mydialog;
-	
-	public AsyncPost(ProgressDialog dialog) 
-	{
-		mydialog = dialog;
-	}
 	
 //	@Override
 //	protected void onPreExecute() 
@@ -49,12 +42,5 @@ public class AsyncPost extends AsyncTask<HttpPost, Void, String>
 		}
 		return null;
 
-	}
-	
-	@Override
-	protected void onPostExecute(String s)
-	{
-		System.out.println("DISMISS");
-		mydialog.dismiss();
 	}
 }
