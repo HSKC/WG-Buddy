@@ -56,6 +56,8 @@ public class ShoppingList extends Activity
 	
 	private ShoppingItem shoppingItem;
 	
+	private HashMap<String, HashMap<String, String>> shoppingMap = new HashMap<String, HashMap<String,String>>();
+	
 	@Override
     public void onCreate(Bundle savedInstanceState) 
     {
@@ -206,9 +208,12 @@ public class ShoppingList extends Activity
 
         User user = new User(settings);
         ArrayList<HashMap<String, String>> list = shoppingItem.get(parameter);
+        shoppingMap.clear();
         
         for(HashMap<String, String> map : list)
         {
+        	shoppingMap.put(map.get("id"), map);
+        	
         	if(map.get("userId").equals("0"))
         	{
         		map.put("username", "Keiner");
@@ -263,15 +268,16 @@ public class ShoppingList extends Activity
 					Integer id = Integer.valueOf(data.toString());
 					button.setTag(id);
 					
-					ArrayList<HashMap<String, String>>  si = shoppingItem.get("?id=" + id.toString());
-					
-					if(si.size() == 0)
+					if(!shoppingMap.containsKey(id.toString()))
 					{
 						button.setVisibility(View.INVISIBLE);
 						return true;
 					}
 					
-					if(Integer.valueOf(si.get(0).get("userId")) != 0 || Integer.valueOf(si.get(0).get("status")) == 1)
+					Integer userId = Integer.valueOf(shoppingMap.get(id.toString()).get("userId"));
+					Integer status = Integer.valueOf(shoppingMap.get(id.toString()).get("status"));
+					
+					if(userId != Integer.valueOf(settings.getString("user_id", "")) || status == 1)
 					{
 						button.setVisibility(View.INVISIBLE);
 					}

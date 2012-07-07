@@ -54,7 +54,8 @@ public class TaskList extends Activity
 	ArrayAdapter<CharSequence> directionAdapter = null;
 	
 	private Task task;
-
+	private HashMap<String, HashMap<String, String>> taskMap = new HashMap<String, HashMap<String,String>>();
+	
 	@Override
 	public void onCreate(Bundle savedInstanceState)
 	{
@@ -87,10 +88,11 @@ public class TaskList extends Activity
 					@Override
 					public void onCheckedChanged(RadioGroup group, int checkedId)
 					{
-						if (checkedId == R.id.shoppingList_radio_filterAll)
+						if (checkedId == R.id.taskList_radio_filterAll)
 						{
 							filter = 0;
-						} else
+						} 
+						else
 						{
 							filter = 1;
 						}
@@ -189,9 +191,12 @@ public class TaskList extends Activity
 
 		User user = new User(settings);
 		ArrayList<HashMap<String, String>> list = task.get(parameter);
+		taskMap.clear();
 
 		for (HashMap<String, String> map : list)
 		{
+			taskMap.put(map.get("id"), map);
+			
 			if (map.get("userId").equals("0"))
 			{
 				map.put("username", "Keiner");
@@ -251,15 +256,16 @@ public class TaskList extends Activity
 					Integer id = Integer.valueOf(data.toString());
 					button.setTag(id);
 					
-					ArrayList<HashMap<String, String>> t = task.get("?id=" + id.toString());	
-					
-					if(t.size() == 0)
+					if(!taskMap.containsKey(id.toString()))
 					{
 						button.setVisibility(View.INVISIBLE);
 						return true;
 					}
 					
-					if(Integer.valueOf(t.get(0).get("userId")) != Integer.valueOf(settings.getString("user_id", "")) || Integer.valueOf(t.get(0).get("status")) == 1)
+					Integer userId = Integer.valueOf(taskMap.get(id.toString()).get("userId"));
+					Integer status = Integer.valueOf(taskMap.get(id.toString()).get("status"));
+					
+					if(userId != Integer.valueOf(settings.getString("user_id", "")) || status == 1)
 					{
 						button.setVisibility(View.INVISIBLE);
 					}
@@ -290,15 +296,15 @@ public class TaskList extends Activity
 					Integer id = Integer.valueOf(data.toString());
 					button.setTag(id);
 					
-					ArrayList<HashMap<String, String>> t = task.get("?id=" + id.toString());	
-					
-					if(t.size() == 0)
+					if(!taskMap.containsKey(id.toString()))
 					{
 						button.setVisibility(View.INVISIBLE);
 						return true;
 					}
 					
-					if(Integer.valueOf(t.get(0).get("userId")) != Integer.valueOf(settings.getString("user_id", "")))
+					Integer userId = Integer.valueOf(taskMap.get(id.toString()).get("userId"));
+					
+					if(userId != Integer.valueOf(settings.getString("user_id", "")))
 					{
 						button.setVisibility(View.INVISIBLE);
 					}
