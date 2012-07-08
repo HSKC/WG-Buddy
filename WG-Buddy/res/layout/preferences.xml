@@ -3,25 +3,25 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical" >
-    
+
     <Button
         android:id="@+id/preferences_changePasswordButton"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/preferences_changePassword" />    
+        android:text="@string/preferences_changePassword" />
 
     <Button
         android:id="@+id/preferences_leaveButton"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/preferences_leaveWG" /> 
-        
+        android:text="@string/preferences_leaveWG" />
+
     <Button
         android:id="@+id/preferences_changeWGPasswordButton"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="@string/preferences_changeWGPassword" />
-    
+
     <Button
         android:id="@+id/preferences_changeAdminButton"
         android:layout_width="match_parent"

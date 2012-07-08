@@ -2,51 +2,55 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
-    android:orientation="vertical" >
+    android:orientation="vertical" >
+
     <TextView
         android:id="@+id/main_headingText"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
         android:text=""
-        android:textAppearance="?android:attr/textAppearanceLarge" />
+        android:textAppearance="?android:attr/textAppearanceLarge" />
+
     <Button
         android:id="@+id/main_shoppingListButton"
         android:layout_width="match_parent"
-        android:textSize="16sp"
-        android:drawableLeft="@drawable/dollar"
         android:layout_height="wrap_content"
-        android:text="@string/main_shoppinglist" />
+        android:drawableLeft="@drawable/dollar"
+        android:text="@string/main_shoppinglist"
+        android:textSize="16sp" />
+
     <Button
         android:id="@+id/main_taskDistributorButton"
         android:layout_width="match_parent"
-        android:textSize="16sp"
-        android:drawableLeft="@drawable/task"
         android:layout_height="wrap_content"
-        android:text="@string/main_taskdistributor" />
+        android:drawableLeft="@drawable/task"
+        android:text="@string/main_taskdistributor"
+        android:textSize="16sp" />
+
     <Button
         android:id="@+id/main_messengerButton"
         android:layout_width="match_parent"
-        android:textSize="16sp"
-        android:drawableLeft="@drawable/chat"
         android:layout_height="wrap_content"
-        android:text="@string/main_chat" />
-
+        android:drawableLeft="@drawable/chat"
+        android:text="@string/main_chat"
+        android:textSize="16sp" />
+
     <Button
         android:id="@+id/main_preferencesButton"
         android:layout_width="match_parent"
-        android:textSize="16sp"
-        android:drawableLeft="@drawable/settings"
         android:layout_height="wrap_content"
-        android:text="@string/main_settings" />
-    
+        android:drawableLeft="@drawable/settings"
+        android:text="@string/main_settings"
+        android:textSize="16sp" />
+
     <Button
         android:id="@+id/main_informationButton"
         android:layout_width="match_parent"
-        android:textSize="16sp"
-        android:drawableLeft="@drawable/settings"
         android:layout_height="wrap_content"
-        android:text="@string/main_information" />
+        android:drawableLeft="@drawable/settings"
+        android:text="@string/main_information"
+        android:textSize="16sp" />
 
     <Button
         android:id="@+id/main_addButton"
@@ -55,7 +59,7 @@
         android:drawableLeft="@drawable/add"
         android:text="@string/main_invite"
         android:textSize="16sp" />
-    
+
     <Button
         android:id="@+id/main_logoutButton"
         android:layout_width="match_parent"

@@ -1,23 +1,25 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/shoppingList_optionsDialogLayout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
-    android:id="@+id/shoppingList_optionsDialogLayout" >
+    android:orientation="vertical" >
+
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/list_options" />
+        android:text="@string/list_options" />
+
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/list_optionsDialog_filterText" />
-    
+
     <Spinner
         android:id="@+id/listTypeSpinner"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content" />
-
+
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -27,9 +29,7 @@
         android:id="@+id/shoppingListSortSpinner"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content" />
-    
-    
-    
+
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -44,6 +44,7 @@
         android:id="@+id/shoppingListOptionsDialogButton"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:text="@string/utilities_ok" />"
+        android:text="@string/utilities_ok" />
+"
 
 </LinearLayout>

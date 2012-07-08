@@ -9,27 +9,28 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:ems="10"
-        android:maxLength="20"
+        android:hint="@string/shopping_ItemName"
         android:inputType="textNoSuggestions"
-        android:hint="@string/shopping_ItemName" >
+        android:maxLength="20" >
 
         <requestFocus />
-    </EditText>
+    </EditText>
+
     <EditText
         android:id="@+id/ShoppingDescriptionEditText"
         android:layout_width="fill_parent"
-        android:layout_height="wrap_content" 
-        android:singleLine="false"
+        android:layout_height="wrap_content"
         android:gravity="top"
+        android:hint="@string/shoppingDescription"
         android:lines="5"
-        android:hint="@string/shoppingDescription" />
-
+        android:singleLine="false" />
+
     <TextView
         android:id="@+id/textView1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/shoppingRating" />
-
+
     <RatingBar
         android:id="@+id/shoppingItemRatingBar"
         android:layout_width="wrap_content"

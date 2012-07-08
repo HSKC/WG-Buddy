@@ -150,7 +150,6 @@ public class Task_List extends Activity
 	{
 		if (keyCode == KeyEvent.KEYCODE_BACK)
 		{
-
 			Intent intent = new Intent(this, Main.class);
 			startActivity(intent);
 
@@ -231,20 +230,20 @@ public class Task_List extends Activity
 		}
 
 		SimpleAdapter sa = new SimpleAdapter(this, list, R.layout.list_entry, new String[] { "id", "id", "name", "comment", "points", "createdDate", "username", "status" }, new int[] {
-		R.id.completedButton, R.id.deleteButton, R.id.name, R.id.shoppingSmallText, R.id.ratingBar, R.id.createdDate, R.id.username, R.id.list_entry });
+		R.id.list_completedButton, R.id.list_deleteButton, R.id.list_name, R.id.list_comment, R.id.list_rating, R.id.list_createdDate, R.id.list_username, R.id.list_entry });
 
 		ViewBinder vb = new ViewBinder()
 		{
 			@Override
 			public boolean setViewValue(View view, Object data, String textRepresentation)
 			{
-				if (view.getId() == R.id.ratingBar)
+				if (view.getId() == R.id.list_rating)
 				{
 					RatingBar rb = (RatingBar) view;
 					rb.setRating(Float.valueOf(data.toString()));
 					return true;
 				}
-				else if (view.getId() == R.id.createdDate)
+				else if (view.getId() == R.id.list_createdDate)
 				{
 					String dateTime = Utilities.getDateTimeFormat((String) data);
 					TextView timeview = (TextView) view;
@@ -268,7 +267,7 @@ public class Task_List extends Activity
 
 					return true;
 				}
-				else if (view.getId() == R.id.completedButton)
+				else if (view.getId() == R.id.list_completedButton)
 				{
 					ImageButton button = (ImageButton) view;
 					final Integer id = Integer.valueOf(data.toString());
@@ -367,7 +366,7 @@ public class Task_List extends Activity
 					});
 					return true;
 				}
-				else if (view.getId() == R.id.deleteButton)
+				else if (view.getId() == R.id.list_deleteButton)
 				{
 					ImageButton button = (ImageButton) view;
 					final Integer id = Integer.valueOf(data.toString());

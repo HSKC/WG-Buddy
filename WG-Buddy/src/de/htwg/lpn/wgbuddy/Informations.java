@@ -18,7 +18,7 @@ import android.widget.ListView;
 import android.widget.SimpleAdapter;
 import android.widget.TextView;
 
-public class Information extends Activity
+public class Informations extends Activity
 {
 	private SharedPreferences settings;
 	private TextView wgName;
@@ -30,12 +30,12 @@ public class Information extends Activity
 	public void onCreate(Bundle savedInstanceState)
 	{
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.information);
+		setContentView(R.layout.informations);
 
-		wgName = (TextView) findViewById(R.id.information_wgName);
-		wgAdmin = (TextView) findViewById(R.id.information_wgAdmin);
-		wgPassword = (TextView) findViewById(R.id.information_wgPassword);
-		wgUserList = (ListView) findViewById(R.id.information_wg_list);
+		wgName = (TextView) findViewById(R.id.informations_wgName);
+		wgAdmin = (TextView) findViewById(R.id.informations_wgAdmin);
+		wgPassword = (TextView) findViewById(R.id.informations_wgPassword);
+		wgUserList = (ListView) findViewById(R.id.informations_wg_list);
 
 		settings = getSharedPreferences(Main.PREFS_NAME, 0);
 		Utilities.checkByPass(this, settings);
@@ -52,8 +52,8 @@ public class Information extends Activity
 
 		ArrayList<HashMap<String, String>> userList = user.get("?wgId=" + settings.getString("wg_id", ""));
 
-		SimpleAdapter adapter = new SimpleAdapter(this, userList, R.layout.information_wglist_entry, new String[] { "username", "email", "points" }, new int[] { R.id.information_wglist_name,
-		R.id.information_wglist_email, R.id.information_wglist_points });
+		SimpleAdapter adapter = new SimpleAdapter(this, userList, R.layout.informations_wglist_entry, new String[] { "username", "email", "points" }, new int[] { R.id.informations_wglist_name,
+		R.id.informations_wglist_email, R.id.informations_wglist_points });
 		wgUserList.setAdapter(adapter);
 
 	}
@@ -78,11 +78,11 @@ public class Information extends Activity
 				return true;
 
 			case R.id.about:
-				Dialogs.getAboutDialog(Information.this, settings);
+				Dialogs.getAboutDialog(Informations.this, settings);
 				return true;
 
 			case R.id.menu:
-				intent = new Intent(Information.this, Main.class);
+				intent = new Intent(Informations.this, Main.class);
 				startActivity(intent);
 				return true;
 

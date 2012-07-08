@@ -3,7 +3,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical" >
-
+
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -14,20 +14,20 @@
         android:id="@+id/activate_user_key"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="@string/utilities_key"
-        android:maxLength="20"
         android:ems="10"
-        android:inputType="textNoSuggestions" >
+        android:hint="@string/utilities_key"
+        android:inputType="textNoSuggestions"
+        android:maxLength="20" >
 
         <requestFocus />
     </EditText>
-    
+
     <Button
         android:id="@+id/activate_user_send"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="@string/utilities_ok" />
-    
+
     <Button
         android:id="@+id/activate_user_newKey"
         android:layout_width="match_parent"

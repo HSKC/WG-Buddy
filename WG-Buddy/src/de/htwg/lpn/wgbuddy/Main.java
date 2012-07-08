@@ -191,7 +191,7 @@ public class Main extends Activity
 			@Override
 			public void onClick(View v)
 			{
-				Intent intent = new Intent(Main.this, Information.class);
+				Intent intent = new Intent(Main.this, Informations.class);
 				startActivity(intent);
 			}
 		});

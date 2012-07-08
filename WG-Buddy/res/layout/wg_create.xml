@@ -3,7 +3,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical" >
-
+
     <TextView
         android:id="@+id/create_wg_nameText"
         android:layout_width="wrap_content"
@@ -15,13 +15,13 @@
         android:id="@+id/create_wg_nameEdit"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:maxLength="20"
         android:ems="10"
-        android:inputType="textNoSuggestions" >
+        android:inputType="textNoSuggestions"
+        android:maxLength="20" >
 
         <requestFocus />
     </EditText>
-
+
     <TextView
         android:id="@+id/create_wg_passwordText"
         android:layout_width="wrap_content"
@@ -35,7 +35,7 @@
         android:layout_height="wrap_content"
         android:ems="10"
         android:inputType="textPassword" />
-
+
     <TextView
         android:id="@+id/create_wg_password2Text"
         android:layout_width="wrap_content"
@@ -49,7 +49,7 @@
         android:layout_height="wrap_content"
         android:ems="10"
         android:inputType="textPassword" />
-
+
     <Button
         android:id="@+id/create_wg_createButton"
         android:layout_width="match_parent"
