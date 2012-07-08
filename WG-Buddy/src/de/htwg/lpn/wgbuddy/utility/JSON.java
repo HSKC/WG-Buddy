@@ -23,38 +23,38 @@ import org.json.JSONObject;
 import android.content.Context;
 import android.util.Log;
 
-public class JSON 
+public class JSON
 {
-	
-	public static void postData(String url, Context context) 
+
+	public static void postData(String url, Context context)
 	{
 		HttpPost httppost = new HttpPost(url);
-	    
+
 		AsyncPost asp = new AsyncPost();
 
 		asp.execute(httppost);
 	}
-	
-	public static void postData(String url) 
-	{
-	    HttpClient httpclient = new DefaultHttpClient();
-	    HttpPost httppost = new HttpPost(url);
 
-	    try 
-	    {       
-	    	httpclient.execute(httppost);		        
-	    } 
-	    catch (ClientProtocolException e) 
-	    {
-	        // TODO Auto-generated catch block
-	    } 
-	    catch (IOException e) 
-	    {
-	        // TODO Auto-generated catch block
-	    }
+	public static void postData(String url)
+	{
+		HttpClient httpclient = new DefaultHttpClient();
+		HttpPost httppost = new HttpPost(url);
+
+		try
+		{
+			httpclient.execute(httppost);
+		}
+		catch (ClientProtocolException e)
+		{
+			// TODO Auto-generated catch block
+		}
+		catch (IOException e)
+		{
+			// TODO Auto-generated catch block
+		}
 	}
-	
-	public static void postData(String url, List<NameValuePair> nameValuePairs, Context context) 
+
+	public static void postData(String url, List<NameValuePair> nameValuePairs, Context context)
 	{
 
 		HttpPost httppost = new HttpPost(url);
@@ -62,81 +62,79 @@ public class JSON
 		{
 			httppost.setEntity(new UrlEncodedFormEntity(nameValuePairs));
 		}
-		catch(Exception e)
+		catch (Exception e)
 		{
 			e.printStackTrace();
 		}
-		
+
 		AsyncPost asp = new AsyncPost();
 		asp.execute(httppost);
 
-	}	
-	
-	public static String postData(String url, List<NameValuePair> nameValuePairs) 
+	}
+
+	public static String postData(String url, List<NameValuePair> nameValuePairs)
 	{
 		System.out.println(url);
-		
-	    HttpClient httpclient = new DefaultHttpClient();
-	    HttpPost httppost = new HttpPost(url);
 
-	    try 
-	    {       
-	        httppost.setEntity(new UrlEncodedFormEntity(nameValuePairs));
-	        httpclient.execute(httppost);
+		HttpClient httpclient = new DefaultHttpClient();
+		HttpPost httppost = new HttpPost(url);
 
-	        
-	    } 
-	    catch (ClientProtocolException e) 
-	    {
-	        e.printStackTrace();
-	    } 
-	    catch (IOException e) 
-	    {
-	    	e.printStackTrace();
-	    }
-	    
-	    return "Fehler";
-	}	
-		
-	
+		try
+		{
+			httppost.setEntity(new UrlEncodedFormEntity(nameValuePairs));
+			httpclient.execute(httppost);
+
+		}
+		catch (ClientProtocolException e)
+		{
+			e.printStackTrace();
+		}
+		catch (IOException e)
+		{
+			e.printStackTrace();
+		}
+
+		return "Fehler";
+	}
+
 	public static ArrayList<HashMap<String, String>> getMapListOfJsonArray(String url, String arrayname)
 	{
 		ArrayList<HashMap<String, String>> mylist = new ArrayList<HashMap<String, String>>();
-		
+
 		JSONObject json = getJSONfromURL(url);
-		if(json != null)
+		if (json != null)
 		{
-	        JSONArray jsonarray = null;
-	        
-	        try 
-	        {
+			JSONArray jsonarray = null;
+
+			try
+			{
 				jsonarray = json.getJSONArray(arrayname);
-			} 
-	        catch (JSONException e) 
-	        {
+			}
+			catch (JSONException e)
+			{
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
-			if(jsonarray != null)
+			if (jsonarray != null)
 			{
-				for(int i=0;i < jsonarray.length();i++)
-				{						
-		
-		        	HashMap<String, String> map = new HashMap<String, String>();
-		        	
-					try 
+				for (int i = 0; i < jsonarray.length(); i++)
+				{
+
+					HashMap<String, String> map = new HashMap<String, String>();
+
+					try
 					{
 						JSONObject e = jsonarray.getJSONObject(i);
 						Iterator<?> iter = e.keys();
-						while(iter.hasNext())
+						while (iter.hasNext())
 						{
-							String key = (String)iter.next();
+							String key = (String) iter.next();
 							String value = e.getString(key);
-							map.put(key,value);
+							map.put(key, value);
 						}
-			        	mylist.add(map);
-					} 
-					catch (JSONException e1) 
+						mylist.add(map);
+					}
+					catch (JSONException e1)
 					{
 						// TODO Auto-generated catch block
 						e1.printStackTrace();
@@ -146,49 +144,59 @@ public class JSON
 		}
 		return mylist;
 	}
-	
+
 	public static JSONObject getJSONfromURL(String url)
 	{
-		//initialize
+		// initialize
 		InputStream is = null;
 		String result = "";
 		JSONObject jArray = null;
 
-		
 		AsyncJsonCall asc = new AsyncJsonCall();
-		
+
 		asc.execute(url);
-		
-		try {
+
+		try
+		{
 			is = asc.get();
-		} catch (InterruptedException e1) {
+		}
+		catch (InterruptedException e1)
+		{
 			// TODO Auto-generated catch block
 			e1.printStackTrace();
-		} catch (ExecutionException e1) {
+		}
+		catch (ExecutionException e1)
+		{
 			// TODO Auto-generated catch block
 			e1.printStackTrace();
 		}
 
-
-		//convert response to string
-		try{
-			BufferedReader reader = new BufferedReader(new InputStreamReader(is,"iso-8859-1"),8);
+		// convert response to string
+		try
+		{
+			BufferedReader reader = new BufferedReader(new InputStreamReader(is, "iso-8859-1"), 8);
 			StringBuilder sb = new StringBuilder();
 			String line = null;
-			while ((line = reader.readLine()) != null) {
+			while ((line = reader.readLine()) != null)
+			{
 				sb.append(line + "\n");
 			}
 			is.close();
-			result=sb.toString();
-		}catch(Exception e){
-			Log.e("log_tag", "Error converting result "+e.toString());
+			result = sb.toString();
+		}
+		catch (Exception e)
+		{
+			Log.e("log_tag", "Error converting result " + e.toString());
 		}
 
-		//try parse the string to a JSON object
-		try{
-	        	jArray = new JSONObject(result);
-		}catch(JSONException e){
-			Log.e("log_tag", "Error parsing data "+e.toString()+ e.getMessage());
+		// try parse the string to a JSON object
+		try
+		{
+			jArray = new JSONObject(result);
+		}
+		catch (JSONException e)
+		{
+			Log.e("log_tag", "Error parsing data " + e.toString() + e.getMessage());
 		}
 
 		return jArray;

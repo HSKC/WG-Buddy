@@ -49,17 +49,12 @@ public class Message_Create extends Activity
 			public void onClick(View v)
 			{
 				List<NameValuePair> nameValuePairs = new ArrayList<NameValuePair>();
-				nameValuePairs.add(new BasicNameValuePair("wgId", settings
-						.getString("wg_id", "")));
-				nameValuePairs.add(new BasicNameValuePair("userId", settings
-						.getString("user_id", "0")));
-				nameValuePairs.add(new BasicNameValuePair("userName", settings
-						.getString("user_name", "0")));
+				nameValuePairs.add(new BasicNameValuePair("wgId", settings.getString("wg_id", "")));
+				nameValuePairs.add(new BasicNameValuePair("userId", settings.getString("user_id", "0")));
+				nameValuePairs.add(new BasicNameValuePair("userName", settings.getString("user_name", "0")));
 
-				nameValuePairs.add(new BasicNameValuePair("title", title
-						.getText().toString()));
-				nameValuePairs.add(new BasicNameValuePair("message", message
-						.getText().toString()));
+				nameValuePairs.add(new BasicNameValuePair("title", title.getText().toString()));
+				nameValuePairs.add(new BasicNameValuePair("message", message.getText().toString()));
 
 				Message message = new Message(settings);
 				message.insert(nameValuePairs, Message_Create.this);

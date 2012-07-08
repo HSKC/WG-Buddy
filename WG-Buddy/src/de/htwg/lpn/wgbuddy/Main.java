@@ -48,8 +48,7 @@ public class Main extends Activity
 	{
 		super.onCreate(savedInstanceState);
 
-		StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder()
-				.permitAll().build();
+		StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
 		StrictMode.setThreadPolicy(policy);
 
 		settings = getSharedPreferences(PREFS_NAME, 0);
@@ -60,9 +59,7 @@ public class Main extends Activity
 		super.onCreate(savedInstanceState);
 
 		// Nicht eingeloggt.
-		if (!settings.contains("user_id") || !settings.contains("user_name")
-				|| !settings.contains("user_email")
-				|| !settings.contains("user_password"))
+		if (!settings.contains("user_id") || !settings.contains("user_name") || !settings.contains("user_email") || !settings.contains("user_password"))
 		{
 			// Applikation das erste mal gestartet oder nicht konfiguriert.
 			// Login aufrufen
@@ -74,14 +71,12 @@ public class Main extends Activity
 		// Konto freigeschalten?
 		if (!settings.contains("user_status"))
 		{
-			Intent intent = new Intent(Main.this,
-					User_Activate.class);
+			Intent intent = new Intent(Main.this, User_Activate.class);
 			startActivity(intent);
 		}
 
 		User user = new User(settings);
-		ArrayList<HashMap<String, String>> userList = user.get("?id="
-				+ settings.getString("user_id", ""));
+		ArrayList<HashMap<String, String>> userList = user.get("?id=" + settings.getString("user_id", ""));
 
 		if (userList.size() == 0)
 		{
@@ -102,8 +97,7 @@ public class Main extends Activity
 			return;
 		}
 
-		if (!settings.contains("wg_id") || !settings.contains("wg_name")
-				|| !settings.contains("wg_password"))
+		if (!settings.contains("wg_id") || !settings.contains("wg_name") || !settings.contains("wg_password"))
 		{
 			WG wg = new WG(settings);
 			String string = userList.get(0).get("wgId");
@@ -116,21 +110,17 @@ public class Main extends Activity
 
 		}
 
-		if (((!settings.contains("registrationKey")) && (!settings
-				.contains("registrationKeydate")))
-				|| (settings.contains("registrationKeydate") && (new Date(
-						settings.getLong("registrationKeydate", 0) + 86400000)
-						.getTime() < new Date().getTime())))
+		if (((!settings.contains("registrationKey")) && (!settings.contains("registrationKeydate")))
+		|| (settings.contains("registrationKeydate") && (new Date(settings.getLong("registrationKeydate", 0) + 86400000).getTime() < new Date().getTime())))
 		{
 			// Registrieren bei Google und Registrierungsid anfordern
-			Intent intent = new Intent(
-					"com.google.android.c2dm.intent.REGISTER");
-			intent.putExtra("app",
-					PendingIntent.getBroadcast(this, 0, new Intent(), 0));
+			Intent intent = new Intent("com.google.android.c2dm.intent.REGISTER");
+			intent.putExtra("app", PendingIntent.getBroadcast(this, 0, new Intent(), 0));
 			intent.putExtra("sender", "wgbuddy2012@googlemail.com");
 			System.out.println("sended");
 			getApplicationContext().startService(intent);
-		} else
+		}
+		else
 		{
 			System.out.println(settings.getString("registrationKey", ""));
 
@@ -149,8 +139,7 @@ public class Main extends Activity
 
 		heading = (TextView) findViewById(R.id.main_headingText);
 
-		heading.setText(settings.getString("user_name", "") + " @ "
-				+ settings.getString("wg_name", ""));
+		heading.setText(settings.getString("user_name", "") + " @ " + settings.getString("wg_name", ""));
 
 		shoppinglist.setOnClickListener(new OnClickListener()
 		{
@@ -158,8 +147,7 @@ public class Main extends Activity
 			@Override
 			public void onClick(View v)
 			{
-				Intent intent = new Intent(Main.this,
-						Shopping_List.class);
+				Intent intent = new Intent(Main.this, Shopping_List.class);
 				startActivity(intent);
 			}
 		});
@@ -192,8 +180,7 @@ public class Main extends Activity
 			@Override
 			public void onClick(View v)
 			{
-				Intent intent = new Intent(Main.this,
-						Preferences.class);
+				Intent intent = new Intent(Main.this, Preferences.class);
 				startActivity(intent);
 			}
 		});
@@ -204,8 +191,7 @@ public class Main extends Activity
 			@Override
 			public void onClick(View v)
 			{
-				Intent intent = new Intent(Main.this,
-						Information.class);
+				Intent intent = new Intent(Main.this, Information.class);
 				startActivity(intent);
 			}
 		});
@@ -215,37 +201,32 @@ public class Main extends Activity
 			@Override
 			public void onClick(View v)
 			{
-				AlertDialog.Builder builder = new AlertDialog.Builder(
-						Main.this);
+				AlertDialog.Builder builder = new AlertDialog.Builder(Main.this);
 
 				final EditText editText = new EditText(Main.this);
-				editText.setTransformationMethod(SingleLineTransformationMethod
-						.getInstance());
+				editText.setTransformationMethod(SingleLineTransformationMethod.getInstance());
 				editText.setHint("E-Mail");
 
 				builder.setMessage("Bitte gebe die E-Mail Adresse ein um eine Person einzuladen.");
 				builder.setCancelable(true);
 				builder.setView(editText);
-				builder.setPositiveButton("Einladen",
-						new DialogInterface.OnClickListener()
-						{
-							public void onClick(DialogInterface dialog, int id)
-							{
-								Mail mail = new Mail(settings);
-								mail.sendInvite(editText.getText().toString());
+				builder.setPositiveButton("Einladen", new DialogInterface.OnClickListener()
+				{
+					public void onClick(DialogInterface dialog, int id)
+					{
+						Mail mail = new Mail(settings);
+						mail.sendInvite(editText.getText().toString());
 
-							}
-						});
-				builder.setNegativeButton("Abbrechen",
-						new DialogInterface.OnClickListener()
-						{
-							@Override
-							public void onClick(DialogInterface dialog,
-									int which)
-							{
-								dialog.cancel();
-							}
-						});
+					}
+				});
+				builder.setNegativeButton("Abbrechen", new DialogInterface.OnClickListener()
+				{
+					@Override
+					public void onClick(DialogInterface dialog, int which)
+					{
+						dialog.cancel();
+					}
+				});
 
 				AlertDialog alert = builder.create();
 				alert.show();
@@ -261,8 +242,7 @@ public class Main extends Activity
 				editor.clear();
 				editor.commit();
 
-				Intent intent = new Intent(Main.this,
-						Main.class);
+				Intent intent = new Intent(Main.this, Main.class);
 				startActivity(intent);
 			}
 		});

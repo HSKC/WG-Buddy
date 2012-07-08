@@ -9,5 +9,5 @@ public class Task extends ObjectBase
 		this.settings = settings;
 		phpPage = "task.php";
 		arrayName = "Task";
-	}	
+	}
 }

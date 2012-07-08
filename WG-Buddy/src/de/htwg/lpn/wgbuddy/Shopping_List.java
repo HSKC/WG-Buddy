@@ -11,6 +11,7 @@ import org.apache.http.message.BasicNameValuePair;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.ProgressDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -21,10 +22,8 @@ import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
-import android.view.MotionEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
-import android.view.View.OnTouchListener;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -33,6 +32,7 @@ import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.RadioGroup;
+import android.widget.TextView;
 import android.widget.RadioGroup.OnCheckedChangeListener;
 import android.widget.RatingBar;
 import android.widget.SimpleAdapter;
@@ -227,9 +227,8 @@ public class Shopping_List<V> extends Activity
 			}
 		}
 
-		SimpleAdapter sa = new SimpleAdapter(this, list, R.layout.shopping_list_entry, new String[] { "id", "id", "name", "comment", "rating", "createdDate", "username", "status" }, new int[] {
-		R.id.shoppingListEntryCompletedButton, R.id.shoppingListEntryDeleteButton, R.id.shoppingBigText, R.id.shoppingSmallText, R.id.ratingBar, R.id.createdDate, R.id.shoppingUsername,
-		R.id.shoppingList_Entry });
+		SimpleAdapter sa = new SimpleAdapter(this, list, R.layout.list_entry, new String[] { "id", "id", "name", "comment", "rating", "createdDate", "username", "status" }, new int[] {
+		R.id.completedButton, R.id.deleteButton, R.id.name, R.id.shoppingSmallText, R.id.ratingBar, R.id.createdDate, R.id.username, R.id.list_entry });
 
 		ViewBinder vb = new ViewBinder()
 		{
@@ -243,7 +242,15 @@ public class Shopping_List<V> extends Activity
 					rb.setRating(Float.valueOf(data.toString()));
 					return true;
 				}
-				else if (view.getId() == R.id.shoppingList_Entry)
+				else if (view.getId() == R.id.createdDate)
+				{
+					String dateTime = Utilities.getDateTimeFormat((String) data);
+					TextView timeview = (TextView) view;
+					timeview.setText(dateTime);
+
+					return true;
+				}
+				else if (view.getId() == R.id.list_entry)
 				{
 					LinearLayout ll = (LinearLayout) view;
 
@@ -259,16 +266,16 @@ public class Shopping_List<V> extends Activity
 
 					return true;
 				}
-				else if (view.getId() == R.id.shoppingListEntryCompletedButton)
+				else if (view.getId() == R.id.completedButton)
 				{
 					ImageButton button = (ImageButton) view;
 					final Integer id = Integer.valueOf(data.toString());
 					button.setTag(id);
 
-					button.setOnTouchListener(new OnTouchListener()
+					button.setOnClickListener(new OnClickListener()
 					{
 						@Override
-						public boolean onTouch(View v, MotionEvent event)
+						public void onClick(View v)
 						{
 							ProgressDialog pd = ProgressDialog.show(Shopping_List.this, "", getString(R.string.utilities_pleaseWait));
 							Handler handler = new Handler()
@@ -336,56 +343,72 @@ public class Shopping_List<V> extends Activity
 
 							WorkerThread workerThread = new WorkerThread(callable, pd, handler);
 							workerThread.start();
-
-							return true;
 						}
 					});
 					return true;
 				}
-				else if (view.getId() == R.id.shoppingListEntryDeleteButton)
+				else if (view.getId() == R.id.deleteButton)
 				{
 					ImageButton button = (ImageButton) view;
 					final Integer id = Integer.valueOf(data.toString());
 					button.setTag(id);
 
-					button.setOnTouchListener(new OnTouchListener()
+					button.setOnClickListener(new OnClickListener()
 					{
 						@Override
-						public boolean onTouch(View v, MotionEvent event)
+						public void onClick(View v)
 						{
-							ProgressDialog pd = ProgressDialog.show(Shopping_List.this, "", getString(R.string.utilities_pleaseWait));
-							Handler handler = new Handler()
-							{
-								@Override
-								public void handleMessage(Message msg)
-								{
-									super.handleMessage(msg);
-									getList();
-									Utilities.toastMessage(Shopping_List.this, getString(R.string.shopping_deletedItem));
-								}
-							};
+							AlertDialog.Builder builder = new AlertDialog.Builder(Shopping_List.this);
+							builder.setMessage(Shopping_List.this.getString(R.string.utilities_deleteQuestion));
 
-							Callable<Message> callable = new Callable<Message>()
+							builder.setPositiveButton(Shopping_List.this.getString(R.string.utilities_delete), new DialogInterface.OnClickListener()
 							{
-								@Override
-								public Message call()
+								public void onClick(DialogInterface dialog, int index)
 								{
-									shoppingItem.delete(id, Shopping_List.this);
-
-									if (Main.usepush)
+									ProgressDialog pd = ProgressDialog.show(Shopping_List.this, "", getString(R.string.utilities_pleaseWait));
+									Handler handler = new Handler()
 									{
-										GoogleService gs = new GoogleService(settings);
-										gs.sendMessageToPhone("ShoppingItem");
-									}
+										@Override
+										public void handleMessage(Message msg)
+										{
+											super.handleMessage(msg);
+											getList();
+											Utilities.toastMessage(Shopping_List.this, getString(R.string.shopping_deletedItem));
+										}
+									};
 
-									return new Message();
+									Callable<Message> callable = new Callable<Message>()
+									{
+										@Override
+										public Message call()
+										{
+											shoppingItem.delete(id, Shopping_List.this);
+
+											if (Main.usepush)
+											{
+												GoogleService gs = new GoogleService(settings);
+												gs.sendMessageToPhone("ShoppingItem");
+											}
+
+											return new Message();
+										}
+									};
+
+									WorkerThread workerThread = new WorkerThread(callable, pd, handler);
+									workerThread.start();
 								}
-							};
+							});
 
-							WorkerThread workerThread = new WorkerThread(callable, pd, handler);
-							workerThread.start();
+							builder.setNegativeButton(Shopping_List.this.getString(R.string.utilities_cancel), new DialogInterface.OnClickListener()
+							{
+								public void onClick(DialogInterface dialog, int id)
+								{
 
-							return true;
+								}
+							});
+
+							AlertDialog alert = builder.create();
+							alert.show();
 						}
 					});
 
