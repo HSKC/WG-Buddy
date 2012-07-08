@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
 	<item android:id="@+id/refresh"
-	android:title="Refresh" />
+	android:title="Refresh"
+	android:icon="@drawable/refresh" />	
 	<item android:id="@+id/add"
 	android:title="Add"
 	android:icon="@drawable/add" />	
@@ -9,7 +10,9 @@
 	android:title="Settings"
 	android:icon="@drawable/settings" />
 	<item android:id="@+id/menu"
-	android:title="Hauptmenü" />
+	android:title="Hauptmenü" 
+	android:icon="@drawable/home" />
 	<item android:id="@+id/about"
-	android:title="About" />
+	android:title="About"
+	android:icon="@drawable/information"  />
 </menu>
