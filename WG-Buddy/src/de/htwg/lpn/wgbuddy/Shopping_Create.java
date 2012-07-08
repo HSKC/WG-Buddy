@@ -56,52 +56,63 @@ public class Shopping_Create extends Activity
 			@Override
 			public void onClick(View v)
 			{
-				ProgressDialog pd = ProgressDialog.show(Shopping_Create.this, "", getString(R.string.utilities_pleaseWait));
-				Handler handler = new Handler()
+				final String name = nameEditText.getText().toString().trim();
+				final String comment = descriptionEditText.getText().toString().trim();
+
+				if (name.compareTo("") != 0 && comment.compareTo("") != 0)
 				{
-					@Override
-					public void handleMessage(Message msg)
+
+					ProgressDialog pd = ProgressDialog.show(Shopping_Create.this, "", getString(R.string.utilities_pleaseWait));
+					Handler handler = new Handler()
 					{
-						super.handleMessage(msg);
-
-						Utilities.toastMessage(Shopping_Create.this, getString(R.string.shopping_created));
-
-						Intent intent = new Intent(Shopping_Create.this, Shopping_List.class);
-						startActivity(intent);
-					}
-				};
-
-				Callable<Message> callable = new Callable<Message>()
-				{
-					@Override
-					public Message call() throws Exception
-					{
-						Message message = new Message();
-
-						List<NameValuePair> nameValuePairs = new ArrayList<NameValuePair>();
-						nameValuePairs.add(new BasicNameValuePair("wgId", settings.getString("wg_id", "")));
-						nameValuePairs.add(new BasicNameValuePair("userId", "0"));
-						nameValuePairs.add(new BasicNameValuePair("name", nameEditText.getText().toString()));
-						nameValuePairs.add(new BasicNameValuePair("comment", descriptionEditText.getText().toString()));
-						nameValuePairs.add(new BasicNameValuePair("rating", String.valueOf(ratingBar.getRating())));
-						nameValuePairs.add(new BasicNameValuePair("status", "0"));
-
-						ShoppingItem shopping = new ShoppingItem(settings);
-						shopping.insert(nameValuePairs, Shopping_Create.this);
-
-						if (Main.usepush)
+						@Override
+						public void handleMessage(Message msg)
 						{
-							GoogleService gs = new GoogleService(settings);
-							gs.sendMessageToPhone("ShoppingItem");
+							super.handleMessage(msg);
+
+							Utilities.toastMessage(Shopping_Create.this, getString(R.string.shopping_created));
+
+							Intent intent = new Intent(Shopping_Create.this, Shopping_List.class);
+							startActivity(intent);
+						}
+					};
+
+					Callable<Message> callable = new Callable<Message>()
+					{
+						@Override
+						public Message call() throws Exception
+						{
+							Message message = new Message();
+
+							List<NameValuePair> nameValuePairs = new ArrayList<NameValuePair>();
+							nameValuePairs.add(new BasicNameValuePair("wgId", settings.getString("wg_id", "")));
+							nameValuePairs.add(new BasicNameValuePair("userId", "0"));
+							nameValuePairs.add(new BasicNameValuePair("name", name));
+							nameValuePairs.add(new BasicNameValuePair("comment", comment));
+							nameValuePairs.add(new BasicNameValuePair("rating", String.valueOf(ratingBar.getRating())));
+							nameValuePairs.add(new BasicNameValuePair("status", "0"));
+
+							ShoppingItem shopping = new ShoppingItem(settings);
+							shopping.insert(nameValuePairs, Shopping_Create.this);
+
+							if (Main.usepush)
+							{
+								GoogleService gs = new GoogleService(settings);
+								gs.sendMessageToPhone("Shopping");
+							}
+
+							return message;
 						}
 
-						return message;
-					}
+					};
 
-				};
-
-				WorkerThread workerThread = new WorkerThread(callable, pd, handler);
-				workerThread.start();
+					WorkerThread workerThread = new WorkerThread(callable, pd, handler);
+					workerThread.start();
+				}
+				else
+				{
+					Utilities.toastMessage(Shopping_Create.this, getString(R.string.utilities_allFields));
+				}
 			}
 		});
 	}

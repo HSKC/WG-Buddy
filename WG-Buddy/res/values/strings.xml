@@ -2,7 +2,7 @@
 <resources>
     <string name="app_name">WG-Buddy</string>
     
-    <string name="information_title">WG-Buddy > Information</string>
+    <string name="informations_title">WG-Buddy > Informationen</string>
     <string name="main_title">WG-Buddy > Hauptmenü</string>
     <string name="message_create_title">WG-Buddy > Nachrichten> Nachricht erstellen</string>
     <string name="message_list_title">WG-Buddy > Nachrichten</string>
@@ -21,7 +21,7 @@
     <string name="main_taskdistributor">Aufgaben</string>
     <string name="main_settings">Einstellungen</string>
     <string name="main_chat">Chat</string>
-    <string name="main_information">Information</string>
+    <string name="main_information">Informationen</string>
     <string name="main_invite">Einladen</string>
     <string name="main_logout">Logout</string>
 
@@ -43,10 +43,10 @@
     <string name="preferences_changeWGPassword">WG Passwort ändern</string>
     <string name="preferences_activateAccount">Konto aktivieren</string>
     
-    <string name="information_wgName">WG-Name</string>
-    <string name="information_wgAdmin">WG-Admin</string>
-    <string name="information_wgPassword">WG-Passwort</string>
-    <string name="information_wgUser">WG-Bewohner</string>
+    <string name="informations_wgName">WG-Name</string>
+    <string name="informations_wgAdmin">WG-Admin</string>
+    <string name="informations_wgPassword">WG-Passwort</string>
+    <string name="informations_wgUser">WG-Bewohner</string>
     
     <string name="shoppinglist_list">Einkaufsliste</string>
     <string name="shoppinglist_add">Hinzufügen</string>
@@ -62,20 +62,10 @@
     <string name="shopping_deletedItem">Artikel wurde erfolgreich gelöscht.</string>
     <string name="shopping_created">Artikel wurde erfolgreich erstellt.</string>
     
-    <string name="taskdistributor_name">Name</string>
-    <string name="taskdistributor_user1">User1</string>
-    <string name="taskdistributor_user2">User2</string>
-    <string name="taskdistributor_user3">User3</string>
-    <string name="taskdistribution_Congrats">Gratuliere user x wurde ausgewählt</string>
-    
-    <string name="manage_adminuser1">User1</string>
-    <string name="manage_adminuser2">User2</string>
-    <string name="manage_adminuser3">User3</string>
-    <string name="manage_adminDelete">Löschen</string>
-    <string name="taskdistriubtor_userHeading">Teilnehmer</string>
-    <string name="taskdistributor_go">neue Aufgabe</string>
-    <string name="Deadline">Deadline</string>    
-    
+    <string name="message_created">Nachricht wurde erfolgreich erstellt.</string>
+    <string name="message_title">Titel</string>
+    <string name="message_text">Nachricht</string>
+
     <string name="createuser_name">Name</string>
     <string name="createuser_email">Email-Adresse</string>
     <string name="createuser_email2">Email-Adresse (wiederholen)</string>
@@ -200,7 +190,8 @@
     <string name="task_completedItem">Die Aufgabe wurde als erledigt gekennzeichnet.</string>
     <string name="task_created">Die Aufgabe wurde erfolgreich erstellt.\n Folgender WG-Bewohner wurde für die Aufgabe ausgewählt und per E-Mail benachrichtigt: </string>
     <string name="task_deletedItem">Die Aufgabe wurde erfolgreich gelöscht.</string>
-    <string name="task_otherUser">Die Aufgabe ist einer anderen Person zugeteilt.</string>    
+    <string name="task_otherUser">Die Aufgabe ist einer anderen Person zugeteilt.</string>
+    <string name="task_users">Teilnehmer</string>
     
     
     <string name="userTaskgo">los</string>

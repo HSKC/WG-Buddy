@@ -3,7 +3,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical" >
-    <TextView
+
+    <TextView
         android:id="@+id/create_user_usernameText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -15,13 +16,12 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:ems="10"
-        android:maxLength="20"
         android:inputType="textNoSuggestions"
-        >
+        android:maxLength="20" >
 
         <requestFocus />
     </EditText>
-
+
     <TextView
         android:id="@+id/create_user_emailText"
         android:layout_width="wrap_content"
@@ -35,9 +35,7 @@
         android:layout_height="wrap_content"
         android:ems="10"
         android:inputType="textEmailAddress" />
-    
-    
-    
+
     <TextView
         android:id="@+id/create_user_email2Text"
         android:layout_width="wrap_content"
@@ -51,8 +49,7 @@
         android:layout_height="wrap_content"
         android:ems="10"
         android:inputType="textEmailAddress" />
-    
-
+
     <TextView
         android:id="@+id/create_user_passwordText"
         android:layout_width="wrap_content"
@@ -65,14 +62,14 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:ems="10"
-        android:maxLength="30"
-        android:inputType="textPassword" />
-
+        android:inputType="textPassword"
+        android:maxLength="30" />
+
     <TextView
         android:id="@+id/create_user_password2Text"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/createuser_password2"        
+        android:text="@string/createuser_password2"
         android:textAppearance="?android:attr/textAppearanceMedium" />
 
     <EditText
@@ -80,9 +77,9 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:ems="10"
-        android:maxLength="30"
-        android:inputType="textPassword" />
-
+        android:inputType="textPassword"
+        android:maxLength="30" />
+
     <Button
         android:id="@+id/create_user_createButton"
         android:layout_width="match_parent"

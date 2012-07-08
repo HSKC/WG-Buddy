@@ -14,6 +14,7 @@ import android.graphics.Color;
 import android.graphics.PorterDuff.Mode;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
+import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -32,7 +33,7 @@ public class Message_List extends Activity
 	public void onCreate(Bundle savedInstanceState)
 	{
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.messenger);
+		setContentView(R.layout.message_list);
 
 		settings = getSharedPreferences(Main.PREFS_NAME, 0);
 		Utilities.checkByPass(this, settings);
@@ -80,6 +81,19 @@ public class Message_List extends Activity
 		}
 	}
 
+	@Override
+	public boolean onKeyDown(int keyCode, KeyEvent event)
+	{
+		if (keyCode == KeyEvent.KEYCODE_BACK)
+		{
+			Intent intent = new Intent(this, Main.class);
+			startActivity(intent);
+
+			return true;
+		}
+		return super.onKeyDown(keyCode, event);
+	}
+
 	private void getList()
 	{
 		String where = "";
@@ -91,7 +105,7 @@ public class Message_List extends Activity
 		Message me = new Message(settings);
 		ArrayList<HashMap<String, String>> list = me.get(parameter);
 
-		SimpleAdapter sa = new SimpleAdapter(this, list, R.layout.messenger_entry, new String[] { "title", "userName", "message", "createdDate" }, new int[] { R.id.messenger_titleText,
+		SimpleAdapter sa = new SimpleAdapter(this, list, R.layout.message_entry, new String[] { "title", "userName", "message", "createdDate" }, new int[] { R.id.messenger_titleText,
 		R.id.messenger_userText, R.id.messenger_messageText, R.id.messenger_timeText });
 
 		final Map<String, Integer> users = new HashMap<String, Integer>();

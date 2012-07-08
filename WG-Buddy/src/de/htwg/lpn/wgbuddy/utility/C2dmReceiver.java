@@ -80,7 +80,6 @@ public class C2dmReceiver extends BroadcastReceiver
 			// unregistration done, new messages from the authorized sender will
 			// be rejected
 			Log.d("c2dm", "unregistered");
-
 		}
 		else if (registration != null)
 		{
@@ -97,7 +96,6 @@ public class C2dmReceiver extends BroadcastReceiver
 			nameValuePairs.add(new BasicNameValuePair("android_key", registration));
 
 			user.update(Integer.parseInt(settings.getString("user_id", "0")), nameValuePairs);
-
 		}
 	}
 
@@ -121,7 +119,7 @@ public class C2dmReceiver extends BroadcastReceiver
 		CharSequence contentTitle = null;
 		CharSequence contentText = null;
 
-		if (messagetype.equals("ShoppingItem"))
+		if (messagetype.equals("Shopping"))
 		{
 			notification = new Notification(android.R.drawable.stat_notify_chat, "Einkaufsliste wurde geupdated", System.currentTimeMillis());
 			contentIntent = PendingIntent.getActivity(context.getApplicationContext(), 0, new Intent(context.getApplicationContext(), Shopping_List.class), PendingIntent.FLAG_UPDATE_CURRENT);

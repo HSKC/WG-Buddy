@@ -10,19 +10,18 @@
         android:layout_height="wrap_content"
         android:orientation="horizontal" >
 
-	        <RadioButton
-	            android:id="@+id/shoppingList_radio_filterAll"
-	            android:layout_width="wrap_content"
-	            android:layout_height="wrap_content"
-	            android:checked="true"
-	            android:text="@string/shoppinglist_showAll" />
-	
-	        <RadioButton
-	            android:id="@+id/shoppingList_radio_filterMy"
-	            android:layout_width="wrap_content"
-	            android:layout_height="wrap_content"
-	            android:text="@string/shoppinglist_showMy" />
+        <RadioButton
+            android:id="@+id/shoppingList_radio_filterAll"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:checked="true"
+            android:text="@string/shoppinglist_showAll" />
 
+        <RadioButton
+            android:id="@+id/shoppingList_radio_filterMy"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/shoppinglist_showMy" />
     </RadioGroup>
 
     <ListView
