@@ -53,7 +53,7 @@ public class Shopping_List<V> extends Activity
 	private RadioGroup filterRadioGroup;
 
 	private Integer type = 0;
-	private Integer sort = 0;
+	private Integer sort = 3;
 	private Integer direction = 0;
 	private Integer filter = 0;
 
@@ -437,6 +437,8 @@ public class Shopping_List<V> extends Activity
 		final AlertDialog alertDialog = builder.create();
 		alertDialog.show();
 
+		alertDialog.getWindow().setLayout(300, 400);
+		
 		typeAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 
 		Spinner typeSpinner = (Spinner) layout.findViewById(R.id.listTypeSpinner);
