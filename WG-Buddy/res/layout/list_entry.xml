@@ -2,8 +2,9 @@
 <LinearLayout  xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="fill_parent"
     android:layout_height="wrap_content"
-    android:id="@+id/shoppingList_Entry"
-    android:orientation="vertical" > 
+    android:id="@+id/list_entry"
+    android:orientation="vertical"
+    android:padding="2dp"> 
     
 		<LinearLayout
 	    android:baselineAligned="false"
@@ -18,7 +19,7 @@
 		     android:orientation="vertical" >
 		     
 				<TextView
-				    android:id="@+id/shoppingBigText"
+				    android:id="@+id/name"
 				    android:layout_width="match_parent"
 				    android:layout_height="match_parent"
 				    android:gravity="left|center_vertical"	
@@ -59,17 +60,15 @@
 			     android:orientation="horizontal" >
 					
 				<ImageButton
-				    android:id="@+id/shoppingListEntryCompletedButton"
+				    android:id="@+id/completedButton"
 				    android:layout_width="wrap_content"
-				    android:layout_height="wrap_content"
-				    android:contentDescription="@string/shoppinglist_complete"		    
+				    android:layout_height="wrap_content"    
 				    android:background="@drawable/checksmall" />				
 		
 				<ImageButton
-				    android:id="@+id/shoppingListEntryDeleteButton"
+				    android:id="@+id/deleteButton"
 				    android:layout_width="wrap_content"
 				    android:layout_height="wrap_content"
-				    android:contentDescription="@string/shoppinglist_delete"
 				    android:background="@drawable/crosssmall" />
 			</LinearLayout>
 			
@@ -80,7 +79,7 @@
 			     android:orientation="horizontal" >
 				
 			    <TextView
-				    android:id="@+id/shoppingUsername"
+				    android:id="@+id/username"
 				    android:layout_width="wrap_content"
 				    android:layout_height="wrap_content"
 				    android:gravity="center"

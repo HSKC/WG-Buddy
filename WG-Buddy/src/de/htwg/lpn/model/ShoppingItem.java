@@ -9,5 +9,5 @@ public class ShoppingItem extends ObjectBase
 		this.settings = settings;
 		phpPage = "shopping.php";
 		arrayName = "Item";
-	}	
+	}
 }

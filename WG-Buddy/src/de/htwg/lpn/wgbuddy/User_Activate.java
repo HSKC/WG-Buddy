@@ -20,84 +20,84 @@ import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.EditText;
 
-public class User_Activate  extends Activity 
+public class User_Activate extends Activity
 {
 	private SharedPreferences settings;
-	
+
 	private Button sendButton;
 	private Button newKeyButton;
 	private EditText keyEditText;
 
 	@Override
-    public void onCreate(Bundle savedInstanceState) 
-    {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.user_activate);
-        
-        settings = getSharedPreferences(Main.PREFS_NAME, 0);
-        
-        sendButton = (Button) findViewById(R.id.activate_user_send);
-        newKeyButton = (Button) findViewById(R.id.activate_user_newKey);
-        keyEditText = (EditText) findViewById(R.id.activate_user_key);
-        
-        if(!settings.contains("user_email"))
-        {
-        	newKeyButton.setVisibility(View.GONE);
-        }
-        
-        sendButton.setOnClickListener(new OnClickListener() 
-        {
-			@Override			
+	public void onCreate(Bundle savedInstanceState)
+	{
+		super.onCreate(savedInstanceState);
+		setContentView(R.layout.user_activate);
+
+		settings = getSharedPreferences(Main.PREFS_NAME, 0);
+
+		sendButton = (Button) findViewById(R.id.activate_user_send);
+		newKeyButton = (Button) findViewById(R.id.activate_user_newKey);
+		keyEditText = (EditText) findViewById(R.id.activate_user_key);
+
+		if (!settings.contains("user_email"))
+		{
+			newKeyButton.setVisibility(View.GONE);
+		}
+
+		sendButton.setOnClickListener(new OnClickListener()
+		{
+			@Override
 			public void onClick(View v)
 			{
 				String key = keyEditText.getText().toString().trim();
-				
-				if(key.length() <= 0)
-	   			{
-	   				Utilities.message(User_Activate.this, getString(R.string.utilities_fillAllFields), getString(R.string.utilities_ok));	
-	   				return;
-	   			}
-	   			
-	   			User user = new User(settings);
-	   			ArrayList<HashMap<String, String>> userList = user.get("?changeKey=" + key);
-	
-	   			if(userList.size() <= 0)
-	   			{
-	   				Utilities.message(User_Activate.this, getString(R.string.utilities_keyWrong), getString(R.string.utilities_ok));	
-	   				return;
-	   			}
-	   			
-	   			for(HashMap<String, String> userEntry : userList)
-	   			{
-	   				List<NameValuePair> nameValuePairs = new ArrayList<NameValuePair>();
-	    			nameValuePairs.add(new BasicNameValuePair("changeKey", ""));
-	    			nameValuePairs.add(new BasicNameValuePair("status", "1"));
-					user.update(Integer.valueOf(userEntry.get("id")), nameValuePairs);					
-					
+
+				if (key.length() <= 0)
+				{
+					Utilities.message(User_Activate.this, getString(R.string.utilities_fillAllFields), getString(R.string.utilities_ok));
+					return;
+				}
+
+				User user = new User(settings);
+				ArrayList<HashMap<String, String>> userList = user.get("?changeKey=" + key);
+
+				if (userList.size() <= 0)
+				{
+					Utilities.message(User_Activate.this, getString(R.string.utilities_keyWrong), getString(R.string.utilities_ok));
+					return;
+				}
+
+				for (HashMap<String, String> userEntry : userList)
+				{
+					List<NameValuePair> nameValuePairs = new ArrayList<NameValuePair>();
+					nameValuePairs.add(new BasicNameValuePair("changeKey", ""));
+					nameValuePairs.add(new BasicNameValuePair("status", "1"));
+					user.update(Integer.valueOf(userEntry.get("id")), nameValuePairs);
+
 					Utilities.toastMessage(User_Activate.this, getString(R.string.utilities_accountActivateSuceed));
-					
+
 					Editor editor = settings.edit();
-					
+
 					editor.putString("user_status", "1");
-		        	editor.commit();
-					
+					editor.commit();
+
 					Intent intent = new Intent(User_Activate.this, Main.class);
 					startActivity(intent);
-					return; 
-	   			}
+					return;
+				}
 			}
 		});
-        
-        newKeyButton.setOnClickListener(new OnClickListener() 
-        {
+
+		newKeyButton.setOnClickListener(new OnClickListener()
+		{
 			@Override
-			public void onClick(View v) 
+			public void onClick(View v)
 			{
 				Mail mail = new Mail(settings);
 				mail.sendActivateKey(settings.getString("user_email", ""));
-				
+
 				Utilities.toastMessage(User_Activate.this, getString(R.string.utilities_activateEmailSendedMessage));
 			}
 		});
-    }
+	}
 }

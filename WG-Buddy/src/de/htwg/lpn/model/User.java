@@ -9,5 +9,5 @@ public class User extends ObjectBase
 		this.settings = settings;
 		phpPage = "user.php";
 		arrayName = "User";
-	}	
+	}
 }

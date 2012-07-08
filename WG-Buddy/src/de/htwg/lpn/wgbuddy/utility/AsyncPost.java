@@ -10,33 +10,35 @@ import org.apache.http.impl.client.DefaultHttpClient;
 import android.content.Context;
 import android.os.AsyncTask;
 
-public class AsyncPost extends AsyncTask<HttpPost, Void, String> 
+public class AsyncPost extends AsyncTask<HttpPost, Void, String>
 {
 	Context context;
-	
-//	@Override
-//	protected void onPreExecute() 
-//	{
-//		System.out.println("SHOW2");
-//		mydialog.setTitle("Please wait");
-//		mydialog.show();          
-//	}
-	
+
+	// @Override
+	// protected void onPreExecute()
+	// {
+	// System.out.println("SHOW2");
+	// mydialog.setTitle("Please wait");
+	// mydialog.show();
+	// }
 
 	@Override
-	protected String doInBackground(HttpPost... params) 
+	protected String doInBackground(HttpPost... params)
 	{
 		HttpClient httpclient = new DefaultHttpClient();
 
-		try 
+		try
 		{
-			 httpclient.execute(params[0]);
+			httpclient.execute(params[0]);
 
-		} 
-		catch (ClientProtocolException e) {
+		}
+		catch (ClientProtocolException e)
+		{
 			// TODO Auto-generated catch block
 			e.printStackTrace();
-		} catch (IOException e) {
+		}
+		catch (IOException e)
+		{
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}

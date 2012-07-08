@@ -1,29 +1,28 @@
 package de.htwg.lpn.wgbuddy.utility;
 
-
-
 import java.util.SortedSet;
 import java.util.TreeMap;
 
+public class RandomUser
+{
 
-
-public class RandomUser {
-	
 	private Double totalPoints;
 	private TreeMap<String, Double> userlist;
 	private static RandomUser instance = null;
-	
-	private RandomUser(){}
-	
+
+	private RandomUser()
+	{
+	}
+
 	public static RandomUser getInstance()
 	{
-		if(instance == null)
+		if (instance == null)
 		{
 			instance = new RandomUser();
 		}
 		return instance;
 	}
-	
+
 	/**
 	 * Berechnet wieviel Prozent von der Gesamtpunktzahl ein User hat
 	 * 
@@ -34,9 +33,10 @@ public class RandomUser {
 	{
 		return points / totalPoints;
 	}
-		
+
 	/**
-	 * Bekommt eine TreeMap mit Usern übergeben und gibt einen zufälligen User zurück
+	 * Bekommt eine TreeMap mit Usern übergeben und gibt einen zufälligen User
+	 * zurück
 	 * 
 	 * @param userlist
 	 * @return
@@ -47,27 +47,27 @@ public class RandomUser {
 		findRandomItem(randomTreeMap);
 		return randomTreeMap.firstEntry().getValue();
 	}
-	
+
 	/**
-	 * erstellt eine TreeMap mit den Points als key. Bei gleicher Punktzahl wird per Zufall 
-	 * entschieden welcher User in die TreeMap eingetragen wird
+	 * erstellt eine TreeMap mit den Points als key. Bei gleicher Punktzahl wird
+	 * per Zufall entschieden welcher User in die TreeMap eingetragen wird
 	 * 
 	 * @param userlist
 	 * @return
 	 */
-	private TreeMap<Double, String> createPreselectionMap(TreeMap<String, Double> userlist) 
+	private TreeMap<Double, String> createPreselectionMap(TreeMap<String, Double> userlist)
 	{
 		TreeMap<Double, String> userMap = new TreeMap<Double, String>();
-		for(String key : userlist.keySet())
+		for (String key : userlist.keySet())
 		{
 			Double points = (userlist.get(key) > 0) ? userlist.get(key) : 1;
-			if(!userMap.containsKey(points))
+			if (!userMap.containsKey(points))
 			{
 				userMap.put(points, key);
 			}
 			else
 			{
-				if(Math.random() > 0.5)
+				if (Math.random() > 0.5)
 				{
 					userMap.remove(points);
 					userMap.put(points, key);
@@ -78,12 +78,13 @@ public class RandomUser {
 	}
 
 	/**
-	 * erstellt eine TreeMap in welcher die User in der reihenfolge nach ihren punkten eingetragen sind
+	 * erstellt eine TreeMap in welcher die User in der reihenfolge nach ihren
+	 * punkten eingetragen sind
 	 * 
 	 * @param userlist
 	 * @return
 	 */
-	private TreeMap<Double, String> createRandomTreeMap(TreeMap<Double, String> userlist) 
+	private TreeMap<Double, String> createRandomTreeMap(TreeMap<Double, String> userlist)
 	{
 		totalPoints = calcTotalPoints(userlist);
 		TreeMap<Double, String> ret = new TreeMap<Double, String>();
@@ -98,32 +99,33 @@ public class RandomUser {
 	 * @param userlist
 	 * @return
 	 */
-	private Double calcTotalPoints(TreeMap<Double, String> userlist) 
+	private Double calcTotalPoints(TreeMap<Double, String> userlist)
 	{
 		Double ret = 0.00;
-		for(Double key : userlist.keySet())
+		for (Double key : userlist.keySet())
 		{
-			ret += key; 
+			ret += key;
 		}
 		return ret;
 	}
 
 	/**
-	 * befühlt die TreeMap mit Usern als value und den Punkten jeweils aufaddiert mit den Punkten des vorherigen 
-	 * Users beginnend bei dem User mit den meißten Punkten
+	 * befühlt die TreeMap mit Usern als value und den Punkten jeweils
+	 * aufaddiert mit den Punkten des vorherigen Users beginnend bei dem User
+	 * mit den meißten Punkten
 	 * 
 	 * @param userlist
 	 * @param ret
 	 */
-	private void fillMap(TreeMap<Double, String> userlist, TreeMap<Double, String> ret) 
-	{			
+	private void fillMap(TreeMap<Double, String> userlist, TreeMap<Double, String> ret)
+	{
 		SortedSet<Double> sortedKeys = (SortedSet<Double>) userlist.keySet();
 		Double prozent = getProzent(Double.valueOf(sortedKeys.toArray()[sortedKeys.size() - 1].toString()));
 		ret.put(prozent, userlist.get(Double.valueOf(sortedKeys.toArray()[sortedKeys.size() - 1].toString())));
 		userlist.remove(Double.valueOf(sortedKeys.toArray()[sortedKeys.size() - 1].toString()));
-		
-		for(int i = userlist.keySet().size() - 1; i >= 0; i--)
-		{	
+
+		for (int i = userlist.keySet().size() - 1; i >= 0; i--)
+		{
 			ret.put(getProzent(Double.valueOf(sortedKeys.toArray()[i].toString())) + prozent, userlist.get(Double.valueOf(sortedKeys.toArray()[i].toString())));
 			prozent += getProzent(Double.valueOf(sortedKeys.toArray()[i].toString()));
 			userlist.remove(Double.valueOf(sortedKeys.toArray()[sortedKeys.size() - 1].toString()));
@@ -131,13 +133,14 @@ public class RandomUser {
 	}
 
 	/**
-	 * wählt zufällig einen user aus und löscht ihn aus der TreeMap bis nur noch ein User in der Treemap vorhanden ist
+	 * wählt zufällig einen user aus und löscht ihn aus der TreeMap bis nur noch
+	 * ein User in der Treemap vorhanden ist
 	 * 
 	 * @param randomTreeMap
 	 */
 	private void findRandomItem(TreeMap<Double, String> randomTreeMap)
 	{
-		if(randomTreeMap.size() > 1)
+		if (randomTreeMap.size() > 1)
 		{
 			randomTreeMap.remove(randomTreeMap.ceilingEntry(Math.random()).getKey());
 			findRandomItem(randomTreeMap);
@@ -151,14 +154,17 @@ public class RandomUser {
 	/**
 	 * @return the userlist
 	 */
-	public TreeMap<String, Double> getUserlist() {
+	public TreeMap<String, Double> getUserlist()
+	{
 		return userlist;
 	}
 
 	/**
-	 * @param userlist the userlist to set
+	 * @param userlist
+	 *            the userlist to set
 	 */
-	public void setUserlist(TreeMap<String, Double> userlist) {
+	public void setUserlist(TreeMap<String, Double> userlist)
+	{
 		this.userlist = userlist;
 	}
 }

@@ -21,10 +21,11 @@ import de.htwg.lpn.model.WG;
 import de.htwg.lpn.wgbuddy.User_Login;
 import de.htwg.lpn.wgbuddy.Main;
 
-public class Utilities 
+public class Utilities
 {
-	/** 
+	/**
 	 * Erster Buchstabe Groß-, sonst Kleinbuchstaben.
+	 * 
 	 * @param string
 	 * @return
 	 */
@@ -32,134 +33,153 @@ public class Utilities
 	{
 		return string.substring(0, 1).toUpperCase() + string.substring(1).toLowerCase();
 	}
-	
+
 	/**
-	 * Prüft, ob String nicht erlaubte Zeichen enthält.
-	 * Erlaubte Zeichen:
-	 * a-z A-Z 0-9
+	 * Prüft, ob String nicht erlaubte Zeichen enthält. Erlaubte Zeichen: a-z
+	 * A-Z 0-9
+	 * 
 	 * @param string
-	 * @return true, falls nur erlaubte Zeichen und false, falls Sonderzeichen vorhanden.
+	 * @return true, falls nur erlaubte Zeichen und false, falls Sonderzeichen
+	 *         vorhanden.
 	 */
 	public static Boolean checkOnlyAllowedCharacter(String string)
 	{
-		if(Pattern.matches("[a-zA-Z0-9]+", string))
+		if (Pattern.matches("[a-zA-Z0-9]+", string))
 		{
 			return true;
 		}
-		
+
 		return false;
 	}
-	
+
 	public static String md5(String pw)
 	{
-	   byte[] defaultBytes = pw.getBytes();
-	   
-	   try 
-	   {
+		byte[] defaultBytes = pw.getBytes();
+
+		try
+		{
 			MessageDigest md = MessageDigest.getInstance("MD5");
 			md.reset();
-		    md.update(defaultBytes);
+			md.update(defaultBytes);
 			byte messageDigest[] = md.digest();
 			StringBuffer hexString = new StringBuffer();
-			for (int i=0;i<messageDigest.length;i++) 
+			for (int i = 0; i < messageDigest.length; i++)
 			{
 				hexString.append(Integer.toHexString(0xFF & messageDigest[i]));
 			}
 			return hexString.toString();
-	   } 
-	   catch (NoSuchAlgorithmException e) 
-	   {
+		}
+		catch (NoSuchAlgorithmException e)
+		{
 			// TODO Auto-generated catch block
 			e.printStackTrace();
-	   }	   
-	   
-	   return "";
+		}
+
+		return "";
 	}
-	
+
 	public static void message(Context context, String text, String buttonText)
 	{
 		AlertDialog.Builder builder = new AlertDialog.Builder(context);
 		builder.setMessage(text);
 		builder.setCancelable(false);
-		builder.setPositiveButton(buttonText, new DialogInterface.OnClickListener() 
+		builder.setPositiveButton(buttonText, new DialogInterface.OnClickListener()
 		{
-           public void onClick(DialogInterface dialog, int id) 
-           {
-        	   dialog.cancel();
-           }
+			public void onClick(DialogInterface dialog, int id)
+			{
+				dialog.cancel();
+			}
 		});
-		       
+
 		AlertDialog alert = builder.create();
 		alert.show();
 	}
-	
+
 	public static void toastMessage(Context context, String text)
 	{
 		Toast.makeText(context, text, Toast.LENGTH_LONG).show();
 	}
-	
+
 	public static void toastMessage(Context context, String text, int duration)
 	{
 		Toast.makeText(context, text, duration).show();
 	}
-	
+
 	public static void message(final Context context, String text, String buttonText, final String link)
 	{
 		AlertDialog.Builder builder = new AlertDialog.Builder(context);
 		builder.setMessage(text);
 		builder.setCancelable(false);
-		builder.setPositiveButton(buttonText, new DialogInterface.OnClickListener() 
+		builder.setPositiveButton(buttonText, new DialogInterface.OnClickListener()
 		{
-           public void onClick(DialogInterface dialog, int id) 
-           {
-        	   dialog.cancel();
-           }
+			public void onClick(DialogInterface dialog, int id)
+			{
+				dialog.cancel();
+			}
 		});
-		
-		builder.setNegativeButton("Handbuch", new DialogInterface.OnClickListener() 
+
+		builder.setNegativeButton("Handbuch", new DialogInterface.OnClickListener()
 		{
-           public void onClick(DialogInterface dialog, int id) 
-           {
-        	   Intent i = new Intent(Intent.ACTION_VIEW, Uri.parse(link));
-               context.startActivity(i);
-           }
+			public void onClick(DialogInterface dialog, int id)
+			{
+				Intent i = new Intent(Intent.ACTION_VIEW, Uri.parse(link));
+				context.startActivity(i);
+			}
 		});
-		       
+
 		AlertDialog alert = builder.create();
 		alert.show();
 	}
-	
-	
+
 	public static void checkByPass(Context context, SharedPreferences settings)
 	{
 		// Nicht eingeloggt.
-        if(!settings.contains("user_status") || !settings.contains("user_id") || !settings.contains("user_name") || !settings.contains("user_email") || !settings.contains("user_password") || !settings.contains("wg_id") || !settings.contains("wg_name") || !settings.contains("wg_password"))
-        {
-        	// Umleiten
-        	Intent intent = new Intent(context, User_Login.class);
+		if (!settings.contains("user_status") || !settings.contains("user_id") || !settings.contains("user_name") || !settings.contains("user_email") || !settings.contains("user_password")
+		|| !settings.contains("wg_id") || !settings.contains("wg_name") || !settings.contains("wg_password"))
+		{
+			// Umleiten
+			Intent intent = new Intent(context, User_Login.class);
 			context.startActivity(intent);
-			return;        	
-        }	
+			return;
+		}
 	}
-	
-	public static void leaveWG(Context context, SharedPreferences settings, User user) 
+
+	public static void leaveWG(Context context, SharedPreferences settings, User user)
 	{
 		ArrayList<NameValuePair> nameValuePairs = new ArrayList<NameValuePair>();
-		 nameValuePairs.add(new BasicNameValuePair("wgId", settings.getString("0", ""))); 
-		 user.update(Integer.valueOf(settings.getString("user_id", "")), nameValuePairs);
-		  
-		 SharedPreferences.Editor editor = settings.edit();      		    
-		 editor.clear();
-		 editor.commit();        		    
-		 Intent intent = new Intent(context, Main.class);
-		 context.startActivity(intent);
+		nameValuePairs.add(new BasicNameValuePair("wgId", settings.getString("0", "")));
+		user.update(Integer.valueOf(settings.getString("user_id", "")), nameValuePairs);
+
+		SharedPreferences.Editor editor = settings.edit();
+		editor.clear();
+		editor.commit();
+		Intent intent = new Intent(context, Main.class);
+		context.startActivity(intent);
 	}
-	
+
 	public static String getWGAdminId(SharedPreferences settings)
 	{
 		WG wg = new WG(settings);
 		ArrayList<HashMap<String, String>> wgList = wg.get("?id=" + settings.getString("wg_id", ""));
-		
+
 		return wgList.get(0).get("adminId");
-	}	
+	}
+
+	public static String getDateTimeFormatForMessageList(String data)
+	{
+		// Change Dateformat
+		String datum = data;
+		String time = datum.split(" ")[1];
+		datum = datum.split(" ")[0];
+		return time + "\n" + datum.split("-")[2] + "." + datum.split("-")[1] + "." + datum.split("-")[0];
+	}
+	
+	public static String getDateTimeFormat(String data)
+	{
+		// Change Dateformat
+		String datum = data;
+		String time = datum.split(" ")[1];
+		datum = datum.split(" ")[0];
+		return datum.split("-")[2] + "." + datum.split("-")[1] + "." + datum.split("-")[0] + " " + time;
+	}
 }

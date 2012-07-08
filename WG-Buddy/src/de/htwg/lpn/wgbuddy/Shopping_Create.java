@@ -28,112 +28,109 @@ import de.htwg.lpn.wgbuddy.utility.Dialogs;
 import de.htwg.lpn.wgbuddy.utility.Utilities;
 import de.htwg.lpn.wgbuddy.utility.WorkerThread;
 
-public class Shopping_Create  extends Activity
+public class Shopping_Create extends Activity
 {
 	private SharedPreferences settings = null;
-	
+
 	private Button addButton;
 	private EditText nameEditText;
 	private EditText descriptionEditText;
 	private RatingBar ratingBar;
-	
+
 	@Override
-    public void onCreate(Bundle savedInstanceState) 
-    {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.shopping_create);
-        
-        settings = getSharedPreferences(Main.PREFS_NAME, 0);
-        Utilities.checkByPass(this, settings);
-        
-        addButton = (Button) findViewById(R.id.shoppingItemAddButton);
-        nameEditText = (EditText) findViewById(R.id.ShoppingItemNameEditText);
-        descriptionEditText = (EditText) findViewById(R.id.ShoppingDescriptionEditText);
-        ratingBar = (RatingBar) findViewById(R.id.shoppingItemRatingBar);
-        
-        addButton.setOnClickListener
-        (
-    		new OnClickListener() 
-    		{
-				@Override
-				public void onClick(View v) 
-				{
-					ProgressDialog pd = ProgressDialog.show(Shopping_Create.this, "", getString(R.string.utilities_pleaseWait));
-					Handler handler = new Handler()
-					{
-						@Override
-						public void handleMessage(Message msg)
-						{
-							super.handleMessage(msg);
-							
-							Utilities.toastMessage(Shopping_Create.this, getString(R.string.shopping_created));
-
-							Intent intent = new Intent(Shopping_Create.this, Shopping_List.class);
-							startActivity(intent);
-						}
-					};
-
-					Callable<Message> callable = new Callable<Message>()
-					{
-						@Override
-						public Message call() throws Exception
-						{
-							Message message = new Message();
-
-							List<NameValuePair> nameValuePairs = new ArrayList<NameValuePair>();
-					        nameValuePairs.add(new BasicNameValuePair("wgId", settings.getString("wg_id", "")));
-					        nameValuePairs.add(new BasicNameValuePair("userId", "0"));
-					        nameValuePairs.add(new BasicNameValuePair("name", nameEditText.getText().toString()));
-					        nameValuePairs.add(new BasicNameValuePair("comment", descriptionEditText.getText().toString()));
-					        nameValuePairs.add(new BasicNameValuePair("rating", String.valueOf(ratingBar.getRating())));
-					        nameValuePairs.add(new BasicNameValuePair("status", "0"));					
-				        
-							ShoppingItem shopping = new ShoppingItem(settings);
-							shopping.insert(nameValuePairs,Shopping_Create.this);	
-							
-					        if(Main.usepush)
-					        {
-								GoogleService gs = new GoogleService(settings);
-								gs.sendMessageToPhone("ShoppingItem");
-					        }
-					        
-							return message;
-						}
-
-					};
-
-					WorkerThread workerThread = new WorkerThread(callable, pd, handler);
-					workerThread.start();
-				}
-    		}
-        );
-    }
-	
-	@Override
-	public boolean onCreateOptionsMenu(Menu menu) 
+	public void onCreate(Bundle savedInstanceState)
 	{
-	    MenuInflater inflater = getMenuInflater();
-	    inflater.inflate(R.menu.basic_menu, menu);
-	    return true;
+		super.onCreate(savedInstanceState);
+		setContentView(R.layout.shopping_create);
+
+		settings = getSharedPreferences(Main.PREFS_NAME, 0);
+		Utilities.checkByPass(this, settings);
+
+		addButton = (Button) findViewById(R.id.shoppingItemAddButton);
+		nameEditText = (EditText) findViewById(R.id.ShoppingItemNameEditText);
+		descriptionEditText = (EditText) findViewById(R.id.ShoppingDescriptionEditText);
+		ratingBar = (RatingBar) findViewById(R.id.shoppingItemRatingBar);
+
+		addButton.setOnClickListener(new OnClickListener()
+		{
+			@Override
+			public void onClick(View v)
+			{
+				ProgressDialog pd = ProgressDialog.show(Shopping_Create.this, "", getString(R.string.utilities_pleaseWait));
+				Handler handler = new Handler()
+				{
+					@Override
+					public void handleMessage(Message msg)
+					{
+						super.handleMessage(msg);
+
+						Utilities.toastMessage(Shopping_Create.this, getString(R.string.shopping_created));
+
+						Intent intent = new Intent(Shopping_Create.this, Shopping_List.class);
+						startActivity(intent);
+					}
+				};
+
+				Callable<Message> callable = new Callable<Message>()
+				{
+					@Override
+					public Message call() throws Exception
+					{
+						Message message = new Message();
+
+						List<NameValuePair> nameValuePairs = new ArrayList<NameValuePair>();
+						nameValuePairs.add(new BasicNameValuePair("wgId", settings.getString("wg_id", "")));
+						nameValuePairs.add(new BasicNameValuePair("userId", "0"));
+						nameValuePairs.add(new BasicNameValuePair("name", nameEditText.getText().toString()));
+						nameValuePairs.add(new BasicNameValuePair("comment", descriptionEditText.getText().toString()));
+						nameValuePairs.add(new BasicNameValuePair("rating", String.valueOf(ratingBar.getRating())));
+						nameValuePairs.add(new BasicNameValuePair("status", "0"));
+
+						ShoppingItem shopping = new ShoppingItem(settings);
+						shopping.insert(nameValuePairs, Shopping_Create.this);
+
+						if (Main.usepush)
+						{
+							GoogleService gs = new GoogleService(settings);
+							gs.sendMessageToPhone("ShoppingItem");
+						}
+
+						return message;
+					}
+
+				};
+
+				WorkerThread workerThread = new WorkerThread(callable, pd, handler);
+				workerThread.start();
+			}
+		});
 	}
-	
+
 	@Override
-	public boolean onOptionsItemSelected(MenuItem item) 
+	public boolean onCreateOptionsMenu(Menu menu)
+	{
+		MenuInflater inflater = getMenuInflater();
+		inflater.inflate(R.menu.basic_menu, menu);
+		return true;
+	}
+
+	@Override
+	public boolean onOptionsItemSelected(MenuItem item)
 	{
 		Intent intent;
-		switch (item.getItemId()) 
-        {        	
-	        case R.id.about:
-	        	Dialogs.getAboutDialog(Shopping_Create.this, settings);
-	        	return true;
-	        	
-	        case R.id.menu:
-	        	intent = new Intent(Shopping_Create.this, Main.class);
-				startActivity(intent);	
-	        	return true;
-	        	
-	        default:
-	        	return super.onOptionsItemSelected(item);
-        }
-    }
+		switch (item.getItemId())
+		{
+			case R.id.about:
+				Dialogs.getAboutDialog(Shopping_Create.this, settings);
+				return true;
+
+			case R.id.menu:
+				intent = new Intent(Shopping_Create.this, Main.class);
+				startActivity(intent);
+				return true;
+
+			default:
+				return super.onOptionsItemSelected(item);
+		}
+	}
 }
