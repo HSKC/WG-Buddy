@@ -62,10 +62,10 @@ public class Preferences extends Activity
 			public void onClick(View v)
 			{
 				AlertDialog.Builder builder = new AlertDialog.Builder(Preferences.this);
-				builder.setMessage("Sind Sie sicher, dass Sie die WG verlassen möchten? Sie werden anschließend automatisch ausgeloggt.");
+				builder.setMessage(getString(R.string.preferences_leaveText));
 				builder.setCancelable(true);
 
-				builder.setPositiveButton("WG verlassen", new DialogInterface.OnClickListener()
+				builder.setPositiveButton(getString(R.string.preferences_leaveWG), new DialogInterface.OnClickListener()
 				{
 					public void onClick(DialogInterface dialog, int id)
 					{
@@ -82,7 +82,7 @@ public class Preferences extends Activity
 					}
 				});
 
-				builder.setNegativeButton("Abbrechen", new DialogInterface.OnClickListener()
+				builder.setNegativeButton(getString(R.string.utilities_cancel), new DialogInterface.OnClickListener()
 				{
 					public void onClick(DialogInterface dialog, int id)
 					{

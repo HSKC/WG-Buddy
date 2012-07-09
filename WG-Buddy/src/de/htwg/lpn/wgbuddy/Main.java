@@ -13,6 +13,7 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.StrictMode;
 import android.text.method.SingleLineTransformationMethod;
+import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -25,6 +26,7 @@ import de.htwg.lpn.model.Mail;
 import de.htwg.lpn.model.User;
 import de.htwg.lpn.model.WG;
 import de.htwg.lpn.wgbuddy.utility.Dialogs;
+import de.htwg.lpn.wgbuddy.utility.Utilities;
 
 public class Main extends Activity
 {
@@ -241,6 +243,8 @@ public class Main extends Activity
 				SharedPreferences.Editor editor = settings.edit();
 				editor.clear();
 				editor.commit();
+				
+				Utilities.toastMessage(Main.this, getString(R.string.utilities_logout));
 
 				Intent intent = new Intent(Main.this, Main.class);
 				startActivity(intent);
@@ -268,5 +272,15 @@ public class Main extends Activity
 			default:
 				return super.onOptionsItemSelected(item);
 		}
+	}
+	
+	@Override
+	public boolean onKeyDown(int keyCode, KeyEvent event)
+	{
+		if (keyCode == KeyEvent.KEYCODE_BACK)
+		{
+			return true;
+		}
+		return super.onKeyDown(keyCode, event);
 	}
 }
