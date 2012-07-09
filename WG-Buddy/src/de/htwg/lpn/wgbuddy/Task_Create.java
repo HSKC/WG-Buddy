@@ -178,7 +178,7 @@ public class Task_Create extends Activity
 								}
 							}
 
-							RandomUser randomUser = RandomUser.getInstance();
+							RandomUser randomUser = new RandomUser();
 							randomUser.setUserlist(checkedUser);
 
 							String chosenUserName = randomUser.getRandomUser();
