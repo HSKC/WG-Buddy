@@ -11,7 +11,9 @@ import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.content.SharedPreferences;
+import android.net.Uri;
 import android.text.method.PasswordTransformationMethod;
 import android.text.method.SingleLineTransformationMethod;
 import android.view.View;
@@ -97,7 +99,7 @@ public class Dialogs
 
 				if (key.length() <= 0 && password.length() <= 0 && password2.length() <= 0)
 				{
-					Utilities.message(context, context.getString(R.string.utilities_fillAllFields), context.getString(R.string.utilities_ok));
+					Utilities.toastMessage(context, context.getString(R.string.utilities_fillAllFields));
 					return;
 				}
 
@@ -106,7 +108,7 @@ public class Dialogs
 
 				if (userList.size() <= 0)
 				{
-					Utilities.message(context, context.getString(R.string.utilities_keyWrong), context.getString(R.string.utilities_ok));
+					Utilities.toastMessage(context, context.getString(R.string.utilities_keyWrong));
 					return;
 				}
 
@@ -114,7 +116,7 @@ public class Dialogs
 				{
 					if (!password.equals(password2))
 					{
-						Utilities.message(context, context.getString(R.string.utilities_passwordDifferent), context.getString(R.string.utilities_ok));
+						Utilities.toastMessage(context, context.getString(R.string.utilities_passwordDifferent));
 						return;
 					}
 
@@ -123,7 +125,7 @@ public class Dialogs
 					nameValuePairs.add(new BasicNameValuePair("changeKey", ""));
 					user.update(Integer.valueOf(userEntry.get("id")), nameValuePairs);
 
-					Utilities.message(context, context.getString(R.string.utilities_passwordChangeSucceed), context.getString(R.string.utilities_ok));
+					Utilities.toastMessage(context, context.getString(R.string.utilities_passwordChangeSucceed));
 				}
 			}
 		});
@@ -177,7 +179,7 @@ public class Dialogs
 
 				if (key.length() <= 0 && password.length() <= 0 && password2.length() <= 0)
 				{
-					Utilities.message(context, context.getString(R.string.utilities_fillAllFields), context.getString(R.string.utilities_ok));
+					Utilities.toastMessage(context, context.getString(R.string.utilities_fillAllFields));
 					return;
 				}
 
@@ -186,7 +188,7 @@ public class Dialogs
 
 				if (userList.size() <= 0)
 				{
-					Utilities.message(context, context.getString(R.string.utilities_passwordWrong), context.getString(R.string.utilities_ok));
+					Utilities.toastMessage(context, context.getString(R.string.utilities_passwordWrong));
 					return;
 				}
 
@@ -194,7 +196,7 @@ public class Dialogs
 				{
 					if (!password.equals(password2))
 					{
-						Utilities.message(context, context.getString(R.string.utilities_passwordDifferent), context.getString(R.string.utilities_ok));
+						Utilities.toastMessage(context, context.getString(R.string.utilities_passwordDifferent));
 						return;
 					}
 
@@ -206,7 +208,7 @@ public class Dialogs
 					editor.putString("user_password", password);
 					editor.commit();
 
-					Utilities.message(context, context.getString(R.string.utilities_passwordChangeSucceed), context.getString(R.string.utilities_ok));
+					Utilities.toastMessage(context, context.getString(R.string.utilities_passwordChangeSucceed));
 				}
 			}
 		});
@@ -260,7 +262,7 @@ public class Dialogs
 
 				if (oldPassword.length() <= 0 && password.length() <= 0 && password2.length() <= 0)
 				{
-					Utilities.message(context, context.getString(R.string.utilities_fillAllFields), context.getString(R.string.utilities_ok));
+					Utilities.toastMessage(context, context.getString(R.string.utilities_fillAllFields));
 					return;
 				}
 
@@ -269,7 +271,7 @@ public class Dialogs
 
 				if (wgList.size() <= 0)
 				{
-					Utilities.message(context, context.getString(R.string.utilities_passwordWrong), context.getString(R.string.utilities_ok));
+					Utilities.toastMessage(context, context.getString(R.string.utilities_passwordWrong));
 					return;
 				}
 
@@ -277,7 +279,7 @@ public class Dialogs
 				{
 					if (!password.equals(password2))
 					{
-						Utilities.message(context, context.getString(R.string.utilities_passwordDifferent), context.getString(R.string.utilities_ok));
+						Utilities.toastMessage(context, context.getString(R.string.utilities_passwordDifferent));
 						return;
 					}
 
@@ -285,7 +287,7 @@ public class Dialogs
 					nameValuePairs.add(new BasicNameValuePair("password", password));
 					wg.update(Integer.valueOf(wgEntry.get("id")), nameValuePairs);
 
-					Utilities.message(context, context.getString(R.string.utilities_passwordChangeSucceed), context.getString(R.string.utilities_ok));
+					Utilities.toastMessage(context, context.getString(R.string.utilities_passwordChangeSucceed));
 				}
 			}
 		});
@@ -376,8 +378,29 @@ public class Dialogs
 		alert.show();
 	}
 
-	public static void getAboutDialog(Context context, SharedPreferences settings)
+	public static void getAboutDialog(final Context context, SharedPreferences settings)
 	{
-		Utilities.message(context, context.getString(R.string.utilities_aboutText), context.getString(R.string.utilities_ok), context.getString(R.string.utilities_aboutLink));
+		AlertDialog.Builder builder = new AlertDialog.Builder(context);
+		builder.setMessage(context.getString(R.string.utilities_aboutText));
+		builder.setCancelable(false);
+		builder.setPositiveButton(context.getString(R.string.utilities_ok), new DialogInterface.OnClickListener()
+		{
+			public void onClick(DialogInterface dialog, int id)
+			{
+				dialog.cancel();
+			}
+		});
+
+		builder.setNegativeButton(context.getString(R.string.utilities_aboutLinkText), new DialogInterface.OnClickListener()
+		{
+			public void onClick(DialogInterface dialog, int id)
+			{
+				Intent i = new Intent(Intent.ACTION_VIEW, Uri.parse(context.getString(R.string.utilities_aboutLink)));
+				context.startActivity(i);
+			}
+		});
+
+		AlertDialog alert = builder.create();
+		alert.show();
 	}
 }

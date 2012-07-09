@@ -14,6 +14,7 @@ import android.app.Activity;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -38,6 +39,23 @@ public class WG_Login extends Activity
 
 		settings = getSharedPreferences(Main.PREFS_NAME, 0);
 
+		// Nicht eingeloggt.
+		if (!settings.contains("user_id") || !settings.contains("user_name") || !settings.contains("user_email") || !settings.contains("user_password"))
+		{
+			// Applikation das erste mal gestartet oder nicht konfiguriert.
+			// Login aufrufen
+			Intent intent = new Intent(WG_Login.this, User_Login.class);
+			startActivity(intent);
+			return;
+		}
+
+		// Konto freigeschalten?
+		if (!settings.contains("user_status"))
+		{
+			Intent intent = new Intent(WG_Login.this, User_Activate.class);
+			startActivity(intent);
+		}
+
 		nameTextView = (EditText) findViewById(R.id.wgpref_nameEdit);
 		passwordTextView = (EditText) findViewById(R.id.wgpref_passwordEdit);
 		connectButton = (Button) findViewById(R.id.wgpref_connectButton);
@@ -53,17 +71,13 @@ public class WG_Login extends Activity
 
 				if (name.length() <= 0 && password.length() <= 0)
 				{
-					Utilities.message(WG_Login.this, "Bitte alle Felder ausfüllen.", "OK"); // TODO
-																							// :string.xml
+					Utilities.toastMessage(WG_Login.this, getString(R.string.utilities_allFields));
 					return;
 				}
 
 				if (!Utilities.checkOnlyAllowedCharacter(name))
 				{
-					Utilities.message(WG_Login.this, "WG-Name enthält unerlaubte Zeichen. Es sind nur folgende Zeichen erlaubt: a-z A-Z äöü ÄÖÜ ß 0-9 _", "OK"); // TODO
-																																									// TEXT
-																																									// in
-																																									// string.xml
+					Utilities.toastMessage(WG_Login.this, getString(R.string.utilities_forbiddenSignsWGname));
 					return;
 				}
 
@@ -87,13 +101,14 @@ public class WG_Login extends Activity
 					userNameValuePairs.add(new BasicNameValuePair("wgId", settings.getString("wg_id", "")));
 					user.update(Integer.valueOf(settings.getString("user_id", "")), userNameValuePairs);
 
+					Utilities.toastMessage(WG_Login.this, getString(R.string.utilities_createWG));
+
 					Intent intent = new Intent(WG_Login.this, Main.class);
 					startActivity(intent);
 				}
 				else
 				{
-					Utilities.message(WG_Login.this, "Der eingegebene WG-Name oder das Passwort ist falsch", "OK"); // TODO
-																													// :string.xml
+					Utilities.toastMessage(WG_Login.this, getString(R.string.utilities_wgnamePasswordWrong));
 				}
 			}
 		});
@@ -130,5 +145,18 @@ public class WG_Login extends Activity
 			default:
 				return super.onOptionsItemSelected(item);
 		}
+	}
+
+	@Override
+	public boolean onKeyDown(int keyCode, KeyEvent event)
+	{
+		if (keyCode == KeyEvent.KEYCODE_BACK)
+		{
+			Intent intent = new Intent(this, User_Login.class);
+			startActivity(intent);
+
+			return true;
+		}
+		return super.onKeyDown(keyCode, event);
 	}
 }

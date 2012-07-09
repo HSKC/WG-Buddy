@@ -9,12 +9,17 @@ import org.apache.http.message.BasicNameValuePair;
 
 import de.htwg.lpn.model.Mail;
 import de.htwg.lpn.model.User;
+import de.htwg.lpn.wgbuddy.utility.Dialogs;
 import de.htwg.lpn.wgbuddy.utility.Utilities;
 import android.app.Activity;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
 import android.os.Bundle;
+import android.view.KeyEvent;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
@@ -54,7 +59,7 @@ public class User_Activate extends Activity
 
 				if (key.length() <= 0)
 				{
-					Utilities.message(User_Activate.this, getString(R.string.utilities_fillAllFields), getString(R.string.utilities_ok));
+					Utilities.toastMessage(User_Activate.this, getString(R.string.utilities_fillAllFields));
 					return;
 				}
 
@@ -63,7 +68,7 @@ public class User_Activate extends Activity
 
 				if (userList.size() <= 0)
 				{
-					Utilities.message(User_Activate.this, getString(R.string.utilities_keyWrong), getString(R.string.utilities_ok));
+					Utilities.toastMessage(User_Activate.this, getString(R.string.utilities_keyWrong));
 					return;
 				}
 
@@ -99,5 +104,40 @@ public class User_Activate extends Activity
 				Utilities.toastMessage(User_Activate.this, getString(R.string.utilities_activateEmailSendedMessage));
 			}
 		});
+	}
+
+	@Override
+	public boolean onCreateOptionsMenu(Menu menu)
+	{
+		MenuInflater inflater = getMenuInflater();
+		inflater.inflate(R.menu.about_menu, menu);
+		return true;
+	}
+
+	@Override
+	public boolean onOptionsItemSelected(MenuItem item)
+	{
+		switch (item.getItemId())
+		{
+			case R.id.about:
+				Dialogs.getAboutDialog(User_Activate.this, settings);
+				return true;
+
+			default:
+				return super.onOptionsItemSelected(item);
+		}
+	}
+
+	@Override
+	public boolean onKeyDown(int keyCode, KeyEvent event)
+	{
+		if (keyCode == KeyEvent.KEYCODE_BACK)
+		{
+			Intent intent = new Intent(this, User_Login.class);
+			startActivity(intent);
+
+			return true;
+		}
+		return super.onKeyDown(keyCode, event);
 	}
 }
