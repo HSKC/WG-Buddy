@@ -1,12 +1,21 @@
 <?xml version="1.0" encoding="utf-8"?>
-<menu xmlns:android="http://schemas.android.com/apk/res/android">
-	<item android:id="@+id/refresh"
-	android:title="Refresh" />
-	<item android:id="@+id/add"
-	android:title="Add"
-	android:icon="@drawable/add" />	
-	<item android:id="@+id/menu"
-	android:title="Hauptmenü" />
-	<item android:id="@+id/about"
-	android:title="About" />
+<menu xmlns:android="http://schemas.android.com/apk/res/android" >
+
+    <item
+        android:id="@+id/refresh"
+        android:icon="@drawable/refresh"
+        android:title="@string/menu_refresh"/>
+    <item
+        android:id="@+id/add"
+        android:icon="@drawable/add"
+        android:title="@string/menu_add"/>
+    <item
+        android:id="@+id/menu"
+        android:icon="@drawable/home"
+        android:title="@string/menu_menu"/>
+    <item
+        android:id="@+id/about"
+        android:icon="@drawable/information"
+        android:title="@string/menu_about"/>
+
 </menu>
