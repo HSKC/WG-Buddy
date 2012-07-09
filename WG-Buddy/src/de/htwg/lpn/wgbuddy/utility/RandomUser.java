@@ -1,5 +1,6 @@
 package de.htwg.lpn.wgbuddy.utility;
 
+import java.util.HashMap;
 import java.util.SortedSet;
 import java.util.TreeMap;
 
@@ -24,6 +25,33 @@ public class RandomUser
 		return points / totalPoints;
 	}
 
+	public String getRandomUser2()
+	{
+		double actualHighest = 0; 
+		TreeMap<Double,String> points = new TreeMap<Double, String>();
+		
+		for (String element : userlist.keySet()) 
+		{
+			double point = userlist.get(element);
+			if(point > 0)
+			{
+				point = 1/point;
+			}
+			else
+			{
+				point = 1.5;
+			}
+
+			points.put(point,element);
+			actualHighest += point;
+		}
+		
+		double zufall = Math.random() * actualHighest;
+		
+		return points.ceilingEntry(zufall).getValue();
+
+	}
+	
 	/**
 	 * Bekommt eine TreeMap mit Usern übergeben und gibt einen zufälligen User
 	 * zurück
