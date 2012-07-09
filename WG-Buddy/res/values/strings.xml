@@ -24,6 +24,12 @@
     <string name="main_information">Informationen</string>
     <string name="main_invite">Einladen</string>
     <string name="main_logout">Logout</string>
+    
+    <string name="menu_about">About</string>
+    <string name="menu_menu">Hauptmenü</string>
+    <string name="menu_filter">Filter</string>
+    <string name="menu_add">Hinzufügen</string>
+    <string name="menu_refresh">Aktualisieren</string>
 
     <string name="preferences_wgidentificationtext">WGID</string>
     <string name="preferences_wgpassword">Passwort</string>
