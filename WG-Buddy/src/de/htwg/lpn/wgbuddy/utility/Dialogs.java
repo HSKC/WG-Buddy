@@ -16,6 +16,7 @@ import android.content.SharedPreferences;
 import android.net.Uri;
 import android.text.method.PasswordTransformationMethod;
 import android.text.method.SingleLineTransformationMethod;
+import android.util.Patterns;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -44,10 +45,29 @@ public class Dialogs
 		{
 			public void onClick(DialogInterface dialog, int id)
 			{
-				Mail mail = new Mail(settings);
-				mail.sendChangeKey(editText.getText().toString().trim());
+				String email = editText.getText().toString().trim();
 
-				getChangePasswordWithKeyDialog(context, settings);
+				if (email.length() > 0)
+				{
+					if (!Patterns.EMAIL_ADDRESS.matcher(email).matches())
+					{
+						Utilities.toastMessage(context, context.getString(R.string.utilities_forbiddenEmail));
+						getLostPasswordDialog(context, settings);
+						return;
+					}
+
+					Mail mail = new Mail(settings);
+					mail.sendChangeKey(email);
+
+					getChangePasswordWithKeyDialog(context, settings);
+					Utilities.toastMessage(context, context.getString(R.string.utilities_passwordLostEmail));
+				}
+				else
+				{
+					Utilities.toastMessage(context, context.getString(R.string.utilities_allFields));
+					getLostPasswordDialog(context, settings);
+					return;
+				}
 			}
 		});
 		builder.setNegativeButton(context.getString(R.string.utilities_cancel), new DialogInterface.OnClickListener()
@@ -100,6 +120,7 @@ public class Dialogs
 				if (key.length() <= 0 && password.length() <= 0 && password2.length() <= 0)
 				{
 					Utilities.toastMessage(context, context.getString(R.string.utilities_fillAllFields));
+					getChangePasswordWithKeyDialog(context, settings);
 					return;
 				}
 
@@ -109,6 +130,7 @@ public class Dialogs
 				if (userList.size() <= 0)
 				{
 					Utilities.toastMessage(context, context.getString(R.string.utilities_keyWrong));
+					getChangePasswordWithKeyDialog(context, settings);
 					return;
 				}
 
@@ -117,6 +139,7 @@ public class Dialogs
 					if (!password.equals(password2))
 					{
 						Utilities.toastMessage(context, context.getString(R.string.utilities_passwordDifferent));
+						getChangePasswordWithKeyDialog(context, settings);
 						return;
 					}
 
@@ -180,6 +203,7 @@ public class Dialogs
 				if (key.length() <= 0 && password.length() <= 0 && password2.length() <= 0)
 				{
 					Utilities.toastMessage(context, context.getString(R.string.utilities_fillAllFields));
+					getChangePasswordDialog(context, settings);
 					return;
 				}
 
@@ -189,6 +213,7 @@ public class Dialogs
 				if (userList.size() <= 0)
 				{
 					Utilities.toastMessage(context, context.getString(R.string.utilities_passwordWrong));
+					getChangePasswordDialog(context, settings);
 					return;
 				}
 
@@ -197,6 +222,7 @@ public class Dialogs
 					if (!password.equals(password2))
 					{
 						Utilities.toastMessage(context, context.getString(R.string.utilities_passwordDifferent));
+						getChangePasswordDialog(context, settings);
 						return;
 					}
 
@@ -263,6 +289,7 @@ public class Dialogs
 				if (oldPassword.length() <= 0 && password.length() <= 0 && password2.length() <= 0)
 				{
 					Utilities.toastMessage(context, context.getString(R.string.utilities_fillAllFields));
+					getChangeWGPasswordDialog(context, settings);
 					return;
 				}
 
@@ -272,6 +299,7 @@ public class Dialogs
 				if (wgList.size() <= 0)
 				{
 					Utilities.toastMessage(context, context.getString(R.string.utilities_passwordWrong));
+					getChangeWGPasswordDialog(context, settings);
 					return;
 				}
 
@@ -280,6 +308,7 @@ public class Dialogs
 					if (!password.equals(password2))
 					{
 						Utilities.toastMessage(context, context.getString(R.string.utilities_passwordDifferent));
+						getChangeWGPasswordDialog(context, settings);
 						return;
 					}
 
@@ -313,6 +342,28 @@ public class Dialogs
 
 		User user = new User(settings);
 		ArrayList<HashMap<String, String>> userList = user.get("?wgId=" + settings.getString("wg_id", ""));
+
+		// Kein anderer Bewohner mehr in der WG
+		if (userList.size() <= 1)
+		{
+			if (leave)
+			{
+				WG wg = new WG(settings);
+				ArrayList<NameValuePair> nameValuePairs = new ArrayList<NameValuePair>();
+				nameValuePairs.add(new BasicNameValuePair("adminId", "0"));
+				wg.update(Integer.valueOf(settings.getString("wg_id", "")), nameValuePairs);
+				
+				Utilities.leaveWG(context, settings, user);
+
+				return;
+			}
+			else
+			{
+				Utilities.toastMessage(context, context.getString(R.string.utilities_noOtherUser));
+				return;
+			}
+		}
+
 		ArrayList<String> names = new ArrayList<String>();
 		for (HashMap<String, String> map : userList)
 		{
@@ -359,6 +410,7 @@ public class Dialogs
 				}
 				else
 				{
+					Utilities.toastMessage(context, context.getString(R.string.utilities_changeAdminSucceed));
 					((Activity) context).finish();
 					((Activity) context).startActivity(((Activity) context).getIntent());
 				}
@@ -402,5 +454,56 @@ public class Dialogs
 
 		AlertDialog alert = builder.create();
 		alert.show();
+	}
+
+	public static void getInviteDialog(final Context context, final SharedPreferences settings)
+	{
+		final AlertDialog.Builder builder = new AlertDialog.Builder(context);
+
+		final EditText editText = new EditText(context);
+		editText.setTransformationMethod(SingleLineTransformationMethod.getInstance());
+		editText.setHint(context.getString(R.string.utilities_forbiddenEmail));
+
+		builder.setMessage(context.getString(R.string.utilities_inviteText));
+		builder.setCancelable(true);
+		builder.setView(editText);
+		builder.setPositiveButton(context.getString(R.string.main_invite), new DialogInterface.OnClickListener()
+		{
+			public void onClick(DialogInterface dialog, int id)
+			{
+				String email = editText.getText().toString().trim();
+
+				if (email.length() > 0)
+				{
+					if (!Patterns.EMAIL_ADDRESS.matcher(email).matches())
+					{
+						Utilities.toastMessage(context, context.getString(R.string.utilities_forbiddenEmail));
+						getInviteDialog(context, settings);
+						return;
+					}
+
+					Mail mail = new Mail(settings);
+					mail.sendInvite(email);
+
+					Utilities.toastMessage(context, context.getString(R.string.utilities_inviteSucceed));
+				}
+				else
+				{
+					Utilities.toastMessage(context, context.getString(R.string.utilities_allFields));
+					getInviteDialog(context, settings);
+					return;
+				}
+			}
+		});
+		builder.setNegativeButton(context.getString(R.string.utilities_cancel), new DialogInterface.OnClickListener()
+		{
+			@Override
+			public void onClick(DialogInterface dialog, int which)
+			{
+				dialog.cancel();
+			}
+		});
+
+		builder.create().show();
 	}
 }
