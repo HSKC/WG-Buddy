@@ -11,6 +11,7 @@ import android.app.Activity;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -56,17 +57,13 @@ public class User_Login extends Activity
 
 				if (username.length() <= 0 && password.length() <= 0)
 				{
-					Utilities.message(User_Login.this, "Bitte alle Felder ausfüllen.", "OK"); // TODO
-																								// :string.xml
+					Utilities.toastMessage(User_Login.this, getString(R.string.utilities_allFields));
 					return;
 				}
 
 				if (!Utilities.checkOnlyAllowedCharacter(username))
 				{
-					Utilities.message(User_Login.this, "Benutzername enthält unerlaubte Zeichen. Es sind nur folgende Zeichen erlaubt: a-z A-Z äöü ÄÖÜ ß 0-9 _", "OK"); // TODO
-																																										// TEXT
-																																										// in
-																																										// string.xml
+					Utilities.toastMessage(User_Login.this, getString(R.string.utilities_forbiddenSignsUsername));
 					return;
 				}
 
@@ -108,14 +105,15 @@ public class User_Login extends Activity
 					}
 
 					editor.commit();
+					
+					Utilities.toastMessage(User_Login.this, getString(R.string.utilities_login));
 
 					Intent intent = new Intent(User_Login.this, Main.class);
 					startActivity(intent);
 				}
 				else
 				{
-					Utilities.message(User_Login.this, "Der eingegebene Benutzername oder das Passwort ist falsch", "OK"); // TODO
-																															// :string.xml
+					Utilities.toastMessage(User_Login.this, getString(R.string.utilities_usernamePasswordWrong));
 				}
 
 			}
@@ -180,5 +178,15 @@ public class User_Login extends Activity
 			default:
 				return super.onOptionsItemSelected(item);
 		}
+	}
+
+	@Override
+	public boolean onKeyDown(int keyCode, KeyEvent event)
+	{
+		if (keyCode == KeyEvent.KEYCODE_BACK)
+		{
+			return true;
+		}
+		return super.onKeyDown(keyCode, event);
 	}
 }

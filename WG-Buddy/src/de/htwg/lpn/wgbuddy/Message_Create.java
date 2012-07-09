@@ -97,7 +97,7 @@ public class Message_Create extends Activity
 							Intent intent = new Intent(Message_Create.this, Message_List.class);
 							startActivity(intent);
 
-							return new android.os.Message();
+							return android.os.Message.obtain();
 						}
 
 					};

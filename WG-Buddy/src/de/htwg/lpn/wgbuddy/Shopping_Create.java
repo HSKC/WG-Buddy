@@ -82,7 +82,7 @@ public class Shopping_Create extends Activity
 						@Override
 						public Message call() throws Exception
 						{
-							Message message = new Message();
+							Message message = Message.obtain();
 
 							List<NameValuePair> nameValuePairs = new ArrayList<NameValuePair>();
 							nameValuePairs.add(new BasicNameValuePair("wgId", settings.getString("wg_id", "")));

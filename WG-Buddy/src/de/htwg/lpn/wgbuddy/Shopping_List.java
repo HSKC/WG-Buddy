@@ -53,8 +53,8 @@ public class Shopping_List<V> extends Activity
 	private RadioGroup filterRadioGroup;
 
 	private Integer type = 0;
-	private Integer sort = 3;
-	private Integer direction = 0;
+	private Integer sort = 1;
+	private Integer direction = 1;
 	private Integer filter = 0;
 
 	ArrayAdapter<CharSequence> typeAdapter = null;
@@ -325,7 +325,7 @@ public class Shopping_List<V> extends Activity
 								@Override
 								public Message call() throws Exception
 								{
-									Message message = new Message();
+									Message message = Message.obtain();
 
 									ArrayList<HashMap<String, String>> selectedItem = shoppingItem.get("?id=" + id.toString());
 
@@ -408,7 +408,7 @@ public class Shopping_List<V> extends Activity
 												gs.sendMessageToPhone("Shopping");
 											}
 
-											return new Message();
+											return Message.obtain();
 										}
 									};
 

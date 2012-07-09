@@ -14,14 +14,6 @@ public class AsyncPost extends AsyncTask<HttpPost, Void, String>
 {
 	Context context;
 
-	// @Override
-	// protected void onPreExecute()
-	// {
-	// System.out.println("SHOW2");
-	// mydialog.setTitle("Please wait");
-	// mydialog.show();
-	// }
-
 	@Override
 	protected String doInBackground(HttpPost... params)
 	{

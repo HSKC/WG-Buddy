@@ -1,5 +1,9 @@
 package de.htwg.lpn.model;
 
+import java.util.List;
+
+import org.apache.http.NameValuePair;
+
 import de.htwg.lpn.wgbuddy.utility.JSON;
 import android.content.SharedPreferences;
 
@@ -31,9 +35,9 @@ public class Mail extends ObjectBase
 		JSON.postData(url);
 	}
 
-	public void sendTask(String id)
+	public void sendTask(List<NameValuePair> nameValuePairs)
 	{
-		String url = settings.getString("pref_webserver", "") + phpPage + "?task=" + id + "&" + authCode;
-		JSON.postData(url);
+		String url = settings.getString("pref_webserver", "") + phpPage + "?task&" + authCode;
+		JSON.postData(url, nameValuePairs);
 	}
 }

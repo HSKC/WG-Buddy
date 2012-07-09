@@ -6,15 +6,12 @@ import java.util.HashMap;
 import org.apache.http.NameValuePair;
 import org.apache.http.message.BasicNameValuePair;
 
-import de.htwg.lpn.model.Mail;
-import de.htwg.lpn.model.User;
-import de.htwg.lpn.wgbuddy.utility.Dialogs;
-import de.htwg.lpn.wgbuddy.utility.Utilities;
 import android.app.Activity;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Patterns;
+import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -22,6 +19,10 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.TextView;
+import de.htwg.lpn.model.Mail;
+import de.htwg.lpn.model.User;
+import de.htwg.lpn.wgbuddy.utility.Dialogs;
+import de.htwg.lpn.wgbuddy.utility.Utilities;
 
 public class User_Create extends Activity
 {
@@ -65,46 +66,31 @@ public class User_Create extends Activity
 
 				if (username.length() == 0 || email.length() == 0 || email2.length() == 0 || password.length() == 0 || password2.length() == 0)
 				{
-					Utilities.message(User_Create.this, "Bitte alle Felder ausfüllen.", "OK"); // TODO
-																								// TEXT
-																								// in
-																								// string.xml
+					Utilities.toastMessage(User_Create.this, getString(R.string.utilities_allFields));
 					return;
 				}
 
 				if (!Utilities.checkOnlyAllowedCharacter(username))
 				{
-					Utilities.message(User_Create.this, "Benutzername enthält unerlaubte Zeichen. Es sind nur folgende Zeichen erlaubt: a-z A-Z äöü ÄÖÜ ß 0-9 _", "OK"); // TODO
-																																											// TEXT
-																																											// in
-																																											// string.xml
+					Utilities.toastMessage(User_Create.this, getString(R.string.utilities_forbiddenSignsUsername));
 					return;
 				}
 
 				if (!Patterns.EMAIL_ADDRESS.matcher(email).matches())
 				{
-					Utilities.message(User_Create.this, "E-Mail-Adresse ist fehlerhaft.", "OK"); // TODO
-																									// TEXT
-																									// in
-																									// string.xml
+					Utilities.toastMessage(User_Create.this, getString(R.string.utilities_forbiddenEmail));
 					return;
 				}
 
 				if (!email.equals(email2))
 				{
-					Utilities.message(User_Create.this, "E-Mail-Adressen stimmen nicht überein.", "OK"); // TODO
-																											// TEXT
-																											// in
-																											// string.xml
+					Utilities.toastMessage(User_Create.this, getString(R.string.utilities_emailDifferent));
 					return;
 				}
 
 				if (!password.equals(password2))
 				{
-					Utilities.message(User_Create.this, "Passwörter stimmen nicht überein.", "OK"); // TODO
-																									// TEXT
-																									// in
-																									// string.xml
+					Utilities.toastMessage(User_Create.this, getString(R.string.utilities_passwordDifferent));
 					return;
 				}
 
@@ -112,20 +98,14 @@ public class User_Create extends Activity
 				ArrayList<HashMap<String, String>> userList = user.get("?username=" + username);
 				if (userList.size() > 0)
 				{
-					Utilities.message(User_Create.this, "Benutzername ist schon vergeben.", "OK"); // TODO
-																									// TEXT
-																									// in
-																									// string.xml
+					Utilities.toastMessage(User_Create.this, getString(R.string.utilities_usernameAlreadyUsed));
 					return;
 				}
 
 				ArrayList<HashMap<String, String>> listEmail = user.get("?email=" + email);
 				if (listEmail.size() > 0)
 				{
-					Utilities.message(User_Create.this, "E-Mail ist schon vergeben.", "OK"); // TODO
-																								// TEXT
-																								// in
-																								// string.xml
+					Utilities.toastMessage(User_Create.this, getString(R.string.utilities_emailAlreadyUsed));
 					return;
 				}
 
@@ -152,17 +132,19 @@ public class User_Create extends Activity
 
 					editor.commit();
 
+					Utilities.toastMessage(User_Create.this, getString(R.string.utilities_createUser));
+
 					Intent intent = new Intent(User_Create.this, User_Activate.class);
 					startActivity(intent);
 				}
 				else if (userList.size() > 1) // Dürfte nie passieren...
 				{
-					Utilities.message(User_Create.this, "Fehler: Benutzername schon vorhanden.", "OK");
+					Utilities.toastMessage(User_Create.this, getString(R.string.utilities_usernameAlreadyUsed));
 				}
 				else
 				// Dürfte nie passieren...
 				{
-					Utilities.message(User_Create.this, "Fehler beim Speichern. Versuchen Sie es bitte erneut.", "OK");
+					Utilities.toastMessage(User_Create.this, getString(R.string.utilities_saveError));
 				}
 			}
 		});
@@ -188,5 +170,18 @@ public class User_Create extends Activity
 			default:
 				return super.onOptionsItemSelected(item);
 		}
+	}
+
+	@Override
+	public boolean onKeyDown(int keyCode, KeyEvent event)
+	{
+		if (keyCode == KeyEvent.KEYCODE_BACK)
+		{
+			Intent intent = new Intent(this, User_Login.class);
+			startActivity(intent);
+
+			return true;
+		}
+		return super.onKeyDown(keyCode, event);
 	}
 }

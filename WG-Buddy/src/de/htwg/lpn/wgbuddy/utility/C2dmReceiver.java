@@ -19,6 +19,7 @@ import android.content.SharedPreferences.Editor;
 import android.util.Log;
 import de.htwg.lpn.model.User;
 import de.htwg.lpn.wgbuddy.Message_List;
+import de.htwg.lpn.wgbuddy.R;
 import de.htwg.lpn.wgbuddy.Shopping_List;
 import de.htwg.lpn.wgbuddy.Task_List;
 import de.htwg.lpn.wgbuddy.Main;
@@ -121,24 +122,24 @@ public class C2dmReceiver extends BroadcastReceiver
 
 		if (messagetype.equals("Shopping"))
 		{
-			notification = new Notification(android.R.drawable.stat_notify_chat, "Einkaufsliste wurde geupdated", System.currentTimeMillis());
+			notification = new Notification(android.R.drawable.stat_notify_chat, context.getString(R.string.googleService_shoppingUpdated), System.currentTimeMillis());
 			contentIntent = PendingIntent.getActivity(context.getApplicationContext(), 0, new Intent(context.getApplicationContext(), Shopping_List.class), PendingIntent.FLAG_UPDATE_CURRENT);
-			contentTitle = "WG Buddy";
-			contentText = "Einkaufsliste wurde geupdated";
+			contentTitle = context.getString(R.string.app_name);
+			contentText = context.getString(R.string.googleService_shoppingUpdated);
 		}
 		else if (messagetype.equals("Task"))
 		{
-			notification = new Notification(android.R.drawable.stat_notify_chat, "Aufgaben wurden geupdated", System.currentTimeMillis());
+			notification = new Notification(android.R.drawable.stat_notify_chat, context.getString(R.string.googleService_taskUpdated), System.currentTimeMillis());
 			contentIntent = PendingIntent.getActivity(context.getApplicationContext(), 0, new Intent(context.getApplicationContext(), Task_List.class), PendingIntent.FLAG_UPDATE_CURRENT);
-			contentTitle = "WG Buddy";
-			contentText = "Aufgaben wurden geupdated";
+			contentTitle = context.getString(R.string.app_name);
+			contentText = context.getString(R.string.googleService_taskUpdated);
 		}
 		else if (messagetype.equals("Message"))
 		{
-			notification = new Notification(android.R.drawable.stat_notify_chat, "Es sind neue Nachrichten im Chat", System.currentTimeMillis());
+			notification = new Notification(android.R.drawable.stat_notify_chat, context.getString(R.string.googleService_taskUpdated), System.currentTimeMillis());
 			contentIntent = PendingIntent.getActivity(context.getApplicationContext(), 0, new Intent(context.getApplicationContext(), Message_List.class), PendingIntent.FLAG_UPDATE_CURRENT);
-			contentTitle = "WG Buddy";
-			contentText = "Es sind neue Nachrichten im Chat";
+			contentTitle = context.getString(R.string.app_name);
+			contentText = context.getString(R.string.googleService_taskUpdated);
 		}
 
 		notification.flags = Notification.FLAG_AUTO_CANCEL;
