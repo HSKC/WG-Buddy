@@ -128,7 +128,7 @@
     <string name="utilities_lostPasswordMessage">Bitte gebe deine E-Mail Adresse ein. Ein zufällig generierter Schlüssel wird dann an deine E-Mail Adresse geschickt.</string>
     <string name="utilities_activateMessage">Der Account wurde noch nicht aktiviert. Bitte geben Sie den Schlüssel ein, welcher Ihnen per E-Mail zugeschickt wurde.</string>
     <string name="utilities_activateEmailSendedMessage">Eine E-Mail mit dem Schlüssel wurde Ihnen zugesendet.</string>
-    <string name="utilities_accountActivateSuceed">Account wurde erfolgreich aktiviert!</string>
+    <string name="utilities_accountActivateSucceed">Account wurde erfolgreich aktiviert!</string>
     <string name="utilities_pleaseWait">Bitte warten</string>
     <string name="utilities_allFields">Alle Felder müssen ausgefüllt sein!</string>
     <string name="utilities_deleteQuestion">Sind Sie sicher, dass Sie den Eintrag löschen wollen?</string>
@@ -138,6 +138,12 @@
     <string name="utilities_createWG">Die WG wurde erfolgreich erstellt.</string>
     <string name="utilities_wgLogin">Sie sind der WG erfolgreich beigetreten.</string>
     <string name="utilities_saveError">Fehler beim Speichern. Versuchen Sie es bitte erneut.</string>
+    <string name="utilities_inviteText">Bitte gebe die E-Mail Adresse ein um eine Person einzuladen.</string>
+    <string name="utilities_inviteSucceed">Es wurde eine Einladung an die angegebene E-Mail Adresse geschickt.</string>
+    <string name="utilities_passwordLostEmail">Ein Schlüssel wurde an die angegebene E-Mail Adresse geschickt.</string>
+    <string name="utilities_noOtherUser">Es ist gerade kein anderer Bewohner in der WG.</string>
+    <string name="utilities_leaveWGSucceed">Sie haben die WG erfolgreich verlassen.</string>
+    <string name="utilities_changeAdminSucceed">Der WG-Admin wurde erfolgreich geändert.</string>
     
     
 	<string name="utilities_activateAccount">Account aktivieren</string>

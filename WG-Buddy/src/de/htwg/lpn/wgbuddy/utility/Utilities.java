@@ -18,6 +18,7 @@ import android.widget.Toast;
 import de.htwg.lpn.model.User;
 import de.htwg.lpn.model.WG;
 import de.htwg.lpn.wgbuddy.Main;
+import de.htwg.lpn.wgbuddy.R;
 import de.htwg.lpn.wgbuddy.User_Login;
 
 public class Utilities
@@ -126,6 +127,9 @@ public class Utilities
 		SharedPreferences.Editor editor = settings.edit();
 		editor.clear();
 		editor.commit();
+		
+		Utilities.toastMessage(context, context.getString(R.string.utilities_leaveWGSucceed));
+		
 		Intent intent = new Intent(context, Main.class);
 		context.startActivity(intent);
 	}

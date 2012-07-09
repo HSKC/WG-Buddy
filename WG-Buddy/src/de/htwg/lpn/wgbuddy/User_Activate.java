@@ -79,7 +79,7 @@ public class User_Activate extends Activity
 					nameValuePairs.add(new BasicNameValuePair("status", "1"));
 					user.update(Integer.valueOf(userEntry.get("id")), nameValuePairs);
 
-					Utilities.toastMessage(User_Activate.this, getString(R.string.utilities_accountActivateSuceed));
+					Utilities.toastMessage(User_Activate.this, getString(R.string.utilities_accountActivateSucceed));
 
 					Editor editor = settings.edit();
 
