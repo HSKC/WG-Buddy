@@ -62,6 +62,7 @@ public class Shopping_List<V> extends Activity
 	ArrayAdapter<CharSequence> directionAdapter = null;
 
 	private ShoppingItem shoppingItem;
+	private HashMap<Integer, HashMap<String, String>> shoppingMap = new HashMap<Integer, HashMap<String, String>>();
 
 	@Override
 	public void onCreate(Bundle savedInstanceState)
@@ -205,9 +206,12 @@ public class Shopping_List<V> extends Activity
 
 		User user = new User(settings);
 		ArrayList<HashMap<String, String>> list = shoppingItem.get(parameter);
+		shoppingMap.clear();
 
 		for (HashMap<String, String> map : list)
 		{
+			shoppingMap.put(Integer.valueOf(map.get("id")), map);
+
 			if (map.get("userId").equals("0"))
 			{
 				map.put("username", "Keiner");
@@ -270,6 +274,21 @@ public class Shopping_List<V> extends Activity
 					ImageButton button = (ImageButton) view;
 					final Integer id = Integer.valueOf(data.toString());
 					button.setTag(id);
+					button.setVisibility(View.VISIBLE);
+					
+					if (!shoppingMap.containsKey(id))
+					{
+						button.setVisibility(View.INVISIBLE);
+						return true;
+					}
+
+					Integer status = Integer.valueOf(shoppingMap.get(id).get("status"));
+
+					if (status == 1)
+					{
+						button.setVisibility(View.INVISIBLE);
+					}
+					
 
 					button.setOnClickListener(new OnClickListener()
 					{
@@ -438,7 +457,7 @@ public class Shopping_List<V> extends Activity
 		alertDialog.show();
 
 		alertDialog.getWindow().setLayout(300, 600);
-		
+
 		typeAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 
 		Spinner typeSpinner = (Spinner) layout.findViewById(R.id.listTypeSpinner);
