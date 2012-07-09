@@ -8,19 +8,9 @@ public class RandomUser
 
 	private Double totalPoints;
 	private TreeMap<String, Double> userlist;
-	private static RandomUser instance = null;
 
-	private RandomUser()
+	public RandomUser()
 	{
-	}
-
-	public static RandomUser getInstance()
-	{
-		if (instance == null)
-		{
-			instance = new RandomUser();
-		}
-		return instance;
 	}
 
 	/**
