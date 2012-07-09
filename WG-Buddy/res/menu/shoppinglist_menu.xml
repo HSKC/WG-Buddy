@@ -1,18 +1,25 @@
 <?xml version="1.0" encoding="utf-8"?>
-<menu xmlns:android="http://schemas.android.com/apk/res/android">
-	<item android:id="@+id/refresh"
-	android:title="Refresh"
-	android:icon="@drawable/refresh" />	
-	<item android:id="@+id/add"
-	android:title="Add"
-	android:icon="@drawable/add" />	
-	<item android:id="@+id/settings"
-	android:title="Settings"
-	android:icon="@drawable/settings" />
-	<item android:id="@+id/menu"
-	android:title="Hauptmenü" 
-	android:icon="@drawable/home" />
-	<item android:id="@+id/about"
-	android:title="About"
-	android:icon="@drawable/information"  />
+<menu xmlns:android="http://schemas.android.com/apk/res/android" >
+
+    <item
+        android:id="@+id/refresh"
+        android:icon="@drawable/refresh"
+        android:title="@string/menu_refresh"/>
+    <item
+        android:id="@+id/add"
+        android:icon="@drawable/add"
+        android:title="@string/menu_add"/>
+    <item
+        android:id="@+id/settings"
+        android:icon="@drawable/settings"
+        android:title="@string/menu_filter"/>
+    <item
+        android:id="@+id/menu"
+        android:icon="@drawable/home"
+        android:title="@string/menu_menu"/>
+    <item
+        android:id="@+id/about"
+        android:icon="@drawable/information"
+        android:title="@string/menu_about"/>
+
 </menu>
