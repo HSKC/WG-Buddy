@@ -10,6 +10,10 @@
         android:icon="@drawable/add"
         android:title="@string/menu_add"/>
     <item
+        android:id="@+id/settings"
+        android:icon="@drawable/settings"
+        android:title="@string/menu_filter"/>
+    <item
         android:id="@+id/menu"
         android:icon="@drawable/home"
         android:title="@string/menu_menu"/>
