@@ -138,6 +138,12 @@ public class Utilities
 		return wgList.get(0).get("adminId");
 	}
 
+	public static HashMap<String, String> getUserWithName(SharedPreferences settings, String username)
+	{
+		User user = new User(settings);
+		return user.get("?username=" + username).get(0);
+	}
+
 	public static String getDateTimeFormatForMessageList(String data)
 	{
 		// Change Dateformat

@@ -26,6 +26,11 @@ public class WorkerThread extends Thread
 	@Override
 	public void run()
 	{
+		if(handler == null || pd == null)
+		{
+			return;
+		}
+		
 		Message message = null;
 
 		ExecutorService executor = Executors.newFixedThreadPool(1);

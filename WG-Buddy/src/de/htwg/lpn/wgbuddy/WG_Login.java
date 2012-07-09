@@ -101,7 +101,7 @@ public class WG_Login extends Activity
 					userNameValuePairs.add(new BasicNameValuePair("wgId", settings.getString("wg_id", "")));
 					user.update(Integer.valueOf(settings.getString("user_id", "")), userNameValuePairs);
 
-					Utilities.toastMessage(WG_Login.this, getString(R.string.utilities_createWG));
+					Utilities.toastMessage(WG_Login.this, getString(R.string.utilities_wgLogin));
 
 					Intent intent = new Intent(WG_Login.this, Main.class);
 					startActivity(intent);

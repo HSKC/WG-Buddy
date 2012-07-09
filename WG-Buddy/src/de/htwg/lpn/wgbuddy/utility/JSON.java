@@ -28,6 +28,7 @@ public class JSON
 
 	public static void postData(String url, Context context)
 	{
+		url = url.replace(" ", "");
 		HttpPost httppost = new HttpPost(url);
 
 		AsyncPost asp = new AsyncPost();
@@ -56,7 +57,6 @@ public class JSON
 
 	public static void postData(String url, List<NameValuePair> nameValuePairs, Context context)
 	{
-
 		HttpPost httppost = new HttpPost(url);
 		try
 		{

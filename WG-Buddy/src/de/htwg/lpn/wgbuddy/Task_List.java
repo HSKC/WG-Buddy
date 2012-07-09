@@ -328,7 +328,7 @@ public class Task_List extends Activity
 								@Override
 								public Message call() throws Exception
 								{
-									Message message = new Message();
+									Message message = Message.obtain();
 
 									ArrayList<HashMap<String, String>> selectedTask = task.get("?id=" + id.toString());
 
@@ -426,7 +426,7 @@ public class Task_List extends Activity
 												gs.sendMessageToPhone("Task");
 											}
 
-											return new Message();
+											return Message.obtain();
 										}
 									};
 

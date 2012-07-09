@@ -105,6 +105,8 @@ public class User_Login extends Activity
 					}
 
 					editor.commit();
+					
+					Utilities.toastMessage(User_Login.this, getString(R.string.utilities_login));
 
 					Intent intent = new Intent(User_Login.this, Main.class);
 					startActivity(intent);
