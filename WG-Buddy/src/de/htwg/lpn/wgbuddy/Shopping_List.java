@@ -437,7 +437,7 @@ public class Shopping_List<V> extends Activity
 		final AlertDialog alertDialog = builder.create();
 		alertDialog.show();
 
-		alertDialog.getWindow().setLayout(300, 400);
+		alertDialog.getWindow().setLayout(300, 600);
 		
 		typeAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 
