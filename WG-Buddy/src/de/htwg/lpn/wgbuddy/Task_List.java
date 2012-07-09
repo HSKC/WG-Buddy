@@ -26,19 +26,18 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
-import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.RadioGroup;
-import android.widget.TextView;
 import android.widget.RadioGroup.OnCheckedChangeListener;
 import android.widget.RatingBar;
 import android.widget.SimpleAdapter;
 import android.widget.SimpleAdapter.ViewBinder;
 import android.widget.Spinner;
+import android.widget.TextView;
 import de.htwg.lpn.model.GoogleService;
 import de.htwg.lpn.model.Task;
 import de.htwg.lpn.model.User;
@@ -63,6 +62,7 @@ public class Task_List extends Activity
 	ArrayAdapter<CharSequence> directionAdapter = null;
 
 	private Task task;
+	private HashMap<Integer, HashMap<String, String>> taskMap = new HashMap<Integer, HashMap<String, String>>();
 
 	@Override
 	public void onCreate(Bundle savedInstanceState)
@@ -208,9 +208,11 @@ public class Task_List extends Activity
 
 		User user = new User(settings);
 		ArrayList<HashMap<String, String>> list = task.get(parameter);
+		taskMap.clear();
 
 		for (HashMap<String, String> map : list)
 		{
+			taskMap.put(Integer.valueOf(map.get("id")), map);
 			if (map.get("userId").equals("0"))
 			{
 				map.put("username", "Keiner");
@@ -271,7 +273,22 @@ public class Task_List extends Activity
 				{
 					ImageButton button = (ImageButton) view;
 					final Integer id = Integer.valueOf(data.toString());
-					button.setTag(id);
+					button.setTag(id);					
+					button.setVisibility(View.VISIBLE);
+					
+					if (!taskMap.containsKey(id))
+					{
+						button.setVisibility(View.INVISIBLE);
+						return true;
+					}
+
+					Integer userId = Integer.valueOf(taskMap.get(id).get("userId"));
+					Integer status = Integer.valueOf(taskMap.get(id).get("status"));
+
+					if (userId != Integer.valueOf(settings.getString("user_id", "")) || status == 1)
+					{
+						button.setVisibility(View.INVISIBLE);
+					}
 
 					button.setOnClickListener(new OnClickListener()
 					{
@@ -441,29 +458,6 @@ public class Task_List extends Activity
 		sa.setViewBinder(vb);
 		sa.notifyDataSetChanged();
 		taskList.setAdapter(sa);
-
-		taskList.setOnItemClickListener(new OnItemClickListener()
-		{
-			@Override
-			public void onItemClick(AdapterView<?> arg0, View arg1, int arg2, long arg3)
-			{
-				// String id = idList.get(arg2);
-				// String par = "?wgId=" + settings.getString("wg_id", "")
-				// + "&userId=" + settings.getString("user_id", "")
-				// + "&id=" + id;
-				// ArrayList<HashMap<String, String>> selectedTask = null;// =
-				// // list.get(par);
-				//
-				// Intent intent = new Intent(TaskList.this,
-				// UserTaskCompleteEntry.class);
-				// intent.putExtra("name", selectedTask.get(0).get("name"));
-				// intent.putExtra("comment",
-				// selectedTask.get(0).get("comment"));
-				// intent.putExtra("points", selectedTask.get(0).get("points"));
-				// intent.putExtra("status", selectedTask.get(0).get("status"));
-				// startActivity(intent);
-			}
-		});
 	}
 
 	public void getTaskListOptionsDialog()
