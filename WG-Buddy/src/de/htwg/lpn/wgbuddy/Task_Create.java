@@ -120,8 +120,9 @@ public class Task_Create extends Activity
 			@Override
 			public void onClick(View v)
 			{
-				String name = name_TextView.getText().toString().trim();
-				String comment = comment_TextView.getText().toString().trim();
+				final String name = name_TextView.getText().toString().trim();
+				final String comment = comment_TextView.getText().toString().trim();
+				final String points = new Double(points_RatingBar.getRating()).toString();
 
 				if (name.compareTo("") != 0 && comment.compareTo("") != 0)
 				{
@@ -133,9 +134,10 @@ public class Task_Create extends Activity
 						{
 							super.handleMessage(msg);
 
-							String name = (String) msg.obj;
-
-							Utilities.toastMessage(Task_Create.this, getString(R.string.task_created) + name);
+							if(msg != null && msg.obj != null)
+							{
+								Utilities.toastMessage(Task_Create.this, getString(R.string.task_created) + (String) msg.obj);
+							}
 
 							Intent intent = new Intent(Task_Create.this, Task_List.class);
 							startActivity(intent);
@@ -147,7 +149,7 @@ public class Task_Create extends Activity
 						@Override
 						public Message call() throws Exception
 						{
-							Message message = new Message();
+							Message message = Message.obtain();
 
 							ListAdapter adapter = user_ListView.getAdapter();
 							Integer count = user_ListView.getChildCount();
@@ -185,13 +187,32 @@ public class Task_Create extends Activity
 
 							message.obj = chosenUserName;
 
-							createNewTask(chosenUserName);
+							HashMap<String, String> userObject = Utilities.getUserWithName(settings, chosenUserName);
+
+							List<NameValuePair> nameValuePairs = new ArrayList<NameValuePair>();
+							nameValuePairs.add(new BasicNameValuePair("wgId", settings.getString("wg_id", "")));
+							nameValuePairs.add(new BasicNameValuePair("userId", userObject.get("userId")));
+							nameValuePairs.add(new BasicNameValuePair("name", name));
+							nameValuePairs.add(new BasicNameValuePair("comment", comment));
+							nameValuePairs.add(new BasicNameValuePair("points", points));
+							nameValuePairs.add(new BasicNameValuePair("status", "0"));
+
+							task.insert(nameValuePairs);
 
 							if (Main.usepush)
 							{
 								GoogleService gs = new GoogleService(settings);
 								gs.sendMessageToPhone("Task");
 							}
+							
+							List<NameValuePair> mailNameValuePairs = new ArrayList<NameValuePair>();
+							mailNameValuePairs.add(new BasicNameValuePair("username", userObject.get("username")));
+							mailNameValuePairs.add(new BasicNameValuePair("email", userObject.get("email")));
+							mailNameValuePairs.add(new BasicNameValuePair("taskname", name));
+							mailNameValuePairs.add(new BasicNameValuePair("tasktext", comment));
+
+							Mail mail = new Mail(settings);
+							mail.sendTask(mailNameValuePairs);
 
 							return message;
 						}
@@ -235,48 +256,6 @@ public class Task_Create extends Activity
 			default:
 				return super.onOptionsItemSelected(item);
 		}
-	}
-
-	private void createNewTask(String chosenUserName)
-	{
-		String userId = findUserId(chosenUserName);
-
-		List<NameValuePair> nameValuePairs = new ArrayList<NameValuePair>();
-		nameValuePairs.add(new BasicNameValuePair("wgId", settings.getString("wg_id", "")));
-		nameValuePairs.add(new BasicNameValuePair("userId", userId));
-		nameValuePairs.add(new BasicNameValuePair("name", name_TextView.getText().toString().trim()));
-		nameValuePairs.add(new BasicNameValuePair("comment", comment_TextView.getText().toString().trim()));
-		nameValuePairs.add(new BasicNameValuePair("points", new Double(points_RatingBar.getRating()).toString()));
-		nameValuePairs.add(new BasicNameValuePair("status", "0"));
-
-		task.insert(nameValuePairs);
-
-		if (Main.usepush)
-		{
-			GoogleService gs = new GoogleService(settings);
-			gs.sendMessageToPhone("Task");
-		}
-
-		ArrayList<HashMap<String, String>> tasks = task.get("?wgId=" + settings.getString("wg_id", "") + "&userId=" + userId);
-		sendMail(tasks);
-	}
-
-	private void sendMail(ArrayList<HashMap<String, String>> tasks)
-	{
-		Mail mail = new Mail(settings);
-		mail.sendTask(tasks.get(0).get("id"));
-	}
-
-	protected String findUserId(String chosenUserName)
-	{
-		ArrayList<HashMap<String, String>> chosenUser = user.get("?wgId=" + settings.getString("wg_id", "") + "&username=" + chosenUserName);
-		return chosenUser.get(0).get("id");
-	}
-
-	protected String findUserEmail(String chosenUserName)
-	{
-		ArrayList<HashMap<String, String>> chosenUser = user.get("?wgId=" + settings.getString("wg_id", "") + "&username=" + chosenUserName);
-		return chosenUser.get(0).get("email");
 	}
 
 	public void getTaskUserDialog()

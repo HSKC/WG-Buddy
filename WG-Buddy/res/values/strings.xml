@@ -35,10 +35,9 @@
     <string name="preferences_wgpassword">Passwort</string>
     <string name="preferences_createNewWG">Neue WG erstellen</string>
     <string name="preferences_connect">Verbinden</string>
-    <string name="preferences_save">speichern</string>
+    <string name="preferences_save">Speichern</string>
     <string name="preferences_username">Name</string>
     <string name="preferences_email">E-Mail</string>
-    <string name="preferences_adminpassword">Adminpassword</string>
     <string name="preferenes_createWG">Erstellen</string>
     <string name="preferences_login">Login</string>
     <string name="preferences_password">Passwort</string>
@@ -172,10 +171,10 @@
         <item>Aufsteigend</item>
         <item>Absteigend</item>
     </string-array>
-        <string name="messenger_add">schreiben</string>
+        <string name="messenger_add">Schreiben</string>
         <string name="messengercreate_Title">Titel</string>
         <string name="messengercreate_message">Nachricht</string>
-        <string name="messengercreate_send">abschicken</string>
+        <string name="messengercreate_send">Abschicken</string>
        	<string name="messenger_from">von</string>
     
     <string-array name="messengercolors_array">
@@ -196,8 +195,8 @@
         <item>#444444</item>
     </string-array>
     
-    <string name="taskdistributor_myTasks">meine Aufgaben</string>
-    <string name="userTaskCleared">erledigt</string>
+    <string name="taskdistributor_myTasks">Meine Aufgaben</string>
+    <string name="userTaskCleared">Erledigt</string>
     <string name="userTaskName">Aufgabe</string>
     <string name="userTaskComment">Kommentar</string>
     <string name="usertTaskRating">Punkte</string>
@@ -215,12 +214,12 @@
     <string name="task_alreadyDeleted">Fehler: Aufgabe nicht mehr vorhanden.</string>
     <string name="task_alreadyDone">Die Aufgabe wurde schon erledigt.</string>
     <string name="task_completedItem">Die Aufgabe wurde als erledigt gekennzeichnet.</string>
-    <string name="task_created">Die Aufgabe wurde erfolgreich erstellt.\n Folgender WG-Bewohner wurde für die Aufgabe ausgewählt und per E-Mail benachrichtigt: </string>
+    <string name="task_created">Die Aufgabe wurde erfolgreich erstellt.\n Folgender WG-Bewohner wurde für die Aufgabe ausgewählt und per E-Mail benachrichtigt:\n</string>
     <string name="task_deletedItem">Die Aufgabe wurde erfolgreich gelöscht.</string>
     <string name="task_otherUser">Die Aufgabe ist einer anderen Person zugeteilt.</string>
     <string name="task_users">Teilnehmer</string>
     
     
-    <string name="userTaskgo">los</string>
+    <string name="userTaskgo">Los</string>
 
 </resources>
