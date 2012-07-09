@@ -35,10 +35,9 @@
     <string name="preferences_wgpassword">Passwort</string>
     <string name="preferences_createNewWG">Neue WG erstellen</string>
     <string name="preferences_connect">Verbinden</string>
-    <string name="preferences_save">speichern</string>
+    <string name="preferences_save">Speichern</string>
     <string name="preferences_username">Name</string>
     <string name="preferences_email">E-Mail</string>
-    <string name="preferences_adminpassword">Adminpassword</string>
     <string name="preferenes_createWG">Erstellen</string>
     <string name="preferences_login">Login</string>
     <string name="preferences_password">Passwort</string>
@@ -48,6 +47,11 @@
     <string name="preferences_changePassword">Passwort ändern</string>
     <string name="preferences_changeWGPassword">WG Passwort ändern</string>
     <string name="preferences_activateAccount">Konto aktivieren</string>
+    <string name="preferences_leaveText">Sind Sie sicher, dass Sie die WG verlassen möchten? Sie werden anschließend automatisch ausgeloggt.</string>
+    
+    <string name="googleService_shoppingUpdated">Einkaufsliste wurde geupdated</string>
+    <string name="googleService_taskUpdated">Aufgaben wurden geupdated</string>
+    <string name="googleService_messageUpdated">Es sind neue Nachrichten im Chat</string>
     
     <string name="informations_wgName">WG-Name</string>
     <string name="informations_wgAdmin">WG-Admin</string>
@@ -109,16 +113,37 @@
     <string name="utilities_passwordWrong">Passwort falsch</string>
     <string name="utilities_passwordChange">Passwort ändern</string>
     <string name="utilities_passwordDifferent">Passwörter stimmen nicht überein.</string>
+    <string name="utilities_emailDifferent">E-Mail Adressen stimmen nicht überein.</string>
+    <string name="utilities_forbiddenSignsUsername">Benutzername enthält unerlaubte Zeichen. Es sind nur folgende Zeichen erlaubt: a–z A–Z 0–9</string>    
+    <string name="utilities_forbiddenSignsWGname">WG-Name enthält unerlaubte Zeichen. Es sind nur folgende Zeichen erlaubt: a–z A–Z 0–9</string> 
+    <string name="utilities_forbiddenEmail">E-Mail-Adresse ist fehlerhaft.</string> 
+    <string name="utilities_usernameAlreadyUsed">Benutzername ist schon vergeben.</string> 
+    <string name="utilities_usernamePasswordWrong">Der eingegebene Benutzername oder das Passwort ist falsch.</string> 
+    <string name="utilities_wgnamePasswordWrong">Der eingegebene WG Name oder das Passwort ist falsch.</string> 
+    <string name="utilities_emailAlreadyUsed">E-Mail ist schon vergeben.</string> 
+    <string name="utilities_wgnameAlreadyUsed">Benutzername ist schon vergeben.</string> 
     <string name="utilities_passwordChangeSucceed">Passwort wurde erfolgreich geändert.</string>
     <string name="utilities_passwordOldNewMessage">Geben Sie bitte ihr altes Password, sowie ein neues Passwort ein.</string>
     <string name="utilities_passwordWGOldNewMessage">Geben Sie bitte das alte WG Passwort, sowie ein neues WG Passwort ein.</string>     
     <string name="utilities_lostPasswordMessage">Bitte gebe deine E-Mail Adresse ein. Ein zufällig generierter Schlüssel wird dann an deine E-Mail Adresse geschickt.</string>
     <string name="utilities_activateMessage">Der Account wurde noch nicht aktiviert. Bitte geben Sie den Schlüssel ein, welcher Ihnen per E-Mail zugeschickt wurde.</string>
     <string name="utilities_activateEmailSendedMessage">Eine E-Mail mit dem Schlüssel wurde Ihnen zugesendet.</string>
-    <string name="utilities_accountActivateSuceed">Account wurde erfolgreich aktiviert!</string>
+    <string name="utilities_accountActivateSucceed">Account wurde erfolgreich aktiviert!</string>
     <string name="utilities_pleaseWait">Bitte warten</string>
     <string name="utilities_allFields">Alle Felder müssen ausgefüllt sein!</string>
     <string name="utilities_deleteQuestion">Sind Sie sicher, dass Sie den Eintrag löschen wollen?</string>
+    <string name="utilities_logout">Sie haben sich erfolgreich ausgeloggt.</string>
+    <string name="utilities_login">Sie haben sich erfolgreich eingeloggt.</string>
+    <string name="utilities_createUser">Das Konto wurde erfolgreich erstellt.</string>
+    <string name="utilities_createWG">Die WG wurde erfolgreich erstellt.</string>
+    <string name="utilities_wgLogin">Sie sind der WG erfolgreich beigetreten.</string>
+    <string name="utilities_saveError">Fehler beim Speichern. Versuchen Sie es bitte erneut.</string>
+    <string name="utilities_inviteText">Bitte gebe die E-Mail Adresse ein um eine Person einzuladen.</string>
+    <string name="utilities_inviteSucceed">Es wurde eine Einladung an die angegebene E-Mail Adresse geschickt.</string>
+    <string name="utilities_passwordLostEmail">Ein Schlüssel wurde an die angegebene E-Mail Adresse geschickt.</string>
+    <string name="utilities_noOtherUser">Es ist gerade kein anderer Bewohner in der WG.</string>
+    <string name="utilities_leaveWGSucceed">Sie haben die WG erfolgreich verlassen.</string>
+    <string name="utilities_changeAdminSucceed">Der WG-Admin wurde erfolgreich geändert.</string>
     
     
 	<string name="utilities_activateAccount">Account aktivieren</string>
@@ -127,6 +152,7 @@
 	<string name="utilities_selectNewAdmin">Sie müssen einen neuen Admin auswählen.</string>	
 	<string name="utilities_aboutText">WG Buddy ist eine von Jens Küblbeck, Felix Offergeld und Dominik Wieland entwickelte App.\n\Version 1.0\n\nIm Handbuch finden Sie weiter Informationen.</string>
     <string name="utilities_aboutLink">http://wgbuddy.domoprojekt.de/WGBuddy%20Anwenderhandbuch.htm</string>
+    <string name="utilities_aboutLinkText">Handbuch</string>
     
     <string-array name="shoppingListType_array">
         <item>Alle Einträge</item>
@@ -151,10 +177,10 @@
         <item>Aufsteigend</item>
         <item>Absteigend</item>
     </string-array>
-        <string name="messenger_add">schreiben</string>
+        <string name="messenger_add">Schreiben</string>
         <string name="messengercreate_Title">Titel</string>
         <string name="messengercreate_message">Nachricht</string>
-        <string name="messengercreate_send">abschicken</string>
+        <string name="messengercreate_send">Abschicken</string>
        	<string name="messenger_from">von</string>
     
     <string-array name="messengercolors_array">
@@ -175,8 +201,8 @@
         <item>#444444</item>
     </string-array>
     
-    <string name="taskdistributor_myTasks">meine Aufgaben</string>
-    <string name="userTaskCleared">erledigt</string>
+    <string name="taskdistributor_myTasks">Meine Aufgaben</string>
+    <string name="userTaskCleared">Erledigt</string>
     <string name="userTaskName">Aufgabe</string>
     <string name="userTaskComment">Kommentar</string>
     <string name="usertTaskRating">Punkte</string>
@@ -194,12 +220,12 @@
     <string name="task_alreadyDeleted">Fehler: Aufgabe nicht mehr vorhanden.</string>
     <string name="task_alreadyDone">Die Aufgabe wurde schon erledigt.</string>
     <string name="task_completedItem">Die Aufgabe wurde als erledigt gekennzeichnet.</string>
-    <string name="task_created">Die Aufgabe wurde erfolgreich erstellt.\n Folgender WG-Bewohner wurde für die Aufgabe ausgewählt und per E-Mail benachrichtigt: </string>
+    <string name="task_created">Die Aufgabe wurde erfolgreich erstellt.\n Folgender WG-Bewohner wurde für die Aufgabe ausgewählt und per E-Mail benachrichtigt:\n</string>
     <string name="task_deletedItem">Die Aufgabe wurde erfolgreich gelöscht.</string>
     <string name="task_otherUser">Die Aufgabe ist einer anderen Person zugeteilt.</string>
     <string name="task_users">Teilnehmer</string>
     
     
-    <string name="userTaskgo">los</string>
+    <string name="userTaskgo">Los</string>
 
 </resources>

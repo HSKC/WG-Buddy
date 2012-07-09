@@ -5,26 +5,23 @@ import java.util.Date;
 import java.util.HashMap;
 
 import android.app.Activity;
-import android.app.AlertDialog;
 import android.app.PendingIntent;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.StrictMode;
-import android.text.method.SingleLineTransformationMethod;
+import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
-import android.widget.EditText;
 import android.widget.TextView;
-import de.htwg.lpn.model.Mail;
 import de.htwg.lpn.model.User;
 import de.htwg.lpn.model.WG;
 import de.htwg.lpn.wgbuddy.utility.Dialogs;
+import de.htwg.lpn.wgbuddy.utility.Utilities;
 
 public class Main extends Activity
 {
@@ -201,35 +198,7 @@ public class Main extends Activity
 			@Override
 			public void onClick(View v)
 			{
-				AlertDialog.Builder builder = new AlertDialog.Builder(Main.this);
-
-				final EditText editText = new EditText(Main.this);
-				editText.setTransformationMethod(SingleLineTransformationMethod.getInstance());
-				editText.setHint("E-Mail");
-
-				builder.setMessage("Bitte gebe die E-Mail Adresse ein um eine Person einzuladen.");
-				builder.setCancelable(true);
-				builder.setView(editText);
-				builder.setPositiveButton("Einladen", new DialogInterface.OnClickListener()
-				{
-					public void onClick(DialogInterface dialog, int id)
-					{
-						Mail mail = new Mail(settings);
-						mail.sendInvite(editText.getText().toString());
-
-					}
-				});
-				builder.setNegativeButton("Abbrechen", new DialogInterface.OnClickListener()
-				{
-					@Override
-					public void onClick(DialogInterface dialog, int which)
-					{
-						dialog.cancel();
-					}
-				});
-
-				AlertDialog alert = builder.create();
-				alert.show();
+				Dialogs.getInviteDialog(Main.this, settings);
 			}
 		});
 
@@ -241,6 +210,8 @@ public class Main extends Activity
 				SharedPreferences.Editor editor = settings.edit();
 				editor.clear();
 				editor.commit();
+
+				Utilities.toastMessage(Main.this, getString(R.string.utilities_logout));
 
 				Intent intent = new Intent(Main.this, Main.class);
 				startActivity(intent);
@@ -268,5 +239,15 @@ public class Main extends Activity
 			default:
 				return super.onOptionsItemSelected(item);
 		}
+	}
+
+	@Override
+	public boolean onKeyDown(int keyCode, KeyEvent event)
+	{
+		if (keyCode == KeyEvent.KEYCODE_BACK)
+		{
+			return true;
+		}
+		return super.onKeyDown(keyCode, event);
 	}
 }

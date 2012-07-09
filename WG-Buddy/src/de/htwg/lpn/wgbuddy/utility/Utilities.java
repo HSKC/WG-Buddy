@@ -14,12 +14,12 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.net.Uri;
 import android.widget.Toast;
 import de.htwg.lpn.model.User;
 import de.htwg.lpn.model.WG;
-import de.htwg.lpn.wgbuddy.User_Login;
 import de.htwg.lpn.wgbuddy.Main;
+import de.htwg.lpn.wgbuddy.R;
+import de.htwg.lpn.wgbuddy.User_Login;
 
 public class Utilities
 {
@@ -105,32 +105,6 @@ public class Utilities
 		Toast.makeText(context, text, duration).show();
 	}
 
-	public static void message(final Context context, String text, String buttonText, final String link)
-	{
-		AlertDialog.Builder builder = new AlertDialog.Builder(context);
-		builder.setMessage(text);
-		builder.setCancelable(false);
-		builder.setPositiveButton(buttonText, new DialogInterface.OnClickListener()
-		{
-			public void onClick(DialogInterface dialog, int id)
-			{
-				dialog.cancel();
-			}
-		});
-
-		builder.setNegativeButton("Handbuch", new DialogInterface.OnClickListener()
-		{
-			public void onClick(DialogInterface dialog, int id)
-			{
-				Intent i = new Intent(Intent.ACTION_VIEW, Uri.parse(link));
-				context.startActivity(i);
-			}
-		});
-
-		AlertDialog alert = builder.create();
-		alert.show();
-	}
-
 	public static void checkByPass(Context context, SharedPreferences settings)
 	{
 		// Nicht eingeloggt.
@@ -153,6 +127,9 @@ public class Utilities
 		SharedPreferences.Editor editor = settings.edit();
 		editor.clear();
 		editor.commit();
+		
+		Utilities.toastMessage(context, context.getString(R.string.utilities_leaveWGSucceed));
+		
 		Intent intent = new Intent(context, Main.class);
 		context.startActivity(intent);
 	}
@@ -165,6 +142,12 @@ public class Utilities
 		return wgList.get(0).get("adminId");
 	}
 
+	public static HashMap<String, String> getUserWithName(SharedPreferences settings, String username)
+	{
+		User user = new User(settings);
+		return user.get("?username=" + username).get(0);
+	}
+
 	public static String getDateTimeFormatForMessageList(String data)
 	{
 		// Change Dateformat
@@ -173,7 +156,7 @@ public class Utilities
 		datum = datum.split(" ")[0];
 		return time + "\n" + datum.split("-")[2] + "." + datum.split("-")[1] + "." + datum.split("-")[0];
 	}
-	
+
 	public static String getDateTimeFormat(String data)
 	{
 		// Change Dateformat
