@@ -65,7 +65,7 @@ public class Informations extends Activity
 				if(view.getId() == R.id.informations_wglist_points)
 				{
 					String points = (String) data;
-					points += " Punkte";
+					points += getString(R.string.informations_points);
 					
 					TextView textView = (TextView) view;
 					textView.setText(points);

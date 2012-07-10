@@ -57,6 +57,7 @@
     <string name="informations_wgAdmin">WG-Admin</string>
     <string name="informations_wgPassword">WG-Passwort</string>
     <string name="informations_wgUser">WG-Bewohner</string>
+    <string name="informations_points"> Punkte</string>
     
     <string name="shoppinglist_list">Einkaufsliste</string>
     <string name="shoppinglist_add">Hinzufügen</string>
