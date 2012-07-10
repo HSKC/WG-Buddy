@@ -41,9 +41,11 @@ public class RandomUser
 			{
 				point = 1.5;
 			}
-
-			points.put(point,element);
+			
 			actualHighest += point;
+			
+			points.put(actualHighest,element);
+			
 		}
 		
 		double zufall = Math.random() * actualHighest;
