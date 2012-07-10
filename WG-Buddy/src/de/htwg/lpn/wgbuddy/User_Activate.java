@@ -98,6 +98,8 @@ public class User_Activate extends Activity
 			@Override
 			public void onClick(View v)
 			{
+				// TODO 
+				
 				Mail mail = new Mail(settings);
 				mail.sendActivateKey(settings.getString("user_email", ""));
 

@@ -19,7 +19,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:ems="10"
-            android:inputType="textPersonName" >
+            android:inputType="textPersonName"
+            android:hint="@string/userTaskName" >
 
             <requestFocus />
         </EditText>
@@ -34,7 +35,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:ems="10"
-            android:inputType="textMultiLine" >
+            android:inputType="textMultiLine"
+            android:hint="@string/userTaskComment" >
         </EditText>
 
         <TextView

@@ -15,6 +15,7 @@
         android:id="@+id/create_user_usernameEdit"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:hint="@string/createuser_name"
         android:ems="10"
         android:inputType="textNoSuggestions"
         android:maxLength="20" >
@@ -26,13 +27,13 @@
         android:id="@+id/create_user_emailText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/createuser_email"
-        android:textAppearance="?android:attr/textAppearanceMedium" />
+        android:text="@string/createuser_email" />
 
     <EditText
         android:id="@+id/create_user_emailEdit"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:hint="@string/createuser_email"
         android:ems="10"
         android:inputType="textEmailAddress" />
 
@@ -40,13 +41,13 @@
         android:id="@+id/create_user_email2Text"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/createuser_email2"
-        android:textAppearance="?android:attr/textAppearanceMedium" />
+        android:text="@string/createuser_email2" />
 
     <EditText
         android:id="@+id/create_user_email2Edit"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:hint="@string/createuser_email2"
         android:ems="10"
         android:inputType="textEmailAddress" />
 
@@ -54,14 +55,14 @@
         android:id="@+id/create_user_passwordText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/createuser_password"
-        android:textAppearance="?android:attr/textAppearanceMedium" />
+        android:text="@string/createuser_password" />
 
     <EditText
         android:id="@+id/create_user_passwordEdit"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:ems="10"
+        android:hint="@string/createuser_password"
         android:inputType="textPassword"
         android:maxLength="30" />
 
@@ -69,14 +70,14 @@
         android:id="@+id/create_user_password2Text"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/createuser_password2"
-        android:textAppearance="?android:attr/textAppearanceMedium" />
+        android:text="@string/createuser_password2" />
 
     <EditText
         android:id="@+id/create_user_password2Edit"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:ems="10"
+        android:hint="@string/createuser_password2"
         android:inputType="textPassword"
         android:maxLength="30" />
 
