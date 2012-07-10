@@ -7,8 +7,8 @@
     <string name="message_create_title">WG-Buddy > Nachrichten> Nachricht erstellen</string>
     <string name="message_list_title">WG-Buddy > Nachrichten</string>
     <string name="preferences_title">WG-Buddy > Einstellungen</string>
-    <string name="shopping_create_title">WG-Buddy > Einkaufsliste > Artikel hinzufügen</string>
-    <string name="shopping_list_title">WG-Buddy > Einkaufsliste</string>
+    <string name="shopping_create_title">WG-Buddy > Einkaufszettel > Artikel hinzufügen</string>
+    <string name="shopping_list_title">WG-Buddy > Einkaufszettel</string>
     <string name="task_create_title">WG-Buddy > Aufgaben > Aufgabe erstellen</string>
     <string name="task_list_title">WG-Buddy > Aufgaben</string>
     <string name="user_activate_title">WG-Buddy > Benutzer aktivieren</string>
@@ -31,10 +31,10 @@
     <string name="menu_add">Hinzufügen</string>
     <string name="menu_refresh">Aktualisieren</string>
 
-    <string name="preferences_wgidentificationtext">WGID</string>
-    <string name="preferences_wgpassword">Passwort</string>
+    <string name="preferences_wgidentificationtext">WG-Name</string>
+    <string name="preferences_wgpassword">WG-Passwort</string>
     <string name="preferences_createNewWG">Neue WG erstellen</string>
-    <string name="preferences_connect">Verbinden</string>
+    <string name="preferences_connect">Beitreten</string>
     <string name="preferences_save">Speichern</string>
     <string name="preferences_username">Name</string>
     <string name="preferences_email">E-Mail</string>
@@ -45,7 +45,7 @@
     <string name="preferences_changeAdmin">Admin wechseln</string>
     <string name="preferences_leaveWG">WG verlassen</string>
     <string name="preferences_changePassword">Passwort ändern</string>
-    <string name="preferences_changeWGPassword">WG Passwort ändern</string>
+    <string name="preferences_changeWGPassword">WG-Passwort ändern</string>
     <string name="preferences_activateAccount">Konto aktivieren</string>
     <string name="preferences_leaveText">Sind Sie sicher, dass Sie die WG verlassen möchten? Sie werden anschließend automatisch ausgeloggt.</string>
     
@@ -108,7 +108,7 @@
     <string name="utilities_keyMessage">Geben Sie bitte den Ihnen zugeschickten Schlüssel, sowie ein neues Passwort ein.</string>
     
     <string name="utilities_password">Passwort</string>
-    <string name="utilities_password2">Passwort wiederholen</string>
+    <string name="utilities_password2">Passwort (wiederholen)</string>
     <string name="utilities_passwordOld">Altes Passwort</string>
     <string name="utilities_passwordWrong">Passwort falsch</string>
     <string name="utilities_passwordChange">Passwort ändern</string>
@@ -150,7 +150,7 @@
 	<string name="utilities_fillAllFields">Bitte alle Felder ausfüllen</string>
 	
 	<string name="utilities_selectNewAdmin">Sie müssen einen neuen Admin auswählen.</string>	
-	<string name="utilities_aboutText">WG Buddy ist eine von Jens Küblbeck, Felix Offergeld und Dominik Wieland entwickelte App.\n\Version 1.0\n\nIm Handbuch finden Sie weiter Informationen.</string>
+	<string name="utilities_aboutText">WG-Buddy ist eine im Rahmen des Wahlpflichtfaches Lange Programmiernächte an der HTWG Konstanz entwickelte Android-App.\n\nJens Küblbeck\nFelix Offergeld\nDominik Wieland\n\nVersion 1.0\n\nIm Handbuch finden Sie weitere Informationen.</string>
     <string name="utilities_aboutLink">http://wgbuddy.domoprojekt.de/WGBuddy%20Anwenderhandbuch.htm</string>
     <string name="utilities_aboutLinkText">Handbuch</string>
     
@@ -167,13 +167,20 @@
     </string-array>
     
     <string-array name="shoppingListSort_array">
-        <item>Name</item>
+        <item>Artikel</item>
         <item>Datum</item>
-        <item>Rating</item>
-        <item>User</item>        
-    </string-array>    
+        <item>Wichtigkeit</item>
+        <item>Benutzer</item>        
+    </string-array>
     
-    <string-array name="shoppingListDirection_array">
+    <string-array name="taskListSort_array">
+        <item>Aufgabe</item>
+        <item>Datum</item>
+        <item>Punkte</item>
+        <item>Benutzer</item>        
+    </string-array>
+    
+    <string-array name="listDirection_array">
         <item>Aufsteigend</item>
         <item>Absteigend</item>
     </string-array>

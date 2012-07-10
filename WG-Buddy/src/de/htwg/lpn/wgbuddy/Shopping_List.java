@@ -80,7 +80,7 @@ public class Shopping_List<V> extends Activity
 
 		typeAdapter = ArrayAdapter.createFromResource(this, R.array.shoppingListType_array, android.R.layout.simple_spinner_item);
 		sortAdapter = ArrayAdapter.createFromResource(this, R.array.shoppingListSort_array, android.R.layout.simple_spinner_item);
-		directionAdapter = ArrayAdapter.createFromResource(this, R.array.shoppingListDirection_array, android.R.layout.simple_spinner_item);
+		directionAdapter = ArrayAdapter.createFromResource(this, R.array.listDirection_array, android.R.layout.simple_spinner_item);
 
 		filterRadioGroup.setOnCheckedChangeListener(new OnCheckedChangeListener()
 		{

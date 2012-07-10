@@ -79,8 +79,8 @@ public class Task_List extends Activity
 		filterRadioGroup = (RadioGroup) findViewById(R.id.taskList_radio_filter);
 
 		typeAdapter = ArrayAdapter.createFromResource(this, R.array.taskListType_array, android.R.layout.simple_spinner_item);
-		sortAdapter = ArrayAdapter.createFromResource(this, R.array.shoppingListSort_array, android.R.layout.simple_spinner_item);
-		directionAdapter = ArrayAdapter.createFromResource(this, R.array.shoppingListDirection_array, android.R.layout.simple_spinner_item);
+		sortAdapter = ArrayAdapter.createFromResource(this, R.array.taskListSort_array, android.R.layout.simple_spinner_item);
+		directionAdapter = ArrayAdapter.createFromResource(this, R.array.listDirection_array, android.R.layout.simple_spinner_item);
 
 		new ArrayList<String>();
 
