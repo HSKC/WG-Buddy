@@ -188,7 +188,7 @@ public class Task_List extends Activity
 		}
 		else if (sort == 2)
 		{
-			order = "orderby=rating";
+			order = "orderby=points";
 		}
 		else if (sort == 3)
 		{

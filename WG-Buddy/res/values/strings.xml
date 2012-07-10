@@ -3,11 +3,11 @@
     <string name="app_name">WG-Buddy</string>
     
     <string name="informations_title">WG-Buddy > Informationen</string>
-    <string name="main_title">WG-Buddy > Hauptmenü</string>
+    <string name="main_title">WG-Buddy</string>
     <string name="message_create_title">WG-Buddy > Nachrichten> Nachricht erstellen</string>
     <string name="message_list_title">WG-Buddy > Nachrichten</string>
     <string name="preferences_title">WG-Buddy > Einstellungen</string>
-    <string name="shopping_create_title">WG-Buddy > Einkaufszettel > Artikel hinzufügen</string>
+    <string name="shopping_create_title">WG-Buddy > Einkaufszettel > Hinzufügen</string>
     <string name="shopping_list_title">WG-Buddy > Einkaufszettel</string>
     <string name="task_create_title">WG-Buddy > Aufgaben > Aufgabe erstellen</string>
     <string name="task_list_title">WG-Buddy > Aufgaben</string>
@@ -31,14 +31,14 @@
     <string name="menu_add">Hinzufügen</string>
     <string name="menu_refresh">Aktualisieren</string>
 
-    <string name="preferences_wgidentificationtext">WG-Name</string>
     <string name="preferences_wgpassword">WG-Passwort</string>
     <string name="preferences_createNewWG">Neue WG erstellen</string>
     <string name="preferences_connect">Beitreten</string>
     <string name="preferences_save">Speichern</string>
     <string name="preferences_username">Name</string>
+    <string name="preferences_wgname">WG-Name</string>
     <string name="preferences_email">E-Mail</string>
-    <string name="preferenes_createWG">Erstellen</string>
+    <string name="preferences_createWG">Erstellen</string>
     <string name="preferences_login">Login</string>
     <string name="preferences_password">Passwort</string>
     <string name="preferences_createuser">Neuen User erstellen</string>
@@ -65,7 +65,7 @@
     <string name="shoppinglist_showAll">Alle anzeigen</string>
     <string name="shoppinglist_showMy">Meine anzeigen</string>
     <string name="shopping_ItemAdd">Hinzufügen</string>
-    <string name="shopping_ItemName">Name</string>
+    <string name="shopping_ItemName">Artikel</string>
     <string name="shopping_alreadyDeleted">Fehler: Artikel nicht mehr vorhanden.</string>
     <string name="shopping_alreadyPurchased">Artikel wurde schon eingekauft.</string>
     <string name="shopping_completedItem">Artikel wurde als gekauft gekennzeichnet.</string>
@@ -149,21 +149,21 @@
 	<string name="utilities_activateAccount">Account aktivieren</string>
 	<string name="utilities_fillAllFields">Bitte alle Felder ausfüllen</string>
 	
-	<string name="utilities_selectNewAdmin">Sie müssen einen neuen Admin auswählen.</string>	
+	<string name="utilities_selectNewAdmin">Bitte wählen Sie einen neuen Admin aus.</string>	
 	<string name="utilities_aboutText">WG-Buddy ist eine im Rahmen des Wahlpflichtfaches Lange Programmiernächte an der HTWG Konstanz entwickelte Android-App.\n\nJens Küblbeck\nFelix Offergeld\nDominik Wieland\n\nVersion 1.0\n\nIm Handbuch finden Sie weitere Informationen.</string>
     <string name="utilities_aboutLink">http://wgbuddy.domoprojekt.de/WGBuddy%20Anwenderhandbuch.htm</string>
     <string name="utilities_aboutLinkText">Handbuch</string>
     
     <string-array name="shoppingListType_array">
-        <item>Alle Einträge</item>
-        <item>Offene Einträge</item>
-        <item>Gekaufte Einträge</item>
+        <item>Alle Artikel</item>
+        <item>Offene Artikel</item>
+        <item>Gekaufte Artikel</item>
     </string-array>
     
     <string-array name="taskListType_array">
         <item>Alle Aufgaben</item>
         <item>Offene Aufgaben</item>
-        <item>Abgeschlossene Aufgaben</item>
+        <item>Erledigte Aufgaben</item>
     </string-array>
     
     <string-array name="shoppingListSort_array">
@@ -211,7 +211,7 @@
     <string name="taskdistributor_myTasks">Meine Aufgaben</string>
     <string name="userTaskCleared">Erledigt</string>
     <string name="userTaskName">Aufgabe</string>
-    <string name="userTaskComment">Kommentar</string>
+    <string name="userTaskComment">Beschreibung</string>
     <string name="usertTaskRating">Punkte</string>
     <string name="userTaskDeadline">Deadline</string>
     <string name="usertask_entryShowTask">Aufgabe anzeigen</string>
