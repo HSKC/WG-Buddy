@@ -8,8 +8,7 @@
         android:id="@+id/create_wg_nameText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/createwg_name"
-        android:textAppearance="?android:attr/textAppearanceMedium" />
+        android:text="@string/createwg_name" />
 
     <EditText
         android:id="@+id/create_wg_nameEdit"
@@ -17,7 +16,8 @@
         android:layout_height="wrap_content"
         android:ems="10"
         android:inputType="textNoSuggestions"
-        android:maxLength="20" >
+        android:maxLength="20"
+        android:hint="@string/createwg_name" >
 
         <requestFocus />
     </EditText>
@@ -26,29 +26,29 @@
         android:id="@+id/create_wg_passwordText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/createwg_password"
-        android:textAppearance="?android:attr/textAppearanceMedium" />
+        android:text="@string/createwg_password" />
 
     <EditText
         android:id="@+id/create_wg_passwordEdit"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:ems="10"
-        android:inputType="textPassword" />
+        android:inputType="textPassword"
+        android:hint="@string/createwg_password" />
 
     <TextView
         android:id="@+id/create_wg_password2Text"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/createwg_password2"
-        android:textAppearance="?android:attr/textAppearanceMedium" />
+        android:text="@string/createwg_password2" />
 
     <EditText
         android:id="@+id/create_wg_password2Edit"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:ems="10"
-        android:inputType="textPassword" />
+        android:inputType="textPassword"
+        android:hint="@string/createwg_password2" />
 
     <Button
         android:id="@+id/create_wg_createButton"
