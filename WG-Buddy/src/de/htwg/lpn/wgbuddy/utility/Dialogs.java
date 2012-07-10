@@ -462,7 +462,7 @@ public class Dialogs
 
 		final EditText editText = new EditText(context);
 		editText.setTransformationMethod(SingleLineTransformationMethod.getInstance());
-		editText.setHint(context.getString(R.string.utilities_forbiddenEmail));
+		editText.setHint(context.getString(R.string.utilities_email));
 
 		builder.setMessage(context.getString(R.string.utilities_inviteText));
 		builder.setCancelable(true);
