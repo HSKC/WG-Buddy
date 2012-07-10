@@ -181,9 +181,8 @@ public class Task_Create extends Activity
 							}
 
 							RandomUser randomUser = new RandomUser();
-							randomUser.setUserlist(checkedUser);
 
-							String chosenUserName = randomUser.getRandomUser2();
+							String chosenUserName = randomUser.getRandomUser(checkedUser);
 
 							message.obj = chosenUserName;
 
@@ -191,7 +190,7 @@ public class Task_Create extends Activity
 
 							List<NameValuePair> nameValuePairs = new ArrayList<NameValuePair>();
 							nameValuePairs.add(new BasicNameValuePair("wgId", settings.getString("wg_id", "")));
-							nameValuePairs.add(new BasicNameValuePair("userId", userObject.get("userId")));
+							nameValuePairs.add(new BasicNameValuePair("userId", userObject.get("id")));
 							nameValuePairs.add(new BasicNameValuePair("name", name));
 							nameValuePairs.add(new BasicNameValuePair("comment", comment));
 							nameValuePairs.add(new BasicNameValuePair("points", points));
