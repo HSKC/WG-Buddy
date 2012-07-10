@@ -167,13 +167,20 @@
     </string-array>
     
     <string-array name="shoppingListSort_array">
-        <item>Name</item>
+        <item>Artikel</item>
         <item>Datum</item>
-        <item>Rating</item>
-        <item>User</item>        
-    </string-array>    
+        <item>Wichtigkeit</item>
+        <item>Benutzer</item>        
+    </string-array>
     
-    <string-array name="shoppingListDirection_array">
+    <string-array name="taskListSort_array">
+        <item>Aufgabe</item>
+        <item>Datum</item>
+        <item>Punkte</item>
+        <item>Benutzer</item>        
+    </string-array>
+    
+    <string-array name="listDirection_array">
         <item>Aufsteigend</item>
         <item>Absteigend</item>
     </string-array>
