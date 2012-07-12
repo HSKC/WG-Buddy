@@ -186,7 +186,7 @@ public class Shopping_List<V> extends Activity
 		}
 		else if (sort == 2)
 		{
-			order = "orderby=points";
+			order = "orderby=rating";
 		}
 		else if (sort == 3)
 		{
