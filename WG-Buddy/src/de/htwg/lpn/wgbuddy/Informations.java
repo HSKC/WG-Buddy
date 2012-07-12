@@ -14,9 +14,11 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.ListView;
 import android.widget.SimpleAdapter;
 import android.widget.TextView;
+import android.widget.SimpleAdapter.ViewBinder;
 
 public class Informations extends Activity
 {
@@ -54,8 +56,28 @@ public class Informations extends Activity
 
 		SimpleAdapter adapter = new SimpleAdapter(this, userList, R.layout.informations_wglist_entry, new String[] { "username", "email", "points" }, new int[] { R.id.informations_wglist_name,
 		R.id.informations_wglist_email, R.id.informations_wglist_points });
+		
+		ViewBinder vb = new ViewBinder()
+		{
+			@Override
+			public boolean setViewValue(View view, Object data, String textRepresentation)
+			{
+				if(view.getId() == R.id.informations_wglist_points)
+				{
+					String points = (String) data;
+					points += getString(R.string.informations_points);
+					
+					TextView textView = (TextView) view;
+					textView.setText(points);
+					return true;
+				}
+				
+				return false;
+			}
+		};
+		
+		adapter.setViewBinder(vb);
 		wgUserList.setAdapter(adapter);
-
 	}
 
 	@Override

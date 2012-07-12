@@ -8,16 +8,19 @@
         android:id="@+id/wgpref_nameText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/preferences_wgidentificationtext" />
+        android:text="@string/preferences_wgname" />
 
     <EditText
         android:id="@+id/wgpref_nameEdit"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:ems="10"
-        android:hint="@string/preferences_wgidentificationtext"
+        android:hint="@string/preferences_wgname"
         android:inputType="textNoSuggestions"
-        android:maxLength="20" />
+        android:maxLength="20" >
+
+        <requestFocus />
+    </EditText>
 
     <TextView
         android:id="@+id/wgpref_passwordText"
@@ -31,10 +34,7 @@
         android:layout_height="wrap_content"
         android:ems="10"
         android:hint="@string/preferences_wgpassword"
-        android:inputType="textPassword" >
-
-        <requestFocus android:layout_width="match_parent" />
-    </EditText>
+        android:inputType="textPassword" />
 
     <Button
         android:id="@+id/wgpref_connectButton"
