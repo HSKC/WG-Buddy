@@ -14,6 +14,9 @@ import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.Color;
+import android.graphics.PorterDuff.Mode;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -32,20 +35,19 @@ import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.RadioGroup;
-import android.widget.TextView;
 import android.widget.RadioGroup.OnCheckedChangeListener;
 import android.widget.RatingBar;
 import android.widget.SimpleAdapter;
 import android.widget.SimpleAdapter.ViewBinder;
 import android.widget.Spinner;
+import android.widget.TextView;
 import de.htwg.lpn.model.GoogleService;
 import de.htwg.lpn.model.ShoppingItem;
-import de.htwg.lpn.model.User;
 import de.htwg.lpn.wgbuddy.utility.Dialogs;
 import de.htwg.lpn.wgbuddy.utility.Utilities;
 import de.htwg.lpn.wgbuddy.utility.WorkerThread;
 
-public class Shopping_List<V> extends Activity
+public class Shopping_List extends Activity
 {
 	private SharedPreferences settings = null;
 
@@ -203,34 +205,11 @@ public class Shopping_List<V> extends Activity
 		}
 
 		String parameter = "?wgId=" + settings.getString("wg_id", "") + "&" + ((where != "") ? where + "&" : "") + order + "&" + directionString;
+		ArrayList<HashMap<String, String>> shoppingListData = shoppingItem.get(parameter);
 
-		User user = new User(settings);
-		ArrayList<HashMap<String, String>> list = shoppingItem.get(parameter);
-		shoppingMap.clear();
+		Utilities.addUsernameToList(shoppingListData, shoppingMap, settings);
 
-		for (HashMap<String, String> map : list)
-		{
-			shoppingMap.put(Integer.valueOf(map.get("id")), map);
-
-			if (map.get("userId").equals("0"))
-			{
-				map.put("username", "Keiner");
-			}
-			else
-			{
-				ArrayList<HashMap<String, String>> userList = user.get("?id=" + map.get("userId"));
-				if (userList.size() > 0)
-				{
-					map.put("username", userList.get(0).get("username"));
-				}
-				else
-				{
-					map.put("username", "Keiner");
-				}
-			}
-		}
-
-		SimpleAdapter sa = new SimpleAdapter(this, list, R.layout.list_entry, new String[] { "id", "id", "name", "comment", "rating", "createdDate", "username", "status" }, new int[] {
+		SimpleAdapter sa = new SimpleAdapter(this, shoppingListData, R.layout.list_entry, new String[] { "id", "id", "name", "comment", "rating", "createdDate", "username", "status" }, new int[] {
 		R.id.list_completedButton, R.id.list_deleteButton, R.id.list_name, R.id.list_comment, R.id.list_rating, R.id.list_createdDate, R.id.list_username, R.id.list_entry });
 
 		ViewBinder vb = new ViewBinder()
@@ -257,15 +236,27 @@ public class Shopping_List<V> extends Activity
 				{
 					LinearLayout ll = (LinearLayout) view;
 
+					// Get Color for index of User. so everyone gets a different
+					// color
+					String[] colors = getResources().getStringArray(R.array.messengercolors_array);
+					int color = 0;
+
 					if (textRepresentation.compareTo("0") == 0)
 					{
-						ll.setBackgroundResource(R.drawable.border_red);
-
+						color = Color.parseColor(colors[0]);
 					}
-					else if (textRepresentation.compareTo("1") == 0)
+					else
 					{
-						ll.setBackgroundResource(R.drawable.border_green);
+						color = Color.parseColor(colors[2]);
 					}
+
+					// Get the white Shape out of the XML File an add a
+					// Colofilter with the Color
+					Drawable d = getResources().getDrawable(R.drawable.message_border);
+					d.setColorFilter(color, Mode.MULTIPLY);
+
+					// set the Shape as Background
+					ll.setBackgroundDrawable(d);
 
 					return true;
 				}
@@ -275,7 +266,7 @@ public class Shopping_List<V> extends Activity
 					final Integer id = Integer.valueOf(data.toString());
 					button.setTag(id);
 					button.setVisibility(View.VISIBLE);
-					
+
 					if (!shoppingMap.containsKey(id))
 					{
 						button.setVisibility(View.INVISIBLE);
@@ -288,7 +279,6 @@ public class Shopping_List<V> extends Activity
 					{
 						button.setVisibility(View.INVISIBLE);
 					}
-					
 
 					button.setOnClickListener(new OnClickListener()
 					{

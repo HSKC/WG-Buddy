@@ -3,9 +3,7 @@ package de.htwg.lpn.wgbuddy;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
-import de.htwg.lpn.model.Message;
-import de.htwg.lpn.wgbuddy.utility.Dialogs;
-import de.htwg.lpn.wgbuddy.utility.Utilities;
+
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
@@ -23,11 +21,16 @@ import android.widget.ListView;
 import android.widget.SimpleAdapter;
 import android.widget.SimpleAdapter.ViewBinder;
 import android.widget.TextView;
+import de.htwg.lpn.model.Message;
+import de.htwg.lpn.wgbuddy.utility.Dialogs;
+import de.htwg.lpn.wgbuddy.utility.Utilities;
 
 public class Message_List extends Activity
 {
 	private ListView messageList;
 	private SharedPreferences settings;
+
+	private HashMap<Integer, HashMap<String, String>> messageMap = new HashMap<Integer, HashMap<String, String>>();
 
 	@Override
 	public void onCreate(Bundle savedInstanceState)
@@ -105,7 +108,9 @@ public class Message_List extends Activity
 		Message me = new Message(settings);
 		ArrayList<HashMap<String, String>> list = me.get(parameter);
 
-		SimpleAdapter sa = new SimpleAdapter(this, list, R.layout.message_entry, new String[] { "title", "userName", "message", "createdDate" }, new int[] { R.id.messenger_titleText,
+		Utilities.addUsernameToList(list, messageMap, settings);
+
+		SimpleAdapter sa = new SimpleAdapter(this, list, R.layout.message_entry, new String[] { "title", "username", "message", "createdDate" }, new int[] { R.id.messenger_titleText,
 		R.id.messenger_userText, R.id.messenger_messageText, R.id.messenger_timeText });
 
 		final Map<String, Integer> users = new HashMap<String, Integer>();
