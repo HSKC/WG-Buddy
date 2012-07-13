@@ -41,7 +41,7 @@
     <string name="preferences_createWG">Erstellen</string>
     <string name="preferences_login">Login</string>
     <string name="preferences_password">Passwort</string>
-    <string name="preferences_createuser">Neuen User erstellen</string>
+    <string name="preferences_createuser">Neuen Benutzer erstellen</string>
     <string name="preferences_changeAdmin">Admin wechseln</string>
     <string name="preferences_leaveWG">WG verlassen</string>
     <string name="preferences_changePassword">Passwort ändern</string>
