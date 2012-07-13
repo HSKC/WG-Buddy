@@ -25,8 +25,7 @@ import android.util.Log;
 
 public class JSON
 {
-
-	public static void postData(String url, Context context)
+	public static void postData(String url)
 	{
 		url = url.replace(" ", "");
 		HttpPost httppost = new HttpPost(url);
@@ -34,25 +33,6 @@ public class JSON
 		AsyncPost asp = new AsyncPost();
 
 		asp.execute(httppost);
-	}
-
-	public static void postData(String url)
-	{
-		HttpClient httpclient = new DefaultHttpClient();
-		HttpPost httppost = new HttpPost(url);
-
-		try
-		{
-			httpclient.execute(httppost);
-		}
-		catch (ClientProtocolException e)
-		{
-			// TODO Auto-generated catch block
-		}
-		catch (IOException e)
-		{
-			// TODO Auto-generated catch block
-		}
 	}
 
 	public static void postData(String url, List<NameValuePair> nameValuePairs, Context context)

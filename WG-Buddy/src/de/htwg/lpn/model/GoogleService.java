@@ -6,18 +6,36 @@ import java.util.List;
 import org.apache.http.NameValuePair;
 import org.apache.http.message.BasicNameValuePair;
 
-import de.htwg.lpn.wgbuddy.utility.JSON;
 import android.content.SharedPreferences;
+import de.htwg.lpn.wgbuddy.utility.JSON;
 
+/**
+ * Stellt die Methoden für den GoogleService zur Verfügung.
+ */
 public class GoogleService extends ObjectBase
 {
+	/**
+	 * Konstruktor setzt die benötigten Parameter für die spätere Kommunkikation
+	 * mit dem Server.
+	 * 
+	 * @param settings
+	 *            Der Parameter enthält die in der gesamten Anwendungen
+	 *            geteilten Einstellung und Daten.
+	 */
 	public GoogleService(SharedPreferences settings)
 	{
-		this.settings = settings;
-		phpPage = "googleService.php";
-		arrayName = "GoogleService";
+		super(settings);
+		this.phpPage = "googleService.php";
+		this.arrayName = "GoogleService";
 	}
 
+	/**
+	 * Diese Methode sendet eine Nachricht über den GooleService an alle Geräte
+	 * der WG.
+	 * 
+	 * @param message
+	 *            Nachricht, die gesendet werden soll.
+	 */
 	public void sendMessageToPhone(String message)
 	{
 		List<NameValuePair> nameValuePairs = new ArrayList<NameValuePair>();
@@ -29,6 +47,10 @@ public class GoogleService extends ObjectBase
 		JSON.postData(url, nameValuePairs);
 	}
 
+	/**
+	 * Diese Methode lässt sich vom GoolgleService einen neuen AuthenticateCode
+	 * geben. Der neue Code wird in der DB gespeichert.
+	 */
 	public void googleAuthenticate()
 	{
 		String url = settings.getString("pref_webserver", "") + phpPage + "?Authenticate&" + authCode;

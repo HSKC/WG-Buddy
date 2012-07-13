@@ -390,7 +390,7 @@ public class Shopping_List extends Activity
 										@Override
 										public Message call()
 										{
-											shoppingItem.delete(id, Shopping_List.this);
+											shoppingItem.delete(id);
 
 											if (Main.usepush)
 											{

@@ -93,7 +93,7 @@ public class Shopping_Create extends Activity
 							nameValuePairs.add(new BasicNameValuePair("status", "0"));
 
 							ShoppingItem shopping = new ShoppingItem(settings);
-							shopping.insert(nameValuePairs, Shopping_Create.this);
+							shopping.insert(nameValuePairs);
 
 							if (Main.usepush)
 							{

@@ -411,7 +411,7 @@ public class Task_List extends Activity
 										@Override
 										public Message call()
 										{
-											task.delete(id, Task_List.this);
+											task.delete(id);
 
 											if (Main.usepush)
 											{

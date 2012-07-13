@@ -86,7 +86,7 @@ public class Message_Create extends Activity
 							nameValuePairs.add(new BasicNameValuePair("message", message));
 
 							Message message = new Message(settings);
-							message.insert(nameValuePairs, Message_Create.this);
+							message.insert(nameValuePairs);
 
 							if (Main.usepush)
 							{

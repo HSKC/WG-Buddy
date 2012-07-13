@@ -7,13 +7,10 @@ import org.apache.http.client.HttpClient;
 import org.apache.http.client.methods.HttpPost;
 import org.apache.http.impl.client.DefaultHttpClient;
 
-import android.content.Context;
 import android.os.AsyncTask;
 
 public class AsyncPost extends AsyncTask<HttpPost, Void, String>
 {
-	Context context;
-
 	@Override
 	protected String doInBackground(HttpPost... params)
 	{
@@ -35,6 +32,5 @@ public class AsyncPost extends AsyncTask<HttpPost, Void, String>
 			e.printStackTrace();
 		}
 		return null;
-
 	}
 }

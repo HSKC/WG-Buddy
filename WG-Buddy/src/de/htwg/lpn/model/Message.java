@@ -2,12 +2,24 @@ package de.htwg.lpn.model;
 
 import android.content.SharedPreferences;
 
+/**
+ * Stellt die Methoden für den Nachrichten-Bereich zur Verfügung. Die Daten
+ * werden aus der entsprechenden Datenbanktabelle bezogen.
+ */
 public class Message extends ObjectBase
 {
+	/**
+	 * Konstruktor setzt die benötigten Parameter für die spätere Kommunkikation
+	 * mit dem Server.
+	 * 
+	 * @param settings
+	 *            Der Parameter enthält die in der gesamten Anwendungen
+	 *            geteilten Einstellung und Daten.
+	 */
 	public Message(SharedPreferences settings)
 	{
-		this.settings = settings;
-		phpPage = "message.php";
-		arrayName = "Message";
+		super(settings);
+		this.phpPage = "message.php";
+		this.arrayName = "Message";
 	}
 }
