@@ -165,4 +165,31 @@ public class Utilities
 		datum = datum.split(" ")[0];
 		return datum.split("-")[2] + "." + datum.split("-")[1] + "." + datum.split("-")[0] + " " + time;
 	}
+	
+	public static void addUsernameToList(ArrayList<HashMap<String, String>> list, HashMap<Integer, HashMap<String, String>> mapList,  SharedPreferences settings)
+	{
+		User user = new User(settings);
+		ArrayList<HashMap<String, String>> userListData = user.get("?wgId=" + settings.getString("wg_id", ""));
+		HashMap<Integer, HashMap<String, String>> userListWithIndex = new HashMap<Integer, HashMap<String, String>>();
+		for (HashMap<String, String> map : userListData)
+		{
+			userListWithIndex.put(Integer.valueOf(map.get("id")), map);
+		}
+
+		mapList.clear();
+
+		for (HashMap<String, String> map : list)
+		{
+			mapList.put(Integer.valueOf(map.get("id")), map);
+			if (map.get("userId").equals("0"))
+			{
+				map.put("username", "Keiner");
+			}
+			else
+			{
+				HashMap<String, String> userMap = userListWithIndex.get(Integer.valueOf(map.get("userId")));
+				map.put("username", userMap.get("username"));
+			}
+		}
+	}
 }

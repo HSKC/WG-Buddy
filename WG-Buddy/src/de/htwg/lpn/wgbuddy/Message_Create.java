@@ -81,7 +81,6 @@ public class Message_Create extends Activity
 							List<NameValuePair> nameValuePairs = new ArrayList<NameValuePair>();
 							nameValuePairs.add(new BasicNameValuePair("wgId", settings.getString("wg_id", "")));
 							nameValuePairs.add(new BasicNameValuePair("userId", settings.getString("user_id", "0")));
-							nameValuePairs.add(new BasicNameValuePair("userName", settings.getString("user_name", "0")));
 
 							nameValuePairs.add(new BasicNameValuePair("title", title));
 							nameValuePairs.add(new BasicNameValuePair("message", message));

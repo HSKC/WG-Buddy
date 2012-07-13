@@ -97,6 +97,8 @@
     <string name="list_optionsDialog_filterText">Filter</string>
     <string name="list_optionsDialog_sortText">Sortieren nach</string>
     <string name="list_optionsDialog_directionText">Richtung</string>
+    <string name="list_entry_complete">Erledigt</string>
+    <string name="list_entry_delete">Löschen</string>
     
     <string name="utilities_ok">OK</string>
     <string name="utilities_delete">Löschen</string>
