@@ -11,10 +11,13 @@ import org.apache.http.client.methods.HttpPost;
 import org.apache.http.impl.client.DefaultHttpClient;
 
 import android.os.AsyncTask;
+import android.util.Log;
 
+/**
+ * Asynchron zum Server eine Nachricht schicken und Empfangen.
+ */
 public class AsyncJsonCall extends AsyncTask<String, Void, InputStream>
 {
-
 	@Override
 	protected InputStream doInBackground(String... params)
 	{
@@ -25,20 +28,18 @@ public class AsyncJsonCall extends AsyncTask<String, Void, InputStream>
 		HttpResponse response;
 		try
 		{
+			// Antwort empfangen und verarbeiten.
 			response = httpclient.execute(httppost);
-
 			HttpEntity entity = response.getEntity();
 			is = entity.getContent();
 		}
 		catch (ClientProtocolException e)
 		{
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			Log.d("log_tag", "Error send and receive data " + e.toString() + e.getMessage());
 		}
 		catch (IOException e)
 		{
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			Log.d("log_tag", "Error send and receive data " + e.toString() + e.getMessage());
 		}
 
 		return is;

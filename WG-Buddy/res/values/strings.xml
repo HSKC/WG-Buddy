@@ -94,7 +94,7 @@
     <string name="shoppingRating">Wichtigkeit</string>
     <string name="shoppingDescription">Beschreibung</string>
     <string name="list_options">Einstellungen</string>
-    <string name="list_optionsDialog_filterText">Filter</string>
+    <string name="list_optionsDialog_statusText">Filter</string>
     <string name="list_optionsDialog_sortText">Sortieren nach</string>
     <string name="list_optionsDialog_directionText">Richtung</string>
     <string name="list_entry_complete">Erledigt</string>
@@ -157,13 +157,13 @@
     <string name="utilities_aboutLink">http://wgbuddy.domoprojekt.de/WGBuddy%20Anwenderhandbuch.htm</string>
     <string name="utilities_aboutLinkText">Handbuch</string>
     
-    <string-array name="shoppingListType_array">
+    <string-array name="shoppingListStatus_array">
         <item>Alle Artikel</item>
         <item>Offene Artikel</item>
         <item>Gekaufte Artikel</item>
     </string-array>
     
-    <string-array name="taskListType_array">
+    <string-array name="taskListStatus_array">
         <item>Alle Aufgaben</item>
         <item>Offene Aufgaben</item>
         <item>Erledigte Aufgaben</item>

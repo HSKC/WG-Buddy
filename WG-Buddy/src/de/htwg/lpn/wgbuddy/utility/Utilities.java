@@ -14,6 +14,7 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.util.Log;
 import android.widget.Toast;
 import de.htwg.lpn.model.User;
 import de.htwg.lpn.model.WG;
@@ -71,7 +72,7 @@ public class Utilities
 		}
 		catch (NoSuchAlgorithmException e)
 		{
-			// TODO Auto-generated catch block
+			Log.d("log_tag", "Error md5 " + e.toString() + e.getMessage());
 			e.printStackTrace();
 		}
 
@@ -127,9 +128,9 @@ public class Utilities
 		SharedPreferences.Editor editor = settings.edit();
 		editor.clear();
 		editor.commit();
-		
+
 		Utilities.toastMessage(context, context.getString(R.string.utilities_leaveWGSucceed));
-		
+
 		Intent intent = new Intent(context, Main.class);
 		context.startActivity(intent);
 	}
@@ -165,8 +166,8 @@ public class Utilities
 		datum = datum.split(" ")[0];
 		return datum.split("-")[2] + "." + datum.split("-")[1] + "." + datum.split("-")[0] + " " + time;
 	}
-	
-	public static void addUsernameToList(ArrayList<HashMap<String, String>> list, HashMap<Integer, HashMap<String, String>> mapList,  SharedPreferences settings)
+
+	public static void addUsernameToList(ArrayList<HashMap<String, String>> list, HashMap<Integer, HashMap<String, String>> mapList, SharedPreferences settings)
 	{
 		User user = new User(settings);
 		ArrayList<HashMap<String, String>> userListData = user.get("?wgId=" + settings.getString("wg_id", ""));

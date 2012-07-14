@@ -2,12 +2,24 @@ package de.htwg.lpn.model;
 
 import android.content.SharedPreferences;
 
-public class User extends ObjectBase
+/**
+ * Stellt die Methoden für die Benutzer-Daten zur Verfügung. Die Daten werden
+ * aus der entsprechenden Datenbanktabelle bezogen.
+ */
+public class User extends MethodBase
 {
+	/**
+	 * Konstruktor setzt die benötigten Parameter für die spätere Kommunkikation
+	 * mit dem Server.
+	 * 
+	 * @param settings
+	 *            Der Parameter enthält die in der gesamten Anwendungen
+	 *            geteilten Einstellung und Daten.
+	 */
 	public User(SharedPreferences settings)
 	{
-		this.settings = settings;
-		phpPage = "user.php";
-		arrayName = "User";
+		super(settings);
+		this.phpPage = "user.php";
+		this.arrayName = "User";
 	}
 }

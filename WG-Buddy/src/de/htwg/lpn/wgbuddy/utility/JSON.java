@@ -25,8 +25,7 @@ import android.util.Log;
 
 public class JSON
 {
-
-	public static void postData(String url, Context context)
+	public static void postData(String url)
 	{
 		url = url.replace(" ", "");
 		HttpPost httppost = new HttpPost(url);
@@ -34,25 +33,6 @@ public class JSON
 		AsyncPost asp = new AsyncPost();
 
 		asp.execute(httppost);
-	}
-
-	public static void postData(String url)
-	{
-		HttpClient httpclient = new DefaultHttpClient();
-		HttpPost httppost = new HttpPost(url);
-
-		try
-		{
-			httpclient.execute(httppost);
-		}
-		catch (ClientProtocolException e)
-		{
-			// TODO Auto-generated catch block
-		}
-		catch (IOException e)
-		{
-			// TODO Auto-generated catch block
-		}
 	}
 
 	public static void postData(String url, List<NameValuePair> nameValuePairs, Context context)
@@ -112,7 +92,7 @@ public class JSON
 			}
 			catch (JSONException e)
 			{
-				// TODO Auto-generated catch block
+				Log.d("JSON.getMapListOfJsonArray()", e.getMessage());
 				e.printStackTrace();
 			}
 			if (jsonarray != null)
@@ -136,7 +116,7 @@ public class JSON
 					}
 					catch (JSONException e1)
 					{
-						// TODO Auto-generated catch block
+						Log.d("JSON.getMapListOfJsonArray()", e1.getMessage());
 						e1.printStackTrace();
 					}
 				}
@@ -160,15 +140,13 @@ public class JSON
 		{
 			is = asc.get();
 		}
-		catch (InterruptedException e1)
+		catch (InterruptedException e)
 		{
-			// TODO Auto-generated catch block
-			e1.printStackTrace();
+			Log.d("log_tag", "Error get data " + e.toString() + e.getMessage());
 		}
-		catch (ExecutionException e1)
+		catch (ExecutionException e)
 		{
-			// TODO Auto-generated catch block
-			e1.printStackTrace();
+			Log.d("log_tag", "Error get data " + e.toString() + e.getMessage());
 		}
 
 		// convert response to string

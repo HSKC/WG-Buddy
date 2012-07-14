@@ -40,6 +40,9 @@ import de.htwg.lpn.wgbuddy.utility.RandomUser;
 import de.htwg.lpn.wgbuddy.utility.Utilities;
 import de.htwg.lpn.wgbuddy.utility.WorkerThread;
 
+/**
+ * Activity-Klasse der Ansicht zum Erstellen von Aufgaben.
+ */
 public class Task_Create extends Activity
 {
 	private SharedPreferences settings;
@@ -51,6 +54,7 @@ public class Task_Create extends Activity
 
 	private Button userList_Button;
 	private ListView user_ListView;
+	private AlertDialog alertDialog;
 
 	private Task task;
 	private User user;
@@ -63,8 +67,14 @@ public class Task_Create extends Activity
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.task_create);
 
+		// Die allgemeinen Anwendungsdaten laden.
 		settings = getSharedPreferences(Main.PREFS_NAME, 0);
 
+		// Prüfen ob der Benutzer eingeloggt ist und ggf. in die Login-Ansicht
+		// umleiten.
+		Utilities.checkByPass(this, settings);
+
+		// Alle Views dieser Ansicht den entsprechenden Feldern zuweisen.
 		name_TextView = (TextView) findViewById(R.id.taskNameText);
 		comment_TextView = (TextView) findViewById(R.id.userTaskComment);
 		points_RatingBar = (RatingBar) findViewById(R.id.taskRatingBar);
@@ -77,16 +87,20 @@ public class Task_Create extends Activity
 		user = new User(settings);
 
 		users = user.get("?wgId=" + settings.getString("wg_id", ""));
+
+		// Adapter für die Bewohner-Liste.
 		SimpleAdapter sa = new SimpleAdapter(this, users, R.layout.task_user_entry, new String[] { "username" }, new int[] { R.id.task_userlistcheckbox });
 
+		// ViewBinder für Daten, die nicht direkt aus der Datenbank übernommen
+		// werden können.
 		ViewBinder vb = new ViewBinder()
 		{
-
 			@Override
 			public boolean setViewValue(View view, Object data, String textRepresentation)
 			{
 				if (view.getId() == R.id.task_userlistcheckbox)
 				{
+					// Checkbox-Text setzen.
 					CheckBox cb = (CheckBox) view;
 					cb.setText((CharSequence) data);
 					cb.setChecked(true);
@@ -101,14 +115,28 @@ public class Task_Create extends Activity
 		sa.setViewBinder(vb);
 		user_ListView.setAdapter(sa);
 
+		// Teilnehmer-Dialog öffnen.
 		userList_Button.setOnClickListener(new OnClickListener()
 		{
 			@Override
 			public void onClick(View v)
 			{
-				getTaskUserDialog();
+				alertDialog.show();
 			}
 		});
+
+		// Teilnehmer-Dialog erstellen.
+		AlertDialog.Builder builder = new AlertDialog.Builder(this);
+
+		builder.setView(user_ListView);
+		builder.setPositiveButton(getString(R.string.utilities_ok), new DialogInterface.OnClickListener()
+		{
+			public void onClick(DialogInterface dialog, int id)
+			{
+			}
+		});
+
+		alertDialog = builder.create();
 
 		clickOnStartButton();
 	}
@@ -120,13 +148,20 @@ public class Task_Create extends Activity
 			@Override
 			public void onClick(View v)
 			{
+				// Eingaben aus dem EditText-View laden und Leerzeichen am
+				// Anfang und Ende abschneiden.
 				final String name = name_TextView.getText().toString().trim();
 				final String comment = comment_TextView.getText().toString().trim();
 				final String points = new Double(points_RatingBar.getRating()).toString();
 
+				// Prüfen, ob Eingaben gemacht wurden.
 				if (name.compareTo("") != 0 && comment.compareTo("") != 0)
 				{
+					// Warte-Dialog anzeigen.
 					ProgressDialog pd = ProgressDialog.show(Task_Create.this, "", getString(R.string.utilities_pleaseWait));
+
+					// Handler, welcher nach dem Bearbeiten die Hintergrund-Task
+					// ausgeführt wird.
 					Handler handler = new Handler()
 					{
 						@Override
@@ -134,16 +169,15 @@ public class Task_Create extends Activity
 						{
 							super.handleMessage(msg);
 
-							if(msg != null && msg.obj != null)
-							{
-								Utilities.toastMessage(Task_Create.this, getString(R.string.task_created) + (String) msg.obj);
-							}
+							Utilities.toastMessage(Task_Create.this, getString(R.string.task_created) + (String) msg.obj);
 
+							// Zurück zur Aufgaben-Ansicht.
 							Intent intent = new Intent(Task_Create.this, Task_List.class);
 							startActivity(intent);
 						}
 					};
 
+					// Code der in der Hintergrund-Task ausgeführt werden soll.
 					Callable<Message> callable = new Callable<Message>()
 					{
 						@Override
@@ -155,8 +189,11 @@ public class Task_Create extends Activity
 							Integer count = user_ListView.getChildCount();
 							TreeMap<String, Double> checkedUser = new TreeMap<String, Double>();
 
+							// Wenn count == 0, dann wurde der Teilnehmer Dialog
+							// nicht aufgerufen.
 							if (count == 0)
 							{
+								// Alle Bewohner als Kandidaten eintragen.
 								for (HashMap<String, String> map : users)
 								{
 									checkedUser.put(map.get("username"), Double.valueOf(map.get("points")));
@@ -164,6 +201,8 @@ public class Task_Create extends Activity
 							}
 							else
 							{
+								// Die angeklickten Bewohner als Kandidaten in
+								// die Liste eintragen.
 								for (int i = 0; i < count; i++)
 								{
 									View entry = user_ListView.getChildAt(i);
@@ -180,14 +219,16 @@ public class Task_Create extends Activity
 								}
 							}
 
-							RandomUser randomUser = new RandomUser();
+							// Aus den Kandidaten einen Bewohner auswählen.
+							String chosenUserName = RandomUser.getRandomUser(checkedUser);
 
-							String chosenUserName = randomUser.getRandomUser(checkedUser);
-
+							// Benutzername für den Handler speichern.
 							message.obj = chosenUserName;
 
 							HashMap<String, String> userObject = Utilities.getUserWithName(settings, chosenUserName);
 
+							// Werte für die Übertragung zur Datenbank
+							// vorbereiten.
 							List<NameValuePair> nameValuePairs = new ArrayList<NameValuePair>();
 							nameValuePairs.add(new BasicNameValuePair("wgId", settings.getString("wg_id", "")));
 							nameValuePairs.add(new BasicNameValuePair("userId", userObject.get("id")));
@@ -196,28 +237,33 @@ public class Task_Create extends Activity
 							nameValuePairs.add(new BasicNameValuePair("points", points));
 							nameValuePairs.add(new BasicNameValuePair("status", "0"));
 
+							// Daten in die Datenbank eintragen.
 							task.insert(nameValuePairs);
 
+							// Alle Geräte der WG mit Hilfe des GoogleService
+							// über die Änderung informieren.
 							if (Main.usepush)
 							{
 								GoogleService gs = new GoogleService(settings);
 								gs.sendMessageToPhone("Task");
 							}
-							
+
+							// Werte für die E-Mail vorbereiten.
 							List<NameValuePair> mailNameValuePairs = new ArrayList<NameValuePair>();
 							mailNameValuePairs.add(new BasicNameValuePair("username", userObject.get("username")));
 							mailNameValuePairs.add(new BasicNameValuePair("email", userObject.get("email")));
 							mailNameValuePairs.add(new BasicNameValuePair("taskname", name));
 							mailNameValuePairs.add(new BasicNameValuePair("tasktext", comment));
 
+							// E-Mail an ausgewählten Bewohner senden.
 							Mail mail = new Mail(settings);
 							mail.sendTask(mailNameValuePairs);
 
 							return message;
 						}
-
 					};
 
+					// Hintergrund Thread starten.
 					WorkerThread workerThread = new WorkerThread(callable, pd, handler);
 					workerThread.start();
 				}
@@ -255,23 +301,5 @@ public class Task_Create extends Activity
 			default:
 				return super.onOptionsItemSelected(item);
 		}
-	}
-
-	public void getTaskUserDialog()
-	{
-		AlertDialog.Builder builder;
-
-		builder = new AlertDialog.Builder(this);
-
-		builder.setView(user_ListView);
-		builder.setPositiveButton(getString(R.string.utilities_ok), new DialogInterface.OnClickListener()
-		{
-			public void onClick(DialogInterface dialog, int id)
-			{
-			}
-		});
-
-		final AlertDialog alertDialog = builder.create();
-		alertDialog.show();
 	}
 }

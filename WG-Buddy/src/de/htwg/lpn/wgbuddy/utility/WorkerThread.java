@@ -9,13 +9,28 @@ import java.util.concurrent.Future;
 import android.app.ProgressDialog;
 import android.os.Handler;
 import android.os.Message;
+import android.util.Log;
 
+/**
+ * Worker Thread, um Aufgaben nicht im UI-Thread abzuarbeiten.
+ */
 public class WorkerThread extends Thread
 {
 	private Callable<Message> callable;
 	private ProgressDialog pd;
 	private Handler handler;
 
+	/**
+	 * Konstruktor
+	 * 
+	 * @param callable
+	 *            Code der in eigenem Thread ausgeführt werden soll.
+	 * @param pd
+	 *            ProgressDialog, der gerade angezeigt wird und anschließend
+	 *            ausgeblendet werden soll.
+	 * @param handler
+	 *            Handler, der anschließend ausgeführt wird.
+	 */
 	public WorkerThread(Callable<Message> callable, ProgressDialog pd, Handler handler)
 	{
 		this.callable = callable;
@@ -26,11 +41,6 @@ public class WorkerThread extends Thread
 	@Override
 	public void run()
 	{
-		if(handler == null || pd == null)
-		{
-			return;
-		}
-		
 		Message message = null;
 
 		ExecutorService executor = Executors.newFixedThreadPool(1);
@@ -42,15 +52,14 @@ public class WorkerThread extends Thread
 		}
 		catch (InterruptedException e)
 		{
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			Log.d("log_tag", "Error future get data " + e.toString() + e.getMessage());
 		}
 		catch (ExecutionException e)
 		{
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			Log.d("log_tag", "Error future get data " + e.toString() + e.getMessage());
 		}
 
+		// ProgressDialog ausblenden und Handler mit Message aufrufen.
 		pd.dismiss();
 		handler.sendMessage(message);
 	}
