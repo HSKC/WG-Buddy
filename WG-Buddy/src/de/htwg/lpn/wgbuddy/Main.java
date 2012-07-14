@@ -18,9 +18,9 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.TextView;
-import de.htwg.lpn.model.MethodBase;
 import de.htwg.lpn.model.User;
 import de.htwg.lpn.model.WG;
+import de.htwg.lpn.wgbuddy.utility.Config;
 import de.htwg.lpn.wgbuddy.utility.Dialogs;
 import de.htwg.lpn.wgbuddy.utility.Utilities;
 
@@ -29,10 +29,6 @@ import de.htwg.lpn.wgbuddy.utility.Utilities;
  */
 public class Main extends Activity
 {
-	public static final String PREFS_NAME = "WGBuddyPreferences";
-	public static final String WEBSERVER = MethodBase.getWebserver();
-	public static boolean USEPUSH = true;
-
 	private Button shoppinglist;
 	private Button taskdistributor;
 	private Button messenger;
@@ -53,11 +49,11 @@ public class Main extends Activity
 		StrictMode.setThreadPolicy(policy);
 
 		// Die allgemeinen Anwendungsdaten laden.
-		settings = getSharedPreferences(PREFS_NAME, 0);
+		settings = getSharedPreferences(Config.PREFS_NAME, 0);
 
 		// Die Webserver Url in den gemeinsamen Speicher schreiben.
 		SharedPreferences.Editor editor = settings.edit();
-		editor.putString("pref_webserver", MethodBase.getWebserver());
+		editor.putString("pref_webserver", Config.WEBSERVER);
 		editor.commit();
 
 		// Nicht eingeloggt.

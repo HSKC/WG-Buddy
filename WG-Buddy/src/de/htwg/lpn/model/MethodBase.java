@@ -7,6 +7,7 @@ import java.util.List;
 import org.apache.http.NameValuePair;
 
 import android.content.SharedPreferences;
+import de.htwg.lpn.wgbuddy.utility.Config;
 import de.htwg.lpn.wgbuddy.utility.JSON;
 
 /**
@@ -19,9 +20,6 @@ public class MethodBase
 	protected SharedPreferences settings = null;
 	protected String phpPage;
 	protected String arrayName;
-
-	protected final static String webserver = "http://wgbuddy.domoprojekt.de/";
-	protected final static String authCode = "authCode=42cfbce07625c322c037066183d5f5c9";
 
 	/**
 	 * Konstruktor setzt die benötigten Parameter für die spätere Kommunkikation
@@ -37,29 +35,13 @@ public class MethodBase
 	}
 
 	/**
-	 * @return the webserver
-	 */
-	public static String getWebserver()
-	{
-		return webserver;
-	}
-
-	/**
-	 * @return the authcode
-	 */
-	public static String getAuthcode()
-	{
-		return authCode;
-	}
-
-	/**
 	 * Diese Methode liefert alle Einträge der entsprechenden Datenbanktabelle.
 	 * 
 	 * @return Eine Liste aller Tabelleeinträge.
 	 */
 	public ArrayList<HashMap<String, String>> get()
 	{
-		return JSON.getMapListOfJsonArray(webserver + phpPage + "?" + authCode, arrayName);
+		return JSON.getMapListOfJsonArray(Config.WEBSERVER + phpPage + "?" + Config.AUTH_CODE, arrayName);
 	}
 
 	/**
@@ -73,7 +55,7 @@ public class MethodBase
 	 */
 	public ArrayList<HashMap<String, String>> get(String par)
 	{
-		String auth_string = authCode;
+		String auth_string = Config.AUTH_CODE;
 		if (auth_string != "")
 		{
 			if (par == "")
@@ -85,7 +67,7 @@ public class MethodBase
 				par += "&" + auth_string;
 			}
 		}
-		String url = webserver + phpPage + par;
+		String url = Config.WEBSERVER + phpPage + par;
 		return JSON.getMapListOfJsonArray(url, arrayName);
 	}
 
@@ -98,7 +80,7 @@ public class MethodBase
 	 */
 	public void insert(List<NameValuePair> nameValuePairs)
 	{
-		String url = webserver + phpPage + "?insert&" + authCode;
+		String url = Config.WEBSERVER + phpPage + "?insert&" + Config.AUTH_CODE;
 		JSON.postData(url, nameValuePairs);
 	}
 
@@ -112,7 +94,7 @@ public class MethodBase
 	 */
 	public void update(Integer id, List<NameValuePair> nameValuePairs)
 	{
-		String url = webserver + phpPage + "?update=" + String.valueOf(id) + "&" + authCode;
+		String url = Config.WEBSERVER + phpPage + "?update=" + String.valueOf(id) + "&" + Config.AUTH_CODE;
 		JSON.postData(url, nameValuePairs);
 	}
 
@@ -124,7 +106,7 @@ public class MethodBase
 	 */
 	public void delete(Integer id)
 	{
-		String url = webserver + phpPage + "?delete=" + String.valueOf(id) + "&" + authCode;
+		String url = Config.WEBSERVER + phpPage + "?delete=" + String.valueOf(id) + "&" + Config.AUTH_CODE;
 		JSON.postData(url);
 	}
 }

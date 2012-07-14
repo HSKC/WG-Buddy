@@ -2,7 +2,7 @@
   realizations="true" associations="true" dependencies="false" nesting-relationships="true">  
   <class id="1" corner="BOTTOM_RIGHT" language="java" name="de.htwg.lpn.wgbuddy.utility.WorkerThread" project="WG-Buddy" 
     file="/WG-Buddy/src/de/htwg/lpn/wgbuddy/utility/WorkerThread.java" binary="false">    
-    <position height="-1" width="-1" x="169" y="866"/>    
+    <position height="-1" width="-1" x="163" y="920"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" visibility="true">      
       <attributes public="true" package="true" protected="true" private="true"/>      
       <operations public="true" package="true" protected="true" private="true"/>    
@@ -18,7 +18,7 @@
   </class>  
   <class id="3" corner="BOTTOM_RIGHT" language="java" name="de.htwg.lpn.wgbuddy.utility.RandomUser" project="WG-Buddy" 
     file="/WG-Buddy/src/de/htwg/lpn/wgbuddy/utility/RandomUser.java" binary="false">    
-    <position height="-1" width="-1" x="517" y="839"/>    
+    <position height="-1" width="-1" x="504" y="405"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" visibility="true">      
       <attributes public="true" package="true" protected="true" private="true"/>      
       <operations public="true" package="true" protected="true" private="true"/>    
@@ -26,7 +26,7 @@
   </class>  
   <class id="4" corner="BOTTOM_RIGHT" language="java" name="de.htwg.lpn.wgbuddy.utility.AsyncPost" project="WG-Buddy" 
     file="/WG-Buddy/src/de/htwg/lpn/wgbuddy/utility/AsyncPost.java" binary="false">    
-    <position height="-1" width="-1" x="508" y="412"/>    
+    <position height="-1" width="-1" x="491" y="508"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" visibility="true">      
       <attributes public="true" package="true" protected="true" private="true"/>      
       <operations public="true" package="true" protected="true" private="true"/>    
@@ -34,7 +34,7 @@
   </class>  
   <class id="5" corner="BOTTOM_RIGHT" language="java" name="de.htwg.lpn.wgbuddy.utility.C2dmReceiver" project="WG-Buddy" 
     file="/WG-Buddy/src/de/htwg/lpn/wgbuddy/utility/C2dmReceiver.java" binary="false">    
-    <position height="-1" width="-1" x="514" y="670"/>    
+    <position height="-1" width="-1" x="494" y="751"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" visibility="true">      
       <attributes public="true" package="true" protected="true" private="true"/>      
       <operations public="true" package="true" protected="true" private="true"/>    
@@ -42,7 +42,7 @@
   </class>  
   <class id="6" corner="BOTTOM_RIGHT" language="java" name="de.htwg.lpn.wgbuddy.utility.JSON" project="WG-Buddy" 
     file="/WG-Buddy/src/de/htwg/lpn/wgbuddy/utility/JSON.java" binary="false">    
-    <position height="-1" width="-1" x="174" y="695"/>    
+    <position height="-1" width="-1" x="188" y="718"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" visibility="true">      
       <attributes public="true" package="true" protected="true" private="true"/>      
       <operations public="true" package="true" protected="true" private="true"/>    
@@ -50,7 +50,7 @@
   </class>  
   <class id="7" corner="BOTTOM_RIGHT" language="java" name="de.htwg.lpn.wgbuddy.utility.Dialogs" project="WG-Buddy" 
     file="/WG-Buddy/src/de/htwg/lpn/wgbuddy/utility/Dialogs.java" binary="false">    
-    <position height="-1" width="-1" x="176" y="481"/>    
+    <position height="-1" width="-1" x="167" y="493"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" visibility="true">      
       <attributes public="true" package="true" protected="true" private="true"/>      
       <operations public="true" package="true" protected="true" private="true"/>    
@@ -58,7 +58,15 @@
   </class>  
   <class id="8" corner="BOTTOM_RIGHT" language="java" name="de.htwg.lpn.wgbuddy.utility.AsyncJsonCall" 
     project="WG-Buddy" file="/WG-Buddy/src/de/htwg/lpn/wgbuddy/utility/AsyncJsonCall.java" binary="false">    
-    <position height="-1" width="-1" x="513" y="531"/>    
+    <position height="-1" width="-1" x="496" y="618"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true"/>      
+      <operations public="true" package="true" protected="true" private="true"/>    
+    </display>  
+  </class>  
+  <class id="9" corner="BOTTOM_RIGHT" language="java" name="de.htwg.lpn.wgbuddy.utility.Config" project="WG-Buddy" 
+    file="/WG-Buddy/src/de/htwg/lpn/wgbuddy/utility/Config.java" binary="false">    
+    <position height="-1" width="-1" x="474" y="918"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" visibility="true">      
       <attributes public="true" package="true" protected="true" private="true"/>      
       <operations public="true" package="true" protected="true" private="true"/>    

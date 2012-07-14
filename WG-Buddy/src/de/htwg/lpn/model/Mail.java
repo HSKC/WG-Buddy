@@ -5,6 +5,7 @@ import java.util.List;
 import org.apache.http.NameValuePair;
 
 import android.content.SharedPreferences;
+import de.htwg.lpn.wgbuddy.utility.Config;
 import de.htwg.lpn.wgbuddy.utility.JSON;
 
 /**
@@ -35,7 +36,7 @@ public class Mail extends MethodBase
 	 */
 	public void sendChangeKey(String email)
 	{
-		String url = webserver + phpPage + "?lost=" + email + "&" + authCode;
+		String url = Config.WEBSERVER + phpPage + "?lost=" + email + "&" + Config.AUTH_CODE;
 		JSON.postData(url);
 	}
 
@@ -47,7 +48,7 @@ public class Mail extends MethodBase
 	 */
 	public void sendActivateKey(String email)
 	{
-		String url = webserver + phpPage + "?activate=" + email + "&" + authCode;
+		String url = Config.WEBSERVER + phpPage + "?activate=" + email + "&" + Config.AUTH_CODE;
 		JSON.postData(url);
 	}
 
@@ -59,8 +60,8 @@ public class Mail extends MethodBase
 	 */
 	public void sendInvite(String email)
 	{
-		String url = webserver + phpPage + "?invite=" + email + "&username=" + settings.getString("user_name", "") + "&wg=" + settings.getString("wg_name", "") + "&pw="
-		+ settings.getString("wg_password", "") + "&" + authCode;
+		String url = Config.WEBSERVER + phpPage + "?invite=" + email + "&username=" + settings.getString("user_name", "") + "&wg=" + settings.getString("wg_name", "") + "&pw="
+		+ settings.getString("wg_password", "") + "&" + Config.AUTH_CODE;
 		JSON.postData(url);
 	}
 
@@ -74,7 +75,7 @@ public class Mail extends MethodBase
 	 */
 	public void sendTask(List<NameValuePair> nameValuePairs)
 	{
-		String url = webserver + phpPage + "?task&" + authCode;
+		String url = Config.WEBSERVER + phpPage + "?task&" + Config.AUTH_CODE;
 		JSON.postData(url, nameValuePairs);
 	}
 }

@@ -7,6 +7,7 @@ import org.apache.http.NameValuePair;
 import org.apache.http.message.BasicNameValuePair;
 
 import android.content.SharedPreferences;
+import de.htwg.lpn.wgbuddy.utility.Config;
 import de.htwg.lpn.wgbuddy.utility.JSON;
 
 /**
@@ -43,7 +44,7 @@ public class GoogleService extends MethodBase
 		nameValuePairs.add(new BasicNameValuePair("msgType", "collapsed"));
 		nameValuePairs.add(new BasicNameValuePair("messageText", message));
 
-		String url = webserver + phpPage + "?" + authCode;
+		String url = Config.WEBSERVER + phpPage + "?" + Config.AUTH_CODE;
 		JSON.postData(url, nameValuePairs);
 	}
 
@@ -53,7 +54,7 @@ public class GoogleService extends MethodBase
 	 */
 	public void googleAuthenticate()
 	{
-		String url = webserver + phpPage + "?Authenticate&" + authCode;
+		String url = Config.WEBSERVER + phpPage + "?Authenticate&" + Config.AUTH_CODE;
 		JSON.postData(url);
 	}
 }

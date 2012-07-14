@@ -33,7 +33,7 @@ public class C2dmReceiver extends BroadcastReceiver
 	public void onReceive(Context context, Intent intent)
 	{
 		System.out.println("Received Async Message");
-		if (Main.USEPUSH)
+		if (Config.USE_PUSH)
 		{
 			if (intent.getAction().equals("com.google.android.c2dm.intent.REGISTRATION"))
 			{
@@ -95,14 +95,14 @@ public class C2dmReceiver extends BroadcastReceiver
 		}
 		else if (registration != null)
 		{
+			SharedPreferences settings = context.getSharedPreferences(Config.PREFS_NAME, 0);
+
 			// Android Key im gemeinsamen Speicher speichern.
 			Log.d("c2dm", registration);
-			Editor editor = context.getSharedPreferences(Main.PREFS_NAME, 0).edit();
+			Editor editor = settings.edit();
 			editor.putString("registrationKey", registration);
 			editor.putLong("registrationKeydate", new Date().getTime());
 			editor.commit();
-
-			SharedPreferences settings = context.getApplicationContext().getSharedPreferences(Main.PREFS_NAME, 0);
 
 			// Android Key in der Datenbank speichern.
 			User user = new User(settings);

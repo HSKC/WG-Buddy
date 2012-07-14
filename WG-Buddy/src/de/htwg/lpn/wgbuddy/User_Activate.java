@@ -22,6 +22,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import de.htwg.lpn.model.Mail;
 import de.htwg.lpn.model.User;
+import de.htwg.lpn.wgbuddy.utility.Config;
 import de.htwg.lpn.wgbuddy.utility.Dialogs;
 import de.htwg.lpn.wgbuddy.utility.Utilities;
 
@@ -43,7 +44,7 @@ public class User_Activate extends Activity
 		setContentView(R.layout.user_activate);
 
 		// Die allgemeinen Anwendungsdaten laden.
-		settings = getSharedPreferences(Main.PREFS_NAME, 0);
+		settings = getSharedPreferences(Config.PREFS_NAME, 0);
 
 		// Alle Views dieser Ansicht den entsprechenden Feldern zuweisen.
 		sendButton = (Button) findViewById(R.id.activate_user_send);

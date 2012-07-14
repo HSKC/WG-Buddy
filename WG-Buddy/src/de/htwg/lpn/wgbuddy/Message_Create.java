@@ -22,6 +22,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import de.htwg.lpn.model.GoogleService;
 import de.htwg.lpn.model.Message;
+import de.htwg.lpn.wgbuddy.utility.Config;
 import de.htwg.lpn.wgbuddy.utility.Dialogs;
 import de.htwg.lpn.wgbuddy.utility.Utilities;
 import de.htwg.lpn.wgbuddy.utility.WorkerThread;
@@ -43,7 +44,7 @@ public class Message_Create extends Activity
 		setContentView(R.layout.message_create);
 
 		// Die allgemeinen Anwendungsdaten laden.
-		settings = getSharedPreferences(Main.PREFS_NAME, 0);
+		settings = getSharedPreferences(Config.PREFS_NAME, 0);
 
 		// Prüfen ob der Benutzer eingeloggt ist und ggf. in die Login-Ansicht
 		// umleiten.
@@ -53,7 +54,6 @@ public class Message_Create extends Activity
 		sendButton = (Button) findViewById(R.id.messagecreate_sendButton);
 		titleEditText = (EditText) findViewById(R.id.messagecreate_titleEdit);
 		messageEditText = (EditText) findViewById(R.id.messagecreate_messageEdit);
-		settings = getSharedPreferences(Main.PREFS_NAME, 0);
 
 		sendButton.setOnClickListener(new OnClickListener()
 		{
@@ -109,7 +109,7 @@ public class Message_Create extends Activity
 
 							// Alle Geräte der WG mit Hilfe des GoogleService
 							// über die Änderung informieren.
-							if (Main.USEPUSH)
+							if (Config.USE_PUSH)
 							{
 								GoogleService gs = new GoogleService(settings);
 								gs.sendMessageToPhone("Message");

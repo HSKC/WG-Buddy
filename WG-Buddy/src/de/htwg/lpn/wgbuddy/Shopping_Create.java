@@ -24,6 +24,7 @@ import android.widget.EditText;
 import android.widget.RatingBar;
 import de.htwg.lpn.model.GoogleService;
 import de.htwg.lpn.model.Shopping;
+import de.htwg.lpn.wgbuddy.utility.Config;
 import de.htwg.lpn.wgbuddy.utility.Dialogs;
 import de.htwg.lpn.wgbuddy.utility.Utilities;
 import de.htwg.lpn.wgbuddy.utility.WorkerThread;
@@ -47,7 +48,7 @@ public class Shopping_Create extends Activity
 		setContentView(R.layout.shopping_create);
 
 		// Die allgemeinen Anwendungsdaten laden.
-		settings = getSharedPreferences(Main.PREFS_NAME, 0);
+		settings = getSharedPreferences(Config.PREFS_NAME, 0);
 
 		// Prüfen ob der Benutzer eingeloggt ist und ggf. in die Login-Ansicht
 		// umleiten.
@@ -114,7 +115,7 @@ public class Shopping_Create extends Activity
 
 							// Alle Geräte der WG mit Hilfe des GoogleService
 							// über die Änderung informieren.
-							if (Main.USEPUSH)
+							if (Config.USE_PUSH)
 							{
 								GoogleService gs = new GoogleService(settings);
 								gs.sendMessageToPhone("Shopping");

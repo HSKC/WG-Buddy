@@ -10,6 +10,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
+import de.htwg.lpn.wgbuddy.utility.Config;
 import de.htwg.lpn.wgbuddy.utility.Dialogs;
 import de.htwg.lpn.wgbuddy.utility.Utilities;
 
@@ -31,7 +32,7 @@ public class Preferences extends Activity
 		setContentView(R.layout.preferences);
 
 		// Die allgemeinen Anwendungsdaten laden.
-		settings = getSharedPreferences(Main.PREFS_NAME, 0);
+		settings = getSharedPreferences(Config.PREFS_NAME, 0);
 
 		// Prüfen ob der Benutzer eingeloggt ist und ggf. in die Login-Ansicht
 		// umleiten.

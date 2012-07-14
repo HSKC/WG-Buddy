@@ -44,6 +44,7 @@ import android.widget.TextView;
 import de.htwg.lpn.model.GoogleService;
 import de.htwg.lpn.model.Task;
 import de.htwg.lpn.model.User;
+import de.htwg.lpn.wgbuddy.utility.Config;
 import de.htwg.lpn.wgbuddy.utility.Dialogs;
 import de.htwg.lpn.wgbuddy.utility.Utilities;
 import de.htwg.lpn.wgbuddy.utility.WorkerThread;
@@ -82,7 +83,7 @@ public class Task_List extends Activity
 		setContentView(R.layout.task_list);
 
 		// Die allgemeinen Anwendungsdaten laden.
-		settings = getSharedPreferences(Main.PREFS_NAME, 0);
+		settings = getSharedPreferences(Config.PREFS_NAME, 0);
 
 		// Prüfen ob der Benutzer eingeloggt ist und ggf. in die Login-Ansicht
 		// umleiten.
@@ -426,7 +427,7 @@ public class Task_List extends Activity
 									// Alle Geräte der WG mit Hilfe des
 									// GoogleService über die Änderung
 									// informieren.
-									if (Main.USEPUSH)
+									if (Config.USE_PUSH)
 									{
 										GoogleService gs = new GoogleService(settings);
 										gs.sendMessageToPhone("Task");
@@ -497,7 +498,7 @@ public class Task_List extends Activity
 											// Alle Geräte der WG mit Hilfe des
 											// GoogleService über die Änderung
 											// informieren.
-											if (Main.USEPUSH)
+											if (Config.USE_PUSH)
 											{
 												GoogleService gs = new GoogleService(settings);
 												gs.sendMessageToPhone("Task");

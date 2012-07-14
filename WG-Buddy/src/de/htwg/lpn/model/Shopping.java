@@ -20,6 +20,6 @@ public class Shopping extends MethodBase
 	{
 		super(settings);
 		this.phpPage = "shopping.php";
-		this.arrayName = "Item";
+		this.arrayName = "Shopping";
 	}
 }

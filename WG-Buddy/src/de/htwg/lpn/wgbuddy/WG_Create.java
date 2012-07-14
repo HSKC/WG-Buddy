@@ -20,6 +20,7 @@ import android.widget.Button;
 import android.widget.TextView;
 import de.htwg.lpn.model.User;
 import de.htwg.lpn.model.WG;
+import de.htwg.lpn.wgbuddy.utility.Config;
 import de.htwg.lpn.wgbuddy.utility.Dialogs;
 import de.htwg.lpn.wgbuddy.utility.Utilities;
 
@@ -42,7 +43,7 @@ public class WG_Create extends Activity
 		setContentView(R.layout.wg_create);
 
 		// Die allgemeinen Anwendungsdaten laden.
-		settings = getSharedPreferences(Main.PREFS_NAME, 0);
+		settings = getSharedPreferences(Config.PREFS_NAME, 0);
 
 		// Nicht eingeloggt.
 		if (!settings.contains("user_id") || !settings.contains("user_name") || !settings.contains("user_email") || !settings.contains("user_password"))

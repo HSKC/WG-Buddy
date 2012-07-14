@@ -20,6 +20,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import de.htwg.lpn.model.User;
 import de.htwg.lpn.model.WG;
+import de.htwg.lpn.wgbuddy.utility.Config;
 import de.htwg.lpn.wgbuddy.utility.Dialogs;
 import de.htwg.lpn.wgbuddy.utility.Utilities;
 
@@ -41,7 +42,7 @@ public class WG_Login extends Activity
 		setContentView(R.layout.wg_login);
 
 		// Die allgemeinen Anwendungsdaten laden.
-		settings = getSharedPreferences(Main.PREFS_NAME, 0);
+		settings = getSharedPreferences(Config.PREFS_NAME, 0);
 
 		// Nicht eingeloggt.
 		if (!settings.contains("user_id") || !settings.contains("user_name") || !settings.contains("user_email") || !settings.contains("user_password"))
@@ -95,7 +96,6 @@ public class WG_Login extends Activity
 				ArrayList<HashMap<String, String>> wgList = wg.get("?name=" + name + "&password=" + password);
 				if (wgList.size() == 1)
 				{
-					SharedPreferences settings = getSharedPreferences(Main.PREFS_NAME, 0);
 					SharedPreferences.Editor editor = settings.edit();
 
 					// WG Eigenschaften speichern.

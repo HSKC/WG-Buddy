@@ -22,6 +22,7 @@ import android.widget.SimpleAdapter;
 import android.widget.SimpleAdapter.ViewBinder;
 import android.widget.TextView;
 import de.htwg.lpn.model.Message;
+import de.htwg.lpn.wgbuddy.utility.Config;
 import de.htwg.lpn.wgbuddy.utility.Dialogs;
 import de.htwg.lpn.wgbuddy.utility.Utilities;
 
@@ -42,7 +43,7 @@ public class Message_List extends Activity
 		setContentView(R.layout.message_list);
 
 		// Die allgemeinen Anwendungsdaten laden.
-		settings = getSharedPreferences(Main.PREFS_NAME, 0);
+		settings = getSharedPreferences(Config.PREFS_NAME, 0);
 
 		// Prüfen ob der Benutzer eingeloggt ist und ggf. in die Login-Ansicht
 		// umleiten.
