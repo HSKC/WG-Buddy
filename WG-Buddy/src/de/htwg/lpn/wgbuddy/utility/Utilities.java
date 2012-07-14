@@ -123,6 +123,7 @@ public class Utilities
 	{
 		ArrayList<NameValuePair> nameValuePairs = new ArrayList<NameValuePair>();
 		nameValuePairs.add(new BasicNameValuePair("wgId", settings.getString("0", "")));
+		nameValuePairs.add(new BasicNameValuePair("points", "0"));
 		user.update(Integer.valueOf(settings.getString("user_id", "")), nameValuePairs);
 
 		SharedPreferences.Editor editor = settings.edit();
