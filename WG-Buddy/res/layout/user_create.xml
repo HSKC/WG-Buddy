@@ -15,8 +15,8 @@
         android:id="@+id/create_user_usernameEdit"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="@string/createuser_name"
         android:ems="10"
+        android:hint="@string/createuser_name"
         android:inputType="textNoSuggestions"
         android:maxLength="20" >
 
@@ -33,8 +33,8 @@
         android:id="@+id/create_user_emailEdit"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="@string/createuser_email"
         android:ems="10"
+        android:hint="@string/createuser_email"
         android:inputType="textEmailAddress" />
 
     <TextView
@@ -47,8 +47,8 @@
         android:id="@+id/create_user_email2Edit"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="@string/createuser_email2"
         android:ems="10"
+        android:hint="@string/createuser_email2"
         android:inputType="textEmailAddress" />
 
     <TextView

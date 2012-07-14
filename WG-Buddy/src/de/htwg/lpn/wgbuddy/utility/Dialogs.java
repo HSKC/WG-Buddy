@@ -28,8 +28,18 @@ import de.htwg.lpn.model.User;
 import de.htwg.lpn.model.WG;
 import de.htwg.lpn.wgbuddy.R;
 
+/**
+ * Sammlung von Methoden, die verschiedene Dialoge generieren und anzeigen.
+ */
 public class Dialogs
 {
+	/**
+	 * Liefert den "Passwort vergessen"-Dialog. Der Benutzer bekommt einen
+	 * Änderungsschlüssel um sein Passwort zu ändern.
+	 * 
+	 * @param context
+	 * @param settings
+	 */
 	public static void getLostPasswordDialog(final Context context, final SharedPreferences settings)
 	{
 		AlertDialog.Builder builder = new AlertDialog.Builder(context);
@@ -83,6 +93,13 @@ public class Dialogs
 		alert.show();
 	}
 
+	/**
+	 * Liefert den "Passwort ändern"-Dialog. Der Benutzer kann mit Hilfe eines
+	 * Schlüssel das Passwort ändern.
+	 * 
+	 * @param context
+	 * @param settings
+	 */
 	public static void getChangePasswordWithKeyDialog(final Context context, final SharedPreferences settings)
 	{
 		AlertDialog.Builder builder = new AlertDialog.Builder(context);
@@ -165,6 +182,13 @@ public class Dialogs
 		alert.show();
 	}
 
+	/**
+	 * Liefert den "Passwort ändern"-Dialog. Der Benutzer kann mit Hilfe des
+	 * alten Passwort's das Passwort ändern.
+	 * 
+	 * @param context
+	 * @param settings
+	 */
 	public static void getChangePasswordDialog(final Context context, final SharedPreferences settings)
 	{
 		AlertDialog.Builder builder = new AlertDialog.Builder(context);
@@ -252,6 +276,13 @@ public class Dialogs
 		alert.show();
 	}
 
+	/**
+	 * Liefert den "WG-Passwort ändern"-Dialog. Der Admin kann mit Hilfe des
+	 * alten Passwort's das Passwort ändern.
+	 * 
+	 * @param context
+	 * @param settings
+	 */
 	public static void getChangeWGPasswordDialog(final Context context, final SharedPreferences settings)
 	{
 		AlertDialog.Builder builder = new AlertDialog.Builder(context);
@@ -334,6 +365,17 @@ public class Dialogs
 		alert.show();
 	}
 
+	/**
+	 * Liefert den "Admin ändern"-Dialog. Der Admin kann einen neuen Admin
+	 * auswählen.
+	 * 
+	 * @param context
+	 * @param settings
+	 * @param leave
+	 *            Falls true, WG anschließend mit Hilfe der Methode
+	 *            Utilities.leaveWG() verlassen. Falls false, in die
+	 *            Einstellungen-Ansicht zurückkehren.
+	 */
 	public static void getChangeAdminDialog(final Context context, final SharedPreferences settings, final Boolean leave)
 	{
 		AlertDialog.Builder builder = new AlertDialog.Builder(context);
@@ -430,6 +472,12 @@ public class Dialogs
 		alert.show();
 	}
 
+	/**
+	 * Liefert den About-Dialog.
+	 * 
+	 * @param context
+	 * @param settings
+	 */
 	public static void getAboutDialog(final Context context, SharedPreferences settings)
 	{
 		AlertDialog.Builder builder = new AlertDialog.Builder(context);
@@ -456,6 +504,12 @@ public class Dialogs
 		alert.show();
 	}
 
+	/**
+	 * Liefert den Invite-Dialog.
+	 * 
+	 * @param context
+	 * @param settings
+	 */
 	public static void getInviteDialog(final Context context, final SharedPreferences settings)
 	{
 		final AlertDialog.Builder builder = new AlertDialog.Builder(context);
@@ -507,6 +561,12 @@ public class Dialogs
 		builder.create().show();
 	}
 
+	/**
+	 * Liefert den "WG verlassen"-Dialog.
+	 * 
+	 * @param context
+	 * @param settings
+	 */
 	public static void getLeaveWGDialog(final Context context, final SharedPreferences settings)
 	{
 		AlertDialog.Builder builder = new AlertDialog.Builder(context);

@@ -92,7 +92,7 @@ public class JSON
 			}
 			catch (JSONException e)
 			{
-				// TODO Auto-generated catch block
+				Log.d("JSON.getMapListOfJsonArray()", e.getMessage());
 				e.printStackTrace();
 			}
 			if (jsonarray != null)
@@ -116,7 +116,7 @@ public class JSON
 					}
 					catch (JSONException e1)
 					{
-						// TODO Auto-generated catch block
+						Log.d("JSON.getMapListOfJsonArray()", e1.getMessage());
 						e1.printStackTrace();
 					}
 				}
@@ -140,15 +140,13 @@ public class JSON
 		{
 			is = asc.get();
 		}
-		catch (InterruptedException e1)
+		catch (InterruptedException e)
 		{
-			// TODO Auto-generated catch block
-			e1.printStackTrace();
+			Log.d("log_tag", "Error get data " + e.toString() + e.getMessage());
 		}
-		catch (ExecutionException e1)
+		catch (ExecutionException e)
 		{
-			// TODO Auto-generated catch block
-			e1.printStackTrace();
+			Log.d("log_tag", "Error get data " + e.toString() + e.getMessage());
 		}
 
 		// convert response to string

@@ -8,7 +8,11 @@ import org.apache.http.client.methods.HttpPost;
 import org.apache.http.impl.client.DefaultHttpClient;
 
 import android.os.AsyncTask;
+import android.util.Log;
 
+/**
+ * Asynchron Daten an den Server schicken.
+ */
 public class AsyncPost extends AsyncTask<HttpPost, Void, String>
 {
 	@Override
@@ -23,12 +27,12 @@ public class AsyncPost extends AsyncTask<HttpPost, Void, String>
 		}
 		catch (ClientProtocolException e)
 		{
-			// TODO Auto-generated catch block
+			Log.d("log_tag", "Error send data " + e.toString() + e.getMessage());
 			e.printStackTrace();
 		}
 		catch (IOException e)
 		{
-			// TODO Auto-generated catch block
+			Log.d("log_tag", "Error send data " + e.toString() + e.getMessage());
 			e.printStackTrace();
 		}
 		return null;

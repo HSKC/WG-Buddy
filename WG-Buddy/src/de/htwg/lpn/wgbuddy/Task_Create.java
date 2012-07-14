@@ -220,8 +220,7 @@ public class Task_Create extends Activity
 							}
 
 							// Aus den Kandidaten einen Bewohner auswählen.
-							RandomUser randomUser = new RandomUser();
-							String chosenUserName = randomUser.getRandomUser(checkedUser);
+							String chosenUserName = RandomUser.getRandomUser(checkedUser);
 
 							// Benutzername für den Handler speichern.
 							message.obj = chosenUserName;

@@ -18,12 +18,15 @@ import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
 import android.util.Log;
 import de.htwg.lpn.model.User;
+import de.htwg.lpn.wgbuddy.Main;
 import de.htwg.lpn.wgbuddy.Message_List;
 import de.htwg.lpn.wgbuddy.R;
 import de.htwg.lpn.wgbuddy.Shopping_List;
 import de.htwg.lpn.wgbuddy.Task_List;
-import de.htwg.lpn.wgbuddy.Main;
 
+/**
+ * Klasse verarbeitet die Nachrichten, die vom GooleService geschickt werden.
+ */
 public class C2dmReceiver extends BroadcastReceiver
 {
 	@Override
@@ -43,6 +46,14 @@ public class C2dmReceiver extends BroadcastReceiver
 		}
 	}
 
+	/**
+	 * Android Gerät am GoogleService anmelden
+	 * 
+	 * @param context
+	 *            Context
+	 * @param intent
+	 *            Intent
+	 */
 	private void handleRegistration(Context context, Intent intent)
 	{
 		String registration = intent.getStringExtra("registration_id");
@@ -84,6 +95,7 @@ public class C2dmReceiver extends BroadcastReceiver
 		}
 		else if (registration != null)
 		{
+			// Android Key im gemeinsamen Speicher speichern.
 			Log.d("c2dm", registration);
 			Editor editor = context.getSharedPreferences(Main.PREFS_NAME, 0).edit();
 			editor.putString("registrationKey", registration);
@@ -92,6 +104,7 @@ public class C2dmReceiver extends BroadcastReceiver
 
 			SharedPreferences settings = context.getApplicationContext().getSharedPreferences(Main.PREFS_NAME, 0);
 
+			// Android Key in der Datenbank speichern.
 			User user = new User(settings);
 			List<NameValuePair> nameValuePairs = new ArrayList<NameValuePair>();
 			nameValuePairs.add(new BasicNameValuePair("android_key", registration));
@@ -100,6 +113,12 @@ public class C2dmReceiver extends BroadcastReceiver
 		}
 	}
 
+	/**
+	 * Empfangene Nachricht bearbeiten.
+	 * 
+	 * @param context
+	 * @param intent
+	 */
 	private void handleMessage(Context context, Intent intent)
 	{
 		ActivityManager mActivityManager = (ActivityManager) context.getSystemService(Context.ACTIVITY_SERVICE);
