@@ -242,7 +242,7 @@ public class Task_Create extends Activity
 
 							// Alle Geräte der WG mit Hilfe des GoogleService
 							// über die Änderung informieren.
-							if (Main.usepush)
+							if (Main.USEPUSH)
 							{
 								GoogleService gs = new GoogleService(settings);
 								gs.sendMessageToPhone("Task");

@@ -161,18 +161,18 @@ public class Shopping_List extends Activity
 		}
 	}
 
-//	@Override
-//	public boolean onKeyDown(int keyCode, KeyEvent event)
-//	{
-//		if (keyCode == KeyEvent.KEYCODE_BACK)
-//		{
-//			Intent intent = new Intent(this, Main.class);
-//			startActivity(intent);
-//
-//			return true;
-//		}
-//		return super.onKeyDown(keyCode, event);
-//	}
+	@Override
+	public boolean onKeyDown(int keyCode, KeyEvent event)
+	{
+		if (keyCode == KeyEvent.KEYCODE_BACK)
+		{
+			Intent intent = new Intent(this, Main.class);
+			startActivity(intent);
+
+			return true;
+		}
+		return super.onKeyDown(keyCode, event);
+	}
 
 	/**
 	 * Daten aus der Datenbank laden und die Liste befüllen.
@@ -397,7 +397,7 @@ public class Shopping_List extends Activity
 									// Alle Geräte der WG mit Hilfe des
 									// GoogleService über die Änderung
 									// informieren.
-									if (Main.usepush)
+									if (Main.USEPUSH)
 									{
 										GoogleService gs = new GoogleService(settings);
 										gs.sendMessageToPhone("Shopping");
@@ -470,7 +470,7 @@ public class Shopping_List extends Activity
 											// Alle Geräte der WG mit Hilfe des
 											// GoogleService über die Änderung
 											// informieren.
-											if (Main.usepush)
+											if (Main.USEPUSH)
 											{
 												GoogleService gs = new GoogleService(settings);
 												gs.sendMessageToPhone("Shopping");

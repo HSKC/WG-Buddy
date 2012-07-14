@@ -33,7 +33,7 @@ public class C2dmReceiver extends BroadcastReceiver
 	public void onReceive(Context context, Intent intent)
 	{
 		System.out.println("Received Async Message");
-		if (Main.usepush)
+		if (Main.USEPUSH)
 		{
 			if (intent.getAction().equals("com.google.android.c2dm.intent.REGISTRATION"))
 			{

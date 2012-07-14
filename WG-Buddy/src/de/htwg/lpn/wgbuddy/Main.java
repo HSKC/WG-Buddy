@@ -30,8 +30,8 @@ import de.htwg.lpn.wgbuddy.utility.Utilities;
 public class Main extends Activity
 {
 	public static final String PREFS_NAME = "WGBuddyPreferences";
-	public static final String WEBSERVER = "http://wgbuddy.domoprojekt.de/";
-	public static boolean usepush = true;
+	public static final String WEBSERVER = MethodBase.getWebserver();
+	public static boolean USEPUSH = true;
 
 	private Button shoppinglist;
 	private Button taskdistributor;

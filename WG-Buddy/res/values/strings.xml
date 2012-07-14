@@ -154,7 +154,7 @@
 	
 	<string name="utilities_selectNewAdmin">Bitte wählen Sie einen neuen Admin aus.</string>	
 	<string name="utilities_aboutText">WG-Buddy ist eine im Rahmen des Wahlpflichtfaches Lange Programmiernächte an der HTWG Konstanz entwickelte Android-App.\n\nJens Küblbeck\nFelix Offergeld\nDominik Wieland\n\nVersion 1.0\n\nIm Handbuch finden Sie weitere Informationen.</string>
-    <string name="utilities_aboutLink">http://wgbuddy.domoprojekt.de/WGBuddy%20Anwenderhandbuch.htm</string>
+    <string name="utilities_aboutLink">http://wgbuddy.domoprojekt.de/WGBuddy%20Anwenderhandbuch.html</string>
     <string name="utilities_aboutLinkText">Handbuch</string>
     
     <string-array name="shoppingListStatus_array">
