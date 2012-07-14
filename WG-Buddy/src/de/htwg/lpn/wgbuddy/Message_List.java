@@ -84,18 +84,18 @@ public class Message_List extends Activity
 		}
 	}
 
-	@Override
-	public boolean onKeyDown(int keyCode, KeyEvent event)
-	{
-		if (keyCode == KeyEvent.KEYCODE_BACK)
-		{
-			Intent intent = new Intent(this, Main.class);
-			startActivity(intent);
-
-			return true;
-		}
-		return super.onKeyDown(keyCode, event);
-	}
+//	@Override
+//	public boolean onKeyDown(int keyCode, KeyEvent event)
+//	{
+//		if (keyCode == KeyEvent.KEYCODE_BACK)
+//		{
+//			Intent intent = new Intent(this, Main.class);
+//			startActivity(intent);
+//
+//			return true;
+//		}
+//		return super.onKeyDown(keyCode, event);
+//	}
 
 	private void getList()
 	{
