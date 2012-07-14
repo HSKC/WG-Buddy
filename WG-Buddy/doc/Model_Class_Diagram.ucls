@@ -2,7 +2,7 @@
   realizations="true" associations="true" dependencies="false" nesting-relationships="true">  
   <class id="1" corner="BOTTOM_RIGHT" language="java" name="de.htwg.lpn.model.Task" project="WG-Buddy" 
     file="/WG-Buddy/src/de/htwg/lpn/model/Task.java" binary="false">    
-    <position height="78" width="149" x="175" y="70"/>    
+    <position height="-1" width="-1" x="318" y="655"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" visibility="true">      
       <attributes public="true" package="true" protected="true" private="true"/>      
       <operations public="true" package="true" protected="true" private="true"/>    
@@ -10,7 +10,7 @@
   </class>  
   <class id="2" corner="BOTTOM_RIGHT" language="java" name="de.htwg.lpn.model.WG" project="WG-Buddy" 
     file="/WG-Buddy/src/de/htwg/lpn/model/WG.java" binary="false">    
-    <position height="78" width="145" x="364" y="70"/>    
+    <position height="-1" width="-1" x="104" y="651"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" visibility="true">      
       <attributes public="true" package="true" protected="true" private="true"/>      
       <operations public="true" package="true" protected="true" private="true"/>    
@@ -18,7 +18,7 @@
   </class>  
   <class id="3" corner="BOTTOM_RIGHT" language="java" name="de.htwg.lpn.model.Mail" project="WG-Buddy" 
     file="/WG-Buddy/src/de/htwg/lpn/model/Mail.java" binary="false">    
-    <position height="146" width="202" x="787" y="70"/>    
+    <position height="-1" width="-1" x="511" y="79"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" visibility="true">      
       <attributes public="true" package="true" protected="true" private="true"/>      
       <operations public="true" package="true" protected="true" private="true"/>    
@@ -26,7 +26,7 @@
   </class>  
   <class id="4" corner="BOTTOM_RIGHT" language="java" name="de.htwg.lpn.model.GoogleService" project="WG-Buddy" 
     file="/WG-Buddy/src/de/htwg/lpn/model/GoogleService.java" binary="false">    
-    <position height="112" width="198" x="549" y="70"/>    
+    <position height="-1" width="-1" x="126" y="62"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" visibility="true">      
       <attributes public="true" package="true" protected="true" private="true"/>      
       <operations public="true" package="true" protected="true" private="true"/>    
@@ -34,7 +34,7 @@
   </class>  
   <class id="5" corner="BOTTOM_RIGHT" language="java" name="de.htwg.lpn.model.MethodBase" project="WG-Buddy" 
     file="/WG-Buddy/src/de/htwg/lpn/model/MethodBase.java" binary="false">    
-    <position height="-1" width="-1" x="877" y="-133"/>    
+    <position height="-1" width="-1" x="154" y="335"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" visibility="true">      
       <attributes public="true" package="true" protected="true" private="true"/>      
       <operations public="true" package="true" protected="true" private="true"/>    
@@ -42,7 +42,7 @@
   </class>  
   <class id="6" corner="BOTTOM_RIGHT" language="java" name="de.htwg.lpn.model.Message" project="WG-Buddy" 
     file="/WG-Buddy/src/de/htwg/lpn/model/Message.java" binary="false">    
-    <position height="78" width="171" x="1029" y="70"/>    
+    <position height="-1" width="-1" x="526" y="262"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" visibility="true">      
       <attributes public="true" package="true" protected="true" private="true"/>      
       <operations public="true" package="true" protected="true" private="true"/>    
@@ -50,7 +50,7 @@
   </class>  
   <class id="7" corner="BOTTOM_RIGHT" language="java" name="de.htwg.lpn.model.User" project="WG-Buddy" 
     file="/WG-Buddy/src/de/htwg/lpn/model/User.java" binary="false">    
-    <position height="78" width="150" x="1452" y="70"/>    
+    <position height="-1" width="-1" x="535" y="649"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" visibility="true">      
       <attributes public="true" package="true" protected="true" private="true"/>      
       <operations public="true" package="true" protected="true" private="true"/>    
@@ -58,7 +58,7 @@
   </class>  
   <class id="8" corner="BOTTOM_RIGHT" language="java" name="de.htwg.lpn.model.Shopping" project="WG-Buddy" 
     file="/WG-Buddy/src/de/htwg/lpn/model/Shopping.java" binary="false">    
-    <position height="78" width="172" x="1240" y="70"/>    
+    <position height="-1" width="-1" x="524" y="448"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" visibility="true">      
       <attributes public="true" package="true" protected="true" private="true"/>      
       <operations public="true" package="true" protected="true" private="true"/>    
