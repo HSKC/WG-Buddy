@@ -262,7 +262,7 @@ public class Main extends Activity
 		// Login-Bereich gewechselt werden kann.
 		if (keyCode == KeyEvent.KEYCODE_BACK)
 		{
-			finish();
+			moveTaskToBack(true); // Programm beenden.
 			return true;
 		}
 		return super.onKeyDown(keyCode, event);

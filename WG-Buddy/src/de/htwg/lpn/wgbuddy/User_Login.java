@@ -204,6 +204,7 @@ public class User_Login extends Activity
 		// Zurück-Button blocken.
 		if (keyCode == KeyEvent.KEYCODE_BACK)
 		{
+			moveTaskToBack(true); // Programm beenden.
 			return true;
 		}
 		return super.onKeyDown(keyCode, event);
