@@ -3,10 +3,10 @@ package de.htwg.lpn.model;
 import android.content.SharedPreferences;
 
 /**
- * Stellt die Methoden für den Aufgaben-Bereich zur Verfügung.  Die Daten
- * werden aus der entsprechenden Datenbanktabelle bezogen.
+ * Stellt die Methoden für den Aufgaben-Bereich zur Verfügung. Die Daten werden
+ * aus der entsprechenden Datenbanktabelle bezogen.
  */
-public class Task extends ObjectBase
+public class Task extends MethodBase
 {
 	/**
 	 * Konstruktor setzt die benötigten Parameter für die spätere Kommunkikation

@@ -8,10 +8,10 @@
     <TextView
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:text="@string/list_optionsDialog_filterText" />
+        android:text="@string/list_optionsDialog_statusText" />
 
     <Spinner
-        android:id="@+id/listTypeSpinner"
+        android:id="@+id/listStatusSpinner"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content" />
 

@@ -2,10 +2,6 @@ package de.htwg.lpn.wgbuddy;
 
 import java.util.ArrayList;
 import java.util.HashMap;
-import de.htwg.lpn.model.User;
-import de.htwg.lpn.model.WG;
-import de.htwg.lpn.wgbuddy.utility.Dialogs;
-import de.htwg.lpn.wgbuddy.utility.Utilities;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -19,7 +15,14 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.EditText;
+import de.htwg.lpn.model.User;
+import de.htwg.lpn.model.WG;
+import de.htwg.lpn.wgbuddy.utility.Dialogs;
+import de.htwg.lpn.wgbuddy.utility.Utilities;
 
+/**
+ * Activity-Klasse der Login-Ansicht.
+ */
 public class User_Login extends Activity
 {
 	private SharedPreferences settings = null;
@@ -37,8 +40,10 @@ public class User_Login extends Activity
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.user_login);
 
+		// Die allgemeinen Anwendungsdaten laden.
 		settings = getSharedPreferences(Main.PREFS_NAME, 0);
 
+		// Alle Views dieser Ansicht den entsprechenden Feldern zuweisen.
 		usernameTextView = (EditText) findViewById(R.id.userpref_nameEdit);
 		passwordTextView = (EditText) findViewById(R.id.userpref_passwordEdit);
 		saveButton = (Button) findViewById(R.id.userpref_saveButton);
@@ -52,34 +57,42 @@ public class User_Login extends Activity
 			@Override
 			public void onClick(View v)
 			{
+				// Felder einlesen und trim() verwenden. Bei Passwort zusätzlich
+				// md5() verwenden.
 				String username = usernameTextView.getText().toString().trim();
 				String password = Utilities.md5(passwordTextView.getText().toString().trim());
 
+				// Alle Felder ausgefüllt?
 				if (username.length() <= 0 && password.length() <= 0)
 				{
 					Utilities.toastMessage(User_Login.this, getString(R.string.utilities_allFields));
 					return;
 				}
 
+				// Auf unerlaubte Zeichen prüfen.
 				if (!Utilities.checkOnlyAllowedCharacter(username))
 				{
 					Utilities.toastMessage(User_Login.this, getString(R.string.utilities_forbiddenSignsUsername));
 					return;
 				}
 
+				// Prüfen, ob Name und Passwort korrekt sind.
 				User user = new User(settings);
 				ArrayList<HashMap<String, String>> userList = user.get("?username=" + username + "&password=" + password);
 				if (userList.size() == 1)
 				{
 					SharedPreferences.Editor editor = settings.edit();
 
+					// Konto aktiviert?
 					if (Integer.valueOf(userList.get(0).get("status")) == 0)
 					{
+						// In "Konto aktivieren"-Ansicht umleiten.
 						Intent intent = new Intent(User_Login.this, User_Activate.class);
 						startActivity(intent);
 					}
 					else
 					{
+						// Status in gemeinsamen Speicher auf 1 setzen.
 						editor.putString("user_status", userList.get(0).get("status"));
 					}
 
@@ -105,9 +118,10 @@ public class User_Login extends Activity
 					}
 
 					editor.commit();
-					
+
 					Utilities.toastMessage(User_Login.this, getString(R.string.utilities_login));
 
+					// Ins Hauptmenü wechseln.
 					Intent intent = new Intent(User_Login.this, Main.class);
 					startActivity(intent);
 				}
@@ -124,6 +138,7 @@ public class User_Login extends Activity
 			@Override
 			public void onClick(View v)
 			{
+				// Neuen User anlegen.
 				Intent intent = new Intent(User_Login.this, User_Create.class);
 				startActivity(intent);
 			}
@@ -134,6 +149,7 @@ public class User_Login extends Activity
 			@Override
 			public void onClick(View v)
 			{
+				// Konto aktivieren.
 				Intent intent = new Intent(User_Login.this, User_Activate.class);
 				startActivity(intent);
 			}
@@ -144,6 +160,7 @@ public class User_Login extends Activity
 			@Override
 			public void onClick(View v)
 			{
+				// "Passwort vergessen"-Dialog anzeigen.
 				Dialogs.getLostPasswordDialog(User_Login.this, settings);
 			}
 
@@ -153,6 +170,7 @@ public class User_Login extends Activity
 			@Override
 			public void onClick(View v)
 			{
+				// "Passwort ändern"-Dialog anzeigen.
 				Dialogs.getChangePasswordWithKeyDialog(User_Login.this, settings);
 			}
 		});
@@ -183,6 +201,7 @@ public class User_Login extends Activity
 	@Override
 	public boolean onKeyDown(int keyCode, KeyEvent event)
 	{
+		// Zurück-Button blocken.
 		if (keyCode == KeyEvent.KEYCODE_BACK)
 		{
 			return true;

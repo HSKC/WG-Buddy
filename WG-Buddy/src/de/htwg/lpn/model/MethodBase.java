@@ -14,12 +14,14 @@ import de.htwg.lpn.wgbuddy.utility.JSON;
  * allgemein.
  * 
  */
-public class ObjectBase
+public class MethodBase
 {
 	protected SharedPreferences settings = null;
 	protected String phpPage;
 	protected String arrayName;
-	protected String authCode = "authCode=42cfbce07625c322c037066183d5f5c9";
+
+	protected final static String webserver = "http://wgbuddy.domoprojekt.de/";
+	protected final static String authCode = "authCode=42cfbce07625c322c037066183d5f5c9";
 
 	/**
 	 * Konstruktor setzt die benötigten Parameter für die spätere Kommunkikation
@@ -29,9 +31,25 @@ public class ObjectBase
 	 *            Der Parameter enthält die in der gesamten Anwendungen
 	 *            geteilten Einstellung und Daten.
 	 */
-	public ObjectBase(SharedPreferences settings)
+	public MethodBase(SharedPreferences settings)
 	{
 		this.settings = settings;
+	}
+
+	/**
+	 * @return the webserver
+	 */
+	public static String getWebserver()
+	{
+		return webserver;
+	}
+
+	/**
+	 * @return the authcode
+	 */
+	public static String getAuthcode()
+	{
+		return authCode;
 	}
 
 	/**
@@ -41,7 +59,7 @@ public class ObjectBase
 	 */
 	public ArrayList<HashMap<String, String>> get()
 	{
-		return JSON.getMapListOfJsonArray(settings.getString("pref_webserver", "") + phpPage + "?" + authCode, arrayName);
+		return JSON.getMapListOfJsonArray(webserver + phpPage + "?" + authCode, arrayName);
 	}
 
 	/**
@@ -67,7 +85,7 @@ public class ObjectBase
 				par += "&" + auth_string;
 			}
 		}
-		String url = settings.getString("pref_webserver", "") + phpPage + par;
+		String url = webserver + phpPage + par;
 		return JSON.getMapListOfJsonArray(url, arrayName);
 	}
 
@@ -80,7 +98,7 @@ public class ObjectBase
 	 */
 	public void insert(List<NameValuePair> nameValuePairs)
 	{
-		String url = settings.getString("pref_webserver", "") + phpPage + "?insert&" + authCode;
+		String url = webserver + phpPage + "?insert&" + authCode;
 		JSON.postData(url, nameValuePairs);
 	}
 
@@ -94,7 +112,7 @@ public class ObjectBase
 	 */
 	public void update(Integer id, List<NameValuePair> nameValuePairs)
 	{
-		String url = settings.getString("pref_webserver", "") + phpPage + "?update=" + String.valueOf(id) + "&" + authCode;
+		String url = webserver + phpPage + "?update=" + String.valueOf(id) + "&" + authCode;
 		JSON.postData(url, nameValuePairs);
 	}
 
@@ -106,7 +124,7 @@ public class ObjectBase
 	 */
 	public void delete(Integer id)
 	{
-		String url = settings.getString("pref_webserver", "") + phpPage + "?delete=" + String.valueOf(id) + "&" + authCode;
+		String url = webserver + phpPage + "?delete=" + String.valueOf(id) + "&" + authCode;
 		JSON.postData(url);
 	}
 }

@@ -23,11 +23,14 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.RatingBar;
 import de.htwg.lpn.model.GoogleService;
-import de.htwg.lpn.model.ShoppingItem;
+import de.htwg.lpn.model.Shopping;
 import de.htwg.lpn.wgbuddy.utility.Dialogs;
 import de.htwg.lpn.wgbuddy.utility.Utilities;
 import de.htwg.lpn.wgbuddy.utility.WorkerThread;
 
+/**
+ * Activity-Klasse der Ansicht zum Erstellen von Einkaufsartikeln.
+ */
 public class Shopping_Create extends Activity
 {
 	private SharedPreferences settings = null;
@@ -43,9 +46,14 @@ public class Shopping_Create extends Activity
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.shopping_create);
 
+		// Die allgemeinen Anwendungsdaten laden.
 		settings = getSharedPreferences(Main.PREFS_NAME, 0);
+
+		// Prüfen ob der Benutzer eingeloggt ist und ggf. in die Login-Ansicht
+		// umleiten.
 		Utilities.checkByPass(this, settings);
 
+		// Alle Views dieser Ansicht den entsprechenden Feldern zuweisen.
 		addButton = (Button) findViewById(R.id.shoppingItemAddButton);
 		nameEditText = (EditText) findViewById(R.id.ShoppingItemNameEditText);
 		descriptionEditText = (EditText) findViewById(R.id.ShoppingDescriptionEditText);
@@ -56,13 +64,19 @@ public class Shopping_Create extends Activity
 			@Override
 			public void onClick(View v)
 			{
+				// Eingaben aus dem EditText-View laden und Leerzeichen am
+				// Anfang und Ende abschneiden.
 				final String name = nameEditText.getText().toString().trim();
 				final String comment = descriptionEditText.getText().toString().trim();
 
+				// Prüfen, ob Eingaben gemacht wurden.
 				if (name.compareTo("") != 0 && comment.compareTo("") != 0)
 				{
-
+					// Warte-Dialog anzeigen.
 					ProgressDialog pd = ProgressDialog.show(Shopping_Create.this, "", getString(R.string.utilities_pleaseWait));
+
+					// Handler, welcher nach dem Bearbeiten die Hintergrund-Task
+					// ausgeführt wird.
 					Handler handler = new Handler()
 					{
 						@Override
@@ -72,18 +86,20 @@ public class Shopping_Create extends Activity
 
 							Utilities.toastMessage(Shopping_Create.this, getString(R.string.shopping_created));
 
+							// Zurück zur Einkaufszettel-Ansicht.
 							Intent intent = new Intent(Shopping_Create.this, Shopping_List.class);
 							startActivity(intent);
 						}
 					};
 
+					// Code der in der Hintergrund-Task ausgeführt werden soll.
 					Callable<Message> callable = new Callable<Message>()
 					{
 						@Override
 						public Message call() throws Exception
 						{
-							Message message = Message.obtain();
-
+							// Werte für die Übertragung zur Datenbank
+							// vorbereiten.
 							List<NameValuePair> nameValuePairs = new ArrayList<NameValuePair>();
 							nameValuePairs.add(new BasicNameValuePair("wgId", settings.getString("wg_id", "")));
 							nameValuePairs.add(new BasicNameValuePair("userId", "0"));
@@ -92,20 +108,24 @@ public class Shopping_Create extends Activity
 							nameValuePairs.add(new BasicNameValuePair("rating", String.valueOf(ratingBar.getRating())));
 							nameValuePairs.add(new BasicNameValuePair("status", "0"));
 
-							ShoppingItem shopping = new ShoppingItem(settings);
+							// Daten in die Datenbank eintragen.
+							Shopping shopping = new Shopping(settings);
 							shopping.insert(nameValuePairs);
 
+							// Alle Geräte der WG mit Hilfe des GoogleService
+							// über die Änderung informieren.
 							if (Main.usepush)
 							{
 								GoogleService gs = new GoogleService(settings);
 								gs.sendMessageToPhone("Shopping");
 							}
 
-							return message;
+							return Message.obtain();
 						}
 
 					};
 
+					// Hintergrund Thread starten.
 					WorkerThread workerThread = new WorkerThread(callable, pd, handler);
 					workerThread.start();
 				}

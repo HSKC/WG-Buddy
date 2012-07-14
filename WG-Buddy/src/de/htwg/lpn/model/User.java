@@ -3,10 +3,10 @@ package de.htwg.lpn.model;
 import android.content.SharedPreferences;
 
 /**
- * Stellt die Methoden für die Benutzer-Daten zur Verfügung. Die Daten
- * werden aus der entsprechenden Datenbanktabelle bezogen.
+ * Stellt die Methoden für die Benutzer-Daten zur Verfügung. Die Daten werden
+ * aus der entsprechenden Datenbanktabelle bezogen.
  */
-public class User extends ObjectBase
+public class User extends MethodBase
 {
 	/**
 	 * Konstruktor setzt die benötigten Parameter für die spätere Kommunkikation

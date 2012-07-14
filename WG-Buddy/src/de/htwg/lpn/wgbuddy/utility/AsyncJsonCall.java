@@ -12,9 +12,11 @@ import org.apache.http.impl.client.DefaultHttpClient;
 
 import android.os.AsyncTask;
 
+/**
+ * 
+ */
 public class AsyncJsonCall extends AsyncTask<String, Void, InputStream>
 {
-
 	@Override
 	protected InputStream doInBackground(String... params)
 	{

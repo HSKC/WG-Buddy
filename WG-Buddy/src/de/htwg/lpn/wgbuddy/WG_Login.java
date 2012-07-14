@@ -6,10 +6,6 @@ import java.util.HashMap;
 import org.apache.http.NameValuePair;
 import org.apache.http.message.BasicNameValuePair;
 
-import de.htwg.lpn.model.User;
-import de.htwg.lpn.model.WG;
-import de.htwg.lpn.wgbuddy.utility.Dialogs;
-import de.htwg.lpn.wgbuddy.utility.Utilities;
 import android.app.Activity;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -22,7 +18,14 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.EditText;
+import de.htwg.lpn.model.User;
+import de.htwg.lpn.model.WG;
+import de.htwg.lpn.wgbuddy.utility.Dialogs;
+import de.htwg.lpn.wgbuddy.utility.Utilities;
 
+/**
+ * Activity-Klasse der Ansicht zum Beitreten von WG's.
+ */
 public class WG_Login extends Activity
 {
 	private SharedPreferences settings = null;
@@ -37,6 +40,7 @@ public class WG_Login extends Activity
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.wg_login);
 
+		// Die allgemeinen Anwendungsdaten laden.
 		settings = getSharedPreferences(Main.PREFS_NAME, 0);
 
 		// Nicht eingeloggt.
@@ -56,6 +60,7 @@ public class WG_Login extends Activity
 			startActivity(intent);
 		}
 
+		// Alle Views dieser Ansicht den entsprechenden Feldern zuweisen.
 		nameTextView = (EditText) findViewById(R.id.wgpref_nameEdit);
 		passwordTextView = (EditText) findViewById(R.id.wgpref_passwordEdit);
 		connectButton = (Button) findViewById(R.id.wgpref_connectButton);
@@ -66,21 +71,26 @@ public class WG_Login extends Activity
 			@Override
 			public void onClick(View v)
 			{
+				// Felder einlesen und trim() verwenden. Bei Passwort zusätzlich
+				// md5() verwenden.
 				String name = nameTextView.getText().toString().trim();
 				String password = passwordTextView.getText().toString().trim();
 
+				// Alle Felder ausgefüllt?
 				if (name.length() <= 0 && password.length() <= 0)
 				{
 					Utilities.toastMessage(WG_Login.this, getString(R.string.utilities_allFields));
 					return;
 				}
 
+				// Auf unerlaubte Zeichen prüfen.
 				if (!Utilities.checkOnlyAllowedCharacter(name))
 				{
 					Utilities.toastMessage(WG_Login.this, getString(R.string.utilities_forbiddenSignsWGname));
 					return;
 				}
 
+				// Prüfen, ob WG-Name und Passwort korrekt sind.
 				WG wg = new WG(settings);
 				ArrayList<HashMap<String, String>> wgList = wg.get("?name=" + name + "&password=" + password);
 				if (wgList.size() == 1)
@@ -103,6 +113,7 @@ public class WG_Login extends Activity
 
 					Utilities.toastMessage(WG_Login.this, getString(R.string.utilities_wgLogin));
 
+					// Ins Hauptmenü wechseln.
 					Intent intent = new Intent(WG_Login.this, Main.class);
 					startActivity(intent);
 				}
@@ -119,6 +130,7 @@ public class WG_Login extends Activity
 			@Override
 			public void onClick(View v)
 			{
+				// In die "WG erstellen"-Ansicht wechseln.
 				Intent intent = new Intent(WG_Login.this, WG_Create.class);
 				startActivity(intent);
 			}
@@ -150,6 +162,7 @@ public class WG_Login extends Activity
 	@Override
 	public boolean onKeyDown(int keyCode, KeyEvent event)
 	{
+		// Zurück-Button wechselt immer in die Login-Ansicht.
 		if (keyCode == KeyEvent.KEYCODE_BACK)
 		{
 			Intent intent = new Intent(this, User_Login.class);

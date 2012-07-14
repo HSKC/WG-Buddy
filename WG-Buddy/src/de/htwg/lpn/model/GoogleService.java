@@ -12,7 +12,7 @@ import de.htwg.lpn.wgbuddy.utility.JSON;
 /**
  * Stellt die Methoden für den GoogleService zur Verfügung.
  */
-public class GoogleService extends ObjectBase
+public class GoogleService extends MethodBase
 {
 	/**
 	 * Konstruktor setzt die benötigten Parameter für die spätere Kommunkikation
@@ -43,7 +43,7 @@ public class GoogleService extends ObjectBase
 		nameValuePairs.add(new BasicNameValuePair("msgType", "collapsed"));
 		nameValuePairs.add(new BasicNameValuePair("messageText", message));
 
-		String url = settings.getString("pref_webserver", "") + phpPage + "?" + authCode;
+		String url = webserver + phpPage + "?" + authCode;
 		JSON.postData(url, nameValuePairs);
 	}
 
@@ -53,7 +53,7 @@ public class GoogleService extends ObjectBase
 	 */
 	public void googleAuthenticate()
 	{
-		String url = settings.getString("pref_webserver", "") + phpPage + "?Authenticate&" + authCode;
+		String url = webserver + phpPage + "?Authenticate&" + authCode;
 		JSON.postData(url);
 	}
 }

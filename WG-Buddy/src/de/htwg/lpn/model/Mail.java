@@ -10,7 +10,7 @@ import de.htwg.lpn.wgbuddy.utility.JSON;
 /**
  * Stellt die Methoden für die E-Mail Versendung zur Verfügung.
  */
-public class Mail extends ObjectBase
+public class Mail extends MethodBase
 {
 	/**
 	 * Konstruktor setzt die benötigten Parameter für die spätere Kommunkikation
@@ -35,7 +35,7 @@ public class Mail extends ObjectBase
 	 */
 	public void sendChangeKey(String email)
 	{
-		String url = settings.getString("pref_webserver", "") + phpPage + "?lost=" + email + "&" + authCode;
+		String url = webserver + phpPage + "?lost=" + email + "&" + authCode;
 		JSON.postData(url);
 	}
 
@@ -47,7 +47,7 @@ public class Mail extends ObjectBase
 	 */
 	public void sendActivateKey(String email)
 	{
-		String url = settings.getString("pref_webserver", "") + phpPage + "?activate=" + email + "&" + authCode;
+		String url = webserver + phpPage + "?activate=" + email + "&" + authCode;
 		JSON.postData(url);
 	}
 
@@ -59,7 +59,7 @@ public class Mail extends ObjectBase
 	 */
 	public void sendInvite(String email)
 	{
-		String url = settings.getString("pref_webserver", "") + phpPage + "?invite=" + email + "&username=" + settings.getString("user_name", "") + "&wg=" + settings.getString("wg_name", "") + "&pw="
+		String url = webserver + phpPage + "?invite=" + email + "&username=" + settings.getString("user_name", "") + "&wg=" + settings.getString("wg_name", "") + "&pw="
 		+ settings.getString("wg_password", "") + "&" + authCode;
 		JSON.postData(url);
 	}
@@ -74,7 +74,7 @@ public class Mail extends ObjectBase
 	 */
 	public void sendTask(List<NameValuePair> nameValuePairs)
 	{
-		String url = settings.getString("pref_webserver", "") + phpPage + "?task&" + authCode;
+		String url = webserver + phpPage + "?task&" + authCode;
 		JSON.postData(url, nameValuePairs);
 	}
 }

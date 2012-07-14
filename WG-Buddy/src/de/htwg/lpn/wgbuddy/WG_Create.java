@@ -6,10 +6,6 @@ import java.util.HashMap;
 import org.apache.http.NameValuePair;
 import org.apache.http.message.BasicNameValuePair;
 
-import de.htwg.lpn.model.User;
-import de.htwg.lpn.model.WG;
-import de.htwg.lpn.wgbuddy.utility.Dialogs;
-import de.htwg.lpn.wgbuddy.utility.Utilities;
 import android.app.Activity;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -22,7 +18,14 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.TextView;
+import de.htwg.lpn.model.User;
+import de.htwg.lpn.model.WG;
+import de.htwg.lpn.wgbuddy.utility.Dialogs;
+import de.htwg.lpn.wgbuddy.utility.Utilities;
 
+/**
+ * Activity-Klasse der Ansicht zum Erstellen von WG's.
+ */
 public class WG_Create extends Activity
 {
 	private SharedPreferences settings = null;
@@ -30,7 +33,6 @@ public class WG_Create extends Activity
 	private TextView nameTextView;
 	private TextView passwordTextView;
 	private TextView password2TextView;
-
 	private Button createButton;
 
 	@Override
@@ -39,6 +41,7 @@ public class WG_Create extends Activity
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.wg_create);
 
+		// Die allgemeinen Anwendungsdaten laden.
 		settings = getSharedPreferences(Main.PREFS_NAME, 0);
 
 		// Nicht eingeloggt.
@@ -58,10 +61,10 @@ public class WG_Create extends Activity
 			startActivity(intent);
 		}
 
+		// Alle Views dieser Ansicht den entsprechenden Feldern zuweisen.
 		nameTextView = (TextView) findViewById(R.id.create_wg_nameEdit);
 		passwordTextView = (TextView) findViewById(R.id.create_wg_passwordEdit);
 		password2TextView = (TextView) findViewById(R.id.create_wg_password2Edit);
-
 		createButton = (Button) findViewById(R.id.create_wg_createButton);
 
 		createButton.setOnClickListener(new OnClickListener()
@@ -70,28 +73,34 @@ public class WG_Create extends Activity
 			@Override
 			public void onClick(View v)
 			{
+				// Felder einlesen und trim() verwenden. Bei Passwörtern
+				// zusätzlich md5() verwenden.
 				String name = nameTextView.getText().toString().trim();
 				String password = passwordTextView.getText().toString().trim();
 				String password2 = password2TextView.getText().toString().trim();
 
+				// Alle Felder ausgefüllt?
 				if (name.length() == 0 || password.length() == 0 || password2.length() == 0)
 				{
 					Utilities.toastMessage(WG_Create.this, getString(R.string.utilities_allFields));
 					return;
 				}
 
+				// Auf unerlaubte Zeichen prüfen.
 				if (!Utilities.checkOnlyAllowedCharacter(name))
 				{
 					Utilities.toastMessage(WG_Create.this, getString(R.string.utilities_forbiddenSignsWGname));
 					return;
 				}
 
+				// Stimmen die Passwörter überein?
 				if (!password.equals(password2))
 				{
 					Utilities.toastMessage(WG_Create.this, getString(R.string.utilities_passwordDifferent));
 					return;
 				}
 
+				// Prüfen, ob WG-Name schon verwendet wird.
 				WG wg = new WG(settings);
 				ArrayList<HashMap<String, String>> wgList = wg.get("?name=" + name);
 				if (wgList.size() > 0)
@@ -126,6 +135,7 @@ public class WG_Create extends Activity
 
 					Utilities.toastMessage(WG_Create.this, getString(R.string.utilities_createWG));
 
+					// Ins Hauptmenü wechseln.
 					Intent intent = new Intent(WG_Create.this, Main.class);
 					startActivity(intent);
 				}
@@ -169,7 +179,8 @@ public class WG_Create extends Activity
 	{
 		if (keyCode == KeyEvent.KEYCODE_BACK)
 		{
-			Intent intent = new Intent(this, User_Login.class);
+			// Zurück-Button wechselt immer in die "WG beitreten"-Ansicht.
+			Intent intent = new Intent(this, WG_Login.class);
 			startActivity(intent);
 
 			return true;

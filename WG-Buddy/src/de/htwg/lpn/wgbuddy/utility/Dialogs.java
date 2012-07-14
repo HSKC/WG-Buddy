@@ -352,7 +352,7 @@ public class Dialogs
 				ArrayList<NameValuePair> nameValuePairs = new ArrayList<NameValuePair>();
 				nameValuePairs.add(new BasicNameValuePair("adminId", "0"));
 				wg.update(Integer.valueOf(settings.getString("wg_id", "")), nameValuePairs);
-				
+
 				Utilities.leaveWG(context, settings, user);
 
 				return;
@@ -505,5 +505,40 @@ public class Dialogs
 		});
 
 		builder.create().show();
+	}
+
+	public static void getLeaveWGDialog(final Context context, final SharedPreferences settings)
+	{
+		AlertDialog.Builder builder = new AlertDialog.Builder(context);
+		builder.setMessage(context.getString(R.string.preferences_leaveText));
+		builder.setCancelable(true);
+
+		builder.setPositiveButton(context.getString(R.string.preferences_leaveWG), new DialogInterface.OnClickListener()
+		{
+			public void onClick(DialogInterface dialog, int id)
+			{
+				User user = new User(settings);
+
+				if (Utilities.getWGAdminId(settings).compareTo(settings.getString("user_id", "")) == 0)
+				{
+					Dialogs.getChangeAdminDialog(context, settings, true);
+				}
+				else
+				{
+					Utilities.leaveWG(context, settings, user);
+				}
+			}
+		});
+
+		builder.setNegativeButton(context.getString(R.string.utilities_cancel), new DialogInterface.OnClickListener()
+		{
+			public void onClick(DialogInterface dialog, int id)
+			{
+				dialog.cancel();
+			}
+		});
+
+		AlertDialog alert = builder.create();
+		alert.show();
 	}
 }

@@ -1,8 +1,6 @@
 package de.htwg.lpn.wgbuddy;
 
 import android.app.Activity;
-import android.app.AlertDialog;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -12,10 +10,12 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
-import de.htwg.lpn.model.User;
 import de.htwg.lpn.wgbuddy.utility.Dialogs;
 import de.htwg.lpn.wgbuddy.utility.Utilities;
 
+/**
+ * Activity-Klasse der Einstellungen-Ansicht.
+ */
 public class Preferences extends Activity
 {
 	private SharedPreferences settings;
@@ -30,19 +30,27 @@ public class Preferences extends Activity
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.preferences);
 
+		// Die allgemeinen Anwendungsdaten laden.
+		settings = getSharedPreferences(Main.PREFS_NAME, 0);
+
+		// Prüfen ob der Benutzer eingeloggt ist und ggf. in die Login-Ansicht
+		// umleiten.
+		Utilities.checkByPass(this, settings);
+
+		// Alle Views dieser Ansicht den entsprechenden Feldern zuweisen.
 		leaveWGButton = (Button) findViewById(R.id.preferences_leaveButton);
 		changePasswordButton = (Button) findViewById(R.id.preferences_changePasswordButton);
 		changeWGPasswordButton = (Button) findViewById(R.id.preferences_changeWGPasswordButton);
 		changeAdminButton = (Button) findViewById(R.id.preferences_changeAdminButton);
 
-		settings = getSharedPreferences(Main.PREFS_NAME, 0);
-		Utilities.checkByPass(this, settings);
-
+		// AdminId und UserId aus dem allgemeinen Speicher auslesen.
 		String wgAdminId = Utilities.getWGAdminId(settings);
 		String userId = settings.getString("user_id", "");
 
+		// Prüfen, ob dieser User der Admin ist.
 		if (wgAdminId.compareTo(userId) != 0)
 		{
+			// Views, die nur dem Admin angeboten werden, werden ausgeblendet.
 			changeWGPasswordButton.setVisibility(View.GONE);
 			changeAdminButton.setVisibility(View.GONE);
 		}
@@ -52,6 +60,7 @@ public class Preferences extends Activity
 			@Override
 			public void onClick(View v)
 			{
+				// Dialog zum "Passwort ändern" aufrufen.
 				Dialogs.getChangePasswordDialog(Preferences.this, settings);
 			}
 		});
@@ -61,37 +70,8 @@ public class Preferences extends Activity
 			@Override
 			public void onClick(View v)
 			{
-				AlertDialog.Builder builder = new AlertDialog.Builder(Preferences.this);
-				builder.setMessage(getString(R.string.preferences_leaveText));
-				builder.setCancelable(true);
-
-				builder.setPositiveButton(getString(R.string.preferences_leaveWG), new DialogInterface.OnClickListener()
-				{
-					public void onClick(DialogInterface dialog, int id)
-					{
-						User user = new User(settings);
-
-						if (Utilities.getWGAdminId(settings).compareTo(settings.getString("user_id", "")) == 0)
-						{
-							Dialogs.getChangeAdminDialog(Preferences.this, settings, true);
-						}
-						else
-						{
-							Utilities.leaveWG(Preferences.this, settings, user);
-						}
-					}
-				});
-
-				builder.setNegativeButton(getString(R.string.utilities_cancel), new DialogInterface.OnClickListener()
-				{
-					public void onClick(DialogInterface dialog, int id)
-					{
-						dialog.cancel();
-					}
-				});
-
-				AlertDialog alert = builder.create();
-				alert.show();
+				// // Dialog zum "WG verlassen" aufrufen.
+				Dialogs.getLeaveWGDialog(Preferences.this, settings);
 			}
 		});
 
@@ -100,6 +80,7 @@ public class Preferences extends Activity
 			@Override
 			public void onClick(View v)
 			{
+				// Admin-only: Dialog zum "WG-Passwort ändern" aufrufen.
 				Dialogs.getChangeWGPasswordDialog(Preferences.this, settings);
 			}
 		});
@@ -109,6 +90,7 @@ public class Preferences extends Activity
 			@Override
 			public void onClick(View v)
 			{
+				// Admin-only: Dialog zum "Admin ändern" aufrufen.
 				Dialogs.getChangeAdminDialog(Preferences.this, settings, false);
 			}
 		});

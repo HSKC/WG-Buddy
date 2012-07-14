@@ -18,11 +18,15 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.TextView;
+import de.htwg.lpn.model.MethodBase;
 import de.htwg.lpn.model.User;
 import de.htwg.lpn.model.WG;
 import de.htwg.lpn.wgbuddy.utility.Dialogs;
 import de.htwg.lpn.wgbuddy.utility.Utilities;
 
+/**
+ * Activity-Klasse der Hauptmenü-Ansicht.
+ */
 public class Main extends Activity
 {
 	public static final String PREFS_NAME = "WGBuddyPreferences";
@@ -48,17 +52,18 @@ public class Main extends Activity
 		StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
 		StrictMode.setThreadPolicy(policy);
 
+		// Die allgemeinen Anwendungsdaten laden.
 		settings = getSharedPreferences(PREFS_NAME, 0);
-		SharedPreferences.Editor editor = settings.edit();
-		editor.putString("pref_webserver", "http://wgbuddy.domoprojekt.de/");
-		editor.commit();
 
-		super.onCreate(savedInstanceState);
+		// Die Webserver Url in den gemeinsamen Speicher schreiben.
+		SharedPreferences.Editor editor = settings.edit();
+		editor.putString("pref_webserver", MethodBase.getWebserver());
+		editor.commit();
 
 		// Nicht eingeloggt.
 		if (!settings.contains("user_id") || !settings.contains("user_name") || !settings.contains("user_email") || !settings.contains("user_password"))
 		{
-			// Applikation das erste mal gestartet oder nicht konfiguriert.
+			// Applikation das erste mal gestartet oder nicht eingeloggt.
 			// Login aufrufen
 			Intent intent = new Intent(Main.this, User_Login.class);
 			startActivity(intent);
@@ -68,6 +73,7 @@ public class Main extends Activity
 		// Konto freigeschalten?
 		if (!settings.contains("user_status"))
 		{
+			// Konto aktivieren aufrufen.
 			Intent intent = new Intent(Main.this, User_Activate.class);
 			startActivity(intent);
 		}
@@ -75,12 +81,15 @@ public class Main extends Activity
 		User user = new User(settings);
 		ArrayList<HashMap<String, String>> userList = user.get("?id=" + settings.getString("user_id", ""));
 
+		// Prüfen, ob Benutzer in der Datenbank ist.
 		if (userList.size() == 0)
 		{
+			// Alle Daten im Speicher löschen.
 			SharedPreferences.Editor e = settings.edit();
 			e.clear();
 			e.commit();
 
+			// Login-Ansicht aufrufen.
 			Intent intent = new Intent(Main.this, User_Login.class);
 			startActivity(intent);
 			return;
@@ -89,13 +98,17 @@ public class Main extends Activity
 		// Keiner WG zugewiesen
 		if (userList.get(0).get("wgId").equals("0"))
 		{
+			// Ansicht zum Beitreten einer WG aufrufen.
 			Intent intent = new Intent(Main.this, WG_Login.class);
 			startActivity(intent);
 			return;
 		}
 
+		// Prüfen, ob WG-Daten im gemeinsamen Speicher sind.
 		if (!settings.contains("wg_id") || !settings.contains("wg_name") || !settings.contains("wg_password"))
 		{
+			// WG-Daten aus der Datenbank laden und in den gemeinsamen Speicher
+			// laden.
 			WG wg = new WG(settings);
 			String string = userList.get(0).get("wgId");
 			ArrayList<HashMap<String, String>> wgList = wg.get("?id=" + string);
@@ -104,9 +117,9 @@ public class Main extends Activity
 			editor.putString("wg_name", wgList.get(0).get("name"));
 			editor.putString("wg_password", wgList.get(0).get("password"));
 			editor.commit();
-
 		}
 
+		// Prüfen, on die Daten für den GoogleService im Speicher sind.
 		if (((!settings.contains("registrationKey")) && (!settings.contains("registrationKeydate")))
 		|| (settings.contains("registrationKeydate") && (new Date(settings.getLong("registrationKeydate", 0) + 86400000).getTime() < new Date().getTime())))
 		{
@@ -120,12 +133,12 @@ public class Main extends Activity
 		else
 		{
 			System.out.println(settings.getString("registrationKey", ""));
-
 		}
 
-		// Applikation schon initialisiert. Lade Einstellungen
+		// Applikation schon initialisiert.
 		setContentView(R.layout.main);
 
+		// Alle Views dieser Ansicht den entsprechenden Feldern zuweisen.
 		shoppinglist = (Button) findViewById(R.id.main_shoppingListButton);
 		taskdistributor = (Button) findViewById(R.id.main_taskDistributorButton);
 		messenger = (Button) findViewById(R.id.main_messengerButton);
@@ -133,9 +146,9 @@ public class Main extends Activity
 		information = (Button) findViewById(R.id.main_informationButton);
 		invite = (Button) findViewById(R.id.main_addButton);
 		logout = (Button) findViewById(R.id.main_logoutButton);
-
 		heading = (TextView) findViewById(R.id.main_headingText);
 
+		// Titel setzen.
 		heading.setText(settings.getString("user_name", "") + " @ " + settings.getString("wg_name", ""));
 
 		shoppinglist.setOnClickListener(new OnClickListener()
@@ -207,6 +220,7 @@ public class Main extends Activity
 			@Override
 			public void onClick(View v)
 			{
+				// Alle Daten aus dem gemeinsamen Speicher löschen.
 				SharedPreferences.Editor editor = settings.edit();
 				editor.clear();
 				editor.commit();
@@ -244,6 +258,8 @@ public class Main extends Activity
 	@Override
 	public boolean onKeyDown(int keyCode, KeyEvent event)
 	{
+		// Klick Zurück-Button abfangen, sodass nicht zurück in den
+		// Login-Bereich gewechselt werden kann.
 		if (keyCode == KeyEvent.KEYCODE_BACK)
 		{
 			return true;
