@@ -20,11 +20,19 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import android.content.Context;
 import android.util.Log;
 
+/**
+ * Die Klasse beinhaltet alle Methoden um mit dem Server zu kommunizieren.
+ */
 public class JSON
 {
+	/**
+	 * PHP-Skript aufrufen.
+	 * 
+	 * @param url
+	 *            URL
+	 */
 	public static void postData(String url)
 	{
 		url = url.replace(" ", "");
@@ -35,27 +43,16 @@ public class JSON
 		asp.execute(httppost);
 	}
 
-	public static void postData(String url, List<NameValuePair> nameValuePairs, Context context)
+	/**
+	 * PHP-Skript aufrufen.
+	 * 
+	 * @param url
+	 *            URL
+	 * @param nameValuePairs
+	 *            POST-Variable
+	 */
+	public static void postData(String url, List<NameValuePair> nameValuePairs)
 	{
-		HttpPost httppost = new HttpPost(url);
-		try
-		{
-			httppost.setEntity(new UrlEncodedFormEntity(nameValuePairs));
-		}
-		catch (Exception e)
-		{
-			e.printStackTrace();
-		}
-
-		AsyncPost asp = new AsyncPost();
-		asp.execute(httppost);
-
-	}
-
-	public static String postData(String url, List<NameValuePair> nameValuePairs)
-	{
-		System.out.println(url);
-
 		HttpClient httpclient = new DefaultHttpClient();
 		HttpPost httppost = new HttpPost(url);
 
@@ -63,7 +60,6 @@ public class JSON
 		{
 			httppost.setEntity(new UrlEncodedFormEntity(nameValuePairs));
 			httpclient.execute(httppost);
-
 		}
 		catch (ClientProtocolException e)
 		{
@@ -73,10 +69,18 @@ public class JSON
 		{
 			e.printStackTrace();
 		}
-
-		return "Fehler";
 	}
 
+	/**
+	 * JSON-Objekt mit Hilfe von URL anfordern und in ArrayList umwanderln.
+	 * 
+	 * @param url
+	 *            URL
+	 * @param arrayname
+	 *            JSON-Objekt Name
+	 * @return ArrayList<HashMap<String, String>> mit allen Einträgen und
+	 *         Werten.
+	 */
 	public static ArrayList<HashMap<String, String>> getMapListOfJsonArray(String url, String arrayname)
 	{
 		ArrayList<HashMap<String, String>> mylist = new ArrayList<HashMap<String, String>>();
@@ -125,6 +129,13 @@ public class JSON
 		return mylist;
 	}
 
+	/**
+	 * JSON-Object mit Hilfe der URL anfordern.
+	 * 
+	 * @param url
+	 *            URL
+	 * @return JSONObject
+	 */
 	public static JSONObject getJSONfromURL(String url)
 	{
 		// initialize

@@ -9,9 +9,7 @@ import java.util.regex.Pattern;
 import org.apache.http.NameValuePair;
 import org.apache.http.message.BasicNameValuePair;
 
-import android.app.AlertDialog;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.util.Log;
@@ -53,6 +51,13 @@ public class Utilities
 		return false;
 	}
 
+	/**
+	 * MD5-Hashfunktion
+	 * 
+	 * @param pw
+	 *            Passwort, auf das die Hashfunktion ausgeführt werden soll.
+	 * @return Ergebnis der Hashfunktion
+	 */
 	public static String md5(String pw)
 	{
 		byte[] defaultBytes = pw.getBytes();
@@ -79,33 +84,42 @@ public class Utilities
 		return "";
 	}
 
-	public static void message(Context context, String text, String buttonText)
-	{
-		AlertDialog.Builder builder = new AlertDialog.Builder(context);
-		builder.setMessage(text);
-		builder.setCancelable(false);
-		builder.setPositiveButton(buttonText, new DialogInterface.OnClickListener()
-		{
-			public void onClick(DialogInterface dialog, int id)
-			{
-				dialog.cancel();
-			}
-		});
-
-		AlertDialog alert = builder.create();
-		alert.show();
-	}
-
+	/**
+	 * Toast-Message anzeigen.
+	 * 
+	 * @param context
+	 *            Aktueller Kontext.
+	 * @param text
+	 *            Text, welcher angezeigt werden soll.
+	 */
 	public static void toastMessage(Context context, String text)
 	{
 		Toast.makeText(context, text, Toast.LENGTH_LONG).show();
 	}
 
+	/**
+	 * Toast-Message anzeigen.
+	 * 
+	 * @param context
+	 *            Aktueller Kontext.
+	 * @param text
+	 *            Text, welcher angezeigt werden soll.
+	 * @param duration
+	 *            Dauer der Anzeige.
+	 */
 	public static void toastMessage(Context context, String text, int duration)
 	{
 		Toast.makeText(context, text, duration).show();
 	}
 
+	/**
+	 * Prüfen, ob User eingeloggt ist und ggf. umgeleitet werden muss.
+	 * 
+	 * @param context
+	 *            Aktueller Kontext
+	 * @param settings
+	 *            SharedPreferences
+	 */
 	public static void checkByPass(Context context, SharedPreferences settings)
 	{
 		// Nicht eingeloggt.
@@ -119,6 +133,16 @@ public class Utilities
 		}
 	}
 
+	/**
+	 * User verlässt, die WG. Punkte werden auf 0 gesetzt.
+	 * 
+	 * @param context
+	 *            Aktueller Kontext
+	 * @param settings
+	 *            SharedPreferences
+	 * @param user
+	 *            User-Instanz
+	 */
 	public static void leaveWG(Context context, SharedPreferences settings, User user)
 	{
 		ArrayList<NameValuePair> nameValuePairs = new ArrayList<NameValuePair>();
@@ -136,6 +160,13 @@ public class Utilities
 		context.startActivity(intent);
 	}
 
+	/**
+	 * Admin-Name anhand der WG-ID ermitteln
+	 * 
+	 * @param settings
+	 *            SharedPreferences
+	 * @return Admin-Name als String
+	 */
 	public static String getWGAdminId(SharedPreferences settings)
 	{
 		WG wg = new WG(settings);
@@ -144,12 +175,29 @@ public class Utilities
 		return wgList.get(0).get("adminId");
 	}
 
+	/**
+	 * Alle Daten des Users anhand seines Namens bestimmen. Username ist
+	 * eindeutig.
+	 * 
+	 * @param settings
+	 *            SharedPreferences
+	 * @param username
+	 *            Username
+	 * @return HashMap mit allen Daten des Users.
+	 */
 	public static HashMap<String, String> getUserWithName(SharedPreferences settings, String username)
 	{
 		User user = new User(settings);
 		return user.get("?username=" + username).get(0);
 	}
 
+	/**
+	 * Datum und Zeit in ein bestimmtes Format umwandeln.
+	 * 
+	 * @param data
+	 *            Standardformat.
+	 * @return Neues Format.
+	 */
 	public static String getDateTimeFormatForMessageList(String data)
 	{
 		// Change Dateformat
@@ -159,6 +207,13 @@ public class Utilities
 		return time + "\n" + datum.split("-")[2] + "." + datum.split("-")[1] + "." + datum.split("-")[0];
 	}
 
+	/**
+	 * Datum und Zeit in ein bestimmtes Format umwandeln.
+	 * 
+	 * @param data
+	 *            Standardformat.
+	 * @return Neues Format.
+	 */
 	public static String getDateTimeFormat(String data)
 	{
 		// Change Dateformat
@@ -168,6 +223,18 @@ public class Utilities
 		return datum.split("-")[2] + "." + datum.split("-")[1] + "." + datum.split("-")[0] + " " + time;
 	}
 
+	/**
+	 * Den Benutzernamen aus der User-Id bestimmen und anschließend der
+	 * entsprechenden Map in der Liste hinzufügen.
+	 * 
+	 * @param list
+	 *            Liste an Daten. Z.B. Nachrichten oder Aufgaben
+	 * @param mapList
+	 *            Diese MapList muss zusätzlich zu der Liste von der Methode
+	 *            verwaltet werden.
+	 * @param settings
+	 *            SharedPreferences
+	 */
 	public static void addUsernameToList(ArrayList<HashMap<String, String>> list, HashMap<Integer, HashMap<String, String>> mapList, SharedPreferences settings)
 	{
 		User user = new User(settings);
