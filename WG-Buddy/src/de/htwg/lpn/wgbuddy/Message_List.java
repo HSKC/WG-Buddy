@@ -113,7 +113,7 @@ public class Message_List extends Activity
 		// Filter erstellen.
 		String where = "";
 		String order = "orderby=createdDate";
-		String directionString = "direction=ASC";
+		String directionString = "direction=DESC";
 		String parameter = "?wgId=" + settings.getString("wg_id", "") + "&" + ((where != "") ? where + "&" : "") + order + "&" + directionString;
 
 		// Nachrichten aus der Datenbank in die Liste laden.
